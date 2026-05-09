@@ -109,19 +109,38 @@ Agent: 你叫小明，而且今天是你生日！🎂
 
 **示例代码**：
 ```python
-from langchain.vectorstores import Chroma
-from langchain.embeddings import OpenAIEmbeddings
+from uuid import uuid4
+
+import chromadb
+from langchain_chroma import Chroma
+from langchain_core.documents import Document
+from langchain_openai import OpenAIEmbeddings
 
 # 创建向量存储
-embeddings = OpenAIEmbeddings()
-vectorstore = Chroma(embedding_function=embeddings)
+embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
+client = chromadb.PersistentClient(path="./agent_memory_db")
+vectorstore = Chroma(
+    client=client,
+    collection_name="user_memory",
+    embedding_function=embeddings,
+)
 
 # 添加记忆
-vectorstore.add_texts([
-    "用户喜欢深色模式",
-    "用户的生日是 3 月 15 日",
-    "用户喜欢简洁的设计"
-])
+documents = [
+    Document(
+        page_content="用户喜欢深色模式",
+        metadata={"type": "preference", "importance": 0.7},
+    ),
+    Document(
+        page_content="用户的生日是 3 月 15 日",
+        metadata={"type": "profile", "importance": 0.9},
+    ),
+    Document(
+        page_content="用户喜欢简洁的设计",
+        metadata={"type": "preference", "importance": 0.6},
+    ),
+]
+vectorstore.add_documents(documents, ids=[str(uuid4()) for _ in documents])
 
 # 检索相关记忆
 results = vectorstore.similarity_search(
@@ -129,6 +148,8 @@ results = vectorstore.similarity_search(
     k=2
 )
 ```
+
+上面的示例是语义记忆。会话级短期记忆更适合用 LangGraph checkpointer 或应用自己的会话表保存，因为它需要支持暂停、恢复、重放和人类审批。
 
 ### 6.3.2 图数据库（Graph Database）
 
@@ -179,31 +200,24 @@ results = vectorstore.similarity_search(
 
 ```python
 def retrieve_memories(query, k=5):
-    # 1. 相似度检索
-    similar = vectorstore.similarity_search(query, k=k*2)
-    
-    # 2. 时间衰减
-    results = []
-    for mem in similar:
-        # 越新的记忆权重越高
-        time_score = calculate_time_decay(mem.timestamp)
-        
-        # 3. 重要性权重
-        importance_score = mem.importance
-        
-        # 4. 综合评分
+    docs_with_scores = vectorstore.similarity_search_with_score(query, k=k * 3)
+
+    ranked = []
+    for doc, distance in docs_with_scores:
+        similarity_score = 1 / (1 + distance)
+        importance_score = doc.metadata.get("importance", 0.5)
+        recency_score = calculate_recency_score(doc.metadata.get("updated_at"))
+
         total_score = (
-            mem.similarity_score * 0.5 +
-            time_score * 0.3 +
-            importance_score * 0.2
+            similarity_score * 0.55
+            + importance_score * 0.30
+            + recency_score * 0.15
         )
-        
-        results.append((mem, total_score))
-    
-    # 5. 重新排序
-    results.sort(key=lambda x: x[1], reverse=True)
-    
-    return [mem for mem, score in results[:k]]
+
+        ranked.append((doc, total_score))
+
+    ranked.sort(key=lambda item: item[1], reverse=True)
+    return [doc for doc, _score in ranked[:k]]
 ```
 
 ### 6.4.2 记忆的重要性评分

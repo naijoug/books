@@ -31,29 +31,25 @@ ReAct（Reasoning + Acting）是最简单也最经典的 Agent 架构模式。
 最终答案
 ```
 
-### 4.1.2 ReAct 的 Prompt 模板
+### 4.1.2 ReAct 的执行轨迹
 
+早期 ReAct 示例常把 `Thought / Action / Observation` 写进 Prompt 模板。生产系统中更推荐把这些内容作为内部执行轨迹和调试日志保存，而不是直接暴露给最终用户。
+
+```text
+Question: 用户输入的问题
+Plan: 当前准备执行的下一步摘要
+Action: 要调用的工具名
+Action Input: 工具参数
+Observation: 工具返回结果
+... 根据观察结果继续行动，直到满足停止条件
+Final Answer: 给用户的简洁答案
 ```
-Answer the following questions as best you can. You have access to the following tools:
 
-{tools}
+设计 ReAct 循环时，要明确三类边界：
 
-Use the following format:
-
-Question: the input question you must answer
-Thought: you should always think about what to do
-Action: the action to take, should be one of [{tool_names}]
-Action Input: the input to the action
-Observation: the result of the action
-... (this Thought/Action/Action Input/Observation can repeat N times)
-Thought: I now know the final answer
-Final Answer: the final answer to the original input question
-
-Begin!
-
-Question: {input}
-Thought:{agent_scratchpad}
-```
+1. **停止条件**：模型给出最终答案、达到最大步数、超过预算或需要用户确认。
+2. **可见性**：用户看到答案和必要依据；开发者通过 trace 查看步骤和工具调用。
+3. **安全性**：高风险工具调用必须经过权限检查，必要时暂停等待人工确认。
 
 ### 4.1.3 ReAct 的优缺点
 

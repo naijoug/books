@@ -2,111 +2,219 @@
 
 ## 第十章：安全与伦理 —— 负责任地开发 AI Agent
 
-> "能力越大，责任越大。"
+> Agent 的风险来自“能行动”。安全设计要围绕工具、权限、数据和责任边界展开。
 
 ---
 
-## 10.1 安全风险
+## 10.1 Agent 的主要安全风险
 
-### 10.1.1 常见安全风险
+| 风险 | 典型表现 | 防范重点 |
+|------|----------|----------|
+| Prompt 注入 | 用户或网页内容诱导 Agent 忽略系统规则 | 指令分层、内容隔离、工具前校验 |
+| 工具滥用 | Agent 被诱导发邮件、删数据、转账或执行代码 | 最小权限、风险分级、人工审批 |
+| 数据泄露 | 把隐私、密钥、内部文档发给外部模型或用户 | 数据分类、脱敏、访问控制 |
+| 越权操作 | 普通用户触发管理员工具 | 用户身份绑定、租户隔离、服务端鉴权 |
+| 供应链风险 | 工具、插件、浏览器页面、检索内容不可信 | allowlist、沙箱、依赖审计 |
+| 失控循环 | 反复调用工具、耗尽预算或制造垃圾输出 | 最大步数、预算、超时和取消机制 |
+| 幻觉执行 | 基于错误事实采取行动 | 关键事实二次验证，高风险动作需确认 |
 
-| 风险 | 说明 | 防范措施 |
+安全控制不能只写在 Prompt 里。Prompt 是软约束，权限、审计、沙箱和审批才是硬边界。
+
+---
+
+## 10.2 风险分级与权限模型
+
+### 10.2.1 工具风险等级
+
+| 等级 | 示例 | 默认策略 |
 |------|------|----------|
-| Prompt 注入 | 恶意输入误导 Agent | 输入验证、边界检查 |
-| 工具滥用 | Agent 被诱导滥用工具 | 权限最小化、人工确认 |
-| 数据泄露 | 敏感信息被泄露 | 数据脱敏、访问控制 |
-| 越权操作 | Agent 执行超出权限的操作 | 沙箱、权限隔离 |
+| L0 只读低风险 | 查询公开天气、读取公开文档 | 可自动执行，记录日志 |
+| L1 只读敏感 | 查询客户资料、内部知识库 | 需要用户身份和访问控制 |
+| L2 可逆写操作 | 创建草稿、写入测试环境、更新个人偏好 | 可自动执行或轻量确认 |
+| L3 高影响写操作 | 发邮件、改 CRM、提交工单、部署配置 | 需要明确确认和审计 |
+| L4 不可逆/高危 | 删除生产数据、转账、法律/医疗/金融建议执行 | 默认禁止或强人工审批 |
 
----
-
-## 10.2 伦理考虑
-
-### 10.2.1 AI 伦理原则
-
-```
-1. 公平性
-   - 避免偏见和歧视
-   - 平等对待所有用户
-
-2. 透明度
-   - 明确告知是 AI
-   - 解释决策过程
-
-3. 隐私保护
-   - 最小化数据收集
-   - 用户数据控制权
-
-4. 可靠性
-   - 明确能力边界
-   - 优雅地处理失败
-
-5. 问责制
-   - 明确责任归属
-   - 可追溯的决策
-```
-
----
-
-## 10.3 最佳实践
-
-### 10.3.1 安全最佳实践
+### 10.2.2 权限检查应该在服务端
 
 ```python
-# 输入验证
-def sanitize_input(input: str) -> str:
-    # 移除危险字符
-    # 检查长度限制
-    # 验证格式
-    return sanitized
+def authorize_tool_call(user, tool, args):
+    policy = tool_policy_registry[tool.name]
 
-# 人工确认
-def require_human_approval(action: str) -> bool:
-    if is_high_risk(action):
-        return ask_human(f"确认执行: {action}?")
-    return True
+    if not user.has_permission(policy.required_permission):
+        return Decision.block("missing_permission")
 
-# 审计日志
-def log_action(action: str, user: str, result: str):
-    audit_log.append({
-        "timestamp": datetime.now(),
-        "action": action,
-        "user": user,
-        "result": result
+    if policy.risk_level >= 3 and not args.get("approval_id"):
+        return Decision.require_approval("high_risk_tool")
+
+    if violates_data_boundary(user.tenant_id, args):
+        return Decision.block("tenant_boundary_violation")
+
+    return Decision.allow()
+```
+
+模型可以建议调用工具，但最终是否执行必须由确定性的权限层决定。
+
+---
+
+## 10.3 Prompt 注入防御
+
+Prompt 注入无法靠一句“不要听用户恶意指令”解决。推荐组合防御：
+
+1. **内容隔离**：把用户输入、网页内容、工具返回和系统指令放在不同字段，不拼成一整段不分来源的文本。
+2. **不信任外部内容**：网页、邮件、PDF、知识库内容只能作为数据，不能成为系统指令。
+3. **工具前校验**：调用工具前检查用户权限、工具风险、参数范围和目标资源。
+4. **高风险二次确认**：确认界面展示真实工具名、关键参数、影响范围和回滚方式。
+5. **输出过滤**：防止泄露密钥、个人数据、内部 URL 和系统提示。
+
+```python
+def prepare_context(user_message, retrieved_docs):
+    return {
+        "system_instructions": SYSTEM_POLICY,
+        "user_message": user_message,
+        "untrusted_context": [
+            {"source": doc.source, "content": doc.content}
+            for doc in retrieved_docs
+        ],
+    }
+```
+
+在 Prompt 中明确 `untrusted_context` 不能覆盖系统规则，但更重要的是工具执行前的服务端检查。
+
+---
+
+## 10.4 数据安全与隐私
+
+### 10.4.1 数据分类
+
+| 数据类型 | 示例 | 处理方式 |
+|----------|------|----------|
+| 公开数据 | 官网内容、公开价格 | 可用于检索和生成 |
+| 内部数据 | 内部文档、会议纪要 | 需要租户和角色访问控制 |
+| 个人数据 | 姓名、邮箱、偏好、聊天记录 | 最小化收集、可删除、可导出 |
+| 高敏数据 | 密钥、支付信息、身份证、病历 | 默认不进模型上下文，必要时脱敏 |
+
+### 10.4.2 脱敏和保留期限
+
+```python
+SENSITIVE_FIELDS = {"api_key", "password", "token", "credit_card", "id_number"}
+
+
+def redact_sensitive_fields(payload):
+    redacted = {}
+    for key, value in payload.items():
+        if key in SENSITIVE_FIELDS:
+            redacted[key] = "[REDACTED]"
+        else:
+            redacted[key] = value
+    return redacted
+```
+
+日志和 trace 也要脱敏。很多泄露不是发生在模型调用本身，而是发生在调试日志、错误报告和第三方观测平台里。
+
+---
+
+## 10.5 人工确认与可解释交接
+
+高风险动作的确认界面至少要展示：
+
+- 要执行的工具。
+- 关键参数。
+- 影响范围。
+- 是否可回滚。
+- 发起用户和审批人。
+- 审批过期时间。
+
+```python
+def build_approval_request(user, tool_name, args, risk_level):
+    return {
+        "requester": user.id,
+        "tool": tool_name,
+        "risk_level": risk_level,
+        "summary": summarize_action(tool_name, args),
+        "args": redact_sensitive_fields(args),
+        "expires_in_minutes": 15,
+    }
+```
+
+不要让用户只看到“是否允许 Agent 继续？”。确认必须具体到动作和参数。
+
+---
+
+## 10.6 审计、问责和事故响应
+
+### 10.6.1 审计日志
+
+```python
+def log_audit_event(event_store, event):
+    event_store.append({
+        "timestamp": utc_now(),
+        "trace_id": event.trace_id,
+        "user_id": event.user_id,
+        "tenant_id": event.tenant_id,
+        "tool": event.tool,
+        "decision": event.decision,
+        "risk_level": event.risk_level,
+        "approval_id": event.approval_id,
+        "result": event.result,
     })
 ```
 
----
+审计日志应 append-only，普通业务逻辑不能随意修改。涉及高风险工具时，要能回答：谁发起、谁批准、调用了什么、参数是什么、结果如何、是否可回滚。
 
-## 10.4 本章小结
+### 10.6.2 事故响应
 
-✅ **学习要点**：
-1. 安全风险：Prompt 注入、工具滥用、数据泄露、越权操作
-2. 伦理原则：公平性、透明度、隐私保护、可靠性、问责制
-3. 最佳实践：输入验证、人工确认、审计日志
+提前定义事故流程：
 
----
-
-## 🎉 全书总结
-
-恭喜你完成了《AI Agent 最佳实践指南》！
-
-**全书 10 章内容**：
-1. 入门基础概念
-2. 设计原则
-3. 技术选型
-4. 单 Agent 架构
-5. 多 Agent 系统
-6. 记忆系统设计
-7. 工具集成架构
-8. 测试与调试
-9. 部署与监控
-10. 安全与伦理
-
-**下一步**：
-- 实践！动手构建你的第一个 Agent
-- 加入社区，分享经验
-- 持续学习，AI 领域发展很快！
+1. 暂停相关工具或切换只读模式。
+2. 保留 trace、审计日志和模型输入输出。
+3. 识别受影响用户、数据和外部系统。
+4. 回滚可逆操作。
+5. 更新评估集和安全测试，防止复发。
+6. 按合规要求通知相关方。
 
 ---
 
-*全书完* 📚✨
+## 10.7 伦理边界
+
+Agent 系统要明确哪些任务不应该自动化：
+
+- 重大金融、法律、医疗决策的最终裁定。
+- 可能歧视、骚扰、操控或欺骗用户的行为。
+- 未经同意收集、推断或传播个人敏感信息。
+- 冒充真人、隐藏 AI 身份或伪造授权。
+- 无法解释、无法申诉、无法追责的高影响决策。
+
+伦理不是附录，而是产品约束。越是能自动执行任务的 Agent，越需要明确透明度、申诉机制、人工接管和责任归属。
+
+---
+
+## 10.8 发布前安全检查清单
+
+- [ ] 每个工具都有风险等级、权限要求和 owner。
+- [ ] 高风险工具默认需要人工确认。
+- [ ] 服务端权限检查不会被 Prompt 绕过。
+- [ ] 外部网页、邮件、PDF 和检索结果都按不可信内容处理。
+- [ ] 日志、trace 和错误报告会脱敏。
+- [ ] 有最大步骤数、超时、预算和取消机制。
+- [ ] 有租户隔离和数据保留策略。
+- [ ] 有红队测试、prompt injection 测试和越权测试。
+- [ ] 有事故响应流程和工具熔断开关。
+- [ ] 用户知道自己在和 AI 交互，并能请求人工接管。
+
+---
+
+## 10.9 全书总结
+
+《AI Agent 最佳实践指南》覆盖了从概念到生产的关键路径：
+
+1. 理解 Agent 的核心概念和能力边界。
+2. 用清晰目标、工具边界和人机协作设计 Agent。
+3. 按任务、风险和成本选择模型、框架和基础设施。
+4. 从单 Agent 架构逐步演进到状态化、多 Agent 或人机协作工作流。
+5. 设计记忆、工具、测试、部署、监控和安全体系。
+
+真正可靠的 Agent 不是“自动做所有事”，而是能在正确的边界内行动，在不确定时停下来，在失败时可追踪、可恢复、可改进。
+
+---
+
+*全书完*

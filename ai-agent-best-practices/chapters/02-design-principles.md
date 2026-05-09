@@ -221,7 +221,7 @@ async def execute_with_retry(agent, task, max_retries=3):
     
     for attempt in range(max_retries):
         try:
-            return await agent.run(task)
+            return await agent.execute(task)
         except Exception as e:
             last_error = e
             
@@ -245,18 +245,19 @@ async def execute_with_retry(agent, task, max_retries=3):
 - 达到最大步数时
 - 成本超过阈值时
 
-### 实践 6：使用思维链（Chain-of-Thought）
+### 实践 6：让 Agent 先规划，再给用户清晰结论
 
 ```
 ❌ 直接输出：
    "答案是 42"
 
-✅ 思维链输出：
-   "让我想想这个问题...
-   首先，我需要理解题目问的是什么...
-   然后，我应该考虑这几个方面...
-   基于以上分析，我的答案是 42"
+✅ 更好的输出：
+   "答案是 42。
+   依据：题目给出的条件可以转成 X = 40 + 2，
+   所以结果为 42。"
 ```
+
+内部推理可以帮助模型规划行动，但不要把完整推理链当作用户界面输出。面向用户时，优先给结论、关键依据、已验证事实和不确定性；面向开发者时，用 trace 记录步骤、工具调用和观察结果。
 
 ### 实践 7：为不同场景设计不同的 Prompt
 
@@ -271,7 +272,7 @@ async def execute_with_retry(agent, task, max_retries=3):
 
 **应该记录的数据**：
 - 完整的输入输出
-- Agent 的思考过程
+- Agent 的步骤摘要、工具调用和关键决策点
 - 工具调用和返回
 - 用户反馈
 - 错误和恢复
