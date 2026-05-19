@@ -1,6 +1,6 @@
 # AI Agent 系统实践卡片
 
-本目录按“一张卡片一个 Markdown 文件”维护，共 9 张。文件名使用英文 `kebab-case`。
+本目录按“一张卡片一个 Markdown 文件”维护，共 10 张。文件名使用英文 `kebab-case`。
 
 本目录收录 Agent 系统设计、运行边界、工具、记忆和心跳工作流等实践卡片；具体 SDK 或语言实现优先放入对应技术栈目录。
 
@@ -13,5 +13,6 @@
 | 记忆用于延续上下文，不是事实唯一来源 | [`memory-is-context-not-source-of-truth.md`](memory-is-context-not-source-of-truth.md) |
 | Agent 必须有迭代上限和失败出口 | [`agent-iteration-limit-failure-exit.md`](agent-iteration-limit-failure-exit.md) |
 | 心跳工作流让长期任务不漂移 | [`heartbeat-workflow-prevents-drift.md`](heartbeat-workflow-prevents-drift.md) |
+| 交接必须写下一步动作，不要只写状态 | [`handoff-must-name-next-action.md`](handoff-must-name-next-action.md) |
 | AI 助手操作系统先分清身份、用户、工具和心跳 | [`assistant-os-layers.md`](assistant-os-layers.md) |
 | 启动层只负责初始化，不应该长期参与运行 | [`bootstrap-is-initialization-only.md`](bootstrap-is-initialization-only.md) |
