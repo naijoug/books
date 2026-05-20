@@ -6,9 +6,10 @@
 
 1. 每次只找已经接触过 coding agent 或 AI 编程工具的人；不要为了凑人数找泛泛的“对 AI 感兴趣”的人。
 2. 发出样品包前先确认对方愿意看，避免把外联变成垃圾消息。
-3. 每条反馈必须落到一个具体字段：有用卡、无用卡、真实痛点、想要形式、是否愿意推荐、是否愿意为完整包留下邮箱/早鸟意向。
-4. 如果对方只说“不错”“有意思”，继续追问一个真实失败案例；没有具体场景就不计为有效反馈。
+3. 每条反馈必须先落到证据字段：可观察事实、推断、置信度、当前分级、下一步验证动作；再归入有用卡、无用卡、真实痛点、想要形式、是否愿意推荐、是否愿意为完整包留下邮箱/早鸟意向。
+4. 如果对方只说“不错”“有意思”，继续追问一个真实失败案例；没有具体场景就只标记为 `Record`，不计为有效反馈。
 5. Day 4 前不要改产品形态，只允许记录和归类；Day 5 再根据前三天反馈重写标题或一张卡。
+6. 只有 `Validate` 或 `Revise` 级别的反馈可以进入 v0.2 决策；`Record` 和 `Observe` 只用于观察趋势。
 
 ## 10 个优先外联对象画像
 
@@ -39,6 +40,8 @@
 
 ## 反馈记录表
 
+这张表记录外联进度和样品包问题归类；是否触发修订要看下一节的证据分级，而不是只看主观评价。
+
 | 日期 | 对象编号 | 对象类型 | 使用工具 | 联系渠道 | 开场模板 | 是否愿意试读 | 是否发出样品包 | 回复时间 | 最有用卡片 | 最无用卡片 | 真实失败案例 | 想要形式 | 是否愿意推荐 | 付费/早鸟信号 | 下一步 |
 |---|---:|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | YYYY-MM-DD | 1 | 熟人程序员 | Cursor / Claude Code / Codex / 其他 | 私聊 | A | 待定 | 否 |  |  |  |  | Markdown / PDF / Notion / Web | 未问 | 未问 |  |
@@ -51,6 +54,16 @@
 | YYYY-MM-DD | 8 | AI 资料付费用户 | Cursor / Claude Code / Codex / 其他 | 私聊 | A/D | 待定 | 否 |  |  |  |  | Markdown / PDF / Notion / Web | 未问 | 未问 |  |
 | YYYY-MM-DD | 9 | 技术培训 / 带新人者 | Cursor / Claude Code / Codex / 其他 | 私聊 | E | 待定 | 否 |  |  |  |  | Markdown / PDF / Notion / Web | 未问 | 未问 |  |
 | YYYY-MM-DD | 10 | 高级开发者 | Cursor / Claude Code / Codex / 其他 | 私聊 / 社群 | D | 待定 | 否 |  |  |  |  | Markdown / PDF / Notion / Web | 未问 | 未问 |  |
+
+## 反馈证据日志
+
+每条反馈先写成证据，再决定是否进入归类区。`Record` 只保留，`Observe` 等重复，`Validate` 需要追问或小测试，`Revise` 才能改 v0.2。
+
+| 日期 | 对象编号 | 可观察事实 | 推断 | 置信度 | 当前分级 | 下一步验证动作 |
+|---|---:|---|---|---|---|---|
+| YYYY-MM-DD | 1 |  |  | 低 / 中 / 高 | Record / Observe / Validate / Revise |  |
+| YYYY-MM-DD | 2 |  |  | 低 / 中 / 高 | Record / Observe / Validate / Revise |  |
+| YYYY-MM-DD | 3 |  |  | 低 / 中 / 高 | Record / Observe / Validate / Revise |  |
 
 ## 反馈归类区
 
@@ -89,6 +102,7 @@
 
 有效外联人数：{valid_outreach_count}
 有效反馈数：{specific_feedback_count}
+Validate / Revise 级别证据数：{decision_grade_count}
 最强痛点：{top_pain}
 最强卡片：{top_card}
 最弱卡片：{weakest_card}
