@@ -223,11 +223,51 @@ Multi-Agent 适合：
 - 私密数据尽量用本地或企业合规方案。
 - 不要把“模型聪明”当作跳过验证的理由。
 
+### 2026 补充：把 Agent 当“可授权同事”，而不是“更聪明的聊天框”
+
+2026 年关于工作场景 AI 的讨论有一个明显转向：重点不再只是“模型能不能回答”，而是“Agent 能不能在真实流程里安全执行”。Microsoft 2026 Work Trend Index 把 Agent 与 human agency 放在一起讨论，核心启发是：越是自动化执行，越需要清晰的人类授权、边界和反馈机制。Stanford HAI 对 2026 年 AI 趋势的预测也提醒：生产力提升往往先出现在编程、客服、流程处理等目标明确、反馈可验证的场景，而不是自动平均覆盖所有岗位。
+
+对个人工作者来说，这意味着你需要把 Agent 分成三种授权级别：
+
+| 授权级别 | Agent 可以做什么 | 必须由人决定什么 | 适合任务 |
+|---|---|---|---|
+| **L1：建议型** | 阅读资料、总结、列方案、生成草稿 | 是否采纳、如何排序、最终表达 | 调研、写作、方案初稿 |
+| **L2：执行型** | 在限定文件或工具中修改、运行命令、生成可交付物 | 修改范围、验收标准、是否合并 | 修 bug、补测试、整理文档 |
+| **L3：协同型** | 串联多个工具，跨系统完成任务并请求审批 | 权限开关、敏感操作、对外发布、资金/法律/人事决策 | 自动化周报、数据流水线、客服分流、内部运营 |
+
+不要跳级。很多“AI 失控”的问题，并不是模型突然有了坏意图，而是人没有把任务边界写清楚：哪些目录能改？哪些命令能跑？哪些数据不能发给外部模型？失败时如何回滚？什么时候必须停下来请人确认？
+
+一个可直接复用的 Agent 任务卡如下：
+
+```text
+任务目标：
+- 用一句话说明最终要交付什么。
+
+允许范围：
+- 可读取：列出目录、文档、接口或数据源。
+- 可修改：列出允许修改的文件或系统。
+- 可执行：列出允许运行的命令。
+
+禁止事项：
+- 不要访问/上传敏感数据。
+- 不要修改未列出的文件。
+- 不要提交、发布、付款或删除生产数据。
+
+验收标准：
+- 必须通过哪些测试/检查？
+- 必须输出哪些证据？
+
+遇到以下情况必须暂停：
+- 需求冲突、测试失败、权限不足、涉及隐私/安全/法律风险。
+```
+
+你会发现，一旦把任务卡写清楚，Agent 的价值会明显提高：它不再是“会聊天的工具”，而更像一个可审计、可复盘、可改进的临时同事。
+
 ---
 
-## 4.7 效率翻倍的 5 个工作流模板
+## 4.7 效率翻倍的 6 个工作流模板
 
-知道用什么工具还不够，你需要知道**怎么用**。下面 5 个模板，比单个工具更重要。
+知道用什么工具还不够，你需要知道**怎么用**。下面 6 个模板，比单个工具更重要。
 
 ### 模板 1：任务拆解工作流
 
@@ -328,6 +368,43 @@ Multi-Agent 适合：
 ```
 
 **关键**：不要收藏教程，要立刻做一个小练习。
+
+---
+
+### 模板 6：Agent 授权执行工作流
+
+**问题**：想把任务交给 Agent，但又担心它乱改、乱跑命令或产出不可验证。
+
+**做法**：
+
+```text
+你是我的执行型 Agent。请按以下边界完成任务：
+
+目标：
+[说明最终交付物]
+
+上下文：
+[提供需求、相关文件、接口、错误日志或参考资料]
+
+允许操作：
+- 读取：[目录/文件/链接]
+- 修改：[文件范围]
+- 运行：[允许命令]
+
+禁止操作：
+- 不要修改范围外文件
+- 不要访问敏感凭据
+- 不要提交、发布或删除生产数据
+
+验收：
+- [测试命令]
+- [人工检查点]
+- [最终输出格式]
+
+请先给出简短计划，再执行；执行后给出变更摘要、验证结果和未解决风险。
+```
+
+**关键**：这个模板的目的不是“让 AI 更自由”，而是让 AI 的自由度刚好落在你能验证的范围内。任务越复杂，越要把授权、验收和暂停条件写清楚。
 
 ---
 
@@ -459,6 +536,7 @@ AI 工具更新极快，但你的工作流不能每天被新工具打断。建�
 
 - McKinsey, *The State of AI: Global Survey 2025*：强调企业从试点走向规模化时，流程重构和组织治理比单点工具采用更关键。https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai
 - Microsoft WorkLab, *2026 Work Trend Index: Agents, Human Agency, and the Opportunity for Every Organization*：关注 Agent、人的主导权和组织 AI 落地。https://www.microsoft.com/en-us/worklab/work-trend-index/agents-human-agency-and-the-opportunity-for-every-organization
+- Stanford HAI, *Stanford AI Experts Predict What Will Happen in 2026*：提醒企业 AI 生产力提升往往集中在编程、特定流程等可验证场景，而不是所有岗位自动普遍跃迁。https://hai.stanford.edu/news/stanford-ai-experts-predict-what-will-happen-in-2026
 - Harvard Business Review, *What the Best AI Users Do Differently—and How to Level Up All of Your Employees*：强调高水平 AI 使用者在问题框定、推理引导、批判性评估上的差异。https://hbr.org/2026/03/what-the-best-ai-users-do-differently-and-how-to-level-up-all-of-your-employees
 - Stanford SALT Lab, *Future of Work with AI Agents / JobBench / WORKBank*：从真实职业任务和人的参与层级研究 AI Agent 的可委托边界。https://futureofwork.saltlab.stanford.edu/
 - GitHub Octoverse：观察 AI 编程工具在开发者生态中的采用趋势。https://octoverse.github.com/
@@ -470,7 +548,7 @@ AI 工具更新极快，但你的工作流不能每天被新工具打断。建�
 
 - [ ] 选择一个主力 AI IDE（Cursor 或 Windsurf），连续使用一周，而不是每天换工具。
 - [ ] 用 Claude Code / Codex CLI / OpenCode 完成一次小型仓库任务，要求它运行测试并给出变更摘要。
-- [ ] 把本章 5 个工作流模板保存到自己的提示词库，本周每个至少用一次。
+- [ ] 把本章 6 个工作流模板保存到自己的提示词库，本周每个至少用一次。
 - [ ] 做一次效率审计：今天 AI 真正帮你节省了什么时间？有没有制造新的返工？
 - [ ] 删除或暂停 3 个你只是“尝鲜”但没有稳定产出的 AI 工具。
 
