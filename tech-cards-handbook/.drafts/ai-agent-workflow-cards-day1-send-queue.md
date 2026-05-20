@@ -13,9 +13,9 @@
 
 - [ ] 对方最近 30 天内确实用过 Cursor、Claude Code、Codex、ChatGPT coding、OpenClaw 或类似 coding agent；
 - [ ] 能说出为什么找 TA，而不是群发；
-- [ ] 消息中只请求 10 分钟试读和 4 个具体反馈问题；
+- [ ] 消息中只请求 10 分钟试读和 5 个具体反馈问题：失败案例、最有用卡片、最弱卡片、完整包形式、邮箱/推荐/早鸟信号；
 - [ ] 先问是否愿意收 Markdown，不直接塞全文；
-- [ ] 准备好把结果回填到 `books/tech-cards-handbook/.drafts/ai-agent-workflow-cards-feedback-tracker.md`。
+- [ ] 准备好把结果回填到 `books/tech-cards-handbook/.drafts/ai-agent-workflow-cards-feedback-tracker.md` 的「反馈证据日志」，不要只留在聊天窗口。
 
 ## 发送顺序
 
@@ -34,7 +34,7 @@
 
 我想到你是因为你最近也在用 {tool_or_context}。现在只有 5 张免费样卡，主题包括工具描述、迭代上限、memory 分层、长任务心跳。
 
-你愿意花 10 分钟看一版 Markdown 吗？我只想问 4 个问题：哪张最有用、哪张最没用、还缺什么、会不会推荐给别人。
+你愿意花 10 分钟看一版 Markdown 吗？我只想问 5 个问题：最近一次具体失败案例、哪张最有用、哪张最弱、想要什么形式、是否愿意继续收到完整包/推荐给别人。
 ```
 
 ### 2. 团队流程/规范维护者
@@ -44,7 +44,7 @@
 
 想到你是因为你更关心 {team_workflow_context}。我想知道这类卡片是否适合沉淀成团队规范，而不只是个人经验。
 
-如果方便，我发你 5 张 Markdown 样卡。你只需要判断：哪张适合团队复用、哪张太个人化、还缺什么团队场景。
+如果方便，我发你 5 张 Markdown 样卡。你只需要判断：最近一次团队里最难复盘的 agent 失败是什么、哪张适合团队复用、哪张太个人化、完整包应该是什么形式、是否值得继续发给同事试读。
 ```
 
 ### 3. 社群失败案例跟进
@@ -52,7 +52,7 @@
 ```text
 我看到你之前提到过 {specific_agent_failure}。我正在验证一份 AI Agent Workflow Cards 样品包，正好在拆这类失败：agent 跑偏、工具误用、memory 混乱、长任务不可复盘。
 
-现在有 5 张 Markdown 样卡。你愿意看 10 分钟并告诉我：哪张最像你的真实问题、哪张没帮助、还缺哪类卡吗？
+现在有 5 张 Markdown 样卡。你愿意看 10 分钟并告诉我：这个失败案例里哪张最像真实问题、哪张没帮助、完整包要 Markdown/PDF/Notion/Web 哪种形式、是否愿意后续收到早鸟版吗？
 ```
 
 ## 发送后记录格式
@@ -69,7 +69,19 @@ Day 1 contact note
 - 如果拒绝，拒绝原因：没时间 / 不用 agent / 不感兴趣 / 其他
 - 样品包是否发出：是 / 否
 - 约定反馈时间：
+- 若收到反馈，已写入反馈证据日志：是 / 否 / 尚未收到
 - 下一步：发送样品包 / 24h 后轻提醒 / 停止跟进
+```
+
+如果对方直接给出失败案例或卡片判断，把下面这 5 个字段同步写入 `books/tech-cards-handbook/.drafts/ai-agent-workflow-cards-feedback-tracker.md`，再决定是否进入 Day 4 归类：
+
+```text
+Evidence log quick copy
+- 可观察事实：对方原话/行为是什么？
+- 推断：这说明哪个痛点或产品机会？
+- 置信度：低 / 中 / 高
+- 当前分级：Record / Observe / Validate / Revise
+- 下一步验证动作：继续追问 / 发样品包 / 约访谈 / 暂不动作
 ```
 
 ## 24 小时轻提醒
@@ -88,7 +100,7 @@ Day 1 contact note
 | 只有 1 人愿意试读 | Day 2 继续找更窄的人群，不改样品包正文 |
 | 0 人愿意试读，但拒绝原因集中在“没时间” | 缩短开场消息，保留同一定位 |
 | 0 人愿意试读，且拒绝原因集中在“不懂解决什么” | 按 `books/tech-cards-handbook/.drafts/ai-agent-workflow-cards-v0.2-revision-rules.md` 只重写一句话定位 |
-| 收到具体失败案例 | 先记录到反馈跟踪表；Day 4 再归类，不立刻改卡 |
+| 收到具体失败案例 | 先写入反馈跟踪表的「反馈证据日志」；Day 4 再归类，不立刻改卡 |
 
 ## 不做事项
 
