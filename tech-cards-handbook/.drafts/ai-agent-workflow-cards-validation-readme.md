@@ -82,8 +82,9 @@ Day 4 的任务是从 feedback tracker 中整理：
 
 ## 下一次人工执行时的最小动作
 
-1. 从 `books/tech-cards-handbook/.drafts/ai-agent-workflow-cards-feedback-tracker.md` 的 10 个对象画像里选 3 个真实对象代号。
-2. 在 `books/tech-cards-handbook/.drafts/ai-agent-workflow-cards-day1-send-queue.md` 为每个对象填模板、渠道、预计追问。
-3. 发送前确认样品包问题和私信问题都指向同一套 5 问。
-4. 发送后立即更新 `books/tech-cards-handbook/.drafts/ai-agent-workflow-cards-day1-send-log.md`。
-5. 收到回复先写「反馈证据日志」，再讨论是否修订。
+1. 从 `books/tech-cards-handbook/.drafts/ai-agent-workflow-cards-feedback-tracker.md` 的 10 个对象画像里选 3 个真实对象，但只写用户自己能识别的对象代号，不写隐私信息。
+2. 在 `books/tech-cards-handbook/.drafts/ai-agent-workflow-cards-day1-send-queue.md` 先补齐“真实对象代号选择清单”：为什么是 TA、首句定制点、拒绝后如何归因。
+3. 为每个对象确认模板、渠道和预计追问；填不出具体使用场景的人，本轮不发送。
+4. 发送前确认样品包问题和私信问题都指向同一套 5 问。
+5. 发送后立即更新 `books/tech-cards-handbook/.drafts/ai-agent-workflow-cards-day1-send-log.md`。
+6. 收到回复先写「反馈证据日志」，再讨论是否修订。
