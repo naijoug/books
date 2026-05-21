@@ -1,6 +1,6 @@
 # Swift 技术卡片
 
-本目录按“一张卡片一个 Markdown 文件”维护，共 8 张。文件名使用英文 `kebab-case`。
+本目录按“一张卡片一个 Markdown 文件”维护，共 9 张。文件名使用英文 `kebab-case`。
 
 | 卡片 | 文件 |
 |---|---|
@@ -12,3 +12,4 @@
 | Swift `switch` 适合表达离散分支 | [`swift-switch-discrete-branches.md`](swift-switch-discrete-branches.md) |
 | Swift 可选绑定替代强制解包 | [`swift-optional-binding-no-force-unwrap.md`](swift-optional-binding-no-force-unwrap.md) |
 | Swift 闭包让行为可以作为参数传递 | [`swift-closures-as-parameters.md`](swift-closures-as-parameters.md) |
+| Swift `defer` 把清理逻辑贴近资源获取 | [`swift-defer-for-cleanup.md`](swift-defer-for-cleanup.md) |

@@ -6,7 +6,7 @@
 
 本书已按技术栈重组正式内容：`chapters/` 下每个技术栈一个目录，每张卡片一个 Markdown 文件。
 
-当前共 93 张正式卡片。
+当前共 94 张正式卡片。
 
 ## 目录结构
 
@@ -39,7 +39,7 @@ tech-cards-handbook/
 | Rust | `chapters/rust/` | 12 张：所有权、借用、Option、Result、trait、生命周期、模式匹配、模块、迭代器、并发、异步和测试 |
 | TypeScript | `chapters/typescript/` | 8 张：联合类型、条件类型、`infer`、Mapped Type、深度只读、`satisfies` 和 `unknown` |
 | React | `chapters/react/` | 9 张：Effect、状态、表单、列表 key、ref、自定义 Hook、错误边界和性能 |
-| Swift | `chapters/swift/` | 8 张：值语义、async/await、基础值、字符串、集合、switch、可选绑定和闭包 |
+| Swift | `chapters/swift/` | 9 张：值语义、async/await、基础值、字符串、集合、switch、可选绑定、闭包和 defer 清理 |
 | Flutter | `chapters/flutter/` | 9 张：状态、列表、导航、测试、布局、输入控件、组件拆分、异步构建和生命周期检查 |
 | AI Agent | `chapters/ai-agent/` | 19 张：Agent 边界、工具、工具结果、记忆、反馈判断、反馈修订、反馈池、迭代上限、心跳工作流、交接、接力取舍、短节拍边界、验证总结、未验证项交接、提交状态读回、失败输出吸收和助手操作系统 |
 
