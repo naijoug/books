@@ -1,6 +1,6 @@
 # AI Agent 系统实践卡片
 
-本目录按“一张卡片一个 Markdown 文件”维护，共 15 张。文件名使用英文 `kebab-case`。
+本目录按“一张卡片一个 Markdown 文件”维护，共 16 张。文件名使用英文 `kebab-case`。
 
 本目录收录 Agent 系统设计、运行边界、工具、记忆、反馈判断、反馈池和心跳工作流等实践卡片；具体 SDK 或语言实现优先放入对应技术栈目录。
 
@@ -33,6 +33,7 @@
 | 交接必须写下一步动作，不要只写状态 | [`handoff-must-name-next-action.md`](handoff-must-name-next-action.md) |
 | 接力点是信号，不是义务 | [`continuation-is-signal-not-obligation.md`](continuation-is-signal-not-obligation.md) |
 | 短节拍任务不要变成重构 | [`short-cadence-tasks-must-not-become-refactors.md`](short-cadence-tasks-must-not-become-refactors.md) |
+| 验证先于乐观总结，不要把“看起来完成”当完成 | [`verify-before-optimistic-summary.md`](verify-before-optimistic-summary.md) |
 
 ### 4. 最后抽象为助手操作系统
 
