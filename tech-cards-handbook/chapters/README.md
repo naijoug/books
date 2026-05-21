@@ -19,7 +19,7 @@
 | React 技术卡片 | [`react/`](react/) | 8 |
 | Swift 技术卡片 | [`swift/`](swift/) | 8 |
 | Flutter 技术卡片 | [`flutter/`](flutter/) | 7 |
-| AI Agent 系统实践卡片 | [`ai-agent/`](ai-agent/) | 17 |
+| AI Agent 系统实践卡片 | [`ai-agent/`](ai-agent/) | 18 |
 
 ## 卡片维护规则
 
