@@ -15,7 +15,7 @@
 | Python 技术卡片 | [`python/`](python/) | 18 |
 | Go 技术卡片 | [`go/`](go/) | 10 |
 | Rust 技术卡片 | [`rust/`](rust/) | 12 |
-| TypeScript 技术卡片 | [`typescript/`](typescript/) | 7 |
+| TypeScript 技术卡片 | [`typescript/`](typescript/) | 8 |
 | React 技术卡片 | [`react/`](react/) | 9 |
 | Swift 技术卡片 | [`swift/`](swift/) | 8 |
 | Flutter 技术卡片 | [`flutter/`](flutter/) | 8 |
