@@ -1,6 +1,6 @@
 # React 技术卡片
 
-本目录按“一张卡片一个 Markdown 文件”维护，共 10 张。文件名使用英文 `kebab-case`。
+本目录按“一张卡片一个 Markdown 文件”维护，共 11 张。文件名使用英文 `kebab-case`。
 
 | 卡片 | 文件 |
 |---|---|
@@ -14,3 +14,4 @@
 | `useRef` 保存可变值但不触发重渲染 | [`useref-mutable-value-no-render.md`](useref-mutable-value-no-render.md) |
 | 自定义 Hook 用来复用状态逻辑 | [`custom-hook-reuse-state-logic.md`](custom-hook-reuse-state-logic.md) |
 | Error Boundary 捕获渲染失败，不捕获事件失败 | [`error-boundary-catches-render-failures.md`](error-boundary-catches-render-failures.md) |
+| Context 拆分状态和动作，避免全树重渲染 | [`context-split-state-and-actions.md`](context-split-state-and-actions.md) |
