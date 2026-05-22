@@ -1,6 +1,6 @@
 # TypeScript 技术卡片
 
-本目录按“一张卡片一个 Markdown 文件”维护，共 9 张。文件名使用英文 `kebab-case`。
+本目录按“一张卡片一个 Markdown 文件”维护，共 10 张。文件名使用英文 `kebab-case`。
 
 | 卡片 | 文件 |
 |---|---|
@@ -13,3 +13,4 @@
 | `satisfies` 检查形状但保留推断 | [`satisfies-checks-shape-keeps-inference.md`](satisfies-checks-shape-keeps-inference.md) |
 | `unknown` 要先缩窄再使用 | [`unknown-requires-narrowing.md`](unknown-requires-narrowing.md) |
 | 模板字面量类型约束字符串格式 | [`template-literal-types-constrain-strings.md`](template-literal-types-constrain-strings.md) |
+| 工具类型从领域模型派生 DTO | [`utility-types-derive-dtos.md`](utility-types-derive-dtos.md) |
