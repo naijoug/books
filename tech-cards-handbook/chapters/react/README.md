@@ -1,11 +1,12 @@
 # React 技术卡片
 
-本目录按“一张卡片一个 Markdown 文件”维护，共 9 张。文件名使用英文 `kebab-case`。
+本目录按“一张卡片一个 Markdown 文件”维护，共 10 张。文件名使用英文 `kebab-case`。
 
 | 卡片 | 文件 |
 |---|---|
 | React effect 同步外部系统，不处理普通计算 | [`react-effect-syncs-external-systems.md`](react-effect-syncs-external-systems.md) |
 | `useMemo` 不是性能按钮 | [`usememo-is-not-performance-button.md`](usememo-is-not-performance-button.md) |
+| `useCallback` 稳定的是函数身份，不是函数执行 | [`usecallback-stabilizes-callback-identity.md`](usecallback-stabilizes-callback-identity.md) |
 | 表单状态优先靠近输入 | [`form-state-near-input.md`](form-state-near-input.md) |
 | 列表 key 使用稳定身份，不使用索引 | [`stable-list-key-not-index.md`](stable-list-key-not-index.md) |
 | `useState` 更新依赖旧值时用函数式更新 | [`usestate-functional-update.md`](usestate-functional-update.md) |
