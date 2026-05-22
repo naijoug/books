@@ -1,6 +1,6 @@
 # Flutter 技术卡片
 
-本目录按“一张卡片一个 Markdown 文件”维护，共 9 张。文件名使用英文 `kebab-case`。
+本目录按“一张卡片一个 Markdown 文件”维护，共 10 张。文件名使用英文 `kebab-case`。
 
 | 卡片 | 文件 |
 |---|---|
@@ -13,3 +13,4 @@
 | Flutter 小组件拆分比大 build 更重要 | [`flutter-split-small-widgets.md`](flutter-split-small-widgets.md) |
 | Flutter `FutureBuilder` 要传入稳定的 Future | [`flutter-futurebuilder-stable-future.md`](flutter-futurebuilder-stable-future.md) |
 | Flutter 异步回调后先检查 `mounted` | [`flutter-check-mounted-before-setstate.md`](flutter-check-mounted-before-setstate.md) |
+| Flutter controller 和 listener 要成对释放 | [`flutter-dispose-controllers-and-listeners.md`](flutter-dispose-controllers-and-listeners.md) |
