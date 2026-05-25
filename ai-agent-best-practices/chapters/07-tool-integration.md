@@ -155,7 +155,7 @@ def run_code_safe(code: str):
 | 字段 | 作用 | 示例 |
 |------|------|------|
 | `risk_level` | 决定是否需要审批、灰度和安全回归 | `L0_readonly`、`L3_write`、`L4_irreversible` |
-| `required_permission` | 交给服务端权限网关做确定性鉴权 | `crm:write`、`billing:refund` |
+| `required_permission` | 交给工具网关中的权限策略做确定性鉴权 | `crm:write`、`billing:refund` |
 | `data_classes` | 判断参数和返回值是否需要脱敏 | `public`、`internal`、`personal`、`high_sensitive` |
 | `side_effect` | 决定是否允许自动重试、重放和回滚 | `none`、`reversible_write`、`irreversible_write` |
 | `audit_fields` | 指定 trace 中必须保留、必须脱敏和必须哈希的字段 | `tenant_id`、`args_hash`、`approval_id` |
