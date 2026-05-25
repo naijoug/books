@@ -180,6 +180,8 @@ release_gate:
 | `safe_trace_links` | 脱敏执行 trace（`safe_trace`） | 供开发、测试和安全 owner 复盘，不暴露高敏上下文 |
 | `audit_event_ids` | 审计日志 | 关联权限拒绝、审批、熔断和人工接管记录 |
 
+读者消费门禁报告时，可以按和第九章发布报告相同的证据链执行：先用 `release_id`、`agent_version`、`prompt_hash` 和 `model_version` 确认候选变更，再看 `gate_decision` 是否允许继续发布；如果是 `warn` 或 `block`，先按 `failed_case_ids` 重跑最小失败集，再打开 `safe_trace_links` 复盘越权、泄露或失控循环发生在哪一步；最后用 `audit_event_ids` 核对权限拒绝、审批、熔断和人工接管是否真实发生。这样安全 owner、发布 owner 和事故响应人看到的是同一条证据链，而不是各自维护一份截图或聊天记录。
+
 不要在门禁报告里直接嵌入受限执行 trace（`restricted_trace`）或未脱敏工具参数；报告只保存可访问的脱敏链接和审计事件 ID，需要更完整上下文时再按事故流程申请短期访问。
 
 ---
