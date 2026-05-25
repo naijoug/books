@@ -22,4 +22,9 @@
 
 **坑**：只返回 `success: true` 会让 Agent 失去后续判断依据；当写入路径错误、命中空结果或部分失败时，模型可能继续基于错误状态推理。
 
+**反例 / 修正做法**：
+
+- 反例：一个 `write_file` 包装器返回 `{"success": true}`，没有写明实际路径、是否覆盖旧内容、写入字节数或校验方式。下一轮 Agent 只能在报告里写“已更新配置”，却无法判断改的是 `docs/config.json` 还是 `docs/config.local.json`，也不知道是否需要重新读回文件。
+- 修正：返回 `path`、`bytes_written`、`operation`、`content_hash`、`changed`、`verification_hint` 和 `warnings`。例如：`{"status":"updated","path":"docs/config.json","operation":"overwrite","bytes_written":842,"changed":true,"content_hash":"sha256:...","verification_hint":"read_file docs/config.json and run config schema check","warnings":[]}`。这样下一轮可以先读回同一路径，再决定是否运行 schema 校验；如果 `changed:false` 或 `warnings` 非空，也能及时改变计划。
+
 **检查**：遮住工具实现，只看返回值，下一轮 Agent 是否能回答三个问题：发生了什么、证据在哪里、下一步该验证什么？如果不能，返回值还不够可观察。
