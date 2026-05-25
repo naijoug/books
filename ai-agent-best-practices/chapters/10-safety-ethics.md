@@ -273,6 +273,44 @@ def log_audit_event(event_store, event):
 5. 更新评估集和安全测试，防止复发。
 6. 按合规要求通知相关方。
 
+### 10.6.3 事故响应演练与熔断 Runbook
+
+事故响应流程不能只停留在文档里。上线前至少要把“谁能按下暂停键、暂停后系统退到什么状态、如何恢复、恢复前需要补哪些测试”写成可演练的 runbook，并定期用低风险环境验证。推荐把 Agent 事故分成三类触发器：
+
+| 触发器 | 典型信号 | 立即动作 | 恢复条件 |
+|--------|----------|----------|----------|
+| 安全门禁失败 | 发布候选版本在 prompt injection、越权工具、敏感数据泄露样本上失败 | 阻断发布，冻结相关 Prompt、工具 schema 和评估样本版本 | 失败样本复现通过；补充回归样本；安全 owner 签字 |
+| 线上异常行为 | 工具失败率、拒答率、外部域名调用、预算消耗或人工投诉异常 | 对相关工具执行熔断，切到只读模式或人工接管队列 | 指标回到阈值内；事故根因明确；灰度恢复通过 |
+| 数据泄露疑似 | trace、日志、观测平台或用户反馈中出现密钥/个人数据 | 立即限制 trace 访问，删除或隔离泄露样本，轮换相关密钥 | 完成影响面评估、通知要求、数据清理和防复发测试 |
+
+一个实用的熔断 runbook 应该包含以下字段：
+
+```yaml
+incident_runbook:
+  owner: ai_safety_oncall
+  scope: "email_agent / production / tenant_write_tools"
+  triggers:
+    - forbidden_tool_called
+    - sensitive_text_leaked
+    - tool_failure_rate_over_threshold
+  kill_switches:
+    - name: disable_l3_l4_tools
+      effect: "高风险写工具不可调用，保留只读查询和草稿生成"
+    - name: safe_trace_only
+      effect: "默认只开放脱敏 trace，restricted_trace 需要安全 owner 审批"
+  first_15_minutes:
+    - freeze_prompt_and_tool_schema_version
+    - export_audit_event_ids
+    - switch_to_human_handoff_queue
+  recovery_gates:
+    - root_cause_documented
+    - new_golden_task_added
+    - security_gate_passed
+    - staged_rollout_under_monitoring
+```
+
+演练时不要只检查“能不能关闭工具”，还要检查关闭后的用户体验：Agent 是否明确说明已切到人工接管，是否停止排队中的高风险动作，是否保留足够审计线索，是否避免把未脱敏 trace 继续同步到第三方平台。每次演练结束后，把新增攻击样例、误报样例和恢复步骤回填到 Golden Tasks 与发布门禁中，让事故响应能力随着系统变化一起演进。
+
 ---
 
 ## 10.7 伦理边界
@@ -300,7 +338,8 @@ Agent 系统要明确哪些任务不应该自动化：
 - [ ] 有租户隔离和数据保留策略。
 - [ ] 有红队测试、prompt injection 测试、越权测试，并已接入发布门禁。
 - [ ] 安全样本进入评估集前完成脱敏、合成替换和留存期限确认。
-- [ ] 有事故响应流程和工具熔断开关。
+- [ ] 有事故响应流程、工具熔断开关和定期演练记录。
+- [ ] 熔断后有只读降级、人工接管、trace 隔离和灰度恢复 runbook。
 - [ ] 用户知道自己在和 AI 交互，并能请求人工接管。
 
 ---
