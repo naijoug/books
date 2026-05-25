@@ -15,7 +15,7 @@
 | 7 | `07-tool-integration.md` | 工具定义、执行安全、工具选择与路由、工具安全元数据 |
 | 8 | `08-testing-debugging.md` | 测试分层、离线评估、权限测试、trace 调试和安全回归集 |
 | 9 | `09-deployment-monitoring.md` | 部署形态、可观测性、告警止损、弹性、回滚和发布安全门禁 |
-| 10 | `10-safety-ethics.md` | 风险分级、权限网关、Prompt 注入防御、数据安全、人工审批、审计响应和伦理边界 |
+| 10 | `10-safety-ethics.md` | 风险分级、工具网关权限策略、Prompt 注入防御、数据安全、人工审批、审计响应和伦理边界 |
 
 ## 阅读建议
 
