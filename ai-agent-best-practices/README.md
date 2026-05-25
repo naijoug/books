@@ -48,5 +48,10 @@ ai-agent-best-practices/
 │   ├── 08-testing-debugging.md
 │   ├── 09-deployment-monitoring.md
 │   └── 10-safety-ethics.md
-└── drafts/
+├── .drafts/
+└── resources/
 ```
+
+- `chapters/`：正式章节，只放已经进入书稿主线的内容。
+- `.drafts/`：临时构思、未定稿片段和可被替换的写作素材。
+- `resources/`：图片、图表、截图、参考素材和可复用附件。
