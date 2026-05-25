@@ -18,4 +18,9 @@ progress.json：最近一次自动运行进度
 
 **坑**：把“上次记得的进度”当成真实进度，会导致重复工作或错误声明完成。
 
+**反例 / 修正做法**：
+
+- 反例：记忆里写着“`books/tech-cards-handbook/chapters/ai-agent/README.md` 已经同步到 19 张卡片”，本轮就直接汇报“计数正确”，没有读回目录，也没有检查是否新增了卡片文件。这个结论只说明记忆曾经这样记录，不说明当前仓库仍然如此。
+- 修正：先用 `search_files` 或等价命令列出 `books/tech-cards-handbook/chapters/ai-agent/*.md`，扣除 `README.md` 后得到当前卡片数；再读回 `books/tech-cards-handbook/chapters/ai-agent/README.md` 中的计数说明。若两者一致，才能写“当前计数一致”；若不一致，本轮优先修索引或把差异显式交接。
+
 **检查**：凡是会影响写入、删除、发布或完成声明的信息，都应该有当前来源，而不是只来自记忆。
