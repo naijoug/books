@@ -166,7 +166,21 @@ release_gate:
   fail_if_sensitive_text_leaked: true
 ```
 
-接入发布门禁时，推荐采用三条规则：第一，安全回归集失败默认是 `block`，不能用总体成功率抵消；第二，所有安全样本进入版本库前先按 10.4.3 的矩阵脱敏或合成替换，避免把真实攻击样本变成新的泄露源；第三，门禁报告要保存模型版本、Prompt 哈希、工具 schema 版本、安全回归集版本和失败 trace 链接，便于事故复盘时追溯是哪次变更放宽了边界。
+接入发布门禁时，推荐采用三条规则：第一，安全回归集失败默认是 `block`，不能用总体成功率抵消；第二，所有安全样本进入版本库前先按 10.4.3 的矩阵脱敏或合成替换，避免把真实攻击样本变成新的泄露源；第三，门禁报告要保存模型版本、Prompt 哈希、工具 schema 版本、安全回归集版本和失败执行 trace 链接，便于事故复盘时追溯是哪次变更放宽了边界。
+
+门禁报告字段要和第九章的发布报告保持一致，最低可按下表落库或写入 CI artifact：
+
+| 字段 | 来源 | 用途 |
+|------|------|------|
+| `release_id` / `agent_version` | 发布流水线 | 定位候选版本和回滚目标 |
+| `prompt_hash` / `model_version` | Prompt 仓库与模型路由 | 判断行为变化来自提示词还是模型切换 |
+| `tool_schema_version` | 工具网关 | 复现工具参数校验、权限策略和 schema 兼容性 |
+| `golden_tasks_version` / `security_suite_version` | 第八章评估集 | 区分普通能力回归和安全回归集版本 |
+| `gate_decision` / `failed_case_ids` | 门禁执行器 | 明确是 `pass`、`warn` 还是 `block`，并能重跑失败样本 |
+| `safe_trace_links` | 脱敏执行 trace（`safe_trace`） | 供开发、测试和安全 owner 复盘，不暴露高敏上下文 |
+| `audit_event_ids` | 审计日志 | 关联权限拒绝、审批、熔断和人工接管记录 |
+
+不要在门禁报告里直接嵌入受限执行 trace（`restricted_trace`）或未脱敏工具参数；报告只保存可访问的脱敏链接和审计事件 ID，需要更完整上下文时再按事故流程申请短期访问。
 
 ---
 

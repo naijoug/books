@@ -114,7 +114,7 @@ agent_human_approval_total{decision="approved"}
 
 | 指标 | 计算方式 | 建议阈值 | 责任动作 |
 |------|----------|----------|----------|
-| 任务成功率 | `success / total`，按 agent、租户、任务类型分组 | 核心任务 30 分钟低于 95% 告警 | 暂停新版本灰度，抽样失败 trace |
+| 任务成功率 | `success / total`，按 agent、租户、任务类型分组 | 核心任务 30 分钟低于 95% 告警 | 暂停新版本灰度，抽样失败执行 trace |
 | 工具失败率 | `tool_error / tool_call`，区分超时、鉴权、参数错误 | 单工具 10 分钟高于 3% 告警 | 降级工具、检查 schema 和外部 API |
 | 人工接管率 | `human_takeover / total` | 较 7 日均值翻倍告警 | 分析意图识别、权限策略和高危分支 |
 | 高风险拦截率 | `blocked_high_risk / high_risk_attempt` | 任意突增或连续非零需复盘 | 进入只读模式，审计被拦截参数 |
@@ -291,6 +291,8 @@ Agent 发布清单要同时覆盖代码、模型、Prompt、工具和数据。�
 ```
 
 这条链路有三个关键约束：第一，安全回归集失败不能被平均成功率抵消；第二，影子流量和早期灰度默认只开放只读工具，写能力要等高风险审批、审计和熔断开关都验证通过后再开放；第三，每次回滚或事故复盘后，都要把新增失败样本回填到第八章的评估集和第十章的安全门禁中。
+
+为了让第九章的发布报告能被第十章的安全门禁直接复用，发布流水线至少要输出同一组字段：`release_id`、`agent_version`、`prompt_hash`、`model_version`、`tool_schema_version`、`golden_tasks_version`、`security_suite_version`、`gate_decision`、`failed_case_ids`、`safe_trace_links` 和 `audit_event_ids`。普通灰度报告可以只展示摘要，但原始记录必须保留这些字段；否则门禁失败后只能靠聊天记录和截图复盘，无法追溯到底是 Prompt、模型、工具 schema 还是评估集变化放宽了边界。
 
 这样第八章的测试资产、第九章的发布能力和第十章的安全控制就形成闭环：测试发现退化，发布流程阻断风险，监控与 runbook 把线上异常再反哺为新的回归样本。
 
