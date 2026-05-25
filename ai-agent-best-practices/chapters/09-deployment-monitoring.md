@@ -294,6 +294,8 @@ Agent 发布清单要同时覆盖代码、模型、Prompt、工具和数据。�
 
 为了让第九章的发布报告能被第十章的安全门禁直接复用，发布流水线至少要输出同一组字段：`release_id`、`agent_version`、`prompt_hash`、`model_version`、`tool_schema_version`、`golden_tasks_version`、`security_suite_version`、`gate_decision`、`failed_case_ids`、`safe_trace_links` 和 `audit_event_ids`。普通灰度报告可以只展示摘要，但原始记录必须保留这些字段；否则门禁失败后只能靠聊天记录和截图复盘，无法追溯到底是 Prompt、模型、工具 schema 还是评估集变化放宽了边界。
 
+落地时可以把这些字段当作发布报告的消费顺序：先用 `release_id` 和版本字段定位候选变更，再用 `gate_decision` 和 `failed_case_ids` 判断是否允许继续灰度，然后打开 `safe_trace_links` 复盘失败路径，最后通过 `audit_event_ids` 核对权限拒绝、审批、熔断和人工接管是否符合第十章的安全策略。这样读者不只是“保存字段”，而是能在发布会、事故复盘或回滚评审中按同一条证据链行动。
+
 这样第八章的测试资产、第九章的发布能力和第十章的安全控制就形成闭环：测试发现退化，发布流程阻断风险，监控与 runbook 把线上异常再反哺为新的回归样本。
 
 ---
