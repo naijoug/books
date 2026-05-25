@@ -158,8 +158,8 @@ def run_code_safe(code: str):
 | `required_permission` | 交给工具网关中的权限策略做确定性鉴权 | `crm:write`、`billing:refund` |
 | `data_classes` | 判断参数和返回值是否需要脱敏 | `public`、`internal`、`personal`、`high_sensitive` |
 | `side_effect` | 决定是否允许自动重试、重放和回滚 | `none`、`reversible_write`、`irreversible_write` |
-| `audit_fields` | 指定 trace 中必须保留、必须脱敏和必须哈希的字段 | `tenant_id`、`args_hash`、`approval_id` |
-| `rollback_strategy` | 供第九章发布回滚和第十章熔断 runbook 使用 | `disable_tool`、`readonly_fallback`、`manual_compensation` |
+| `audit_fields` | 指定执行 trace 中必须保留、必须脱敏和必须哈希的字段 | `tenant_id`、`args_hash`、`approval_id` |
+| `rollback_strategy` | 供第九章发布回滚和第十章事故熔断 runbook 使用 | `disable_tool`、`readonly_fallback`、`manual_compensation` |
 
 ```yaml
 name: refund_payment
@@ -176,7 +176,7 @@ rollback_strategy: manual_compensation
 requires_approval: true
 ```
 
-这些字段不是给模型“看起来更谨慎”的提示词，而是给运行时、测试集和发布流水线使用的硬约束：第八章可以据此生成安全回归集，第九章可以在灰度和回滚时关闭高风险工具，第十章可以把失败样本接入发布门禁与熔断 runbook。
+这些字段不是给模型“看起来更谨慎”的提示词，而是给运行时、测试集和发布流水线使用的硬约束：第八章可以据此生成安全回归集，第九章可以在灰度和回滚时关闭高风险工具，第十章可以把失败样本接入发布门禁与事故熔断 runbook。
 
 ---
 
@@ -209,7 +209,7 @@ requires_approval: true
 2. 4 类工具：信息获取、计算处理、文件操作、通信交互
 3. 工具描述要清晰、具体
 4. 安全第一：沙箱、权限最小化、人工确认
-5. 工具安全元数据要提前声明，方便安全回归集、发布门禁和熔断 runbook 使用
+5. 工具安全元数据要提前声明，方便安全回归集、发布门禁和事故熔断 runbook 使用
 6. 智能工具选择：过滤、优化、历史记录
 
 🚀 **下一步**：
