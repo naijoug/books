@@ -35,6 +35,23 @@
  git -C summaries log -1 --pretty=%s
 ```
 
+**反例 / 修正做法**：
+
+```text
+反例：
+- 本轮已提交 books 改动和 notebook，commit 是 a1b2c3d。
+
+问题：
+- 没有说明 `a1b2c3d` 属于哪个 repo。
+- 没有在提交后读回 `books` 与 `summaries` 各自的 HEAD。
+- 如果 notebook 提交失败，最终报告仍会把计划中的状态写成已完成状态。
+
+修正版：
+- 先在 `books` 执行 `git rev-parse --short HEAD` 与 `git log -1 --pretty=%s`，记录项目提交。
+- 再在 `summaries` 执行同样两条命令，记录 notebook 提交。
+- 最终报告分两行写：`books: <hash> <title>`、`summaries: <hash> <title>`；若某个 repo 没提交，写“无提交”并说明原因。
+```
+
 **坑**：
 
 - 从 `git commit` 命令输出、记忆或草稿里复制 hash，没有在提交后读回；一旦提交失败、amend、或切换 repo，报告就会失真。
