@@ -146,6 +146,38 @@ def run_code_safe(code: str):
 - 人工确认 vs 自动执行：高危操作需要确认
 ```
 
+### 7.4.3 为发布门禁预留工具安全元数据
+
+第十章会把工具风险分级、权限网关、审计 trace 和发布安全门禁串成闭环。为了让后续测试和部署真正能拦住风险，第七章在定义工具时就要把安全元数据写清楚，而不是等上线前再补文档。
+
+建议每个工具至少声明：
+
+| 字段 | 作用 | 示例 |
+|------|------|------|
+| `risk_level` | 决定是否需要审批、灰度和安全回归 | `L0_readonly`、`L3_write`、`L4_irreversible` |
+| `required_permission` | 交给服务端权限网关做确定性鉴权 | `crm:write`、`billing:refund` |
+| `data_classes` | 判断参数和返回值是否需要脱敏 | `public`、`internal`、`personal`、`high_sensitive` |
+| `side_effect` | 决定是否允许自动重试、重放和回滚 | `none`、`reversible_write`、`irreversible_write` |
+| `audit_fields` | 指定 trace 中必须保留、必须脱敏和必须哈希的字段 | `tenant_id`、`args_hash`、`approval_id` |
+| `rollback_strategy` | 供第九章发布回滚和第十章熔断 runbook 使用 | `disable_tool`、`readonly_fallback`、`manual_compensation` |
+
+```yaml
+name: refund_payment
+description: "为已确认订单发起退款请求"
+risk_level: L4_irreversible
+required_permission: billing:refund
+data_classes: [personal, payment]
+side_effect: irreversible_write
+audit_fields:
+  keep: [tenant_id, order_id, approval_id, idempotency_key]
+  hash: [payment_account]
+  redact: [card_number, user_email]
+rollback_strategy: manual_compensation
+requires_approval: true
+```
+
+这些字段不是给模型“看起来更谨慎”的提示词，而是给运行时、测试集和发布流水线使用的硬约束：第八章可以据此生成安全回归集，第九章可以在灰度和回滚时关闭高风险工具，第十章可以把失败样本接入发布门禁与熔断 runbook。
+
 ---
 
 ## 7.5 工具选择与路由
@@ -177,7 +209,8 @@ def run_code_safe(code: str):
 2. 4 类工具：信息获取、计算处理、文件操作、通信交互
 3. 工具描述要清晰、具体
 4. 安全第一：沙箱、权限最小化、人工确认
-5. 智能工具选择：过滤、优化、历史记录
+5. 工具安全元数据要提前声明，方便安全回归集、发布门禁和熔断 runbook 使用
+6. 智能工具选择：过滤、优化、历史记录
 
 🚀 **下一步**：
 下一章我们将探讨 Agent 的测试与调试——如何确保 Agent 可靠地工作。
