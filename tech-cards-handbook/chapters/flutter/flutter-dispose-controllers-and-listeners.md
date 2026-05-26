@@ -1,12 +1,12 @@
 # Flutter controller 和 listener 要成对释放
 
-## 问题
+**问题**：
 
 `TextEditingController`、`ScrollController`、`AnimationController` 这类对象通常会持有原生资源、Ticker、滚动位置或监听回调。如果只在 `initState` 里创建，却忘了在 `dispose` 中解绑和释放，页面离开后仍可能继续触发回调，带来内存泄漏、重复事件或异常日志。
 
 这类问题在“页面反复进入退出”“列表滚动监听”“动画循环”和“输入框监听搜索”场景里最常见。
 
-## 要点
+**要点**：
 
 - 在 `State` 中创建的 controller，默认由这个 `State` 负责在 `dispose` 中释放。
 - `addListener` 和 `removeListener` 要成对出现；先移除监听，再 `dispose` controller。
@@ -14,7 +14,7 @@
 - 如果 controller 从父组件传入，通常不在子组件里释放；只释放自己创建的对象。
 - 异步回调或 listener 中更新 UI 时，仍要配合 `mounted` 检查，避免页面销毁后写回状态。
 
-## 示例
+**示例**：
 
 输入监听和滚动监听都由当前页面持有时：
 
@@ -106,7 +106,7 @@ class SearchBox extends StatelessWidget {
 }
 ```
 
-## 坑
+**坑**：
 
 - 在 `build` 方法里创建 controller：每次重建都会丢输入、重复监听，也很难正确释放。
 - 只 `dispose` controller，忘记 `removeListener`；多数情况下 dispose 会清理内部监听，但显式成对解绑更利于审查和避免回调引用长期悬挂。
@@ -114,7 +114,7 @@ class SearchBox extends StatelessWidget {
 - listener 里直接发起异步请求并在返回后 `setState`，但没有检查 `mounted` 或取消旧请求。
 - `AnimationController` 创建后忘记释放，调试台可能出现 ticker 仍然 active 的警告。
 
-## 检查
+**检查**：
 
 - 搜索 `Controller(`、`addListener`、`AnimationController`，确认同一个 `State` 的 `dispose` 中有对应释放逻辑。
 - 确认 controller 不在 `build` 中创建，除非它是短生命周期且不会跨帧保留的临时对象。

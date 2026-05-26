@@ -1,6 +1,6 @@
 # Flutter `FutureBuilder` 要传入稳定的 Future
 
-## 问题
+**问题**：
 
 页面需要展示异步数据时，很多人会在 `build` 里直接调用接口：
 
@@ -15,14 +15,14 @@ FutureBuilder<User>(
 
 这看起来简洁，但只要父组件重建、主题变化、键盘弹出或 `setState` 触发，`build` 就可能再次执行，导致同一个请求被重复发起，页面在 loading/data 之间抖动。
 
-## 要点
+**要点**：
 
 - `build` 应该描述 UI，不应该顺手创建一次性的异步副作用。
 - `FutureBuilder.future` 应尽量来自稳定字段，例如在 `initState` 中创建并缓存。
 - 当输入参数变化时，在 `didUpdateWidget` 中判断参数是否真的改变，再重新创建 `Future`。
 - `snapshot.connectionState` 只描述当前 Future 的状态，不等于业务状态机；错误、空数据和加载态要分开处理。
 
-## 示例
+**示例**：
 
 把 Future 缓存在 State 中：
 
@@ -93,14 +93,14 @@ ElevatedButton(
 )
 ```
 
-## 坑
+**坑**：
 
 - 在 `build` 中写 `future: fetchData()`，会把普通重建变成重复请求。
 - 只判断 `snapshot.hasData`，容易把错误态、空态和加载态混在一起。
 - 参数变化后忘记重建 Future，会让 UI 继续展示旧参数的数据。
 - 把 `FutureBuilder` 当作全局状态管理工具，会让刷新、缓存、分页和取消请求越来越难控制。
 
-## 检查
+**检查**：
 
 - 搜索 `FutureBuilder` 附近是否存在 `future: someFunction()` 这种直接调用。
 - 父组件 `setState` 或切换主题时，网络请求不应重复发起。
