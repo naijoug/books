@@ -1,6 +1,6 @@
 # AI Agent 系统实践卡片
 
-本目录按“一张卡片一个 Markdown 文件”维护，共 20 张。文件名使用英文 `kebab-case`。
+本目录按“一张卡片一个 Markdown 文件”维护，共 21 张。文件名使用英文 `kebab-case`。
 
 本目录收录 Agent 系统设计、运行边界、工具、记忆、反馈判断、反馈池和心跳工作流等实践卡片；具体 SDK 或语言实现优先放入对应技术栈目录。
 
@@ -21,6 +21,7 @@
 | 工具结果必须可观察，不要只返回“成功” | [`tool-result-must-be-observable.md`](tool-result-must-be-observable.md) |
 | 记忆用于延续上下文，不是事实唯一来源 | [`memory-is-context-not-source-of-truth.md`](memory-is-context-not-source-of-truth.md) |
 | 上下文预算是一种资源，不要把所有历史都塞进提示 | [`context-budget-is-a-resource.md`](context-budget-is-a-resource.md) |
+| 上下文工程是状态设计，不是把材料拼成长提示 | [`context-engineering-is-state-design.md`](context-engineering-is-state-design.md) |
 
 ### 3. 建立反馈和运行控制
 
