@@ -23,6 +23,8 @@
 
 ### 3. 建立反馈和运行控制
 
+反馈闭环建议按“事实/推断分离 → 有效反馈升级 → 反馈池字段化”的顺序阅读：先避免把感受直接写成结论，再判断信号是否足以触发修订，最后把仍需观察的反馈留成可复查字段。
+
 | 卡片 | 文件 |
 |---|---|
 | 反馈必须区分事实和推断，不要把感觉当结论 | [`feedback-must-separate-facts-and-inferences.md`](feedback-must-separate-facts-and-inferences.md) |
