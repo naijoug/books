@@ -56,6 +56,12 @@ function updateUser(id: string, patch: UpdateUserRequest) {
 }
 ```
 
+把代码块保存为 `utility-types-derive-dtos.ts` 后，可用下面的命令做最小编译验证：
+
+```bash
+npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom utility-types-derive-dtos.ts
+```
+
 **坑**：
 
 - 不要为了省事把 API 入参写成 `Partial<User>`：这会把 `id`、`createdAt` 等不该由外部修改的字段也放进候选范围。
