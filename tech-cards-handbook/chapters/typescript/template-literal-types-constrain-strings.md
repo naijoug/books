@@ -48,6 +48,12 @@ onChanged<WatchSource>("ageChanged", () => {});
 // onChanged<WatchSource>("nameChanged", () => {}); // ❌ 不存在 name 字段
 ```
 
+把两个代码块合并保存为 `template-literal-types-constrain-strings.ts` 后，可以用下面的命令做最小编译验证：
+
+```bash
+npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom template-literal-types-constrain-strings.ts
+```
+
 **坑**：不要把模板字面量类型当成运行时校验。它只能约束 TypeScript 编译期可见的字符串；从 URL、JSON、环境变量等边界进来的值仍然需要运行时解析和校验。
 
 **检查**：当一组字符串有固定前缀、后缀或分隔符时，先问两个问题：组合是否有限？是否能从已有联合类型或对象 key 推导？如果答案都是“是”，就用模板字面量类型替代裸 `string`。
