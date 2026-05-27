@@ -38,6 +38,8 @@ const user = parseUser(raw);
 console.log(user.name.toUpperCase());
 ```
 
+最小验证：把上面的代码保存为 `unknown-requires-narrowing.ts`，执行 `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom unknown-requires-narrowing.ts`；如果没有类型错误，说明外部输入在进入业务使用前已完成缩窄。
+
 **坑**：不要用 `value as User` 直接绕过 `unknown`。类型断言只会让编译器相信你，不会检查运行时数据是否真的有 `id` 和 `name`。
 
 **检查**：凡是值来自系统边界时，先把类型写成 `unknown`；只有在完成缩窄或运行时校验后，才把它交给业务函数使用。
