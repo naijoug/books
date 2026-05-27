@@ -32,6 +32,8 @@ navigateTo("dashboard");
 // navigateTo("settings"); // 编译错误
 ```
 
+最小验证：把代码保存为 `satisfies-checks-shape-keeps-inference.ts`，执行 `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom satisfies-checks-shape-keeps-inference.ts`，应当通过；取消最后一行注释后应当得到参数类型错误。
+
 **坑**：`satisfies` 不会改变运行时数据，也不会让不可信 JSON 自动安全。外部输入仍然需要运行时校验。
 
 **检查**：如果你既想发现结构错误，又想继续使用具体 key、字面量值或更窄的推断类型，优先考虑 `satisfies`，不要直接把变量标成宽泛接口。
