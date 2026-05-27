@@ -12,10 +12,21 @@
 **示例**：
 
 ```ts
+type Equal<A, B> =
+  (<T>() => T extends A ? 1 : 2) extends
+  (<T>() => T extends B ? 1 : 2) ? true : false;
+type Expect<T extends true> = T;
+
 type Entity = "user" | "order" | "invoice";
 type Action = "created" | "updated" | "deleted";
 
 type DomainEvent = `${Entity}.${Action}`;
+type DomainEventTest = Expect<Equal<
+  DomainEvent,
+  | "user.created" | "user.updated" | "user.deleted"
+  | "order.created" | "order.updated" | "order.deleted"
+  | "invoice.created" | "invoice.updated" | "invoice.deleted"
+>>;
 
 function publish(event: DomainEvent, payload: unknown) {
   console.log(event, payload);
@@ -37,6 +48,10 @@ type WatchSource = {
 };
 
 type ChangedEvent<T> = `${Extract<keyof T, string>}Changed`;
+type ChangedEventTest = Expect<Equal<
+  ChangedEvent<WatchSource>,
+  "firstNameChanged" | "ageChanged"
+>>;
 
 function onChanged<T>(event: ChangedEvent<T>, handler: () => void) {
   handler();
@@ -53,6 +68,8 @@ onChanged<WatchSource>("ageChanged", () => {});
 ```bash
 npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom template-literal-types-constrain-strings.ts
 ```
+
+如果临时把 `ChangedEventTest` 的预期改成 `"nameChanged"`，编译器应报出 `Type 'false' does not satisfy the constraint 'true'`，说明事件名确实从对象 key 推导，而不是任意字符串。
 
 **坑**：不要把模板字面量类型当成运行时校验。它只能约束 TypeScript 编译期可见的字符串；从 URL、JSON、环境变量等边界进来的值仍然需要运行时解析和校验。
 
