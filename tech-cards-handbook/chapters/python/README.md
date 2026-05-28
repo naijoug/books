@@ -22,3 +22,28 @@
 | 装饰器是在不改调用方的情况下包一层行为 | [`decorators-wrap-behavior.md`](decorators-wrap-behavior.md) |
 | 计时和权限检查适合做成装饰器 | [`decorators-for-timing-and-auth.md`](decorators-for-timing-and-auth.md) |
 | 带参数装饰器需要再多一层函数 | [`parameterized-decorator-extra-layer.md`](parameterized-decorator-extra-layer.md) |
+
+## 可运行验证索引
+
+当前 18 张 Python 卡片都带有可复制的验证命令。维护原则：新增或改写卡片时，至少保留一个能在本地失败/通过的检查；优先使用标准库和无网络依赖，只有测试框架或静态检查确有价值时才引入外部工具。
+
+| 类型 | 卡片 | 验证方式 |
+|---|---|---|
+| 异步基础 | [`asyncio-reduces-waiting.md`](asyncio-reduces-waiting.md) | `python3 asyncio-reduces-waiting.py` |
+| 异步基础 | [`asyncio-run-sync-entrypoint.md`](asyncio-run-sync-entrypoint.md) | `python3 asyncio-run-sync-entrypoint.py` |
+| 异步批量 | [`asyncio-gather-batch-io.md`](asyncio-gather-batch-io.md) | `python3 asyncio-gather-batch-io.py` |
+| 异步批量 | [`semaphore-limits-async-concurrency.md`](semaphore-limits-async-concurrency.md) | `python3 semaphore-limits-async-concurrency.py` |
+| 异步共享状态 | [`asyncio-lock-shared-state.md`](asyncio-lock-shared-state.md) | `python3 asyncio-lock-shared-state.py` |
+| 异步队列 | [`queue-decouples-producers-consumers.md`](queue-decouples-producers-consumers.md) | `python3 queue-decouples-producers-consumers.py` |
+| 异步同步原语 | [`event-one-shot-broadcast.md`](event-one-shot-broadcast.md) | `python3 event-one-shot-broadcast.py` |
+| 异步同步原语 | [`condition-complex-state-changes.md`](condition-complex-state-changes.md) | `python3 condition-complex-state-changes.py` |
+| 异步生命周期 | [`taskgroup-shared-lifecycle.md`](taskgroup-shared-lifecycle.md) | `python3.11 taskgroup-shared-lifecycle.py` |
+| 异步生命周期 | [`task-cancellation-cleanup.md`](task-cancellation-cleanup.md) | `python3 task-cancellation-cleanup.py` |
+| 异步边界 | [`timeout-async-system-boundary.md`](timeout-async-system-boundary.md) | `python3 timeout-async-system-boundary.py` |
+| 语言机制 | [`context-manager-enter-exit-boundary.md`](context-manager-enter-exit-boundary.md) | `python3 context-manager-enter-exit-boundary.py` |
+| 语言机制 | [`generators-for-streaming.md`](generators-for-streaming.md) | `python3 generators-for-streaming.py` |
+| 装饰器 | [`decorators-wrap-behavior.md`](decorators-wrap-behavior.md) | `python3 decorators-wrap-behavior.py` |
+| 装饰器 | [`decorators-for-timing-and-auth.md`](decorators-for-timing-and-auth.md) | `python3 decorators-for-timing-and-auth.py` |
+| 装饰器 | [`parameterized-decorator-extra-layer.md`](parameterized-decorator-extra-layer.md) | `python3 parameterized-decorator-extra-layer.py` |
+| 类型契约 | [`type-hints-express-contracts.md`](type-hints-express-contracts.md) | `python3 type-hints-express-contracts.py` + `npx -y pyright@1.1.407 type-hints-express-contracts.py` |
+| 测试策略 | [`tests-cover-behavior-first.md`](tests-cover-behavior-first.md) | `uv run --with pytest python -m pytest -q tests-cover-behavior-first.py` |

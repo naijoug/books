@@ -69,7 +69,7 @@ async def main() -> None:
 asyncio.run(main())
 ```
 
-把代码保存为 `taskgroup-shared-lifecycle.py` 后执行 `python3 taskgroup-shared-lifecycle.py`；无输出且退出码为 0，说明成功场景的结果读取、失败场景的异常聚合和兄弟任务取消都符合预期。
+把代码保存为 `taskgroup-shared-lifecycle.py` 后执行 `python3.11 taskgroup-shared-lifecycle.py`；无输出且退出码为 0，说明成功场景的结果读取、失败场景的异常聚合和兄弟任务取消都符合预期。
 
 **坑**：`create_task` 裸奔时，任务生命周期容易失控；异常可能只在日志里出现。`TaskGroup` 会帮你收拢生命周期，但不会替你吞异常，外层仍要处理 `ExceptionGroup`。
 
