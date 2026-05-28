@@ -14,3 +14,20 @@
 | `unknown` 要先缩窄再使用 | [`unknown-requires-narrowing.md`](unknown-requires-narrowing.md) |
 | 模板字面量类型约束字符串格式 | [`template-literal-types-constrain-strings.md`](template-literal-types-constrain-strings.md) |
 | 工具类型从领域模型派生 DTO | [`utility-types-derive-dtos.md`](utility-types-derive-dtos.md) |
+
+## 可运行验证索引
+
+当前 10 张 TypeScript 卡片都应能通过 `tsc --noEmit --strict` 做最小类型检查。维护原则：示例优先写成可复制的 `.ts` 片段；类型体操类卡片至少保留 `Expect<Equal<...>>` 断言；涉及浏览器 API、`console` 或现代内建对象时显式写出 `--lib`，避免读者在默认环境下遇到无关报错。
+
+| 类型 | 卡片 | 验证方式 |
+|---|---|---|
+| 状态建模 | [`union-types-state-machine.md`](union-types-state-machine.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom union-types-state-machine.ts` |
+| 类型提取 | [`typescript-infer-extracts-types.md`](typescript-infer-extracts-types.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict typescript-infer-extracts-types.ts` |
+| 类型提取 | [`infer-function-promise-array-types.md`](infer-function-promise-array-types.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict infer-function-promise-array-types.ts` |
+| 条件类型 | [`conditional-types-input-dependent.md`](conditional-types-input-dependent.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict conditional-types-input-dependent.ts` |
+| 映射类型 | [`mapped-type-filter-fields-by-value.md`](mapped-type-filter-fields-by-value.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict mapped-type-filter-fields-by-value.ts` |
+| 只读边界 | [`deep-readonly-object-boundaries.md`](deep-readonly-object-boundaries.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom deep-readonly-object-boundaries.ts` |
+| 形状检查 | [`satisfies-checks-shape-keeps-inference.md`](satisfies-checks-shape-keeps-inference.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom satisfies-checks-shape-keeps-inference.ts` |
+| 输入缩窄 | [`unknown-requires-narrowing.md`](unknown-requires-narrowing.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom unknown-requires-narrowing.ts` |
+| 字符串约束 | [`template-literal-types-constrain-strings.md`](template-literal-types-constrain-strings.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom template-literal-types-constrain-strings.ts` |
+| DTO 派生 | [`utility-types-derive-dtos.md`](utility-types-derive-dtos.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom utility-types-derive-dtos.ts` |
