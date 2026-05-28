@@ -34,6 +34,8 @@ func readCachedProfile(token: String?) -> Result<Profile, ProfileError> {
     return .success(Profile(name: cachedName))
 }
 
+var title = ""
+let currentToken: String? = nil
 let result = readCachedProfile(token: currentToken)
 
 switch result {
@@ -44,13 +46,24 @@ case .failure(.missingToken):
 case .failure(.invalidResponse):
     title = "Cached profile is broken"
 }
+
+assert(title == "Please sign in")
 ```
 
 把多个结果收集起来时，`Result` 也比“值数组 + 错误数组”更不容易错位：
 
 ```swift
+let tokens: [String?] = ["token", nil]
 let results: [Result<Profile, ProfileError>] = tokens.map(readCachedProfile)
 let loaded = results.compactMap { try? $0.get() }
+
+assert(loaded.map(\.name) == ["Ada"])
+assert(results.contains { item in
+    if case .failure(.missingToken) = item {
+        return true
+    }
+    return false
+})
 ```
 
 **坑**：
@@ -59,4 +72,10 @@ let loaded = results.compactMap { try? $0.get() }
 - 不要用 `(Profile?, Error?)` 表达结果；它可能出现“两者都有”或“两者都没有”的非法状态。
 - 不要在所有函数里机械套 `Result`。如果调用方马上 `try`，`throws` 往往更自然。
 
-**检查**：这个接口的调用方是否能从类型签名看出失败原因集合？每个 `Result` 是否都有 `.success` 和 `.failure` 的处理路径？
+**检查**：这个接口的调用方是否能从类型签名看出失败原因集合？每个 `Result` 是否都有 `.success` 和 `.failure` 的处理路径？把两个示例保存为同一个 `swift-result-explicit-failure-state.swift` 后，运行：
+
+```bash
+swift swift-result-explicit-failure-state.swift
+```
+
+如果命令无输出且退出码为 0，说明示例覆盖了缺 token、成功读取和批量收集三条路径。

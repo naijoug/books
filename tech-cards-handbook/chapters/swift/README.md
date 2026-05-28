@@ -14,3 +14,11 @@
 | Swift 闭包让行为可以作为参数传递 | [`swift-closures-as-parameters.md`](swift-closures-as-parameters.md) |
 | Swift `defer` 把清理逻辑贴近资源获取 | [`swift-defer-for-cleanup.md`](swift-defer-for-cleanup.md) |
 | Swift `Result` 把成功和失败放进同一个值 | [`swift-result-explicit-failure-state.md`](swift-result-explicit-failure-state.md) |
+
+## 可运行验证进度
+
+Swift 工具链已在本机确认可用（`swift --version`）。当前优先把示例改成可复制运行的小脚本；新增或改写卡片时，至少补一个 `swift <file>.swift` 或 `swiftc <file>.swift` 的检查命令。
+
+| 卡片 | 验证方式 |
+|---|---|
+| [`swift-result-explicit-failure-state.md`](swift-result-explicit-failure-state.md) | `swift swift-result-explicit-failure-state.swift` |
