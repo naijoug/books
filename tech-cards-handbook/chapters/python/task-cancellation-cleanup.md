@@ -12,28 +12,59 @@
 
 ```python
 import asyncio
+from typing import List
 
-async def worker() -> None:
+async def worker(events: List[str]) -> None:
     resource = "connection"
+    events.append(f"open:{resource}")
     try:
         while True:
-            await asyncio.sleep(1)
-            print("working")
+            events.append("tick")
+            await asyncio.sleep(0)
     finally:
-        print(f"closing {resource}")
+        # 取消会在 await 点抛出，但 finally 仍然会运行。
+        events.append(f"close:{resource}")
+
+async def stubborn_worker(events: List[str]) -> str:
+    try:
+        events.append("started")
+        await asyncio.sleep(3600)
+    except asyncio.CancelledError:
+        events.append("cancel-swallowed")
+        return "looks-ok"
+    return "done"
 
 async def main() -> None:
-    task = asyncio.create_task(worker())
-    await asyncio.sleep(2.5)
+    events: List[str] = []
+    task = asyncio.create_task(worker(events))
+    await asyncio.sleep(0)
     task.cancel()
+
     try:
         await task
     except asyncio.CancelledError:
-        print("worker cancelled")
+        events.append("cancel-propagated")
+
+    assert task.cancelled()
+    assert events[0] == "open:connection"
+    assert "tick" in events
+    assert events[-2:] == ["close:connection", "cancel-propagated"]
+
+    swallowed: List[str] = []
+    bad_task = asyncio.create_task(stubborn_worker(swallowed))
+    await asyncio.sleep(0)
+    bad_task.cancel()
+    result = await bad_task
+
+    assert result == "looks-ok"
+    assert not bad_task.cancelled()
+    assert swallowed == ["started", "cancel-swallowed"]
 
 asyncio.run(main())
 ```
 
-**坑**：`except Exception` 捕获不到 `CancelledError` 的语义边界在不同版本里有变化，不要依赖宽泛捕获处理取消。
+保存为 `task-cancellation-cleanup.py` 后执行 `python3 task-cancellation-cleanup.py`，应无输出、无异常。第一组断言确认 `cancel()` 后 `finally` 一定关闭资源且 `CancelledError` 继续向上层传播；第二组断言故意吞掉取消信号，说明上层会把任务误判为正常完成。
 
-**检查**：给长任务写一个取消测试，确认取消后资源释放日志或状态确实发生。
+**坑**：不要用宽泛捕获顺手吞掉取消信号；如果必须在 `except asyncio.CancelledError` 中记录日志或更新状态，处理完应再次 `raise`，否则调用方无法通过 `await task` 或 `task.cancelled()` 观察到真正的取消。
+
+**检查**：给长任务写一个取消测试，确认取消后资源释放状态发生，并确认上层仍能观察到 `CancelledError`。
