@@ -15,6 +15,12 @@
 **示例**：
 
 ```typescript
+type Equal<A, B> =
+  (<T>() => T extends A ? 1 : 2) extends
+  (<T>() => T extends B ? 1 : 2) ? true : false;
+type Expect<T extends true> = T;
+type Simplify<T> = { [K in keyof T]: T[K] };
+
 type User = {
   id: string;
   name: string;
@@ -40,6 +46,44 @@ type UpdateUserRequest = Partial<
 
 type PersistedUser = Required<User>;
 
+type ListItemTest = Expect<Equal<
+  UserListItem,
+  { id: string; name: string; avatarUrl?: string }
+>>;
+
+type CreateRequestTest = Expect<Equal<
+  Simplify<CreateUserRequest>,
+  {
+    name: string;
+    email: string;
+    role: "admin" | "member";
+    avatarUrl?: string;
+  }
+>>;
+
+type UpdateRequestTest = Expect<Equal<
+  UpdateUserRequest,
+  {
+    name?: string;
+    email?: string;
+    role?: "admin" | "member";
+    avatarUrl?: string;
+  }
+>>;
+
+type PersistedUserTest = Expect<Equal<
+  PersistedUser,
+  {
+    id: string;
+    name: string;
+    email: string;
+    role: "admin" | "member";
+    avatarUrl: string;
+    createdAt: string;
+    updatedAt: string;
+  }
+>>;
+
 function toListItem(user: User): UserListItem {
   return {
     id: user.id,
@@ -54,6 +98,9 @@ function updateUser(id: string, patch: UpdateUserRequest) {
     body: JSON.stringify(patch),
   });
 }
+
+updateUser("u_1", { name: "Ada" });
+// updateUser("u_1", { id: "u_2" });
 ```
 
 把代码块保存为 `utility-types-derive-dtos.ts` 后，可用下面的命令做最小编译验证：
@@ -61,6 +108,8 @@ function updateUser(id: string, patch: UpdateUserRequest) {
 ```bash
 npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom utility-types-derive-dtos.ts
 ```
+
+如果把最后一行的 `updateUser("u_1", { id: "u_2" });` 取消注释，编译器应报告 `id` 不属于 `UpdateUserRequest`，这能验证更新 DTO 没有意外暴露系统字段。
 
 **坑**：
 
