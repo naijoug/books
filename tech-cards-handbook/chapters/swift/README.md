@@ -31,3 +31,39 @@ Swift 工具链已在本机确认可用（`swift --version`）。当前优先把
 | [`swift-string-interpolation.md`](swift-string-interpolation.md) | `swift swift-string-interpolation.swift` |
 | [`swift-struct-value-class-identity.md`](swift-struct-value-class-identity.md) | `swift swift-struct-value-class-identity.swift` |
 | [`swift-switch-discrete-branches.md`](swift-switch-discrete-branches.md) | `swift swift-switch-discrete-branches.swift` |
+
+## 章节级批量复核
+
+从 `books` 仓库根目录运行下面的命令，可以抽取本章每张卡片里的 `swift` 代码块，并用本机 Swift 工具链逐个执行。预期输出最后一行是 `failures []`。
+
+```bash
+python3 - <<'PY'
+from pathlib import Path
+import os
+import re
+import subprocess
+import tempfile
+
+base = Path('tech-cards-handbook/chapters/swift')
+failures = []
+
+for path in sorted(base.glob('swift-*.md')):
+    text = path.read_text()
+    blocks = re.findall(r'```swift\n(.*?)\n```', text, re.S)
+    if not blocks:
+        failures.append((path.name, 'no swift blocks'))
+        continue
+
+    with tempfile.NamedTemporaryFile('w', suffix='.swift', delete=False) as handle:
+        handle.write('\n\n'.join(blocks))
+        temp_path = handle.name
+
+    result = subprocess.run(['swift', temp_path], capture_output=True, text=True)
+    os.unlink(temp_path)
+    print(path.name, 'blocks', len(blocks), 'returncode', result.returncode)
+    if result.returncode != 0:
+        failures.append((path.name, result.stderr.strip()))
+
+print('failures', failures)
+PY
+```
