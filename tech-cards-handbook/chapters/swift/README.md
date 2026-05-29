@@ -23,6 +23,7 @@ Swift 工具链已在本机确认可用（`swift --version`）。当前优先把
 |---|---|
 | [`swift-array-dictionary-missing-values.md`](swift-array-dictionary-missing-values.md) | `swift swift-array-dictionary-missing-values.swift` |
 | [`swift-defer-for-cleanup.md`](swift-defer-for-cleanup.md) | `swift swift-defer-for-cleanup.swift` |
+| [`swift-let-for-basic-values.md`](swift-let-for-basic-values.md) | `swift swift-let-for-basic-values.swift` |
 | [`swift-optional-binding-no-force-unwrap.md`](swift-optional-binding-no-force-unwrap.md) | `swift swift-optional-binding-no-force-unwrap.swift` |
 | [`swift-result-explicit-failure-state.md`](swift-result-explicit-failure-state.md) | `swift swift-result-explicit-failure-state.swift` |
 | [`swift-string-interpolation.md`](swift-string-interpolation.md) | `swift swift-string-interpolation.swift` |
