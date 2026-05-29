@@ -14,3 +14,11 @@
 | 错误要保留上下文 | [`errors-keep-context.md`](errors-keep-context.md) |
 | 小接口由使用方定义 | [`small-interfaces-defined-by-consumer.md`](small-interfaces-defined-by-consumer.md) |
 | 表格驱动测试让边界更清楚 | [`table-driven-tests-boundaries.md`](table-driven-tests-boundaries.md) |
+
+## 可运行验证进度
+
+Go 工具链已在本机确认可用（`go version`）。当前优先把示例改成可复制运行的小程序；新增或改写卡片时，至少补一个 `go run <file>.go` 或 `go test` 的检查命令。
+
+| 卡片 | 验证方式 |
+|---|---|
+| [`sync-waitgroup-goroutine-completion.md`](sync-waitgroup-goroutine-completion.md) | `go run sync-waitgroup-goroutine-completion.go` |

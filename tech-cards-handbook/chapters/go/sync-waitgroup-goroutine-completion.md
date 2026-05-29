@@ -11,22 +11,59 @@
 **示例**：
 
 ```go
-func worker(id int, wg *sync.WaitGroup) {
+package main
+
+import (
+	"sort"
+	"sync"
+)
+
+func worker(id int, wg *sync.WaitGroup, done chan<- int) {
 	defer wg.Done()
-	fmt.Printf("worker %d start\n", id)
-	time.Sleep(time.Second)
-	fmt.Printf("worker %d done\n", id)
+	done <- id
+}
+
+func runWorkers(count int) []int {
+	var wg sync.WaitGroup
+	done := make(chan int, count)
+
+	for i := 0; i < count; i++ {
+		wg.Add(1)
+		go worker(i, &wg, done)
+	}
+
+	wg.Wait()
+	close(done)
+
+	ids := make([]int, 0, count)
+	for id := range done {
+		ids = append(ids, id)
+	}
+	sort.Ints(ids)
+	return ids
 }
 
 func main() {
-	var wg sync.WaitGroup
-	for i := 0; i < 5; i++ {
-		wg.Add(1)
-		go worker(i, &wg)
+got := runWorkers(5)
+want := []int{0, 1, 2, 3, 4}
+if len(got) != len(want) {
+	panic("worker count mismatch")
+}
+for i := range want {
+	if got[i] != want[i] {
+		panic("worker id mismatch")
 	}
-	wg.Wait()
+}
 }
 ```
+
+最小验证：
+
+```bash
+go run sync-waitgroup-goroutine-completion.go
+```
+
+如果只看核心结构，可以把上面的 `runWorkers` 简化成：启动前 `wg.Add(1)`，goroutine 入口 `defer wg.Done()`，主流程最后 `wg.Wait()`。
 
 **坑**：`Add` 放到 goroutine 内部可能和 `Wait` 竞争，导致主流程提前结束。
 
