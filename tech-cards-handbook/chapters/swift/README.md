@@ -28,4 +28,5 @@ Swift 工具链已在本机确认可用（`swift --version`）。当前优先把
 | [`swift-optional-binding-no-force-unwrap.md`](swift-optional-binding-no-force-unwrap.md) | `swift swift-optional-binding-no-force-unwrap.swift` |
 | [`swift-result-explicit-failure-state.md`](swift-result-explicit-failure-state.md) | `swift swift-result-explicit-failure-state.swift` |
 | [`swift-string-interpolation.md`](swift-string-interpolation.md) | `swift swift-string-interpolation.swift` |
+| [`swift-struct-value-class-identity.md`](swift-struct-value-class-identity.md) | `swift swift-struct-value-class-identity.swift` |
 | [`swift-switch-discrete-branches.md`](swift-switch-discrete-branches.md) | `swift swift-switch-discrete-branches.swift` |
