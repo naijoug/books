@@ -22,6 +22,7 @@ Swift 工具链已在本机确认可用（`swift --version`）。当前优先把
 | 卡片 | 验证方式 |
 |---|---|
 | [`swift-array-dictionary-missing-values.md`](swift-array-dictionary-missing-values.md) | `swift swift-array-dictionary-missing-values.swift` |
+| [`swift-async-await-readable-flow.md`](swift-async-await-readable-flow.md) | `swift swift-async-await-readable-flow.swift` |
 | [`swift-closures-as-parameters.md`](swift-closures-as-parameters.md) | `swift swift-closures-as-parameters.swift` |
 | [`swift-defer-for-cleanup.md`](swift-defer-for-cleanup.md) | `swift swift-defer-for-cleanup.swift` |
 | [`swift-let-for-basic-values.md`](swift-let-for-basic-values.md) | `swift swift-let-for-basic-values.swift` |
