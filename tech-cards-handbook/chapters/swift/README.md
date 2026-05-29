@@ -21,6 +21,7 @@ Swift 工具链已在本机确认可用（`swift --version`）。当前优先把
 
 | 卡片 | 验证方式 |
 |---|---|
+| [`swift-array-dictionary-missing-values.md`](swift-array-dictionary-missing-values.md) | `swift swift-array-dictionary-missing-values.swift` |
 | [`swift-defer-for-cleanup.md`](swift-defer-for-cleanup.md) | `swift swift-defer-for-cleanup.swift` |
 | [`swift-optional-binding-no-force-unwrap.md`](swift-optional-binding-no-force-unwrap.md) | `swift swift-optional-binding-no-force-unwrap.swift` |
 | [`swift-result-explicit-failure-state.md`](swift-result-explicit-failure-state.md) | `swift swift-result-explicit-failure-state.swift` |
