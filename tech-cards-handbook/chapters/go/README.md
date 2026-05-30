@@ -24,3 +24,4 @@ Go 工具链已在本机确认可用（`go version`）。当前优先把示例�
 | [`sync-waitgroup-goroutine-completion.md`](sync-waitgroup-goroutine-completion.md) | `go run sync-waitgroup-goroutine-completion.go` |
 | [`context-cancellation-not-business-data.md`](context-cancellation-not-business-data.md) | `go run context-cancellation-not-business-data.go` |
 | [`channel-close-owned-by-sender.md`](channel-close-owned-by-sender.md) | `go run channel-close-owned-by-sender.go` |
+| [`worker-pool-concurrency-limit.md`](worker-pool-concurrency-limit.md) | `go run worker-pool-concurrency-limit.go` |
