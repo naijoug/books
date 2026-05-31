@@ -26,3 +26,4 @@ Go 工具链已在本机确认可用（`go version`）。当前优先把示例�
 | [`channel-close-owned-by-sender.md`](channel-close-owned-by-sender.md) | `go run channel-close-owned-by-sender.go` |
 | [`worker-pool-concurrency-limit.md`](worker-pool-concurrency-limit.md) | `go run worker-pool-concurrency-limit.go` |
 | [`producer-consumer-channel-ownership.md`](producer-consumer-channel-ownership.md) | `go run producer-consumer-channel-ownership.go` |
+| [`select-results-timeouts-cancellation.md`](select-results-timeouts-cancellation.md) | `go run select-results-timeouts-cancellation.go` |
