@@ -25,3 +25,4 @@ Rust 工具链已在本机确认可用（`rustc --version`）。当前优先把�
 |---|---|
 | [`ownership-resource-release.md`](ownership-resource-release.md) | `rustc ownership-resource-release.rs && ./ownership-resource-release` |
 | [`borrowing-temporary-read-write.md`](borrowing-temporary-read-write.md) | `rustc borrowing-temporary-read-write.rs && ./borrowing-temporary-read-write` |
+| [`option-means-maybe-none.md`](option-means-maybe-none.md) | `rustc option-means-maybe-none.rs && ./option-means-maybe-none` |
