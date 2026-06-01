@@ -16,3 +16,11 @@
 | 并发共享数据优先用消息或锁 | [`concurrency-message-or-lock.md`](concurrency-message-or-lock.md) |
 | 异步不是自动并行 | [`async-is-not-parallel.md`](async-is-not-parallel.md) |
 | 测试要覆盖成功路径和失败路径 | [`tests-cover-success-and-failure.md`](tests-cover-success-and-failure.md) |
+
+## 可运行验证进度
+
+Rust 工具链已在本机确认可用（`rustc --version`）。当前优先把示例改成可复制运行的小程序；新增或改写卡片时，至少补一个 `rustc <file>.rs && ./<file>` 的检查命令。
+
+| 卡片 | 验证方式 |
+|---|---|
+| [`ownership-resource-release.md`](ownership-resource-release.md) | `rustc ownership-resource-release.rs && ./ownership-resource-release` |
