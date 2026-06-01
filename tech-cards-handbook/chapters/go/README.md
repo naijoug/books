@@ -30,3 +30,4 @@ Go 工具链已在本机确认可用（`go version`）。当前优先把示例�
 | [`sync-mutex-short-shared-state.md`](sync-mutex-short-shared-state.md) | `go run sync-mutex-short-shared-state.go` |
 | [`errors-keep-context.md`](errors-keep-context.md) | `go run errors-keep-context.go` |
 | [`small-interfaces-defined-by-consumer.md`](small-interfaces-defined-by-consumer.md) | `go run small-interfaces-defined-by-consumer.go` |
+| [`table-driven-tests-boundaries.md`](table-driven-tests-boundaries.md) | `go test email_test.go`（抽取为 `email_test.go`） |
