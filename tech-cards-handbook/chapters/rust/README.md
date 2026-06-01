@@ -29,3 +29,4 @@ Rust 工具链已在本机确认可用（`rustc --version`）。当前优先把�
 | [`result-means-failable-with-reason.md`](result-means-failable-with-reason.md) | `rustc result-means-failable-with-reason.rs && ./result-means-failable-with-reason` |
 | [`trait-behavior-contract.md`](trait-behavior-contract.md) | `rustc trait-behavior-contract.rs && ./trait-behavior-contract` |
 | [`lifetimes-describe-reference-relations.md`](lifetimes-describe-reference-relations.md) | `rustc lifetimes-describe-reference-relations.rs && ./lifetimes-describe-reference-relations` |
+| [`pattern-matching-exhaustive-branches.md`](pattern-matching-exhaustive-branches.md) | `rustc pattern-matching-exhaustive-branches.rs && ./pattern-matching-exhaustive-branches` |
