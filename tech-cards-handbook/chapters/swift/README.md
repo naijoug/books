@@ -34,36 +34,15 @@ Swift 工具链已在本机确认可用（`swift --version`）。当前优先把
 
 ## 章节级批量复核
 
-从 `books` 仓库根目录运行下面的命令，可以抽取本章每张卡片里的 `swift` 代码块，并用本机 Swift 工具链逐个执行。预期输出最后一行是 `failures []`。
+从 `books` 仓库根目录运行：
 
 ```bash
-python3 - <<'PY'
-from pathlib import Path
-import os
-import re
-import subprocess
-import tempfile
+python3 scripts/verify_swift_cards.py          # 简洁输出
+python3 scripts/verify_swift_cards.py --verbose # 含编译器输出
+```
 
-base = Path('tech-cards-handbook/chapters/swift')
-failures = []
+预期输出：`verified 10 Swift cards with 12 code blocks`。也可通过统一入口一次验证所有语言：
 
-for path in sorted(base.glob('swift-*.md')):
-    text = path.read_text()
-    blocks = re.findall(r'```swift\n(.*?)\n```', text, re.S)
-    if not blocks:
-        failures.append((path.name, 'no swift blocks'))
-        continue
-
-    with tempfile.NamedTemporaryFile('w', suffix='.swift', delete=False) as handle:
-        handle.write('\n\n'.join(blocks))
-        temp_path = handle.name
-
-    result = subprocess.run(['swift', temp_path], capture_output=True, text=True)
-    os.unlink(temp_path)
-    print(path.name, 'blocks', len(blocks), 'returncode', result.returncode)
-    if result.returncode != 0:
-        failures.append((path.name, result.stderr.strip()))
-
-print('failures', failures)
-PY
+```bash
+python3 scripts/verify_all_cards.py --language Swift
 ```
