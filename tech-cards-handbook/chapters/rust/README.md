@@ -34,3 +34,4 @@ Rust 工具链已在本机确认可用（`rustc --version`）。当前优先把�
 | [`iterators-composable-transformations.md`](iterators-composable-transformations.md) | `rustc iterators-composable-transformations.rs && ./iterators-composable-transformations` |
 | [`concurrency-message-or-lock.md`](concurrency-message-or-lock.md) | `rustc concurrency-message-or-lock.rs && ./concurrency-message-or-lock` |
 | [`async-is-not-parallel.md`](async-is-not-parallel.md) | `rustc --edition=2021 async-is-not-parallel.rs && ./async-is-not-parallel` |
+| [`tests-cover-success-and-failure.md`](tests-cover-success-and-failure.md) | `rustc --test tests-cover-success-and-failure.rs && ./tests-cover-success-and-failure` |
