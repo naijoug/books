@@ -27,6 +27,14 @@
 
 当前 18 张 Python 卡片都带有可复制的验证命令。维护原则：新增或改写卡片时，至少保留一个能在本地失败/通过的检查；优先使用标准库和无网络依赖，只有测试框架或静态检查确有价值时才引入外部工具。
 
+批量复核命令：
+
+```bash
+python3 scripts/verify_python_cards.py
+```
+
+脚本会从本目录 README 读取 18 张卡片，逐张抽取唯一 `python` 代码块并运行；测试卡片通过 `uv run --with pytest` 执行，类型卡片会额外运行 `npx -y pyright@1.1.407`。
+
 | 类型 | 卡片 | 验证方式 |
 |---|---|---|
 | 异步基础 | [`asyncio-reduces-waiting.md`](asyncio-reduces-waiting.md) | `python3 asyncio-reduces-waiting.py` |
