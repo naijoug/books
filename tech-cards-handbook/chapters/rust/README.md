@@ -31,3 +31,4 @@ Rust 工具链已在本机确认可用（`rustc --version`）。当前优先把�
 | [`lifetimes-describe-reference-relations.md`](lifetimes-describe-reference-relations.md) | `rustc lifetimes-describe-reference-relations.rs && ./lifetimes-describe-reference-relations` |
 | [`pattern-matching-exhaustive-branches.md`](pattern-matching-exhaustive-branches.md) | `rustc pattern-matching-exhaustive-branches.rs && ./pattern-matching-exhaustive-branches` |
 | [`modules-control-visibility.md`](modules-control-visibility.md) | `rustc modules-control-visibility.rs && ./modules-control-visibility` |
+| [`iterators-composable-transformations.md`](iterators-composable-transformations.md) | `rustc iterators-composable-transformations.rs && ./iterators-composable-transformations` |
