@@ -1,6 +1,6 @@
 # React 技术卡片
 
-本目录按“一张卡片一个 Markdown 文件”维护，共 15 张。文件名使用英文 `kebab-case`。
+本目录按“一张卡片一个 Markdown 文件”维护，共 16 张。文件名使用英文 `kebab-case`。
 
 代码块验证：在 `books` 仓库根目录运行 `python3 scripts/verify_react_cards.py`，脚本会抽取本章 `ts`/`tsx`/`typescript` 代码块，用 TypeScript strict 模式和轻量 React 类型 shim 做批量检查。
 
@@ -21,3 +21,4 @@
 | 乐观更新必须有回滚路径 | [`optimistic-update-with-rollback.md`](optimistic-update-with-rollback.md) |
 | `useActionState` 把表单提交状态收拢到 action | [`useactionstate-keeps-form-submission-state.md`](useactionstate-keeps-form-submission-state.md) |
 | `useFormStatus` 只放在表单内部读取提交状态 | [`useformstatus-belongs-inside-form.md`](useformstatus-belongs-inside-form.md) |
+| `useOptimistic` 只覆盖过渡中的乐观视图 | [`useoptimistic-overlays-transient-state.md`](useoptimistic-overlays-transient-state.md) |
