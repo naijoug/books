@@ -1,6 +1,6 @@
 # React 技术卡片
 
-本目录按“一张卡片一个 Markdown 文件”维护，共 17 张。文件名使用英文 `kebab-case`。
+本目录按“一张卡片一个 Markdown 文件”维护，共 18 张。文件名使用英文 `kebab-case`。
 
 代码块验证：在 `books` 仓库根目录运行 `python3 scripts/verify_react_cards.py`，脚本会抽取本章 `ts`/`tsx`/`typescript` 代码块，用 TypeScript strict 模式和轻量 React 类型 shim 做批量检查。
 
@@ -17,6 +17,7 @@
 | 自定义 Hook 用来复用状态逻辑 | [`custom-hook-reuse-state-logic.md`](custom-hook-reuse-state-logic.md) |
 | Error Boundary 捕获渲染失败，不捕获事件失败 | [`error-boundary-catches-render-failures.md`](error-boundary-catches-render-failures.md) |
 | Suspense 处理等待，Error Boundary 处理失败 | [`suspense-waits-error-boundary-fails.md`](suspense-waits-error-boundary-fails.md) |
+| `React.lazy` 优先切路由和重模块，不要随机拆小组件 | [`react-lazy-splits-routes-not-random-widgets.md`](react-lazy-splits-routes-not-random-widgets.md) |
 | Context 拆分状态和动作，避免全树重渲染 | [`context-split-state-and-actions.md`](context-split-state-and-actions.md) |
 | 异步状态用联合类型表达，不用多个布尔值 | [`async-state-discriminated-union.md`](async-state-discriminated-union.md) |
 | 乐观更新必须有回滚路径 | [`optimistic-update-with-rollback.md`](optimistic-update-with-rollback.md) |

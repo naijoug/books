@@ -23,7 +23,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 REACT_DIR = ROOT / "tech-cards-handbook" / "chapters" / "react"
 README = REACT_DIR / "README.md"
-EXPECTED_CARD_COUNT = 17
+EXPECTED_CARD_COUNT = 18
 TYPESCRIPT_VERSION = "5.9.3"
 
 CODE_BLOCK_RE = re.compile(r"```(?:tsx|ts|typescript)\s*\n(.*?)\n```", re.DOTALL)
@@ -31,6 +31,7 @@ CODE_BLOCK_RE = re.compile(r"```(?:tsx|ts|typescript)\s*\n(.*?)\n```", re.DOTALL
 REACT_SHIM = r'''
 export type ReactNode = unknown;
 export type ErrorInfo = { componentStack?: string | null };
+export type ComponentType<P = {}> = (props: P) => JSX.Element;
 export class Component<P = {}, S = {}> {
   props: P;
   state: S;
@@ -55,6 +56,7 @@ export function useActionState<S, P>(
 ): [S, (payload: P) => void, boolean];
 export function useOptimistic<S, V>(state: S, updateFn: (currentState: S, optimisticValue: V) => S): [S, (optimisticValue: V) => void];
 export function Suspense(props: { fallback?: ReactNode; children?: ReactNode }): JSX.Element;
+export function lazy<P>(loader: () => Promise<{ default: ComponentType<P> }>): ComponentType<P>;
 export function memo<T extends (...args: never[]) => unknown>(component: T): T;
 '''
 
