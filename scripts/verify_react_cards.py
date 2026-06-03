@@ -23,7 +23,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 REACT_DIR = ROOT / "tech-cards-handbook" / "chapters" / "react"
 README = REACT_DIR / "README.md"
-EXPECTED_CARD_COUNT = 13
+EXPECTED_CARD_COUNT = 14
 TYPESCRIPT_VERSION = "5.9.3"
 
 CODE_BLOCK_RE = re.compile(r"```(?:tsx|ts|typescript)\s*\n(.*?)\n```", re.DOTALL)
@@ -48,6 +48,11 @@ export function useRef<T>(initial?: T): { current: T | undefined };
 export type Context<T> = { Provider: (props: { value: T; children?: ReactNode }) => JSX.Element };
 export function createContext<T>(defaultValue: T): Context<T>;
 export function useContext<T>(context: Context<T>): T;
+export function useActionState<S, P>(
+  action: (previousState: S, payload: P) => S | Promise<S>,
+  initialState: S,
+  permalink?: string,
+): [S, (payload: P) => void, boolean];
 export function memo<T extends (...args: never[]) => unknown>(component: T): T;
 '''
 
@@ -95,6 +100,11 @@ declare function useEffect(effect: () => void | (() => void), deps?: readonly un
 declare function useMemo<T>(factory: () => T, deps: readonly unknown[]): T;
 declare function useCallback<T extends (...args: never[]) => unknown>(callback: T, deps: readonly unknown[]): T;
 declare function useRef<T>(initial?: T): { current: T | undefined };
+declare function useActionState<S, P>(
+  action: (previousState: S, payload: P) => S | Promise<S>,
+  initialState: S,
+  permalink?: string,
+): [S, (payload: P) => void, boolean];
 '''
 
 

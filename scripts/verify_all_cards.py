@@ -24,7 +24,7 @@ VERIFIERS: dict[str, tuple[str, int]] = {
     "verify_rust_cards.py": ("Rust", 12),
     "verify_go_cards.py": ("Go", 10),
     "verify_python_cards.py": ("Python", 18),
-    "verify_react_cards.py": ("React", 13),
+    "verify_react_cards.py": ("React", 14),
     "verify_typescript_cards.py": ("TypeScript", 14),
     "verify_swift_cards.py": ("Swift", 10),
 }
