@@ -23,7 +23,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 REACT_DIR = ROOT / "tech-cards-handbook" / "chapters" / "react"
 README = REACT_DIR / "README.md"
-EXPECTED_CARD_COUNT = 14
+EXPECTED_CARD_COUNT = 15
 TYPESCRIPT_VERSION = "5.9.3"
 
 CODE_BLOCK_RE = re.compile(r"```(?:tsx|ts|typescript)\s*\n(.*?)\n```", re.DOTALL)
@@ -64,6 +64,15 @@ export namespace JSX {
 export const jsx: unknown;
 export const jsxs: unknown;
 export const Fragment: unknown;
+'''
+
+REACT_DOM_SHIM = r'''
+export function useFormStatus(): {
+  pending: boolean;
+  data: FormData | null;
+  method: string | null;
+  action: string | ((formData: FormData) => void | Promise<void>) | null;
+};
 '''
 
 BASE_PRELUDE = r'''
@@ -146,6 +155,9 @@ def write_react_shim(temp_dir: Path) -> None:
     runtime_dir = react_dir / "jsx-runtime"
     runtime_dir.mkdir(parents=True, exist_ok=True)
     (runtime_dir / "index.d.ts").write_text(JSX_RUNTIME_SHIM, encoding="utf-8")
+    react_dom_dir = temp_dir / "node_modules" / "react-dom"
+    react_dom_dir.mkdir(parents=True, exist_ok=True)
+    (react_dom_dir / "index.d.ts").write_text(REACT_DOM_SHIM, encoding="utf-8")
 
 
 def command_text(command: list[str]) -> str:
