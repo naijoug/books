@@ -6,7 +6,7 @@
 
 本书已按技术栈重组正式内容：`chapters/` 下每个技术栈一个目录，每张卡片一个 Markdown 文件。
 
-当前共 104 张正式卡片。
+当前共 105 张正式卡片。
 
 ## 目录结构
 
@@ -37,7 +37,7 @@ tech-cards-handbook/
 | Python | `chapters/python/` | 18 张：异步、并发原语、上下文管理、生成器、类型、测试和装饰器 |
 | Go | `chapters/go/` | 10 张：WaitGroup、context、channel、worker pool、select、mutex、错误处理、接口和测试 |
 | Rust | `chapters/rust/` | 12 张：所有权、借用、Option、Result、trait、生命周期、模式匹配、模块、迭代器、并发、异步和测试 |
-| TypeScript | `chapters/typescript/` | 12 张：联合类型、条件类型、`infer`、Mapped Type、深度只读、`satisfies`、`unknown`、类型守卫、断言函数、模板字面量类型和工具类型 |
+| TypeScript | `chapters/typescript/` | 13 张：联合类型、`never` 穷尽检查、条件类型、`infer`、Mapped Type、深度只读、`satisfies`、`unknown`、类型守卫、断言函数、模板字面量类型和工具类型 |
 | React | `chapters/react/` | 11 张：Effect、状态、表单、列表 key、ref、自定义 Hook、错误边界、Context 拆分、回调身份和性能 |
 | Swift | `chapters/swift/` | 10 张：值语义、async/await、基础值、字符串、集合、switch、可选绑定、闭包、defer 清理和 Result 错误状态 |
 | Flutter | `chapters/flutter/` | 10 张：状态、列表、导航、测试、布局、输入控件、组件拆分、异步构建、生命周期检查和 controller 释放 |

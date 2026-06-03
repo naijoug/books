@@ -1,10 +1,11 @@
 # TypeScript 技术卡片
 
-本目录按“一张卡片一个 Markdown 文件”维护，共 12 张。文件名使用英文 `kebab-case`。
+本目录按“一张卡片一个 Markdown 文件”维护，共 13 张。文件名使用英文 `kebab-case`。
 
 | 卡片 | 文件 |
 |---|---|
 | 用联合类型表达状态机 | [`union-types-state-machine.md`](union-types-state-machine.md) |
+| `never` 穷尽检查防止漏掉状态分支 | [`never-exhaustive-state-checks.md`](never-exhaustive-state-checks.md) |
 | `infer` 用于从类型里提取信息 | [`typescript-infer-extracts-types.md`](typescript-infer-extracts-types.md) |
 | 条件类型让类型根据输入变化 | [`conditional-types-input-dependent.md`](conditional-types-input-dependent.md) |
 | `infer` 可以提取函数、Promise 和数组内部类型 | [`infer-function-promise-array-types.md`](infer-function-promise-array-types.md) |
@@ -19,7 +20,7 @@
 
 ## 可运行验证索引
 
-当前 12 张 TypeScript 卡片都应能通过 `tsc --noEmit --strict` 做最小类型检查。维护原则：示例优先写成可复制的 `.ts` 片段；类型体操类卡片至少保留 `Expect<Equal<...>>` 断言；涉及浏览器 API、`console` 或现代内建对象时显式写出 `--lib`，避免读者在默认环境下遇到无关报错。
+当前 13 张 TypeScript 卡片都应能通过 `tsc --noEmit --strict` 做最小类型检查。维护原则：示例优先写成可复制的 `.ts` 片段；类型体操类卡片至少保留 `Expect<Equal<...>>` 断言；涉及浏览器 API、`console` 或现代内建对象时显式写出 `--lib`，避免读者在默认环境下遇到无关报错。
 
 章节级批量复核可从 `books` 仓库根目录运行：
 
@@ -27,11 +28,12 @@
 python3 scripts/verify_typescript_cards.py
 ```
 
-脚本会从本章 Markdown 中抽取 `ts` / `typescript` 代码块，按卡片合并写入临时 `.ts` 文件，并用 `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom` 逐张检查。当前预期输出为 `verified 12 TypeScript cards with 13 code blocks`。
+脚本会从本章 Markdown 中抽取 `ts` / `typescript` 代码块，按卡片合并写入临时 `.ts` 文件，并用 `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom` 逐张检查。当前预期输出为 `verified 13 TypeScript cards with 14 code blocks`。
 
 | 类型 | 卡片 | 验证方式 |
 |---|---|---|
 | 状态建模 | [`union-types-state-machine.md`](union-types-state-machine.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom union-types-state-machine.ts` |
+| 状态建模 | [`never-exhaustive-state-checks.md`](never-exhaustive-state-checks.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom never-exhaustive-state-checks.ts` |
 | 类型提取 | [`typescript-infer-extracts-types.md`](typescript-infer-extracts-types.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict typescript-infer-extracts-types.ts` |
 | 类型提取 | [`infer-function-promise-array-types.md`](infer-function-promise-array-types.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict infer-function-promise-array-types.ts` |
 | 条件类型 | [`conditional-types-input-dependent.md`](conditional-types-input-dependent.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict conditional-types-input-dependent.ts` |
