@@ -1,0 +1,86 @@
+id: async-await
+source: tech-cards-handbook
+title: 异步等待
+description: 用接近顺序代码的形态表达异步流程，避免回调层层嵌套。
+category: 异步编程
+difficulty: intermediate
+paradigms:
+  - 并发
+  - 事件驱动
+tags:
+  - async
+  - await
+  - 异步
+coverage:
+  required:
+    - javascript
+    - python
+    - csharp
+    - swift
+  optional:
+    - typescript
+    - rust
+    - kotlin
+  notApplicable:
+    go: Go 的 goroutine/channel/context 是另一套并发模型，不以 async/await 作为核心语法。
+implementations:
+  javascript:
+    status: ready
+    code: |
+      async function loadUser(id) {
+        const response = await fetch(`/api/users/${id}`);
+        if (!response.ok) throw new Error('request failed');
+        return await response.json();
+      }
+    explanation: JavaScript 使用 async 声明返回 Promise 的函数，用 await 暂停到 Promise 完成。
+    designRationale: async/await 把 Promise 链式调用改写为更接近同步流程的控制结构。
+    pros:
+      - 可读性强
+      - try/catch 可以覆盖 await 失败
+  python:
+    status: ready
+    sourceCard: chapters/python/asyncio-run-sync-entrypoint.md
+    code: |
+      import asyncio
+
+      async def load_user(user_id: str) -> dict:
+          await asyncio.sleep(0.1)
+          return {"id": user_id}
+
+      user = asyncio.run(load_user("u1"))
+      print(user)
+    explanation: Python 用 async def 定义协程，await 等待另一个协程或 awaitable 完成。
+    output: "{'id': 'u1'}"
+    designRationale: asyncio 让高等待时间 I/O 可以共享事件循环，入口处用 asyncio.run 接入同步世界。
+    pros:
+      - 适合高并发 I/O
+      - 控制流接近同步代码
+    cons:
+      - 不能在已有事件循环中随意嵌套 asyncio.run
+  csharp:
+    status: ready
+    code: |
+      public async Task<User> LoadUserAsync(string id)
+      {
+          using var client = new HttpClient();
+          var response = await client.GetFromJsonAsync<User>($"/api/users/{id}");
+          return response ?? throw new InvalidOperationException("user not found");
+      }
+    explanation: C# 使用 async Task<T> 表达异步返回值，用 await 等待 Task 完成。
+    designRationale: Task 模型把异步操作类型化，async/await 与异常传播、泛型返回值自然结合。
+    pros:
+      - 返回类型明确
+      - 与 .NET 异步库深度集成
+  swift:
+    status: ready
+    sourceCard: chapters/swift/swift-async-await-readable-flow.md
+    code: |
+      func loadUser(id: String) async throws -> User {
+          let (data, _) = try await URLSession.shared.data(from: userURL(id))
+          return try JSONDecoder().decode(User.self, from: data)
+      }
+    explanation: Swift 使用 async throws 标记异步且可能失败的函数，try await 同时表达等待和错误传播。
+    designRationale: Swift 把异步和错误都放进函数签名，让调用方清楚看到等待点和失败点。
+    pros:
+      - 等待点显式
+      - 与 throws 错误模型组合自然

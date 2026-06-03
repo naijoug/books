@@ -1,0 +1,120 @@
+id: error-handling
+source: tech-cards-handbook
+title: 错误处理
+description: 处理可能失败的操作，并让调用方明确面对失败路径。
+category: 错误处理
+difficulty: intermediate
+paradigms:
+  - 过程式
+  - 函数式
+tags:
+  - 错误
+  - 异常
+  - Result
+coverage:
+  required:
+    - javascript
+    - go
+    - rust
+    - java
+    - php
+  optional:
+    - python
+    - swift
+    - typescript
+implementations:
+  javascript:
+    status: ready
+    code: |
+      async function fetchData(url) {
+        try {
+          const response = await fetch(url);
+          if (!response.ok) {
+            throw new Error(`HTTP error: ${response.status}`);
+          }
+          return await response.json();
+        } catch (error) {
+          console.error('fetch failed:', error);
+          return null;
+        }
+      }
+    explanation: JavaScript 常用 try/catch 捕获同步和 async/await 中抛出的异常。
+    designRationale: 异常模型让正常路径保持简短，但调用边界必须明确处理失败。
+    pros:
+      - 语法统一
+      - async/await 友好
+    cons:
+      - 错误类型容易变得隐式
+  go:
+    status: ready
+    sourceCard: chapters/go/errors-keep-context.md
+    code: |
+      func fetchData(url string) ([]byte, error) {
+          resp, err := http.Get(url)
+          if err != nil {
+              return nil, fmt.Errorf("request failed: %w", err)
+          }
+          defer resp.Body.Close()
+          return io.ReadAll(resp.Body)
+      }
+    explanation: Go 把 error 作为普通返回值，调用者需要显式检查并保留上下文。
+    designRationale: 显式错误返回让失败路径出现在控制流里，适合强调可读性和上下文包装。
+    pros:
+      - 控制流清楚
+      - 错误上下文容易累积
+    cons:
+      - 样板代码较多
+  rust:
+    status: ready
+    sourceCard: chapters/rust/result-means-failable-with-reason.md
+    code: |
+      use std::fs;
+
+      fn load_config(path: &str) -> Result<String, std::io::Error> {
+          let text = fs::read_to_string(path)?;
+          Ok(text)
+      }
+    explanation: Rust 使用 Result<T, E> 把成功值和失败原因放进类型系统，? 用于传播错误。
+    designRationale: Result 让可能失败的函数在签名上可见，调用方无法忽略失败分支。
+    pros:
+      - 编译期强制处理
+      - 成功和失败状态清晰
+  java:
+    status: ready
+    code: |
+      public String readFile(String path) throws IOException {
+          try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+              return reader.lines().collect(Collectors.joining("\n"));
+          } catch (FileNotFoundException error) {
+              throw new IOException("file not found: " + path, error);
+          }
+      }
+    explanation: Java 使用异常表达失败，try-with-resources 负责释放资源，throws 暴露失败边界。
+    designRationale: 检查异常让部分失败路径进入方法签名，资源管理语法减少遗漏关闭的问题。
+    pros:
+      - 异常层次清晰
+      - 自动资源管理
+    cons:
+      - 样板代码偏多
+  php:
+    status: ready
+    code: |
+      <?php
+      function divide(int $a, int $b): int {
+          if ($b === 0) {
+              throw new InvalidArgumentException('divisor cannot be zero');
+          }
+          return intdiv($a, $b);
+      }
+
+      try {
+          echo divide(10, 0);
+      } catch (InvalidArgumentException $error) {
+          echo $error->getMessage();
+      }
+    explanation: PHP 使用 throw 与 try/catch 表达异常路径，类型化异常便于精准捕获。
+    output: divisor cannot be zero
+    designRationale: 对不可恢复或违反前置条件的情况抛异常，可以避免返回值混杂成功和失败。
+    pros:
+      - 调用边界明确
+      - 可按异常类型处理

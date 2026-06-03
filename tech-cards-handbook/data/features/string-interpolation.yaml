@@ -1,0 +1,90 @@
+id: string-interpolation
+source: tech-cards-handbook
+title: 字符串插值
+description: 在字符串中嵌入变量或表达式的值，避免用零散拼接破坏可读性。
+category: 字符串处理
+difficulty: beginner
+paradigms:
+  - 过程式
+tags:
+  - 字符串
+  - 格式化
+  - 模板
+coverage:
+  required:
+    - javascript
+    - python
+    - go
+    - swift
+  optional:
+    - typescript
+    - kotlin
+    - csharp
+implementations:
+  javascript:
+    status: ready
+    code: |
+      const name = 'Alice';
+      const age = 30;
+      const message = `Hello, ${name}! You are ${age} years old.`;
+      console.log(message);
+    explanation: JavaScript 使用模板字符串和 ${...} 嵌入变量或表达式。
+    output: Hello, Alice! You are 30 years old.
+    designRationale: 模板字符串把文本与表达式放在同一个字面量里，比字符串拼接更适合多变量文本。
+    pros:
+      - 可读性强
+      - 支持多行字符串
+    references:
+      - title: Template literals - MDN
+        url: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals
+  python:
+    status: ready
+    code: |
+      name = "Alice"
+      age = 30
+      message = f"Hello, {name}! You are {age} years old."
+      print(message)
+    explanation: Python 使用 f-string 在字符串中嵌入变量和表达式。
+    output: Hello, Alice! You are 30 years old.
+    designRationale: f-string 是 Python 3 中最直接的字符串格式化方式，表达式位置清晰。
+    pros:
+      - 简洁
+      - 表达式可直接求值
+    references:
+      - title: Formatted string literals - Python Docs
+        url: https://docs.python.org/3/reference/lexical_analysis.html#f-strings
+  go:
+    status: ready
+    code: |
+      package main
+
+      import "fmt"
+
+      func main() {
+          name := "Alice"
+          age := 30
+          message := fmt.Sprintf("Hello, %s! You are %d years old.", name, age)
+          fmt.Println(message)
+      }
+    explanation: Go 没有内建字符串插值语法，通常使用 fmt.Sprintf 进行格式化。
+    output: Hello, Alice! You are 30 years old.
+    designRationale: Go 选择显式格式化函数，让格式控制和参数类型对应关系更清楚。
+    pros:
+      - 格式控制明确
+      - 标准库内建
+    cons:
+      - 占位符和参数顺序需要人工保持一致
+  swift:
+    status: ready
+    sourceCard: chapters/swift/swift-string-interpolation.md
+    code: |
+      let name = "Alice"
+      let age = 30
+      let message = "Hello, \(name)! You are \(age) years old."
+      print(message)
+    explanation: Swift 使用 \(...) 在字符串中插入变量或表达式。
+    output: Hello, Alice! You are 30 years old.
+    designRationale: Swift 的插值语法与强类型表达式结合，适合在 UI 文案和调试输出中保持可读性。
+    pros:
+      - 语法直观
+      - 可插入任意表达式
