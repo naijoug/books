@@ -18,7 +18,10 @@ function EmailField({ onValidEmail }: { onValidEmail: (email: string) => void })
   return (
     <label>
       Email
-      <input value={email} onChange={(event) => setEmail(event.target.value)} />
+      <input
+        value={email}
+        onChange={(event: { target: { value: string } }) => setEmail(event.target.value)}
+      />
       <button disabled={!isValid} onClick={() => onValidEmail(email)}>
         Use
       </button>
