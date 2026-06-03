@@ -22,7 +22,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 TYPESCRIPT_DIR = ROOT / "tech-cards-handbook" / "chapters" / "typescript"
 README = TYPESCRIPT_DIR / "README.md"
-EXPECTED_CARD_COUNT = 10
+EXPECTED_CARD_COUNT = 11
 TYPESCRIPT_VERSION = "5.9.3"
 
 
