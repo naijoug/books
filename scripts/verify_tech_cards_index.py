@@ -59,6 +59,21 @@ def main() -> int:
 
     for slug, expected in counts.items():
         label = LANGUAGE_LABELS.get(slug, slug)
+        chapter_readme_path = CHAPTERS_DIR / slug / "README.md"
+        chapter_readme = read(chapter_readme_path)
+        intro_match = re.search(
+            r"本目录按[\"“]一张卡片一个 Markdown 文件[\"”]维护，共 (\d+) 张。",
+            chapter_readme,
+        )
+        if not intro_match:
+            failures.append(
+                f"missing chapter intro count in {chapter_readme_path.relative_to(BOOK_DIR.parent)}"
+            )
+        elif int(intro_match.group(1)) != expected:
+            failures.append(
+                f"{label} chapter README intro says {intro_match.group(1)}, actual is {expected}"
+            )
+
         top_pattern = rf"\| {re.escape(label)} \| `chapters/{re.escape(slug)}/` \| (\d+) 张"
         top_match = re.search(top_pattern, top)
         if not top_match:
