@@ -23,7 +23,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 REACT_DIR = ROOT / "tech-cards-handbook" / "chapters" / "react"
 README = REACT_DIR / "README.md"
-EXPECTED_CARD_COUNT = 25
+EXPECTED_CARD_COUNT = 26
 TYPESCRIPT_VERSION = "5.9.3"
 
 CODE_BLOCK_RE = re.compile(r"```(?:tsx|ts|typescript)\s*\n(.*?)\n```", re.DOTALL)
