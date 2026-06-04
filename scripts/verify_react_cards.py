@@ -23,7 +23,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 REACT_DIR = ROOT / "tech-cards-handbook" / "chapters" / "react"
 README = REACT_DIR / "README.md"
-EXPECTED_CARD_COUNT = 23
+EXPECTED_CARD_COUNT = 24
 TYPESCRIPT_VERSION = "5.9.3"
 
 CODE_BLOCK_RE = re.compile(r"```(?:tsx|ts|typescript)\s*\n(.*?)\n```", re.DOTALL)
@@ -46,6 +46,7 @@ export function useEffect(effect: () => void | (() => void), deps?: readonly unk
 export function useMemo<T>(factory: () => T, deps: readonly unknown[]): T;
 export function useCallback<T extends (...args: never[]) => unknown>(callback: T, deps: readonly unknown[]): T;
 export function useDeferredValue<T>(value: T): T;
+export function useTransition(): [boolean, (callback: () => void) => void];
 export function useRef<T>(initial?: T): { current: T | undefined };
 export type Context<T> = { Provider: (props: { value: T; children?: ReactNode }) => JSX.Element };
 export function createContext<T>(defaultValue: T): Context<T>;
@@ -123,6 +124,7 @@ declare function useEffect(effect: () => void | (() => void), deps?: readonly un
 declare function useMemo<T>(factory: () => T, deps: readonly unknown[]): T;
 declare function useCallback<T extends (...args: never[]) => unknown>(callback: T, deps: readonly unknown[]): T;
 declare function useDeferredValue<T>(value: T): T;
+declare function useTransition(): [boolean, (callback: () => void) => void];
 declare function useRef<T>(initial?: T): { current: T | undefined };
 declare function useActionState<S, P>(
   action: (previousState: S, payload: P) => S | Promise<S>,
