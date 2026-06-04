@@ -23,7 +23,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 REACT_DIR = ROOT / "tech-cards-handbook" / "chapters" / "react"
 README = REACT_DIR / "README.md"
-EXPECTED_CARD_COUNT = 20
+EXPECTED_CARD_COUNT = 21
 TYPESCRIPT_VERSION = "5.9.3"
 
 CODE_BLOCK_RE = re.compile(r"```(?:tsx|ts|typescript)\s*\n(.*?)\n```", re.DOTALL)
@@ -58,6 +58,15 @@ export function useOptimistic<S, V>(state: S, updateFn: (currentState: S, optimi
 export function Suspense(props: { fallback?: ReactNode; children?: ReactNode }): JSX.Element;
 export function lazy<P>(loader: () => Promise<{ default: ComponentType<P> }>): ComponentType<P>;
 export function memo<T extends (...args: never[]) => unknown>(component: T): T;
+export type ProfilerOnRenderCallback = (
+  id: string,
+  phase: 'mount' | 'update' | 'nested-update',
+  actualDuration: number,
+  baseDuration: number,
+  startTime: number,
+  commitTime: number,
+) => void;
+export function Profiler(props: { id: string; onRender: ProfilerOnRenderCallback; children?: ReactNode }): JSX.Element;
 '''
 
 JSX_RUNTIME_SHIM = r'''
