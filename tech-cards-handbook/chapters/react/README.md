@@ -1,6 +1,6 @@
 # React 技术卡片
 
-本目录按“一张卡片一个 Markdown 文件”维护，共 27 张。文件名使用英文 `kebab-case`。
+本目录按“一张卡片一个 Markdown 文件”维护，共 28 张。文件名使用英文 `kebab-case`。
 
 代码块验证：在 `books` 仓库根目录运行 `python3 scripts/verify_react_cards.py`，脚本会抽取本章 `ts`/`tsx`/`typescript` 代码块，用 TypeScript strict 模式和轻量 React 类型 shim 做批量检查。
 
@@ -12,6 +12,7 @@
 | `memo` 的收益来自稳定 props，不是无脑包裹 | [`memo-needs-stable-props.md`](memo-needs-stable-props.md) |
 | Profiler 先测量，再做性能优化 | [`profiler-measures-before-optimizing.md`](profiler-measures-before-optimizing.md) |
 | 虚拟列表只渲染可见窗口，不渲染整页数据 | [`virtual-list-renders-visible-window.md`](virtual-list-renders-visible-window.md) |
+| 分页负责数据边界，虚拟列表负责渲染窗口 | [`pagination-feeds-virtual-list.md`](pagination-feeds-virtual-list.md) |
 | `useDeferredValue` 让输入保持响应，不阻塞在重列表上 | [`usedeferredvalue-keeps-input-responsive.md`](usedeferredvalue-keeps-input-responsive.md) |
 | `startTransition` 标记非紧急更新，让输入和导航先响应 | [`starttransition-marks-non-urgent-updates.md`](starttransition-marks-non-urgent-updates.md) |
 | 旧请求不能覆盖更新状态 | [`stale-request-must-not-overwrite-newer-state.md`](stale-request-must-not-overwrite-newer-state.md) |
