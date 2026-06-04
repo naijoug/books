@@ -6,7 +6,7 @@
 
 本书已按技术栈重组正式内容：`chapters/` 下每个技术栈一个目录，每张卡片一个 Markdown 文件。
 
-当前共 128 张正式卡片。
+当前共 129 张正式卡片。
 
 ## 目录结构
 
@@ -38,7 +38,7 @@ tech-cards-handbook/
 | Go | `chapters/go/` | 10 张：WaitGroup、context、channel、worker pool、select、mutex、错误处理、接口和测试 |
 | Rust | `chapters/rust/` | 12 张：所有权、借用、Option、Result、trait、生命周期、模式匹配、模块、迭代器、并发、异步和测试 |
 | TypeScript | `chapters/typescript/` | 14 张：联合类型、`never` 穷尽检查、条件类型、`infer`、Mapped Type、深度只读、`satisfies`、`unknown`、类型守卫、断言函数、品牌类型、模板字面量类型和工具类型 |
-| React | `chapters/react/` | 33 张：Effect、状态、异步状态边界、请求过期保护、请求缓存去重、缓存 key 设计、缓存失效、缓存过期、搜索防抖、表单、列表 key、虚拟列表、分页加载、加载更多并发锁、筛选排序重置、延迟渲染、过渡更新、ref、自定义 Hook、错误边界、Suspense、代码分割、可恢复重试、Context 拆分、回调身份、memo、Profiler、性能、乐观更新和 React 19 表单状态 |
+| React | `chapters/react/` | 34 张：Effect、状态、异步状态边界、请求过期保护、请求缓存去重、缓存 key 设计、缓存失效、缓存过期、搜索防抖、骨架屏、表单、列表 key、虚拟列表、分页加载、加载更多并发锁、筛选排序重置、延迟渲染、过渡更新、ref、自定义 Hook、错误边界、Suspense、代码分割、可恢复重试、Context 拆分、回调身份、memo、Profiler、性能、乐观更新和 React 19 表单状态 |
 | Swift | `chapters/swift/` | 10 张：值语义、async/await、基础值、字符串、集合、switch、可选绑定、闭包、defer 清理和 Result 错误状态 |
 | Flutter | `chapters/flutter/` | 10 张：状态、列表、导航、测试、布局、输入控件、组件拆分、异步构建、生命周期检查和 controller 释放 |
 | AI Agent | `chapters/ai-agent/` | 21 张：Agent 边界、工具、工具结果、记忆、上下文预算、上下文状态设计、反馈判断、反馈修订、反馈池、迭代上限、心跳工作流、交接、接力取舍、短节拍边界、验证总结、未验证项交接、提交状态读回、失败输出吸收、启动层边界和助手操作系统 |
