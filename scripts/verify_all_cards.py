@@ -79,6 +79,24 @@ def main() -> int:
         status = "PASS" if lang_result.passed else "FAIL"
         print(f"  => {status}\n")
 
+    # Run index count verifier
+    index_passed = True
+    if not languages_to_run:
+        index_script = SCRIPTS_DIR / "verify_tech_cards_index.py"
+        if index_script.exists():
+            print("--- Index counts (verify_tech_cards_index.py) ---")
+            idx_result = subprocess.run(
+                [sys.executable, str(index_script)],
+                capture_output=True, text=True, timeout=120,
+            )
+            idx_output = (idx_result.stdout + "\n" + idx_result.stderr).strip()
+            for line in idx_output.splitlines():
+                print(f"  {line}")
+            index_passed = idx_result.returncode == 0
+            print(f"  => {'PASS' if index_passed else 'FAIL'}\n"  )
+        else:
+            print("--- Index counts: SKIPPED (script not found) ---\n")
+
     # Summary
     total = len(results)
     passed = sum(1 for r in results if r.passed)
@@ -89,9 +107,12 @@ def main() -> int:
     if failed:
         for r in failed:
             print(f"  FAILED: {r.language}")
+    if not index_passed:
+        print("  FAILED: Index counts")
+    if failed or not index_passed:
         return 1
 
-    print("All card verifiers passed.")
+    print("All card verifiers and index counts passed.")
     return 0
 
 
