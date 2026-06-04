@@ -1,6 +1,6 @@
 # React 技术卡片
 
-本目录按“一张卡片一个 Markdown 文件”维护，共 26 张。文件名使用英文 `kebab-case`。
+本目录按“一张卡片一个 Markdown 文件”维护，共 27 张。文件名使用英文 `kebab-case`。
 
 代码块验证：在 `books` 仓库根目录运行 `python3 scripts/verify_react_cards.py`，脚本会抽取本章 `ts`/`tsx`/`typescript` 代码块，用 TypeScript strict 模式和轻量 React 类型 shim 做批量检查。
 
@@ -16,6 +16,7 @@
 | `startTransition` 标记非紧急更新，让输入和导航先响应 | [`starttransition-marks-non-urgent-updates.md`](starttransition-marks-non-urgent-updates.md) |
 | 旧请求不能覆盖更新状态 | [`stale-request-must-not-overwrite-newer-state.md`](stale-request-must-not-overwrite-newer-state.md) |
 | 请求缓存去重相同读取 | [`request-cache-dedupes-identical-reads.md`](request-cache-dedupes-identical-reads.md) |
+| 写操作成功后要失效相关缓存 | [`cache-invalidation-after-mutation.md`](cache-invalidation-after-mutation.md) |
 | 表单状态优先靠近输入 | [`form-state-near-input.md`](form-state-near-input.md) |
 | 列表 key 使用稳定身份，不使用索引 | [`stable-list-key-not-index.md`](stable-list-key-not-index.md) |
 | `useState` 更新依赖旧值时用函数式更新 | [`usestate-functional-update.md`](usestate-functional-update.md) |
