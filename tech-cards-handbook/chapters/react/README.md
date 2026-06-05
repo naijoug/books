@@ -1,6 +1,6 @@
 # React 技术卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护，共 43 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护，共 44 张。文件名使用英文 `kebab-case`。
 
 代码块验证:在 `books` 仓库根目录运行 `python3 scripts/verify_react_cards.py`,脚本会抽取本章 `ts`/`tsx`/`typescript` 代码块,用 TypeScript strict 模式和轻量 React 类型 shim 做批量检查。
 
@@ -46,6 +46,7 @@
 | 搜索请求防抖要分开输入值和缓存 key | [`search-debounce-separates-input-and-cache-key.md`](search-debounce-separates-input-and-cache-key.md) |
 | 骨架屏要区分首屏加载和加载更多 | [`skeleton-screen-distinguishes-first-load-and-more.md`](skeleton-screen-distinguishes-first-load-and-more.md) |
 | 表单状态优先靠近输入 | [`form-state-near-input.md`](form-state-near-input.md) |
+| 表单校验错误按字段归属 | [`field-errors-belong-to-fields.md`](field-errors-belong-to-fields.md) |
 | 列表 key 使用稳定身份,不使用索引 | [`stable-list-key-not-index.md`](stable-list-key-not-index.md) |
 | `useState` 更新依赖旧值时用函数式更新 | [`usestate-functional-update.md`](usestate-functional-update.md) |
 | Effect 必须清理订阅、定时器和请求 | [`effect-cleanup-subscriptions-timers-requests.md`](effect-cleanup-subscriptions-timers-requests.md) |
