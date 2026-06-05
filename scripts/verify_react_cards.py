@@ -23,7 +23,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 REACT_DIR = ROOT / "tech-cards-handbook" / "chapters" / "react"
 README = REACT_DIR / "README.md"
-EXPECTED_CARD_COUNT = 41
+EXPECTED_CARD_COUNT = 42
 TYPESCRIPT_VERSION = "5.9.3"
 
 CODE_BLOCK_RE = re.compile(r"```(?:tsx|ts|typescript)\s*\n(.*?)\n```", re.DOTALL)
@@ -48,6 +48,7 @@ export function useCallback<T extends (...args: never[]) => unknown>(callback: T
 export function useDeferredValue<T>(value: T): T;
 export function useTransition(): [boolean, (callback: () => void) => void];
 export function useRef<T>(initial?: T): { current: T | undefined };
+export function useReducer<S, A>(reducer: (state: S, action: A) => S, initialState: S): [S, (action: A) => void];
 export function useId(): string;
 export function useSyncExternalStore<T>(
   subscribe: (listener: () => void) => () => void,
@@ -133,6 +134,7 @@ declare function useCallback<T extends (...args: never[]) => unknown>(callback: 
 declare function useDeferredValue<T>(value: T): T;
 declare function useTransition(): [boolean, (callback: () => void) => void];
 declare function useRef<T>(initial?: T): { current: T | undefined };
+declare function useReducer<S, A>(reducer: (state: S, action: A) => S, initialState: S): [S, (action: A) => void];
 declare function useId(): string;
 declare function useSyncExternalStore<T>(
   subscribe: (listener: () => void) => () => void,

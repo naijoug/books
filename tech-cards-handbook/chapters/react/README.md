@@ -1,6 +1,6 @@
 # React 技术卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护，共 41 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护，共 42 张。文件名使用英文 `kebab-case`。
 
 代码块验证:在 `books` 仓库根目录运行 `python3 scripts/verify_react_cards.py`,脚本会抽取本章 `ts`/`tsx`/`typescript` 代码块,用 TypeScript strict 模式和轻量 React 类型 shim 做批量检查。
 
@@ -12,7 +12,7 @@
 
 ## Hook 与并发阅读线
 
-第 1、9、10、25、36-41 张卡片可以组成一条 Hook 与并发安全阅读线：先理解 effect 只负责同步外部系统，并且必须能在 Strict Mode 的额外 setup → cleanup → setup 中正确恢复；再用 `useDeferredValue` 和 `startTransition` 区分紧急与非紧急更新；遇到复杂交互时，用 `useActionState`、`useFormStatus`、`useOptimistic` 管住提交与乐观视图；最后用 `useId`、`useSyncExternalStore` 和 Strict Mode 检查 SSR 一致性、外部 store 快照和副作用幂等性。
+第 1、9、10、25、36-42 张卡片可以组成一条 Hook 与并发安全阅读线：先理解 effect 只负责同步外部系统，并且必须能在 Strict Mode 的额外 setup → cleanup → setup 中正确恢复；再用 `useDeferredValue` 和 `startTransition` 区分紧急与非紧急更新；遇到复杂交互时，用 `useActionState`、`useFormStatus`、`useOptimistic` 管住提交与乐观视图；最后用 `useId`、`useSyncExternalStore`、Strict Mode 和 `useReducer` 检查 SSR 一致性、外部 store 快照、副作用幂等性和复杂状态转移边界。
 
 审查这组卡片时，可以按三问推进：这个 Hook 解决的是渲染身份、更新优先级、外部同步还是提交状态；它是否要求调用顺序、快照引用或 cleanup 保持稳定；开发环境多执行一次时，是否会暴露真实的重复订阅、重复请求或不可回滚写入。这样能把“会用 Hook”升级成“知道 Hook 的约束边界”。
 
@@ -59,3 +59,4 @@
 | `useId` 生成跨 SSR 与 CSR 稳定的唯一 ID | [`useid-generates-stable-ssr-csr-ids.md`](useid-generates-stable-ssr-csr-ids.md) |
 | `useSyncExternalStore` 订阅外部状态源 | [`usesyncexternalstore-subscribes-external-state.md`](usesyncexternalstore-subscribes-external-state.md) |
 | Strict Mode 双次调用暴露副作用 | [`strict-mode-double-invokes-effects.md`](strict-mode-double-invokes-effects.md) |
+| `useReducer` 把复杂状态转移集中到可测试的纯函数 | [`usereducer-centralizes-complex-state-transitions.md`](usereducer-centralizes-complex-state-transitions.md) |
