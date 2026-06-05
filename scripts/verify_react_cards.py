@@ -23,7 +23,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 REACT_DIR = ROOT / "tech-cards-handbook" / "chapters" / "react"
 README = REACT_DIR / "README.md"
-EXPECTED_CARD_COUNT = 39
+EXPECTED_CARD_COUNT = 40
 TYPESCRIPT_VERSION = "5.9.3"
 
 CODE_BLOCK_RE = re.compile(r"```(?:tsx|ts|typescript)\s*\n(.*?)\n```", re.DOTALL)
@@ -49,6 +49,11 @@ export function useDeferredValue<T>(value: T): T;
 export function useTransition(): [boolean, (callback: () => void) => void];
 export function useRef<T>(initial?: T): { current: T | undefined };
 export function useId(): string;
+export function useSyncExternalStore<T>(
+  subscribe: (listener: () => void) => () => void,
+  getSnapshot: () => T,
+  getServerSnapshot?: () => T,
+): T;
 export type Context<T> = { Provider: (props: { value: T; children?: ReactNode }) => JSX.Element };
 export function createContext<T>(defaultValue: T): Context<T>;
 export function useContext<T>(context: Context<T>): T;
@@ -129,6 +134,11 @@ declare function useDeferredValue<T>(value: T): T;
 declare function useTransition(): [boolean, (callback: () => void) => void];
 declare function useRef<T>(initial?: T): { current: T | undefined };
 declare function useId(): string;
+declare function useSyncExternalStore<T>(
+  subscribe: (listener: () => void) => () => void,
+  getSnapshot: () => T,
+  getServerSnapshot?: () => T,
+): T;
 declare function useActionState<S, P>(
   action: (previousState: S, payload: P) => S | Promise<S>,
   initialState: S,
