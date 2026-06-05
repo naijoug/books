@@ -10,6 +10,12 @@
 
 阅读这组卡片时，可以按同一个检查顺序审查项目代码：请求是否会被新条件淘汰、失败是否有边界、缓存是否知道“同一个读取”和“该失效的读取”分别是什么、旧数据是否能在后台刷新时保持界面稳定。这样比单独记 API 更容易发现真实产品里的数据一致性问题。
 
+## Hook 与并发阅读线
+
+第 1、9、10、25、36-41 张卡片可以组成一条 Hook 与并发安全阅读线：先理解 effect 只负责同步外部系统，并且必须能在 Strict Mode 的额外 setup → cleanup → setup 中正确恢复；再用 `useDeferredValue` 和 `startTransition` 区分紧急与非紧急更新；遇到复杂交互时，用 `useActionState`、`useFormStatus`、`useOptimistic` 管住提交与乐观视图；最后用 `useId`、`useSyncExternalStore` 和 Strict Mode 检查 SSR 一致性、外部 store 快照和副作用幂等性。
+
+审查这组卡片时，可以按三问推进：这个 Hook 解决的是渲染身份、更新优先级、外部同步还是提交状态；它是否要求调用顺序、快照引用或 cleanup 保持稳定；开发环境多执行一次时，是否会暴露真实的重复订阅、重复请求或不可回滚写入。这样能把“会用 Hook”升级成“知道 Hook 的约束边界”。
+
 | 卡片 | 文件 |
 |---|---|
 | React effect 同步外部系统,不处理普通计算 | [`react-effect-syncs-external-systems.md`](react-effect-syncs-external-systems.md) |
