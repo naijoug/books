@@ -1,6 +1,6 @@
 # React 技术卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护，共 40 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护，共 41 张。文件名使用英文 `kebab-case`。
 
 代码块验证:在 `books` 仓库根目录运行 `python3 scripts/verify_react_cards.py`,脚本会抽取本章 `ts`/`tsx`/`typescript` 代码块,用 TypeScript strict 模式和轻量 React 类型 shim 做批量检查。
 
@@ -52,3 +52,4 @@
 | 加载更多时必须有并发锁，防止重复请求 | [`load-more-lock-prevents-duplicate-requests.md`](load-more-lock-prevents-duplicate-requests.md) |
 | `useId` 生成跨 SSR 与 CSR 稳定的唯一 ID | [`useid-generates-stable-ssr-csr-ids.md`](useid-generates-stable-ssr-csr-ids.md) |
 | `useSyncExternalStore` 订阅外部状态源 | [`usesyncexternalstore-subscribes-external-state.md`](usesyncexternalstore-subscribes-external-state.md) |
+| Strict Mode 双次调用暴露副作用 | [`strict-mode-double-invokes-effects.md`](strict-mode-double-invokes-effects.md) |
