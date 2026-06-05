@@ -4,6 +4,12 @@
 
 代码块验证:在 `books` 仓库根目录运行 `python3 scripts/verify_react_cards.py`,脚本会抽取本章 `ts`/`tsx`/`typescript` 代码块,用 TypeScript strict 模式和轻量 React 类型 shim 做批量检查。
 
+## 请求与缓存阅读线
+
+第 11-20 张卡片组成一条数据读取链路：先用“旧请求不能覆盖更新状态”处理竞态，再用 `AbortController` 取消已经失去意义的读取；网络失败时，先让自动重试有最大次数和退避，再把最后的恢复权交给用户手动重试；进入缓存层后，依次检查去重、写后失效、key 边界、TTL/版本号和 stale-while-revalidate，最后用搜索防抖把输入态和缓存 key 分开。
+
+阅读这组卡片时，可以按同一个检查顺序审查项目代码：请求是否会被新条件淘汰、失败是否有边界、缓存是否知道“同一个读取”和“该失效的读取”分别是什么、旧数据是否能在后台刷新时保持界面稳定。这样比单独记 API 更容易发现真实产品里的数据一致性问题。
+
 | 卡片 | 文件 |
 |---|---|
 | React effect 同步外部系统,不处理普通计算 | [`react-effect-syncs-external-systems.md`](react-effect-syncs-external-systems.md) |
