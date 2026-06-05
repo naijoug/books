@@ -23,7 +23,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 REACT_DIR = ROOT / "tech-cards-handbook" / "chapters" / "react"
 README = REACT_DIR / "README.md"
-EXPECTED_CARD_COUNT = 34
+EXPECTED_CARD_COUNT = 35
 TYPESCRIPT_VERSION = "5.9.3"
 
 CODE_BLOCK_RE = re.compile(r"```(?:tsx|ts|typescript)\s*\n(.*?)\n```", re.DOTALL)
@@ -74,6 +74,7 @@ export function Profiler(props: { id: string; onRender: ProfilerOnRenderCallback
 JSX_RUNTIME_SHIM = r'''
 export namespace JSX {
   interface Element {}
+  interface IntrinsicAttributes { key?: string | number }
   interface IntrinsicElements { [elemName: string]: any }
 }
 export const jsx: unknown;
@@ -96,13 +97,13 @@ export {};
 declare global {
   namespace JSX {
     interface Element {}
+    interface IntrinsicAttributes { key?: string | number }
     interface IntrinsicElements { [elemName: string]: any }
   }
 }
 
-type Item = { id: string; title: string };
 declare const todos: Array<{ id: string; title: string; done: boolean }>;
-declare const items: Item[];
+declare const items: Array<{ id: string; title: string }>;
 declare const query: string;
 declare function TodoItem(props: { key?: string; todo: { id: string; title: string; done: boolean } }): JSX.Element;
 declare function fetchData(): Promise<unknown>;
