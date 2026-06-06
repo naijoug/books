@@ -1,45 +1,60 @@
 # React 技术卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护，共 47 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护,共 47 张。文件名使用英文 `kebab-case`。
 
 代码块验证:在 `books` 仓库根目录运行 `python3 scripts/verify_react_cards.py`,脚本会抽取本章 `ts`/`tsx`/`typescript` 代码块,用 TypeScript strict 模式和轻量 React 类型 shim 做批量检查。
 
 ## 请求与缓存阅读线
 
-第 11-20 张卡片组成一条数据读取链路：先用“旧请求不能覆盖更新状态”处理竞态，再用 `AbortController` 取消已经失去意义的读取；网络失败时，先让自动重试有最大次数和退避，再把最后的恢复权交给用户手动重试；进入缓存层后，依次检查去重、写后失效、key 边界、TTL/版本号和 stale-while-revalidate，最后用搜索防抖把输入态和缓存 key 分开。
+第 11-20 张卡片组成一条数据读取链路:先用"旧请求不能覆盖更新状态"处理竞态,再用 `AbortController` 取消已经失去意义的读取;网络失败时,先让自动重试有最大次数和退避,再把最后的恢复权交给用户手动重试;进入缓存层后,依次检查去重、写后失效、key 边界、TTL/版本号和 stale-while-revalidate,最后用搜索防抖把输入态和缓存 key 分开。
 
-阅读这组卡片时，可以按同一个检查顺序审查项目代码：请求是否会被新条件淘汰、失败是否有边界、缓存是否知道“同一个读取”和“该失效的读取”分别是什么、旧数据是否能在后台刷新时保持界面稳定。这样比单独记 API 更容易发现真实产品里的数据一致性问题。
+阅读这组卡片时，可以按同一个检查顺序审查项目代码：请求是否会被新条件淘汰、失败是否有边界、缓存是否知道"同一个读取"和"该失效的读取"分别是什么、旧数据是否能在后台刷新时保持界面稳定。这样比单独记 API 更容易发现真实产品里的数据一致性问题。
+
+### 请求与缓存代码审查清单
+
+把这组卡片落到真实项目时，可以按下面顺序检查，而不是只看某个请求库是否"接上了"：
+
+1. **竞态淘汰**：条件变化时（切换页码、修改筛选、输入搜索词），上一次请求的结果是否被安全丢弃，而不是覆盖更新状态。
+2. **请求取消**：失去意义的读取是否通过 `AbortController` 取消，而不是让它在后台静默完成并浪费连接。
+3. **自动重试边界**：失败重试是否有最大次数和指数退避；是否避免在服务端明确拒绝（403、404、422）时仍然盲目重试。
+4. **手动重试兜底**：自动重试耗尽后，是否把恢复权交还给用户（"点击重试"），而不是自动跳转错误页或静默放弃。
+5. **请求去重**：组件树中多处发起的相同读取（相同 URL + 相同参数）是否被缓存层合并为一次网络请求。
+6. **写后失效**：增删改成功后，相关的列表、详情和聚合缓存是否被显式失效或更新，而不是依赖 TTL 自然过期。
+7. **缓存 key 设计**：缓存 key 是否包含所有影响数据的参数（筛选条件、分页、排序、用户身份）；key 变化时旧缓存是否不再命中。
+8. **过期与刷新**：缓存是否有 TTL 或版本号机制；`stale-while-revalidate` 是否让旧数据在后台刷新期间继续服务界面，而不是返回空白或闪烁。
+9. **搜索防抖分离**：用户输入值和实际缓存 key 是否分开维护；防抖是否作用于请求触发，而不是延迟输入框的显示值。
+10. **加载状态区分**：首屏加载是否显示骨架屏或空白占位，加载更多是否显示底部 spinner 而不是替换已有列表。
 
 ## Hook 与并发阅读线
 
-第 1、9、10、25、36-43 张卡片可以组成一条 Hook 与并发安全阅读线：先理解 effect 只负责同步外部系统，并且必须能在 Strict Mode 的额外 setup → cleanup → setup 中正确恢复；再用 `useDeferredValue` 和 `startTransition` 区分紧急与非紧急更新；遇到复杂交互时，用 `useActionState`、`useFormStatus`、`useOptimistic` 管住提交与乐观视图；最后用 `useId`、`useSyncExternalStore`、Strict Mode、`useReducer` 和状态机建模检查 SSR 一致性、外部 store 快照、副作用幂等性、复杂状态转移边界和 UI 不可能状态。
+第 1、9、10、25、36-43 张卡片可以组成一条 Hook 与并发安全阅读线:先理解 effect 只负责同步外部系统,并且必须能在 Strict Mode 的额外 setup → cleanup → setup 中正确恢复;再用 `useDeferredValue` 和 `startTransition` 区分紧急与非紧急更新;遇到复杂交互时,用 `useActionState`、`useFormStatus`、`useOptimistic` 管住提交与乐观视图;最后用 `useId`、`useSyncExternalStore`、Strict Mode、`useReducer` 和状态机建模检查 SSR 一致性、外部 store 快照、副作用幂等性、复杂状态转移边界和 UI 不可能状态。
 
-审查这组卡片时，可以按三问推进：这个 Hook 解决的是渲染身份、更新优先级、外部同步还是提交状态；它是否要求调用顺序、快照引用或 cleanup 保持稳定；开发环境多执行一次时，是否会暴露真实的重复订阅、重复请求或不可回滚写入。这样能把“会用 Hook”升级成“知道 Hook 的约束边界”。
+审查这组卡片时,可以按三问推进:这个 Hook 解决的是渲染身份、更新优先级、外部同步还是提交状态;它是否要求调用顺序、快照引用或 cleanup 保持稳定;开发环境多执行一次时,是否会暴露真实的重复订阅、重复请求或不可回滚写入。这样能把"会用 Hook"升级成"知道 Hook 的约束边界"。
 
 ## 状态管理阅读线
 
-第 24、32、34、42、43 张卡片可以组成一条从局部状态到流程状态的建模路径：简单计数或切换先用 `useState` 的函数式更新避免闭包旧值；异步读取和提交结果用联合类型表达互斥状态；跨层共享时先拆分 Context 的 state 与 actions；当事件分支变多，再把状态转移收拢到 `useReducer`；最后用显式状态机检查步骤流里的合法转移和不可能状态。
+第 24、32、34、42、43 张卡片可以组成一条从局部状态到流程状态的建模路径:简单计数或切换先用 `useState` 的函数式更新避免闭包旧值;异步读取和提交结果用联合类型表达互斥状态;跨层共享时先拆分 Context 的 state 与 actions;当事件分支变多,再把状态转移收拢到 `useReducer`;最后用显式状态机检查步骤流里的合法转移和不可能状态。
 
-审查这组卡片时，不要先问“该用哪个库”，而要先画出状态表：有哪些状态、哪些事件会改变它、哪些状态组合不应该出现、异步结果回来时是否仍属于当前状态。只要状态表能写清楚，React 代码通常会自然落在 `useState`、`useReducer`、Context 或外部 store 的合适边界上。
+审查这组卡片时,不要先问"该用哪个库",而要先画出状态表:有哪些状态、哪些事件会改变它、哪些状态组合不应该出现、异步结果回来时是否仍属于当前状态。只要状态表能写清楚,React 代码通常会自然落在 `useState`、`useReducer`、Context 或外部 store 的合适边界上。
 
 ## 表单与提交阅读线
 
-第 23、24、32-35、46-47 张卡片可以组成一条表单交互链路：先把输入值和字段状态放在离输入最近的位置，再把字段级错误、全局错误和服务端校验结果分开归属；提交时用 `useActionState` 收拢请求结果，用 `useFormStatus` 在表单内部显示 pending，用 `useOptimistic` 只覆盖提交过渡中的临时视图；遇到真实写操作，再用 pending 锁和幂等键把重复点击、网络重试和服务端重复写入一起关住；服务端 action 的返回结构则要把字段错误、表单级错误和成功消息做成可恢复 contract；成功后再按“缓存失效/本地合并、用户反馈、表单重置”的顺序收尾。这样能避免“一个全局 loading 管所有字段”“所有错误塞进一段文案”“只靠禁用按钮防重复提交”“可恢复校验失败被当成系统异常”和“成功清空输入却留下旧列表”的粗糙实现。
+第 23、24、32-35、46-47 张卡片可以组成一条表单交互链路:先把输入值和字段状态放在离输入最近的位置,再把字段级错误、全局错误和服务端校验结果分开归属;提交时用 `useActionState` 收拢请求结果,用 `useFormStatus` 在表单内部显示 pending,用 `useOptimistic` 只覆盖提交过渡中的临时视图;遇到真实写操作,再用 pending 锁和幂等键把重复点击、网络重试和服务端重复写入一起关住;服务端 action 的返回结构则要把字段错误、表单级错误和成功消息做成可恢复 contract;成功后再按"缓存失效/本地合并、用户反馈、表单重置"的顺序收尾。这样能避免"一个全局 loading 管所有字段""所有错误塞进一段文案""只靠禁用按钮防重复提交""可恢复校验失败被当成系统异常"和"成功清空输入却留下旧列表"的粗糙实现。
 
-审查表单代码时，可以按一次真实提交流程走查：用户改动字段时是否只清理相关错误；重复点击提交是否被 pending 状态挡住；服务端返回字段错误后是否能正确回填到对应输入；乐观视图失败时是否能回滚；需要修改输入才能恢复的错误，是否没有被误做成无意义的“重试”按钮；响应丢失后再次点击是否复用同一个幂等键，而不是创建第二条业务记录。
+审查表单代码时,可以按一次真实提交流程走查:用户改动字段时是否只清理相关错误;重复点击提交是否被 pending 状态挡住;服务端返回字段错误后是否能正确回填到对应输入;乐观视图失败时是否能回滚;需要修改输入才能恢复的错误,是否没有被误做成无意义的"重试"按钮;响应丢失后再次点击是否复用同一个幂等键,而不是创建第二条业务记录。
 
 ### 表单提交代码审查清单
 
-把这组卡片落到真实项目时，可以按下面顺序检查，而不是只看某个 Hook 是否“用上了”：
+把这组卡片落到真实项目时,可以按下面顺序检查,而不是只看某个 Hook 是否"用上了":
 
-1. **字段归属**：输入值、touched、dirty、字段错误是否靠近字段维护；修改单个字段时，是否只清掉这个字段的旧错误。
-2. **状态模型**：提交结果是否用互斥状态表达，例如 idle、submitting、success、field_error、form_error；是否避免多个布尔值拼出不可能状态。
-3. **提交入口**：提交按钮是否依赖表单内部的 pending 状态；键盘提交、双击按钮和脚本触发是否走同一个 action，而不是绕过锁。
-4. **服务端 contract**：字段错误、表单级错误、成功消息和不可恢复异常是否分开返回；可恢复校验失败是否没有被扔进 Error Boundary。
-5. **重复写入**：真实写操作是否有幂等键；网络失败后的重试是否复用同一个 key；用户修改关键字段后是否刷新 key。
-6. **乐观视图**：只在用户已经表达明确提交意图后显示乐观结果；失败时是否能回滚到服务端确认前的状态。
-7. **写后一致性**：提交成功后，相关列表、详情、计数和本地缓存是否失效或更新；重置表单前是否先确认成功状态已经被用户看见或被业务流程消费。
-8. **可观测性**：服务端是否记录用户、动作、幂等键、请求摘要和结果；排查重复提交时能否判断是前端重复触发、网络重试还是服务端去重失败。
+1. **字段归属**:输入值、touched、dirty、字段错误是否靠近字段维护;修改单个字段时,是否只清掉这个字段的旧错误。
+2. **状态模型**:提交结果是否用互斥状态表达,例如 idle、submitting、success、field_error、form_error;是否避免多个布尔值拼出不可能状态。
+3. **提交入口**:提交按钮是否依赖表单内部的 pending 状态;键盘提交、双击按钮和脚本触发是否走同一个 action,而不是绕过锁。
+4. **服务端 contract**:字段错误、表单级错误、成功消息和不可恢复异常是否分开返回;可恢复校验失败是否没有被扔进 Error Boundary。
+5. **重复写入**:真实写操作是否有幂等键;网络失败后的重试是否复用同一个 key;用户修改关键字段后是否刷新 key。
+6. **乐观视图**:只在用户已经表达明确提交意图后显示乐观结果;失败时是否能回滚到服务端确认前的状态。
+7. **写后一致性**:提交成功后,相关列表、详情、计数和本地缓存是否失效或更新;重置表单前是否先确认成功状态已经被用户看见或被业务流程消费。
+8. **可观测性**:服务端是否记录用户、动作、幂等键、请求摘要和结果;排查重复提交时能否判断是前端重复触发、网络重试还是服务端去重失败。
 
 | 卡片 | 文件 |
 |---|---|
@@ -54,21 +69,21 @@
 | `useDeferredValue` 让输入保持响应,不阻塞在重列表上 | [`usedeferredvalue-keeps-input-responsive.md`](usedeferredvalue-keeps-input-responsive.md) |
 | `startTransition` 标记非紧急更新,让输入和导航先响应 | [`starttransition-marks-non-urgent-updates.md`](starttransition-marks-non-urgent-updates.md) |
 | 旧请求不能覆盖更新状态 | [`stale-request-must-not-overwrite-newer-state.md`](stale-request-must-not-overwrite-newer-state.md) |
-| `AbortController` 取消过期读取，别让无用请求继续占资源 | [`abortcontroller-cancels-obsolete-reads.md`](abortcontroller-cancels-obsolete-reads.md) |
+| `AbortController` 取消过期读取,别让无用请求继续占资源 | [`abortcontroller-cancels-obsolete-reads.md`](abortcontroller-cancels-obsolete-reads.md) |
 | 请求重试要有边界和退避 | [`request-retry-uses-bounded-backoff.md`](request-retry-uses-bounded-backoff.md) |
 | 手动重试把错误恢复交还给用户 | [`manual-retry-separates-error-recovery-from-auto-retry.md`](manual-retry-separates-error-recovery-from-auto-retry.md) |
 | 请求缓存去重相同读取 | [`request-cache-dedupes-identical-reads.md`](request-cache-dedupes-identical-reads.md) |
 | 写操作成功后要失效相关缓存 | [`cache-invalidation-after-mutation.md`](cache-invalidation-after-mutation.md) |
 | 缓存 key 设计决定失效边界 | [`cache-key-designs-invalidation-boundaries.md`](cache-key-designs-invalidation-boundaries.md) |
 | 缓存过期要有 TTL 或版本号 | [`cache-ttl-version-expiration.md`](cache-ttl-version-expiration.md) |
-| Stale-while-revalidate 保持缓存 UI，同时后台刷新 | [`stale-while-revalidate-keeps-cached-ui.md`](stale-while-revalidate-keeps-cached-ui.md) |
+| Stale-while-revalidate 保持缓存 UI,同时后台刷新 | [`stale-while-revalidate-keeps-cached-ui.md`](stale-while-revalidate-keeps-cached-ui.md) |
 | 搜索请求防抖要分开输入值和缓存 key | [`search-debounce-separates-input-and-cache-key.md`](search-debounce-separates-input-and-cache-key.md) |
 | 骨架屏要区分首屏加载和加载更多 | [`skeleton-screen-distinguishes-first-load-and-more.md`](skeleton-screen-distinguishes-first-load-and-more.md) |
 | 表单状态优先靠近输入 | [`form-state-near-input.md`](form-state-near-input.md) |
 | 表单校验错误按字段归属 | [`field-errors-belong-to-fields.md`](field-errors-belong-to-fields.md) |
 | 表单提交用 pending 锁和幂等键防重复写入 | [`form-submit-idempotency-key-prevents-duplicate-writes.md`](form-submit-idempotency-key-prevents-duplicate-writes.md) |
 | 表单 action 返回结构要让错误可恢复 | [`server-action-result-contract-keeps-form-recoverable.md`](server-action-result-contract-keeps-form-recoverable.md) |
-| 表单成功后先处理一致性，再重置输入 | [`form-success-invalidates-cache-before-reset.md`](form-success-invalidates-cache-before-reset.md) |
+| 表单成功后先处理一致性,再重置输入 | [`form-success-invalidates-cache-before-reset.md`](form-success-invalidates-cache-before-reset.md) |
 | 列表 key 使用稳定身份,不使用索引 | [`stable-list-key-not-index.md`](stable-list-key-not-index.md) |
 | `useState` 更新依赖旧值时用函数式更新 | [`usestate-functional-update.md`](usestate-functional-update.md) |
 | Effect 必须清理订阅、定时器和请求 | [`effect-cleanup-subscriptions-timers-requests.md`](effect-cleanup-subscriptions-timers-requests.md) |
@@ -84,7 +99,7 @@
 | `useActionState` 把表单提交状态收拢到 action | [`useactionstate-keeps-form-submission-state.md`](useactionstate-keeps-form-submission-state.md) |
 | `useFormStatus` 只放在表单内部读取提交状态 | [`useformstatus-belongs-inside-form.md`](useformstatus-belongs-inside-form.md) |
 | `useOptimistic` 只覆盖过渡中的乐观视图 | [`useoptimistic-overlays-transient-state.md`](useoptimistic-overlays-transient-state.md) |
-| 加载更多时必须有并发锁，防止重复请求 | [`load-more-lock-prevents-duplicate-requests.md`](load-more-lock-prevents-duplicate-requests.md) |
+| 加载更多时必须有并发锁,防止重复请求 | [`load-more-lock-prevents-duplicate-requests.md`](load-more-lock-prevents-duplicate-requests.md) |
 | `useId` 生成跨 SSR 与 CSR 稳定的唯一 ID | [`useid-generates-stable-ssr-csr-ids.md`](useid-generates-stable-ssr-csr-ids.md) |
 | `useSyncExternalStore` 订阅外部状态源 | [`usesyncexternalstore-subscribes-external-state.md`](usesyncexternalstore-subscribes-external-state.md) |
 | Strict Mode 双次调用暴露副作用 | [`strict-mode-double-invokes-effects.md`](strict-mode-double-invokes-effects.md) |
