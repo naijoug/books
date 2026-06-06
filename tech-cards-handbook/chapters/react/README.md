@@ -1,6 +1,6 @@
 # React 技术卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护，共 44 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护，共 45 张。文件名使用英文 `kebab-case`。
 
 代码块验证:在 `books` 仓库根目录运行 `python3 scripts/verify_react_cards.py`,脚本会抽取本章 `ts`/`tsx`/`typescript` 代码块,用 TypeScript strict 模式和轻量 React 类型 shim 做批量检查。
 
@@ -24,9 +24,9 @@
 
 ## 表单与提交阅读线
 
-第 23、24、32-34 张卡片可以组成一条表单交互链路：先把输入值和字段状态放在离输入最近的位置，再把字段级错误、全局错误和服务端校验结果分开归属；提交时用 `useActionState` 收拢请求结果，用 `useFormStatus` 在表单内部显示 pending，用 `useOptimistic` 只覆盖提交过渡中的临时视图。这样能避免“一个全局 loading 管所有字段”和“所有错误塞进一段文案”的粗糙实现。
+第 23、24、32-35 张卡片可以组成一条表单交互链路：先把输入值和字段状态放在离输入最近的位置，再把字段级错误、全局错误和服务端校验结果分开归属；提交时用 `useActionState` 收拢请求结果，用 `useFormStatus` 在表单内部显示 pending，用 `useOptimistic` 只覆盖提交过渡中的临时视图；遇到真实写操作，再用 pending 锁和幂等键把重复点击、网络重试和服务端重复写入一起关住。这样能避免“一个全局 loading 管所有字段”“所有错误塞进一段文案”和“只靠禁用按钮防重复提交”的粗糙实现。
 
-审查表单代码时，可以按一次真实提交流程走查：用户改动字段时是否只清理相关错误；重复点击提交是否被 pending 状态挡住；服务端返回字段错误后是否能正确回填到对应输入；乐观视图失败时是否能回滚；需要修改输入才能恢复的错误，是否没有被误做成无意义的“重试”按钮。
+审查表单代码时，可以按一次真实提交流程走查：用户改动字段时是否只清理相关错误；重复点击提交是否被 pending 状态挡住；服务端返回字段错误后是否能正确回填到对应输入；乐观视图失败时是否能回滚；需要修改输入才能恢复的错误，是否没有被误做成无意义的“重试”按钮；响应丢失后再次点击是否复用同一个幂等键，而不是创建第二条业务记录。
 
 | 卡片 | 文件 |
 |---|---|
@@ -53,6 +53,7 @@
 | 骨架屏要区分首屏加载和加载更多 | [`skeleton-screen-distinguishes-first-load-and-more.md`](skeleton-screen-distinguishes-first-load-and-more.md) |
 | 表单状态优先靠近输入 | [`form-state-near-input.md`](form-state-near-input.md) |
 | 表单校验错误按字段归属 | [`field-errors-belong-to-fields.md`](field-errors-belong-to-fields.md) |
+| 表单提交用 pending 锁和幂等键防重复写入 | [`form-submit-idempotency-key-prevents-duplicate-writes.md`](form-submit-idempotency-key-prevents-duplicate-writes.md) |
 | 列表 key 使用稳定身份,不使用索引 | [`stable-list-key-not-index.md`](stable-list-key-not-index.md) |
 | `useState` 更新依赖旧值时用函数式更新 | [`usestate-functional-update.md`](usestate-functional-update.md) |
 | Effect 必须清理订阅、定时器和请求 | [`effect-cleanup-subscriptions-timers-requests.md`](effect-cleanup-subscriptions-timers-requests.md) |
