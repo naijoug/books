@@ -6,7 +6,7 @@
 
 ## 性能与渲染阅读线
 
-第 2-8、21、36-38 张卡片可以组成一条性能与渲染阅读线:先用 Profiler 找到真实瓶颈,再决定 `useMemo`、`useCallback` 和 `memo` 是否值得引入;列表场景先分清稳定 key、分页边界、虚拟窗口和加载更多状态;重组件或重路由再用 Suspense、代码分割和 Error Boundary 重试边界控制加载、失败与恢复。这样能避免把性能优化写成"到处包 memo"或"随手 lazy 一切组件"。
+[`Profiler 先测量`](profiler-measures-before-optimizing.md)、[`useMemo`](usememo-is-not-performance-button.md)、[`useCallback`](usecallback-stabilizes-callback-identity.md)、[`memo`](memo-needs-stable-props.md)、[`稳定 key`](stable-list-key-not-index.md)、[`分页与虚拟列表`](pagination-feeds-virtual-list.md)、[`虚拟窗口`](virtual-list-renders-visible-window.md)、[`加载更多锁`](load-more-lock-prevents-duplicate-requests.md)、[`Suspense/Error Boundary`](suspense-waits-error-boundary-fails.md)、[`React.lazy`](react-lazy-splits-routes-not-random-widgets.md) 和 [`Error Boundary 重试`](error-boundary-reset-retry.md) 可以组成一条性能与渲染阅读线:先用 Profiler 找到真实瓶颈,再决定 `useMemo`、`useCallback` 和 `memo` 是否值得引入;列表场景先分清稳定 key、分页边界、虚拟窗口和加载更多状态;重组件或重路由再用 Suspense、代码分割和 Error Boundary 重试边界控制加载、失败与恢复。这样能避免把性能优化写成"到处包 memo"或"随手 lazy 一切组件"。
 
 审查这组卡片时,先问用户感知的问题在哪里:是输入卡顿、列表首屏慢、加载更多闪烁、路由切换白屏,还是失败后无法恢复。只有把现象、测量点和组件边界对齐,性能优化才不会变成增加复杂度的装饰。
 
@@ -27,7 +27,7 @@
 
 ## 请求与缓存阅读线
 
-第 11-20 张卡片组成一条数据读取链路:先用"旧请求不能覆盖更新状态"处理竞态,再用 `AbortController` 取消已经失去意义的读取;网络失败时,先让自动重试有最大次数和退避,再把最后的恢复权交给用户手动重试;进入缓存层后,依次检查去重、写后失效、key 边界、TTL/版本号和 stale-while-revalidate,最后用搜索防抖把输入态和缓存 key 分开。
+[`旧请求不能覆盖更新状态`](stale-request-must-not-overwrite-newer-state.md)、[`AbortController 取消过期读取`](abortcontroller-cancels-obsolete-reads.md)、[`有边界的请求重试`](request-retry-uses-bounded-backoff.md)、[`手动重试`](manual-retry-separates-error-recovery-from-auto-retry.md)、[`请求缓存去重`](request-cache-dedupes-identical-reads.md)、[`写后失效`](cache-invalidation-after-mutation.md)、[`缓存 key 设计`](cache-key-designs-invalidation-boundaries.md)、[`TTL/版本号`](cache-ttl-version-expiration.md)、[`stale-while-revalidate`](stale-while-revalidate-keeps-cached-ui.md) 和 [`搜索防抖`](search-debounce-separates-input-and-cache-key.md) 组成一条数据读取链路:先处理竞态,再取消已经失去意义的读取;网络失败时,先让自动重试有最大次数和退避,再把最后的恢复权交给用户手动重试;进入缓存层后,依次检查去重、写后失效、key 边界、TTL/版本号和 stale-while-revalidate,最后用搜索防抖把输入态和缓存 key 分开。
 
 阅读这组卡片时，可以按同一个检查顺序审查项目代码：请求是否会被新条件淘汰、失败是否有边界、缓存是否知道"同一个读取"和"该失效的读取"分别是什么、旧数据是否能在后台刷新时保持界面稳定。这样比单独记 API 更容易发现真实产品里的数据一致性问题。
 
@@ -48,7 +48,7 @@
 
 ## Hook 与并发阅读线
 
-第 1、9、10、25、36-49 张卡片可以组成一条 Hook 与并发安全阅读线:先理解 effect 只负责同步外部系统,并且必须能在 Strict Mode 的额外 setup → cleanup → setup 中正确恢复;再用 `useDeferredValue` 和 `startTransition` 区分紧急与非紧急更新;遇到复杂交互时,用 `useActionState`、`useFormStatus`、`useOptimistic` 管住提交与乐观视图;最后用 `useId`、hydration 稳定输入、客户端挂载后读取浏览器 API、`useSyncExternalStore`、Strict Mode、`useReducer` 和状态机建模检查 SSR 一致性、外部 store 快照、副作用幂等性、复杂状态转移边界和 UI 不可能状态。
+[`Effect 同步外部系统`](react-effect-syncs-external-systems.md)、[`useDeferredValue`](usedeferredvalue-keeps-input-responsive.md)、[`startTransition`](starttransition-marks-non-urgent-updates.md)、[`表单 action contract`](server-action-result-contract-keeps-form-recoverable.md)、[`useActionState`](useactionstate-keeps-form-submission-state.md)、[`useFormStatus`](useformstatus-belongs-inside-form.md)、[`useOptimistic`](useoptimistic-overlays-transient-state.md)、[`useId`](useid-generates-stable-ssr-csr-ids.md)、[`hydration 稳定输入`](hydration-mismatch-stable-inputs.md)、[`浏览器 API 客户端读取`](browser-api-reads-belong-after-client-mount.md)、[`useSyncExternalStore`](usesyncexternalstore-subscribes-external-state.md)、[`Strict Mode`](strict-mode-double-invokes-effects.md)、[`useReducer`](usereducer-centralizes-complex-state-transitions.md) 和 [`状态机`](state-machine-eliminates-impossible-ui-states.md) 可以组成一条 Hook 与并发安全阅读线:先理解 effect 只负责同步外部系统,并且必须能在 Strict Mode 的额外 setup → cleanup → setup 中正确恢复;再用 `useDeferredValue` 和 `startTransition` 区分紧急与非紧急更新;遇到复杂交互时,用提交类 Hook 管住提交与乐观视图;最后检查 SSR 一致性、外部 store 快照、副作用幂等性、复杂状态转移边界和 UI 不可能状态。
 
 审查这组卡片时,可以按三问推进:这个 Hook 解决的是渲染身份、更新优先级、外部同步还是提交状态;它是否要求调用顺序、快照引用或 cleanup 保持稳定;开发环境多执行一次时,是否会暴露真实的重复订阅、重复请求或不可回滚写入。这样能把"会用 Hook"升级成"知道 Hook 的约束边界"。
 
@@ -79,7 +79,7 @@
 
 ## 状态管理阅读线
 
-第 24、32、34、42、43 张卡片可以组成一条从局部状态到流程状态的建模路径:简单计数或切换先用 `useState` 的函数式更新避免闭包旧值;异步读取和提交结果用联合类型表达互斥状态;跨层共享时先拆分 Context 的 state 与 actions;当事件分支变多,再把状态转移收拢到 `useReducer`;最后用显式状态机检查步骤流里的合法转移和不可能状态。
+[`useState 函数式更新`](usestate-functional-update.md)、[`异步状态联合类型`](async-state-discriminated-union.md)、[`Context 拆分状态和动作`](context-split-state-and-actions.md)、[`useReducer`](usereducer-centralizes-complex-state-transitions.md) 和 [`状态机`](state-machine-eliminates-impossible-ui-states.md) 可以组成一条从局部状态到流程状态的建模路径:简单计数或切换先用 `useState` 的函数式更新避免闭包旧值;异步读取和提交结果用联合类型表达互斥状态;跨层共享时先拆分 Context 的 state 与 actions;当事件分支变多,再把状态转移收拢到 `useReducer`;最后用显式状态机检查步骤流里的合法转移和不可能状态。
 
 审查这组卡片时,不要先问"该用哪个库",而要先画出状态表:有哪些状态、哪些事件会改变它、哪些状态组合不应该出现、异步结果回来时是否仍属于当前状态。只要状态表能写清楚,React 代码通常会自然落在 `useState`、`useReducer`、Context 或外部 store 的合适边界上。
 
@@ -99,7 +99,7 @@
 
 ## 表单与提交阅读线
 
-第 23、24、32-35、46-47 张卡片可以组成一条表单交互链路:先把输入值和字段状态放在离输入最近的位置,再把字段级错误、全局错误和服务端校验结果分开归属;提交时用 `useActionState` 收拢请求结果,用 `useFormStatus` 在表单内部显示 pending,用 `useOptimistic` 只覆盖提交过渡中的临时视图;遇到真实写操作,再用 pending 锁和幂等键把重复点击、网络重试和服务端重复写入一起关住;服务端 action 的返回结构则要把字段错误、表单级错误和成功消息做成可恢复 contract;成功后再按"缓存失效/本地合并、用户反馈、表单重置"的顺序收尾。这样能避免"一个全局 loading 管所有字段""所有错误塞进一段文案""只靠禁用按钮防重复提交""可恢复校验失败被当成系统异常"和"成功清空输入却留下旧列表"的粗糙实现。
+[`表单状态靠近输入`](form-state-near-input.md)、[`函数式更新`](usestate-functional-update.md)、[`异步状态联合类型`](async-state-discriminated-union.md)、[`字段错误归属`](field-errors-belong-to-fields.md)、[`pending 锁与幂等键`](form-submit-idempotency-key-prevents-duplicate-writes.md)、[`action 返回 contract`](server-action-result-contract-keeps-form-recoverable.md)、[`useActionState`](useactionstate-keeps-form-submission-state.md)、[`useFormStatus`](useformstatus-belongs-inside-form.md)、[`useOptimistic`](useoptimistic-overlays-transient-state.md) 和 [`成功后一致性`](form-success-invalidates-cache-before-reset.md) 可以组成一条表单交互链路:先把输入值和字段状态放在离输入最近的位置,再把字段级错误、全局错误和服务端校验结果分开归属;提交时用提交类 Hook 收拢请求结果、显示 pending、覆盖提交过渡中的临时视图;遇到真实写操作,再用 pending 锁和幂等键把重复点击、网络重试和服务端重复写入一起关住;服务端 action 的返回结构则要把字段错误、表单级错误和成功消息做成可恢复 contract;成功后再按"缓存失效/本地合并、用户反馈、表单重置"的顺序收尾。这样能避免"一个全局 loading 管所有字段""所有错误塞进一段文案""只靠禁用按钮防重复提交""可恢复校验失败被当成系统异常"和"成功清空输入却留下旧列表"的粗糙实现。
 
 审查表单代码时,可以按一次真实提交流程走查:用户改动字段时是否只清理相关错误;重复点击提交是否被 pending 状态挡住;服务端返回字段错误后是否能正确回填到对应输入;乐观视图失败时是否能回滚;需要修改输入才能恢复的错误,是否没有被误做成无意义的"重试"按钮;响应丢失后再次点击是否复用同一个幂等键,而不是创建第二条业务记录。
 
