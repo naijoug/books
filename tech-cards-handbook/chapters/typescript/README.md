@@ -27,23 +27,33 @@
 
 ## 边界建模阅读线
 
-以下 7 张卡片按推荐阅读顺序排列，覆盖从外部输入到达业务逻辑的完整类型安全链路。每张卡片承接上一张的问题，建议按序阅读。
+以下卡片按“输入 → 领域 → 输出 → 展示 → 提交”的顺序排列，覆盖一个 TypeScript 应用从外部数据进入、被业务层处理、再离开业务层的常见边界。每张卡片承接上一张的问题，建议按序阅读。
+
+### 1. 输入边界：先承认外部数据不可信
 
 1. **`unknown` 要先缩窄再使用** ([`unknown-requires-narrowing.md`](unknown-requires-narrowing.md)) — 建立前提：外部数据一律以 `unknown` 进入，不信任、不假设。
 2. **类型守卫把外部输入缩窄成领域对象** ([`type-guards-narrow-domain-inputs.md`](type-guards-narrow-domain-inputs.md)) — 用 `is` / `in` / `typeof` 把 `unknown` 缩窄为可用的联合分支。
 3. **断言函数让边界错误提前失败** ([`assertion-functions-fail-fast-boundaries.md`](assertion-functions-fail-fast-boundaries.md)) — 在入口处断言不变量，失败立刻抛出，避免错误向下传播。
-4. **外部 API 响应先过 schema 边界** ([`external-api-response-schema-boundary.md`](external-api-response-schema-boundary.md)) — 把 decoder / schema 检查集中在网络边界，业务层只处理已验证的领域对象。
+4. **外部 API 响应先过 schema 边界** ([`external-api-response-schema-boundary.md`](external-api-response-schema-boundary.md)) — 把 decoder / schema 检查集中在网络边界，业务层只处理已验证的数据。
+
+### 2. 领域边界：把状态、身份和错误建模清楚
+
 5. **请求状态和数据 schema 分层** ([`request-state-keeps-schema-data-separate.md`](request-state-keeps-schema-data-separate.md)) — 把请求生命周期（idle/loading/success/failure）和已验证数据分开建模。
-6. **Result 类型让错误处理显式** ([`result-type-makes-errors-explicit.md`](result-type-makes-errors-explicit.md)) — 用 `Result<T,E>` 表达可恢复业务错误，把 `throw` 留给不可恢复异常。
-7. **`never` 穷尽检查防止漏掉状态分支** ([`never-exhaustive-state-checks.md`](never-exhaustive-state-checks.md)) — 在 switch / if-else 链末尾用 `assertNever` 保证所有分支都被处理。
+6. **品牌类型防止不同 ID 互相混用** ([`branded-types-prevent-id-mixing.md`](branded-types-prevent-id-mixing.md)) — 在领域边界给原始类型打标，防止用户 ID、订单 ID、商品 ID 等跨边界混用。
+7. **Result 类型让错误处理显式** ([`result-type-makes-errors-explicit.md`](result-type-makes-errors-explicit.md)) — 用 `Result<T,E>` 表达可恢复业务错误，把 `throw` 留给不可恢复异常。
+8. **`never` 穷尽检查防止漏掉状态分支** ([`never-exhaustive-state-checks.md`](never-exhaustive-state-checks.md)) — 在 switch / if-else 链末尾用 `assertNever` 保证所有分支都被处理。
 
-另外几张卡片也和边界建模相关，可作为扩展阅读：
+### 3. 输出边界：不要让领域模型直接暴露出去
 
-- **品牌类型防止不同 ID 互相混用** ([`branded-types-prevent-id-mixing.md`](branded-types-prevent-id-mixing.md)) — 在领域边界给原始类型打标，防止跨边界混用。
-- **工具类型从领域模型派生 DTO** ([`utility-types-derive-dtos.md`](utility-types-derive-dtos.md)) — 用 `Pick` / `Omit` / `Partial` 等从领域类型派生 API 层 DTO，避免手工同步。
-- **DTO 边界不要泄漏领域模型** ([`dto-boundary-hides-domain-model.md`](dto-boundary-hides-domain-model.md)) — 用 mapper 固化公开 DTO、管理脱敏和字段格式转换，避免领域模型穿透外部边界。
-- **ViewModel 不要污染领域模型** ([`view-model-keeps-ui-state-out-of-domain.md`](view-model-keeps-ui-state-out-of-domain.md)) — 把页面展示字段、选中态、格式化文本和跳转链接留在 ViewModel，避免 UI 临时状态反向污染领域模型。
-- **表单命令对象不要复用 ViewModel** ([`form-command-does-not-reuse-view-model.md`](form-command-does-not-reuse-view-model.md)) — 提交前从表单 ViewModel 构造明确 command，丢弃错误提示、脏字段、按钮状态和展示文案。
+9. **工具类型从领域模型派生 DTO** ([`utility-types-derive-dtos.md`](utility-types-derive-dtos.md)) — 用 `Pick` / `Omit` / `Partial` 等从领域类型派生 API 层 DTO，避免手工同步。
+10. **DTO 边界不要泄漏领域模型** ([`dto-boundary-hides-domain-model.md`](dto-boundary-hides-domain-model.md)) — 用 mapper 固化公开 DTO、管理脱敏和字段格式转换，避免领域模型穿透外部边界。
+
+### 4. 展示与提交边界：UI 状态只在 UI 层停留
+
+11. **ViewModel 不要污染领域模型** ([`view-model-keeps-ui-state-out-of-domain.md`](view-model-keeps-ui-state-out-of-domain.md)) — 把页面展示字段、选中态、格式化文本和跳转链接留在 ViewModel，避免 UI 临时状态反向污染领域模型。
+12. **表单命令对象不要复用 ViewModel** ([`form-command-does-not-reuse-view-model.md`](form-command-does-not-reuse-view-model.md)) — 提交前从表单 ViewModel 构造明确 command，丢弃错误提示、脏字段、按钮状态和展示文案。
+
+如果只想快速复习，可以按四个自检问题回看：输入是否先验证，领域是否表达业务不变量，输出是否经过 DTO mapper，提交是否从 ViewModel 转换成 command。
 
 ## 可运行验证索引
 
