@@ -1,6 +1,6 @@
 # TypeScript 技术卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护，共 14 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护，共 15 张。文件名使用英文 `kebab-case`。
 
 | 卡片 | 文件 |
 |---|---|
@@ -17,11 +17,12 @@
 | 断言函数让边界错误提前失败 | [`assertion-functions-fail-fast-boundaries.md`](assertion-functions-fail-fast-boundaries.md) |
 | 模板字面量类型约束字符串格式 | [`template-literal-types-constrain-strings.md`](template-literal-types-constrain-strings.md) |
 | 品牌类型防止不同 ID 互相混用 | [`branded-types-prevent-id-mixing.md`](branded-types-prevent-id-mixing.md) |
+| Result 类型让错误处理显式 | [`result-type-makes-errors-explicit.md`](result-type-makes-errors-explicit.md) |
 | 工具类型从领域模型派生 DTO | [`utility-types-derive-dtos.md`](utility-types-derive-dtos.md) |
 
 ## 可运行验证索引
 
-当前 14 张 TypeScript 卡片都应能通过 `tsc --noEmit --strict` 做最小类型检查。维护原则:示例优先写成可复制的 `.ts` 片段;类型体操类卡片至少保留 `Expect<Equal<...>>` 断言;涉及浏览器 API、`console` 或现代内建对象时显式写出 `--lib`,避免读者在默认环境下遇到无关报错。
+当前 15 张 TypeScript 卡片都应能通过 `tsc --noEmit --strict` 做最小类型检查。维护原则:示例优先写成可复制的 `.ts` 片段;类型体操类卡片至少保留 `Expect<Equal<...>>` 断言;涉及浏览器 API、`console` 或现代内建对象时显式写出 `--lib`,避免读者在默认环境下遇到无关报错。
 
 章节级批量复核可从 `books` 仓库根目录运行:
 
@@ -29,7 +30,7 @@
 python3 scripts/verify_typescript_cards.py
 ```
 
-脚本会从本章 Markdown 中抽取 `ts` / `typescript` 代码块,按卡片合并写入临时 `.ts` 文件,并用 `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom` 逐张检查。当前预期输出为 `verified 14 TypeScript cards with 15 code blocks`。
+脚本会从本章 Markdown 中抽取 `ts` / `typescript` 代码块,按卡片合并写入临时 `.ts` 文件,并用 `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom` 逐张检查。当前预期输出为 `verified 15 TypeScript cards with 16 code blocks`。
 
 | 类型 | 卡片 | 验证方式 |
 |---|---|---|
@@ -46,4 +47,5 @@ python3 scripts/verify_typescript_cards.py
 | 输入断言 | [`assertion-functions-fail-fast-boundaries.md`](assertion-functions-fail-fast-boundaries.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom assertion-functions-fail-fast-boundaries.ts` |
 | 字符串约束 | [`template-literal-types-constrain-strings.md`](template-literal-types-constrain-strings.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom template-literal-types-constrain-strings.ts` |
 | 领域隔离 | [`branded-types-prevent-id-mixing.md`](branded-types-prevent-id-mixing.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom branded-types-prevent-id-mixing.ts` |
+| 错误建模 | [`result-type-makes-errors-explicit.md`](result-type-makes-errors-explicit.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom result-type-makes-errors-explicit.ts` |
 | DTO 派生 | [`utility-types-derive-dtos.md`](utility-types-derive-dtos.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom utility-types-derive-dtos.ts` |
