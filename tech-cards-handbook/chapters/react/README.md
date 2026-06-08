@@ -1,6 +1,6 @@
 # React 技术卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护,共 53 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护,共 54 张。文件名使用英文 `kebab-case`。
 
 代码块验证:在 `books` 仓库根目录运行 `python3 scripts/verify_react_cards.py`,脚本会抽取本章 `ts`/`tsx`/`typescript` 代码块,用 TypeScript strict 模式和轻量 React 类型 shim 做批量检查。
 
@@ -27,7 +27,7 @@
 
 ## 请求与缓存阅读线
 
-[`旧请求不能覆盖更新状态`](stale-request-must-not-overwrite-newer-state.md)、[`AbortController 取消过期读取`](abortcontroller-cancels-obsolete-reads.md)、[`有边界的请求重试`](request-retry-uses-bounded-backoff.md)、[`手动重试`](manual-retry-separates-error-recovery-from-auto-retry.md)、[`请求缓存去重`](request-cache-dedupes-identical-reads.md)、[`写后失效`](cache-invalidation-after-mutation.md)、[`缓存 key 设计`](cache-key-designs-invalidation-boundaries.md)、[`TTL/版本号`](cache-ttl-version-expiration.md)、[`stale-while-revalidate`](stale-while-revalidate-keeps-cached-ui.md) 和 [`搜索防抖`](search-debounce-separates-input-and-cache-key.md) 组成一条数据读取链路:先处理竞态,再取消已经失去意义的读取;网络失败时,先让自动重试有最大次数和退避,再把最后的恢复权交给用户手动重试;进入缓存层后,依次检查去重、写后失效、key 边界、TTL/版本号和 stale-while-revalidate,最后用搜索防抖把输入态和缓存 key 分开。
+[`服务端数据用缓存层管理`](server-data-needs-cache-not-local-state.md)、[`旧请求不能覆盖更新状态`](stale-request-must-not-overwrite-newer-state.md)、[`AbortController 取消过期读取`](abortcontroller-cancels-obsolete-reads.md)、[`有边界的请求重试`](request-retry-uses-bounded-backoff.md)、[`手动重试`](manual-retry-separates-error-recovery-from-auto-retry.md)、[`请求缓存去重`](request-cache-dedupes-identical-reads.md)、[`写后失效`](cache-invalidation-after-mutation.md)、[`缓存 key 设计`](cache-key-designs-invalidation-boundaries.md)、[`TTL/版本号`](cache-ttl-version-expiration.md)、[`stale-while-revalidate`](stale-while-revalidate-keeps-cached-ui.md) 和 [`搜索防抖`](search-debounce-separates-input-and-cache-key.md) 组成一条数据读取链路:先确认服务端数据不要复制到组件 state 而是统一用缓存层管理;再处理竞态,再取消已经失去意义的读取;网络失败时,先让自动重试有最大次数和退避,再把最后的恢复权交给用户手动重试;进入缓存层后,依次检查去重、写后失效、key 边界、TTL/版本号和 stale-while-revalidate,最后用搜索防抖把输入态和缓存 key 分开。
 
 阅读这组卡片时，可以按同一个检查顺序审查项目代码：请求是否会被新条件淘汰、失败是否有边界、缓存是否知道"同一个读取"和"该失效的读取"分别是什么、旧数据是否能在后台刷新时保持界面稳定。这样比单独记 API 更容易发现真实产品里的数据一致性问题。
 
@@ -35,16 +35,17 @@
 
 把这组卡片落到真实项目时，可以按下面顺序检查，而不是只看某个请求库是否"接上了"：
 
-1. **竞态淘汰**：条件变化时（切换页码、修改筛选、输入搜索词），上一次请求的结果是否被安全丢弃，而不是覆盖更新状态。
-2. **请求取消**：失去意义的读取是否通过 `AbortController` 取消，而不是让它在后台静默完成并浪费连接。
-3. **自动重试边界**：失败重试是否有最大次数和指数退避；是否避免在服务端明确拒绝（403、404、422）时仍然盲目重试。
-4. **手动重试兜底**：自动重试耗尽后，是否把恢复权交还给用户（"点击重试"），而不是自动跳转错误页或静默放弃。
-5. **请求去重**：组件树中多处发起的相同读取（相同 URL + 相同参数）是否被缓存层合并为一次网络请求。
-6. **写后失效**：增删改成功后，相关的列表、详情和聚合缓存是否被显式失效或更新，而不是依赖 TTL 自然过期。
-7. **缓存 key 设计**：缓存 key 是否包含所有影响数据的参数（筛选条件、分页、排序、用户身份）；key 变化时旧缓存是否不再命中。
-8. **过期与刷新**：缓存是否有 TTL 或版本号机制；`stale-while-revalidate` 是否让旧数据在后台刷新期间继续服务界面，而不是返回空白或闪烁。
-9. **搜索防抖分离**：用户输入值和实际缓存 key 是否分开维护；防抖是否作用于请求触发，而不是延迟输入框的显示值。
-10. **加载状态区分**：首屏加载是否显示骨架屏或空白占位，加载更多是否显示底部 spinner 而不是替换已有列表。
+1. **数据归属**：服务端返回的数据是否只存在缓存层，而不是被 `setData(result)` 复制到多个组件的 `useState` 里。
+2. **竞态淘汰**：条件变化时（切换页码、修改筛选、输入搜索词），上一次请求的结果是否被安全丢弃，而不是覆盖更新状态。
+3. **请求取消**：失去意义的读取是否通过 `AbortController` 取消，而不是让它在后台静默完成并浪费连接。
+4. **自动重试边界**：失败重试是否有最大次数和指数退避；是否避免在服务端明确拒绝（403、404、422）时仍然盲目重试。
+5. **手动重试兜底**：自动重试耗尽后，是否把恢复权交还给用户（"点击重试"），而不是自动跳转错误页或静默放弃。
+6. **请求去重**：组件树中多处发起的相同读取（相同 URL + 相同参数）是否被缓存层合并为一次网络请求。
+7. **写后失效**：增删改成功后，相关的列表、详情和聚合缓存是否被显式失效或更新，而不是依赖 TTL 自然过期。
+8. **缓存 key 设计**：缓存 key 是否包含所有影响数据的参数（筛选条件、分页、排序、用户身份）；key 变化时旧缓存是否不再命中。
+9. **过期与刷新**：缓存是否有 TTL 或版本号机制；`stale-while-revalidate` 是否让旧数据在后台刷新期间继续服务界面，而不是返回空白或闪烁。
+10. **搜索防抖分离**：用户输入值和实际缓存 key 是否分开维护；防抖是否作用于请求触发，而不是延迟输入框的显示值。
+11. **加载状态区分**：首屏加载是否显示骨架屏或空白占位，加载更多是否显示底部 spinner 而不是替换已有列表。
 
 ## Hook 与并发阅读线
 
