@@ -1,6 +1,6 @@
 # React 技术卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护,共 51 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护,共 52 张。文件名使用英文 `kebab-case`。
 
 代码块验证:在 `books` 仓库根目录运行 `python3 scripts/verify_react_cards.py`,脚本会抽取本章 `ts`/`tsx`/`typescript` 代码块,用 TypeScript strict 模式和轻量 React 类型 shim 做批量检查。
 
@@ -79,7 +79,7 @@
 
 ## 状态管理阅读线
 
-[`useState 函数式更新`](usestate-functional-update.md)、[`异步状态联合类型`](async-state-discriminated-union.md)、[`Context 拆分状态和动作`](context-split-state-and-actions.md)、[`useReducer`](usereducer-centralizes-complex-state-transitions.md) 和 [`状态机`](state-machine-eliminates-impossible-ui-states.md) 可以组成一条从局部状态到流程状态的建模路径:简单计数或切换先用 `useState` 的函数式更新避免闭包旧值;异步读取和提交结果用联合类型表达互斥状态;跨层共享时先拆分 Context 的 state 与 actions;当事件分支变多,再把状态转移收拢到 `useReducer`;最后用显式状态机检查步骤流里的合法转移和不可能状态。
+[`派生状态不要镜像 props`](derived-state-not-mirrored-props.md)、[`useState 函数式更新`](usestate-functional-update.md)、[`异步状态联合类型`](async-state-discriminated-union.md)、[`Context 拆分状态和动作`](context-split-state-and-actions.md)、[`useReducer`](usereducer-centralizes-complex-state-transitions.md) 和 [`状态机`](state-machine-eliminates-impossible-ui-states.md) 可以组成一条从局部状态到流程状态的建模路径:能由当前 props/state 推导出来的值先留在渲染阶段,不要复制成同步 state;简单计数或切换再用 `useState` 的函数式更新避免闭包旧值;异步读取和提交结果用联合类型表达互斥状态;跨层共享时先拆分 Context 的 state 与 actions;当事件分支变多,再把状态转移收拢到 `useReducer`;最后用显式状态机检查步骤流里的合法转移和不可能状态。
 
 审查这组卡片时,不要先问"该用哪个库",而要先画出状态表:有哪些状态、哪些事件会改变它、哪些状态组合不应该出现、异步结果回来时是否仍属于当前状态。只要状态表能写清楚,React 代码通常会自然落在 `useState`、`useReducer`、Context 或外部 store 的合适边界上。
 
@@ -88,14 +88,15 @@
 把这组卡片落到真实项目时,可以先审状态模型,再审 API 选择:
 
 1. **状态归属**:只被一个输入或组件消费的状态是否保留在局部;跨组件共享前,是否确认真的需要共享而不是 props 下传。
-2. **旧值更新**:依赖前一状态计算新状态时,是否使用函数式更新,避免事件闭包或批处理导致读到旧值。
-3. **互斥状态**:加载中、成功、空结果、字段错误、系统错误等是否用联合类型表达;是否避免多个布尔值拼出 impossible state。
-4. **事件表完整**:是否列清楚哪些事件能改变状态;每个事件在当前状态下是允许、忽略还是报错,而不是让任意分支随时写状态。
-5. **Context 边界**:Context 是否拆分 state 与 actions;高频变化的数据是否没有放进会导致全树重渲染的全局 Provider。
-6. **Reducer 纯度**:`useReducer` 是否只计算下一状态;网络请求、日志、导航等副作用是否放在事件处理或 Effect 边界。
-7. **状态机合法性**:多步骤流程是否有显式状态机或转移表;取消、返回、重试、超时等边缘事件是否都有合法去向。
-8. **异步回包归属**:请求或提交结果回来时,是否校验它仍属于当前状态/版本;过期结果是否不会覆盖用户后续操作。
-9. **可测试性**:核心状态转移是否能用输入状态 + 事件 → 输出状态单独测试;复杂 UI 是否不需要靠手点流程才能证明正确。
+2. **派生值不镜像**:筛选结果、计数、展示标签、按钮可用性等是否能由当前输入直接计算;是否避免用 Effect 追赶同步派生 state。
+3. **旧值更新**:依赖前一状态计算新状态时,是否使用函数式更新,避免事件闭包或批处理导致读到旧值。
+4. **互斥状态**:加载中、成功、空结果、字段错误、系统错误等是否用联合类型表达;是否避免多个布尔值拼出 impossible state。
+5. **事件表完整**:是否列清楚哪些事件能改变状态;每个事件在当前状态下是允许、忽略还是报错,而不是让任意分支随时写状态。
+6. **Context 边界**:Context 是否拆分 state 与 actions;高频变化的数据是否没有放进会导致全树重渲染的全局 Provider。
+7. **Reducer 纯度**:`useReducer` 是否只计算下一状态;网络请求、日志、导航等副作用是否放在事件处理或 Effect 边界。
+8. **状态机合法性**:多步骤流程是否有显式状态机或转移表;取消、返回、重试、超时等边缘事件是否都有合法去向。
+9. **异步回包归属**:请求或提交结果回来时,是否校验它仍属于当前状态/版本;过期结果是否不会覆盖用户后续操作。
+10. **可测试性**:核心状态转移是否能用输入状态 + 事件 → 输出状态单独测试;复杂 UI 是否不需要靠手点流程才能证明正确。
 
 ## 表单与提交阅读线
 
@@ -146,6 +147,7 @@
 | 表单成功后先处理一致性,再重置输入 | [`form-success-invalidates-cache-before-reset.md`](form-success-invalidates-cache-before-reset.md) |
 | 列表 key 使用稳定身份,不使用索引 | [`stable-list-key-not-index.md`](stable-list-key-not-index.md) |
 | `useState` 更新依赖旧值时用函数式更新 | [`usestate-functional-update.md`](usestate-functional-update.md) |
+| 派生状态不要镜像 props | [`derived-state-not-mirrored-props.md`](derived-state-not-mirrored-props.md) |
 | Effect 必须清理订阅、定时器和请求 | [`effect-cleanup-subscriptions-timers-requests.md`](effect-cleanup-subscriptions-timers-requests.md) |
 | `useRef` 保存可变值但不触发重渲染 | [`useref-mutable-value-no-render.md`](useref-mutable-value-no-render.md) |
 | 自定义 Hook 用来复用状态逻辑 | [`custom-hook-reuse-state-logic.md`](custom-hook-reuse-state-logic.md) |
