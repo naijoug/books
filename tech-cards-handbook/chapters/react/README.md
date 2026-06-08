@@ -1,6 +1,6 @@
 # React 技术卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护,共 50 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护,共 51 张。文件名使用英文 `kebab-case`。
 
 代码块验证:在 `books` 仓库根目录运行 `python3 scripts/verify_react_cards.py`,脚本会抽取本章 `ts`/`tsx`/`typescript` 代码块,用 TypeScript strict 模式和轻量 React 类型 shim 做批量检查。
 
@@ -48,7 +48,7 @@
 
 ## Hook 与并发阅读线
 
-[`Effect 同步外部系统`](react-effect-syncs-external-systems.md)、[`useDeferredValue`](usedeferredvalue-keeps-input-responsive.md)、[`startTransition`](starttransition-marks-non-urgent-updates.md)、[`表单 action contract`](server-action-result-contract-keeps-form-recoverable.md)、[`useActionState`](useactionstate-keeps-form-submission-state.md)、[`useFormStatus`](useformstatus-belongs-inside-form.md)、[`useOptimistic`](useoptimistic-overlays-transient-state.md)、[`useId`](useid-generates-stable-ssr-csr-ids.md)、[`hydration 稳定输入`](hydration-mismatch-stable-inputs.md)、[`浏览器 API 客户端读取`](browser-api-reads-belong-after-client-mount.md)、[`客户端个性化外壳`](client-personalization-needs-stable-shell.md)、[`useSyncExternalStore`](usesyncexternalstore-subscribes-external-state.md)、[`Strict Mode`](strict-mode-double-invokes-effects.md)、[`useReducer`](usereducer-centralizes-complex-state-transitions.md) 和 [`状态机`](state-machine-eliminates-impossible-ui-states.md) 可以组成一条 Hook 与并发安全阅读线:先理解 effect 只负责同步外部系统,并且必须能在 Strict Mode 的额外 setup → cleanup → setup 中正确恢复;再用 `useDeferredValue` 和 `startTransition` 区分紧急与非紧急更新;遇到复杂交互时,用提交类 Hook 管住提交与乐观视图;最后检查 SSR 一致性、个性化外壳、外部 store 快照、副作用幂等性、复杂状态转移边界和 UI 不可能状态。
+[`Effect 同步外部系统`](react-effect-syncs-external-systems.md)、[`useDeferredValue`](usedeferredvalue-keeps-input-responsive.md)、[`startTransition`](starttransition-marks-non-urgent-updates.md)、[`表单 action contract`](server-action-result-contract-keeps-form-recoverable.md)、[`useActionState`](useactionstate-keeps-form-submission-state.md)、[`useFormStatus`](useformstatus-belongs-inside-form.md)、[`useOptimistic`](useoptimistic-overlays-transient-state.md)、[`useId`](useid-generates-stable-ssr-csr-ids.md)、[`hydration 稳定输入`](hydration-mismatch-stable-inputs.md)、[`浏览器 API 客户端读取`](browser-api-reads-belong-after-client-mount.md)、[`客户端个性化外壳`](client-personalization-needs-stable-shell.md)、[`SSR 个性化首屏占位策略`](ssr-personalization-placeholder-strategy.md)、[`useSyncExternalStore`](usesyncexternalstore-subscribes-external-state.md)、[`Strict Mode`](strict-mode-double-invokes-effects.md)、[`useReducer`](usereducer-centralizes-complex-state-transitions.md) 和 [`状态机`](state-machine-eliminates-impossible-ui-states.md) 可以组成一条 Hook 与并发安全阅读线:先理解 effect 只负责同步外部系统,并且必须能在 Strict Mode 的额外 setup → cleanup → setup 中正确恢复;再用 `useDeferredValue` 和 `startTransition` 区分紧急与非紧急更新;遇到复杂交互时,用提交类 Hook 管住提交与乐观视图;最后检查 SSR 一致性、个性化外壳和占位策略、外部 store 快照、副作用幂等性、复杂状态转移边界和 UI 不可能状态。
 
 审查这组卡片时,可以按三问推进:这个 Hook 解决的是渲染身份、更新优先级、外部同步还是提交状态;它是否要求调用顺序、快照引用或 cleanup 保持稳定;开发环境多执行一次时,是否会暴露真实的重复订阅、重复请求或不可回滚写入。这样能把"会用 Hook"升级成"知道 Hook 的约束边界"。
 
@@ -68,7 +68,7 @@
 
 ### SSR 与 hydration 代码审查清单
 
-把 `useId`、hydration 稳定输入、客户端挂载后读取浏览器 API 和客户端个性化外壳这四张卡片落到 SSR/预渲染项目时,可以把审查重点从"消掉 warning"前移到"首屏输入是否稳定":
+把 `useId`、hydration 稳定输入、客户端挂载后读取浏览器 API、客户端个性化外壳和 SSR 个性化首屏占位策略这五张卡片落到 SSR/预渲染项目时,可以把审查重点从"消掉 warning"前移到"首屏输入是否稳定":
 
 1. **首屏数据来源一致**:服务端渲染和客户端第一次渲染是否读取同一份业务数据、同一套 feature flag 和同一份 i18n 文案;是否避免客户端首渲直接读取 `Date.now()`、随机数或浏览器专属状态。
 2. **ID 与无障碍关系稳定**:表单控件、label、aria-describedby、错误提示等跨节点关系是否用 `useId` 或服务端传入的稳定 ID;列表项是否仍使用业务 ID 做 key。
@@ -164,6 +164,7 @@
 | Hydration 不一致要从稳定输入源治理 | [`hydration-mismatch-stable-inputs.md`](hydration-mismatch-stable-inputs.md) |
 | 浏览器 API 读取放到客户端挂载之后 | [`browser-api-reads-belong-after-client-mount.md`](browser-api-reads-belong-after-client-mount.md) |
 | 客户端个性化首屏要先有稳定外壳 | [`client-personalization-needs-stable-shell.md`](client-personalization-needs-stable-shell.md) |
+| SSR 个性化首屏要有渐进占位策略 | [`ssr-personalization-placeholder-strategy.md`](ssr-personalization-placeholder-strategy.md) |
 | `useSyncExternalStore` 订阅外部状态源 | [`usesyncexternalstore-subscribes-external-state.md`](usesyncexternalstore-subscribes-external-state.md) |
 | Strict Mode 双次调用暴露副作用 | [`strict-mode-double-invokes-effects.md`](strict-mode-double-invokes-effects.md) |
 | `useReducer` 把复杂状态转移集中到可测试的纯函数 | [`usereducer-centralizes-complex-state-transitions.md`](usereducer-centralizes-complex-state-transitions.md) |
