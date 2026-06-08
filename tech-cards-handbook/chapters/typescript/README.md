@@ -1,6 +1,6 @@
 # TypeScript 技术卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护，共 18 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护，共 19 张。文件名使用英文 `kebab-case`。
 
 | 卡片 | 文件 |
 |---|---|
@@ -22,6 +22,7 @@
 | Result 类型让错误处理显式 | [`result-type-makes-errors-explicit.md`](result-type-makes-errors-explicit.md) |
 | 工具类型从领域模型派生 DTO | [`utility-types-derive-dtos.md`](utility-types-derive-dtos.md) |
 | DTO 边界不要泄漏领域模型 | [`dto-boundary-hides-domain-model.md`](dto-boundary-hides-domain-model.md) |
+| ViewModel 不要污染领域模型 | [`view-model-keeps-ui-state-out-of-domain.md`](view-model-keeps-ui-state-out-of-domain.md) |
 
 ## 边界建模阅读线
 
@@ -40,10 +41,11 @@
 - **品牌类型防止不同 ID 互相混用** ([`branded-types-prevent-id-mixing.md`](branded-types-prevent-id-mixing.md)) — 在领域边界给原始类型打标，防止跨边界混用。
 - **工具类型从领域模型派生 DTO** ([`utility-types-derive-dtos.md`](utility-types-derive-dtos.md)) — 用 `Pick` / `Omit` / `Partial` 等从领域类型派生 API 层 DTO，避免手工同步。
 - **DTO 边界不要泄漏领域模型** ([`dto-boundary-hides-domain-model.md`](dto-boundary-hides-domain-model.md)) — 用 mapper 固化公开 DTO、管理脱敏和字段格式转换，避免领域模型穿透外部边界。
+- **ViewModel 不要污染领域模型** ([`view-model-keeps-ui-state-out-of-domain.md`](view-model-keeps-ui-state-out-of-domain.md)) — 把页面展示字段、选中态、格式化文本和跳转链接留在 ViewModel，避免 UI 临时状态反向污染领域模型。
 
 ## 可运行验证索引
 
-当前 18 张 TypeScript 卡片都应能通过 `tsc --noEmit --strict` 做最小类型检查。维护原则:示例优先写成可复制的 `.ts` 片段;类型体操类卡片至少保留 `Expect<Equal<...>>` 断言;涉及浏览器 API、`console` 或现代内建对象时显式写出 `--lib`,避免读者在默认环境下遇到无关报错。
+当前 19 张 TypeScript 卡片都应能通过 `tsc --noEmit --strict` 做最小类型检查。维护原则:示例优先写成可复制的 `.ts` 片段;类型体操类卡片至少保留 `Expect<Equal<...>>` 断言;涉及浏览器 API、`console` 或现代内建对象时显式写出 `--lib`,避免读者在默认环境下遇到无关报错。
 
 章节级批量复核可从 `books` 仓库根目录运行:
 
@@ -51,7 +53,7 @@
 python3 scripts/verify_typescript_cards.py
 ```
 
-脚本会从本章 Markdown 中抽取 `ts` / `typescript` 代码块,按卡片合并写入临时 `.ts` 文件,并用 `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom` 逐张检查。当前预期输出为 `verified 18 TypeScript cards with 19 code blocks`。
+脚本会从本章 Markdown 中抽取 `ts` / `typescript` 代码块,按卡片合并写入临时 `.ts` 文件,并用 `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom` 逐张检查。当前预期输出为 `verified 19 TypeScript cards with 20 code blocks`。
 
 | 类型 | 卡片 | 验证方式 |
 |---|---|---|
@@ -73,3 +75,4 @@ python3 scripts/verify_typescript_cards.py
 | 错误建模 | [`result-type-makes-errors-explicit.md`](result-type-makes-errors-explicit.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom result-type-makes-errors-explicit.ts` |
 | DTO 派生 | [`utility-types-derive-dtos.md`](utility-types-derive-dtos.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom utility-types-derive-dtos.ts` |
 | DTO 边界 | [`dto-boundary-hides-domain-model.md`](dto-boundary-hides-domain-model.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom dto-boundary-hides-domain-model.ts` |
+| ViewModel 边界 | [`view-model-keeps-ui-state-out-of-domain.md`](view-model-keeps-ui-state-out-of-domain.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom view-model-keeps-ui-state-out-of-domain.ts` |
