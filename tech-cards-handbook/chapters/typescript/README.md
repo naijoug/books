@@ -1,6 +1,6 @@
 # TypeScript 技术卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护，共 23 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护，共 24 张。文件名使用英文 `kebab-case`。
 
 | 卡片 | 文件 |
 |---|---|
@@ -22,6 +22,7 @@
 | Result 类型让错误处理显式 | [`result-type-makes-errors-explicit.md`](result-type-makes-errors-explicit.md) |
 | 工具类型从领域模型派生 DTO | [`utility-types-derive-dtos.md`](utility-types-derive-dtos.md) |
 | DTO 边界不要泄漏领域模型 | [`dto-boundary-hides-domain-model.md`](dto-boundary-hides-domain-model.md) |
+| API DTO 版本演进不要回灌领域模型 | [`api-dto-version-does-not-backflow-domain-model.md`](api-dto-version-does-not-backflow-domain-model.md) |
 | 领域事件不要复用 API DTO | [`domain-events-do-not-reuse-api-dtos.md`](domain-events-do-not-reuse-api-dtos.md) |
 | Domain Event 与 Integration Event 要分层 | [`domain-event-integration-event-layering.md`](domain-event-integration-event-layering.md) |
 | 不要用万能 mapper 跨多条边界 | [`universal-mapper-crosses-too-many-boundaries.md`](universal-mapper-crosses-too-many-boundaries.md) |
@@ -50,14 +51,15 @@
 
 9. **工具类型从领域模型派生 DTO** ([`utility-types-derive-dtos.md`](utility-types-derive-dtos.md)) — 用 `Pick` / `Omit` / `Partial` 等从领域类型派生 API 层 DTO，避免手工同步。
 10. **DTO 边界不要泄漏领域模型** ([`dto-boundary-hides-domain-model.md`](dto-boundary-hides-domain-model.md)) — 用 mapper 固化公开 DTO、管理脱敏和字段格式转换，避免领域模型穿透外部边界。
-11. **领域事件不要复用 API DTO** ([`domain-events-do-not-reuse-api-dtos.md`](domain-events-do-not-reuse-api-dtos.md)) — 把 HTTP 请求/响应契约和“业务事实已发生”的事件 payload 分开，避免 API 版本变化拖动消息消费者。
-12. **Domain Event 与 Integration Event 要分层** ([`domain-event-integration-event-layering.md`](domain-event-integration-event-layering.md)) — 在发布边界把内部领域事件转换成外部集成事件，避免内部重构破坏跨服务契约。
-13. **不要用万能 mapper 跨多条边界** ([`universal-mapper-crosses-too-many-boundaries.md`](universal-mapper-crosses-too-many-boundaries.md)) — 把 DTO、ViewModel、Command、Event 的转换拆成单边界 mapper，避免一个函数同时承担多层职责。
+11. **API DTO 版本演进不要回灌领域模型** ([`api-dto-version-does-not-backflow-domain-model.md`](api-dto-version-does-not-backflow-domain-model.md)) — 把 v1 / v2 兼容逻辑留在 adapter 和 mapper，避免旧字段名、别名和迁移窗口污染领域模型。
+12. **领域事件不要复用 API DTO** ([`domain-events-do-not-reuse-api-dtos.md`](domain-events-do-not-reuse-api-dtos.md)) — 把 HTTP 请求/响应契约和“业务事实已发生”的事件 payload 分开，避免 API 版本变化拖动消息消费者。
+13. **Domain Event 与 Integration Event 要分层** ([`domain-event-integration-event-layering.md`](domain-event-integration-event-layering.md)) — 在发布边界把内部领域事件转换成外部集成事件，避免内部重构破坏跨服务契约。
+14. **不要用万能 mapper 跨多条边界** ([`universal-mapper-crosses-too-many-boundaries.md`](universal-mapper-crosses-too-many-boundaries.md)) — 把 DTO、ViewModel、Command、Event 的转换拆成单边界 mapper，避免一个函数同时承担多层职责。
 
 ### 4. 展示与提交边界：UI 状态只在 UI 层停留
 
-14. **ViewModel 不要污染领域模型** ([`view-model-keeps-ui-state-out-of-domain.md`](view-model-keeps-ui-state-out-of-domain.md)) — 把页面展示字段、选中态、格式化文本和跳转链接留在 ViewModel，避免 UI 临时状态反向污染领域模型。
-15. **表单命令对象不要复用 ViewModel** ([`form-command-does-not-reuse-view-model.md`](form-command-does-not-reuse-view-model.md)) — 提交前从表单 ViewModel 构造明确 command，丢弃错误提示、脏字段、按钮状态和展示文案。
+15. **ViewModel 不要污染领域模型** ([`view-model-keeps-ui-state-out-of-domain.md`](view-model-keeps-ui-state-out-of-domain.md)) — 把页面展示字段、选中态、格式化文本和跳转链接留在 ViewModel，避免 UI 临时状态反向污染领域模型。
+16. **表单命令对象不要复用 ViewModel** ([`form-command-does-not-reuse-view-model.md`](form-command-does-not-reuse-view-model.md)) — 提交前从表单 ViewModel 构造明确 command，丢弃错误提示、脏字段、按钮状态和展示文案。
 
 如果只想快速复习，可以按四个自检问题回看：输入是否先验证，领域是否表达业务不变量，输出是否经过 DTO mapper，提交是否从 ViewModel 转换成 command。
 
@@ -78,7 +80,7 @@
 
 ## 可运行验证索引
 
-当前 23 张 TypeScript 卡片都应能通过 `tsc --noEmit --strict` 做最小类型检查。维护原则:示例优先写成可复制的 `.ts` 片段;类型体操类卡片至少保留 `Expect<Equal<...>>` 断言;涉及浏览器 API、`console` 或现代内建对象时显式写出 `--lib`,避免读者在默认环境下遇到无关报错。
+当前 24 张 TypeScript 卡片都应能通过 `tsc --noEmit --strict` 做最小类型检查。维护原则:示例优先写成可复制的 `.ts` 片段;类型体操类卡片至少保留 `Expect<Equal<...>>` 断言;涉及浏览器 API、`console` 或现代内建对象时显式写出 `--lib`,避免读者在默认环境下遇到无关报错。
 
 章节级批量复核可从 `books` 仓库根目录运行:
 
@@ -86,7 +88,7 @@
 python3 scripts/verify_typescript_cards.py
 ```
 
-脚本会从本章 Markdown 中抽取 `ts` / `typescript` 代码块,按卡片合并写入临时 `.ts` 文件,并用 `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom` 逐张检查。当前预期输出为 `verified 23 TypeScript cards with 24 code blocks`。
+脚本会从本章 Markdown 中抽取 `ts` / `typescript` 代码块,按卡片合并写入临时 `.ts` 文件,并用 `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom` 逐张检查。当前预期输出为 `verified 24 TypeScript cards with 25 code blocks`。
 
 | 类型 | 卡片 | 验证方式 |
 |---|---|---|
@@ -108,6 +110,7 @@ python3 scripts/verify_typescript_cards.py
 | 错误建模 | [`result-type-makes-errors-explicit.md`](result-type-makes-errors-explicit.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom result-type-makes-errors-explicit.ts` |
 | DTO 派生 | [`utility-types-derive-dtos.md`](utility-types-derive-dtos.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom utility-types-derive-dtos.ts` |
 | DTO 边界 | [`dto-boundary-hides-domain-model.md`](dto-boundary-hides-domain-model.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom dto-boundary-hides-domain-model.ts` |
+| DTO 版本 | [`api-dto-version-does-not-backflow-domain-model.md`](api-dto-version-does-not-backflow-domain-model.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom api-dto-version-does-not-backflow-domain-model.ts` |
 | 事件边界 | [`domain-events-do-not-reuse-api-dtos.md`](domain-events-do-not-reuse-api-dtos.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom domain-events-do-not-reuse-api-dtos.ts` |
 | 事件边界 | [`domain-event-integration-event-layering.md`](domain-event-integration-event-layering.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom domain-event-integration-event-layering.ts` |
 | 边界 mapper | [`universal-mapper-crosses-too-many-boundaries.md`](universal-mapper-crosses-too-many-boundaries.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom universal-mapper-crosses-too-many-boundaries.ts` |
