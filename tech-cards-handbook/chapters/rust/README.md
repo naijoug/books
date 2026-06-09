@@ -33,6 +33,22 @@
 
 快速自检：如果一个函数签名里连续出现多个同类型原始值、repository trait 返回 `UserRow` / `Record`，返回值靠注释区分错误原因，`impl From<...> for DomainType` 可能绕过验证，或者 `#[derive(...)]` 暴露了还没讨论过的行为，就先停下来补领域类型、显式结果和最小测试。
 
+## 存储边界阅读组
+
+当你要把 Rust 用在真实业务服务里，可以把下面几张卡片连成一次 30 分钟的“存储边界”复盘：
+
+1. [`newtype-separates-domain-from-primitive.md`](newtype-separates-domain-from-primitive.md)：先确认领域层不直接传 `String`、`u64`、`bool` 这类裸值，避免参数顺序和语义被调用方猜测。
+2. [`from-into-do-not-skip-validation-boundary.md`](from-into-do-not-skip-validation-boundary.md)：再确认外部输入、数据库字段、消息载荷进入领域类型时使用 `TryFrom` / `FromStr` / `new(...) -> Result<_, _>`，不要用 `From` 假装转换永远安全。
+3. [`repository-does-not-leak-database-row.md`](repository-does-not-leak-database-row.md)：最后检查 repository trait 是否只暴露领域模型与领域错误，`UserRow`、`sqlx::Row`、ORM model、分页游标细节是否都被关在 adapter 内部。
+
+复盘时可以直接问三个问题：
+
+- **签名是否泄漏存储实现？** 如果 trait、service 或 handler 的公开签名里出现 `Row`、`Record`、`EntityModel`、`serde_json::Value`，先把它们移回 adapter。
+- **验证是否只发生一次且靠近边界？** 数据库读出的值和外部请求一样不可信；进入领域模型前要经过可失败转换，转换后不要在业务函数里反复检查同一条规则。
+- **错误是否能被调用方理解？** 公开错误应该说“用户不存在”“邮箱无效”“状态不可迁移”，而不是直接冒出 SQL 状态码、列名或驱动错误。
+
+这组卡片的目标不是反对 ORM 或 query builder，而是让 ORM 只负责持久化映射；业务代码依赖的是稳定的领域语言。完成后可回到 Go 章节的 `http-handler-does-not-bind-database-model.md` 和 `request-json-does-not-decode-into-database-row.md`，对照两种语言如何处理同一个边界问题。
+
 ## 可运行验证进度
 
 Rust 工具链已在本机确认可用（`rustc --version`）。当前优先把示例改成可复制运行的小程序；新增或改写卡片时，至少补一个 `rustc <file>.rs && ./<file>` 的检查命令。
