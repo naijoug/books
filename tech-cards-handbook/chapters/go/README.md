@@ -30,6 +30,17 @@ Go 代码的边界问题通常先出现在并发所有权，再进入取消、�
 
 快速自检：一个函数如果同时负责启动 goroutine、关闭 channel、解析 HTTP 请求、访问数据库并决定响应格式，通常已经跨越太多边界，应先拆出 worker、service、handler 和 DTO / command mapper。
 
+## Handler adapter 边界小组
+
+写 HTTP handler 时，可以把最近三张 adapter 卡片按“输入、业务、输出、错误”四段使用：
+
+1. **输入 DTO**：请求 JSON 先进入 `UpdateUserRequest` 这类只表达外部契约的结构体；不要直接 decode 到 `UserRow`，也不要让客户端提交 `role`、`passwordHash`、`deletedAt` 这类存储或权限字段。
+2. **业务 command / 领域模型**：handler 只负责把请求归一化成 `UpdateUserCommand`，再交给 service / use case；repository 边界内的 `UserRow` 通过 `rowToUser` 转成 `User`，不要让数据库列名决定业务函数签名。
+3. **输出 DTO**：响应前用 `userToResponse` 之类的 mapper 显式挑选可公开字段，避免把 password hash、软删除标记、内部时间戳或存储枚举透传给客户端。
+4. **错误响应**：内部错误保留 `%w` 上下文给日志和追踪；handler 只把可安全公开的 `UserError`、状态码和稳定错误码写回响应体。
+
+维护规则：handler 可以组装 adapter，但不应该同时拥有请求校验、业务决策、数据库 row 映射、响应格式和日志策略；当一个 handler 需要同时改输入 DTO、repository row 和响应 JSON 时，先拆 mapper 再改业务。
+
 ## 可运行验证进度
 
 Go 工具链已在本机确认可用(`go version`)。当前优先把示例改成可复制运行的小程序;新增或改写卡片时,至少补一个 `go run <file>.go` 或 `go test` 的检查命令。
