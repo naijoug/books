@@ -1,6 +1,6 @@
 # Go 技术卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护，共 12 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护，共 13 张。文件名使用英文 `kebab-case`。
 
 | 卡片 | 文件 |
 |---|---|
@@ -16,6 +16,7 @@
 | 表格驱动测试让边界更清楚 | [`table-driven-tests-boundaries.md`](table-driven-tests-boundaries.md) |
 | HTTP handler 不要把内部错误暴露给客户端 | [`http-handler-hides-internal-errors.md`](http-handler-hides-internal-errors.md) |
 | HTTP handler 不直接绑定数据库模型 | [`http-handler-does-not-bind-database-model.md`](http-handler-does-not-bind-database-model.md) |
+| 请求 JSON 不直接反序列化到数据库 row | [`request-json-does-not-decode-into-database-row.md`](request-json-does-not-decode-into-database-row.md) |
 
 ## 边界实践阅读线
 
@@ -25,9 +26,9 @@ Go 代码的边界问题通常先出现在并发所有权，再进入取消、�
 2. **channel 所有权**：再读 channel 关闭权和生产者-消费者两张卡片，确认“谁发送、谁关闭、谁消费”不会混在一起。
 3. **取消边界**：用 `context.Context` 卡片复核取消信号只表达生命周期，不夹带业务参数。
 4. **接口边界**：用“小接口由使用方定义”卡片把依赖反转到调用方，避免把实现细节扩散到业务层。
-5. **错误与 adapter 边界**：最后连读“错误要保留上下文”、“HTTP handler 不要把内部错误暴露给客户端”和“HTTP handler 不直接绑定数据库模型”，做到内部日志可诊断、外部响应可安全、存储模型不外泄。
+5. **错误与 adapter 边界**：最后连读“错误要保留上下文”、“HTTP handler 不要把内部错误暴露给客户端”、“HTTP handler 不直接绑定数据库模型”和“请求 JSON 不直接反序列化到数据库 row”，做到内部日志可诊断、外部响应可安全、输入 DTO 与存储模型不互相污染。
 
-快速自检：一个函数如果同时负责启动 goroutine、关闭 channel、解析 HTTP 请求、访问数据库并决定响应格式，通常已经跨越太多边界，应先拆出 worker、service 和 handler。
+快速自检：一个函数如果同时负责启动 goroutine、关闭 channel、解析 HTTP 请求、访问数据库并决定响应格式，通常已经跨越太多边界，应先拆出 worker、service、handler 和 DTO / command mapper。
 
 ## 可运行验证进度
 
@@ -53,3 +54,4 @@ python3 scripts/verify_go_cards.py
 | [`table-driven-tests-boundaries.md`](table-driven-tests-boundaries.md) | `go test email_test.go`（抽取为 `email_test.go`） |
 | [`http-handler-hides-internal-errors.md`](http-handler-hides-internal-errors.md) | `go run http-handler-hides-internal-errors.go` |
 | [`http-handler-does-not-bind-database-model.md`](http-handler-does-not-bind-database-model.md) | `go run http-handler-does-not-bind-database-model.go` |
+| [`request-json-does-not-decode-into-database-row.md`](request-json-does-not-decode-into-database-row.md) | `go run request-json-does-not-decode-into-database-row.go` |

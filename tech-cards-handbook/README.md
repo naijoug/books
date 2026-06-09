@@ -6,7 +6,7 @@
 
 本书已按技术栈重组正式内容：`chapters/` 下每个技术栈一个目录，每张卡片一个 Markdown 文件。
 
-当前共 162 张正式卡片。
+当前共 163 张正式卡片。
 
 ## 目录结构
 
@@ -35,7 +35,7 @@ tech-cards-handbook/
 |---|---|---|
 | 索引 | `chapters/README.md` | 阅读方式、技术栈目录和维护规则 |
 | Python | `chapters/python/` | 18 张：异步、并发原语、上下文管理、生成器、类型、测试和装饰器 |
-| Go | `chapters/go/` | 12 张：WaitGroup、context、channel、worker pool、select、mutex、错误处理、接口、测试和 HTTP handler adapter 边界 |
+| Go | `chapters/go/` | 13 张：WaitGroup、context、channel、worker pool、select、mutex、错误处理、接口、测试和 HTTP handler adapter 边界 |
 | Rust | `chapters/rust/` | 12 张：所有权、借用、Option、Result、trait、生命周期、模式匹配、模块、迭代器、并发、异步和测试 |
 | TypeScript | `chapters/typescript/` | 26 张：联合类型、`never` 穷尽检查、条件类型、`infer`、Mapped Type、深度只读、`satisfies`、`unknown`、类型守卫、断言函数、外部 schema 边界、请求状态分层、品牌类型、模板字面量类型、Result 错误处理、工具类型、DTO 边界、DTO 版本演进、DTO 字段迁移、消费者观测、事件分层、mapper 边界、ViewModel 边界和 Command 边界 |
 | React | `chapters/react/` | 54 张：Effect、状态、派生状态、URL 状态、服务端数据缓存、异步状态边界、请求过期保护、请求缓存去重、缓存 key 设计、缓存失效、缓存过期、搜索防抖、骨架屏、表单字段状态、提交状态、字段错误、幂等键、action 返回 contract、成功后重置、列表 key、虚拟列表、分页加载、加载更多并发锁、筛选排序重置、延迟渲染、过渡更新、ref、自定义 Hook、错误边界、Suspense、代码分割、可恢复重试、Context 拆分、回调身份、memo、Profiler、性能、乐观更新、React 19 表单状态、SSR hydration 稳定输入、浏览器 API 客户端读取、客户端个性化外壳、SSR 个性化首屏占位策略、外部 store、Strict Mode、Reducer 和状态机 |
