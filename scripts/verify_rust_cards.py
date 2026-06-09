@@ -83,8 +83,8 @@ def compile_and_run(card: str, source: Path, temp_dir: Path) -> list[CheckResult
 
 def verify() -> list[CheckResult]:
     cards = read_cards(README)
-    if len(cards) != 13:
-        raise RuntimeError(f"expected 13 Rust cards in README, found {len(cards)}")
+    if len(cards) != 14:
+        raise RuntimeError(f"expected 14 Rust cards in README, found {len(cards)}")
 
     results: list[CheckResult] = []
     with tempfile.TemporaryDirectory(prefix="rust-card-verify-") as directory:
