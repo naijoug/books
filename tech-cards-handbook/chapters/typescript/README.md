@@ -57,6 +57,21 @@
 
 如果只想快速复习，可以按四个自检问题回看：输入是否先验证，领域是否表达业务不变量，输出是否经过 DTO mapper，提交是否从 ViewModel 转换成 command。
 
+## 边界 mapper 命名约定
+
+边界越多，越需要让函数名直接暴露“从哪里来、到哪里去”。本章示例优先采用下面的命名，避免一个 `mapProduct` 同时承担输入校验、DTO 脱敏、页面格式化和提交转换等职责。
+
+| 命名 | 方向 | 适用位置 | 不该做的事 |
+|---|---|---|---|
+| `parseXxx` / `decodeXxx` | `unknown` / raw → 已验证输入 | 网络、CLI、表单入口 | 不读取数据库，不调用业务服务 |
+| `toXxxDto` | 领域模型 → API DTO | controller、route handler、RPC resolver | 不返回领域对象引用，不泄漏内部字段 |
+| `fromXxxDto` | API DTO → 领域命令或领域输入 | client adapter、integration adapter | 不把 DTO 当成领域模型长期保存 |
+| `toXxxViewModel` | 领域模型 / DTO → 页面展示模型 | page loader、component adapter | 不写回业务状态，不保存临时 UI 字段到领域层 |
+| `toXxxCommand` | 表单 ViewModel → 业务命令 | submit handler、action、mutation | 不携带错误提示、按钮状态、格式化文案 |
+| `toXxxEvent` | 领域结果 → domain / integration event | use case、transaction boundary | 不复用 HTTP response DTO，不塞入 UI 字段 |
+
+维护规则：同一个 mapper 只跨越一条边界；如果函数名里说不清 `from` / `to`，通常说明它承担了两个以上职责，应该拆开。目录里新增卡片时，也优先按这个命名给示例函数命名。
+
 ## 可运行验证索引
 
 当前 21 张 TypeScript 卡片都应能通过 `tsc --noEmit --strict` 做最小类型检查。维护原则:示例优先写成可复制的 `.ts` 片段;类型体操类卡片至少保留 `Expect<Equal<...>>` 断言;涉及浏览器 API、`console` 或现代内建对象时显式写出 `--lib`,避免读者在默认环境下遇到无关报错。
