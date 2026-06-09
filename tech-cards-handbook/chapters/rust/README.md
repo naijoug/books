@@ -1,6 +1,6 @@
 # Rust 技术卡片
 
-本目录按“一张卡片一个 Markdown 文件”维护，共 12 张。文件名使用英文 `kebab-case`。
+本目录按“一张卡片一个 Markdown 文件”维护，共 13 张。文件名使用英文 `kebab-case`。
 
 | 卡片 | 文件 |
 |---|---|
@@ -16,12 +16,13 @@
 | 并发共享数据优先用消息或锁 | [`concurrency-message-or-lock.md`](concurrency-message-or-lock.md) |
 | 异步不是自动并行 | [`async-is-not-parallel.md`](async-is-not-parallel.md) |
 | 测试要覆盖成功路径和失败路径 | [`tests-cover-success-and-failure.md`](tests-cover-success-and-failure.md) |
+| newtype 把领域概念从原始类型里拆出来 | [`newtype-separates-domain-from-primitive.md`](newtype-separates-domain-from-primitive.md) |
 
 ## 可运行验证进度
 
 Rust 工具链已在本机确认可用（`rustc --version`）。当前优先把示例改成可复制运行的小程序；新增或改写卡片时，至少补一个 `rustc <file>.rs && ./<file>` 的检查命令。
 
-批量复核可在 `books` 仓库根目录运行：`python3 scripts/verify_rust_cards.py --verbose`。该脚本会从下列 12 张卡片抽取唯一 `rust` 代码块，编译并运行；测试卡片会额外执行 `rustc --test`。
+批量复核可在 `books` 仓库根目录运行：`python3 scripts/verify_rust_cards.py --verbose`。该脚本会从下列 13 张卡片抽取唯一 `rust` 代码块，编译并运行；测试卡片会额外执行 `rustc --test`。
 
 | 卡片 | 验证方式 |
 |---|---|
@@ -37,3 +38,4 @@ Rust 工具链已在本机确认可用（`rustc --version`）。当前优先把�
 | [`concurrency-message-or-lock.md`](concurrency-message-or-lock.md) | `rustc concurrency-message-or-lock.rs && ./concurrency-message-or-lock` |
 | [`async-is-not-parallel.md`](async-is-not-parallel.md) | `rustc --edition=2021 async-is-not-parallel.rs && ./async-is-not-parallel` |
 | [`tests-cover-success-and-failure.md`](tests-cover-success-and-failure.md) | `rustc --test tests-cover-success-and-failure.rs && ./tests-cover-success-and-failure` |
+| [`newtype-separates-domain-from-primitive.md`](newtype-separates-domain-from-primitive.md) | `rustc newtype-separates-domain-from-primitive.rs && ./newtype-separates-domain-from-primitive` |
