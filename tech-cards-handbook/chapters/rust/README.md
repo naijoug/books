@@ -19,6 +19,18 @@
 | newtype 把领域概念从原始类型里拆出来 | [`newtype-separates-domain-from-primitive.md`](newtype-separates-domain-from-primitive.md) |
 | derive 不等于自动正确 | [`derive-does-not-mean-automatic-correctness.md`](derive-does-not-mean-automatic-correctness.md) |
 
+## 领域建模阅读线
+
+如果目标是用 Rust 写出更难误用的领域代码，可以按这条线复习：
+
+1. **所有权边界**：先读 [`ownership-resource-release.md`](ownership-resource-release.md) 和 [`borrowing-temporary-read-write.md`](borrowing-temporary-read-write.md)，确认资源由谁拥有、函数只临时读取还是会修改。
+2. **缺失与失败边界**：再读 [`option-means-maybe-none.md`](option-means-maybe-none.md) 和 [`result-means-failable-with-reason.md`](result-means-failable-with-reason.md)，把“没有”和“失败”显式写进返回类型，而不是靠空字符串、零值或 panic 暗示。
+3. **行为与可见性边界**：接着读 [`trait-behavior-contract.md`](trait-behavior-contract.md)、[`lifetimes-describe-reference-relations.md`](lifetimes-describe-reference-relations.md) 和 [`modules-control-visibility.md`](modules-control-visibility.md)，让外部依赖行为契约和公开 API，而不是依赖结构体内部细节。
+4. **领域类型边界**：读 [`newtype-separates-domain-from-primitive.md`](newtype-separates-domain-from-primitive.md)，把 `UserId`、`OrderId`、`EmailAddress` 这类概念从 `String` / `u64` 里拆出来，让编译器阻止跨概念混用。
+5. **trait 语义承诺**：最后读 [`derive-does-not-mean-automatic-correctness.md`](derive-does-not-mean-automatic-correctness.md) 和 [`tests-cover-success-and-failure.md`](tests-cover-success-and-failure.md)，逐个确认 `Debug`、`Clone`、`Copy`、`PartialEq` 是否真符合业务语义，并用成功/失败测试固定边界。
+
+快速自检：如果一个函数签名里连续出现多个同类型原始值、返回值靠注释区分错误原因，或者 `#[derive(...)]` 暴露了还没讨论过的行为，就先停下来补领域类型、显式结果和最小测试。
+
 ## 可运行验证进度
 
 Rust 工具链已在本机确认可用（`rustc --version`）。当前优先把示例改成可复制运行的小程序；新增或改写卡片时，至少补一个 `rustc <file>.rs && ./<file>` 的检查命令。
