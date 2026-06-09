@@ -1,11 +1,11 @@
 # Go 技术卡片
 
-本目录按“一张卡片一个 Markdown 文件”维护，共 10 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护，共 11 张。文件名使用英文 `kebab-case`。
 
 | 卡片 | 文件 |
 |---|---|
 | `sync.WaitGroup` 等待一组 goroutine 完成 | [`sync-waitgroup-goroutine-completion.md`](sync-waitgroup-goroutine-completion.md) |
-| `context.Context` 传递取消信号，不传业务参数 | [`context-cancellation-not-business-data.md`](context-cancellation-not-business-data.md) |
+| `context.Context` 传递取消信号,不传业务参数 | [`context-cancellation-not-business-data.md`](context-cancellation-not-business-data.md) |
 | channel 的关闭权属于发送方 | [`channel-close-owned-by-sender.md`](channel-close-owned-by-sender.md) |
 | Worker Pool 控制并发上限 | [`worker-pool-concurrency-limit.md`](worker-pool-concurrency-limit.md) |
 | 生产者-消费者用 channel 传递所有权 | [`producer-consumer-channel-ownership.md`](producer-consumer-channel-ownership.md) |
@@ -14,12 +14,13 @@
 | 错误要保留上下文 | [`errors-keep-context.md`](errors-keep-context.md) |
 | 小接口由使用方定义 | [`small-interfaces-defined-by-consumer.md`](small-interfaces-defined-by-consumer.md) |
 | 表格驱动测试让边界更清楚 | [`table-driven-tests-boundaries.md`](table-driven-tests-boundaries.md) |
+| HTTP handler 不要把内部错误暴露给客户端 | [`http-handler-hides-internal-errors.md`](http-handler-hides-internal-errors.md) |
 
 ## 可运行验证进度
 
-Go 工具链已在本机确认可用（`go version`）。当前优先把示例改成可复制运行的小程序；新增或改写卡片时，至少补一个 `go run <file>.go` 或 `go test` 的检查命令。
+Go 工具链已在本机确认可用(`go version`)。当前优先把示例改成可复制运行的小程序;新增或改写卡片时,至少补一个 `go run <file>.go` 或 `go test` 的检查命令。
 
-批量复核命令：
+批量复核命令:
 
 ```bash
 python3 scripts/verify_go_cards.py
@@ -37,3 +38,4 @@ python3 scripts/verify_go_cards.py
 | [`errors-keep-context.md`](errors-keep-context.md) | `go run errors-keep-context.go` |
 | [`small-interfaces-defined-by-consumer.md`](small-interfaces-defined-by-consumer.md) | `go run small-interfaces-defined-by-consumer.go` |
 | [`table-driven-tests-boundaries.md`](table-driven-tests-boundaries.md) | `go test email_test.go`（抽取为 `email_test.go`） |
+| [`http-handler-hides-internal-errors.md`](http-handler-hides-internal-errors.md) | `go run http-handler-hides-internal-errors.go` |
