@@ -16,6 +16,18 @@
 | 表格驱动测试让边界更清楚 | [`table-driven-tests-boundaries.md`](table-driven-tests-boundaries.md) |
 | HTTP handler 不要把内部错误暴露给客户端 | [`http-handler-hides-internal-errors.md`](http-handler-hides-internal-errors.md) |
 
+## 边界实践阅读线
+
+Go 代码的边界问题通常先出现在并发所有权，再进入取消、接口、错误和 HTTP adapter。建议按下面顺序复习：
+
+1. **并发生命周期**：先读 `sync.WaitGroup`、worker pool、`select` 三张卡片，明确 goroutine 何时开始、何时结束、谁负责等待。
+2. **channel 所有权**：再读 channel 关闭权和生产者-消费者两张卡片，确认“谁发送、谁关闭、谁消费”不会混在一起。
+3. **取消边界**：用 `context.Context` 卡片复核取消信号只表达生命周期，不夹带业务参数。
+4. **接口边界**：用“小接口由使用方定义”卡片把依赖反转到调用方，避免把实现细节扩散到业务层。
+5. **错误与 adapter 边界**：最后连读“错误要保留上下文”和“HTTP handler 不要把内部错误暴露给客户端”，做到内部日志可诊断、外部响应可安全。
+
+快速自检：一个函数如果同时负责启动 goroutine、关闭 channel、解析 HTTP 请求、访问数据库并决定响应格式，通常已经跨越太多边界，应先拆出 worker、service 和 handler。
+
 ## 可运行验证进度
 
 Go 工具链已在本机确认可用(`go version`)。当前优先把示例改成可复制运行的小程序;新增或改写卡片时,至少补一个 `go run <file>.go` 或 `go test` 的检查命令。
