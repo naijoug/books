@@ -1,6 +1,6 @@
 # Rust 技术卡片
 
-本目录按“一张卡片一个 Markdown 文件”维护，共 14 张。文件名使用英文 `kebab-case`。
+本目录按“一张卡片一个 Markdown 文件”维护，共 15 张。文件名使用英文 `kebab-case`。
 
 | 卡片 | 文件 |
 |---|---|
@@ -18,6 +18,7 @@
 | 测试要覆盖成功路径和失败路径 | [`tests-cover-success-and-failure.md`](tests-cover-success-and-failure.md) |
 | newtype 把领域概念从原始类型里拆出来 | [`newtype-separates-domain-from-primitive.md`](newtype-separates-domain-from-primitive.md) |
 | derive 不等于自动正确 | [`derive-does-not-mean-automatic-correctness.md`](derive-does-not-mean-automatic-correctness.md) |
+| From/Into 不要跨越业务验证边界 | [`from-into-do-not-skip-validation-boundary.md`](from-into-do-not-skip-validation-boundary.md) |
 
 ## 领域建模阅读线
 
@@ -26,16 +27,16 @@
 1. **所有权边界**：先读 [`ownership-resource-release.md`](ownership-resource-release.md) 和 [`borrowing-temporary-read-write.md`](borrowing-temporary-read-write.md)，确认资源由谁拥有、函数只临时读取还是会修改。
 2. **缺失与失败边界**：再读 [`option-means-maybe-none.md`](option-means-maybe-none.md) 和 [`result-means-failable-with-reason.md`](result-means-failable-with-reason.md)，把“没有”和“失败”显式写进返回类型，而不是靠空字符串、零值或 panic 暗示。
 3. **行为与可见性边界**：接着读 [`trait-behavior-contract.md`](trait-behavior-contract.md)、[`lifetimes-describe-reference-relations.md`](lifetimes-describe-reference-relations.md) 和 [`modules-control-visibility.md`](modules-control-visibility.md)，让外部依赖行为契约和公开 API，而不是依赖结构体内部细节。
-4. **领域类型边界**：读 [`newtype-separates-domain-from-primitive.md`](newtype-separates-domain-from-primitive.md)，把 `UserId`、`OrderId`、`EmailAddress` 这类概念从 `String` / `u64` 里拆出来，让编译器阻止跨概念混用。
-5. **trait 语义承诺**：最后读 [`derive-does-not-mean-automatic-correctness.md`](derive-does-not-mean-automatic-correctness.md) 和 [`tests-cover-success-and-failure.md`](tests-cover-success-and-failure.md)，逐个确认 `Debug`、`Clone`、`Copy`、`PartialEq` 是否真符合业务语义，并用成功/失败测试固定边界。
+4. **领域类型边界**：读 [`newtype-separates-domain-from-primitive.md`](newtype-separates-domain-from-primitive.md) 和 [`from-into-do-not-skip-validation-boundary.md`](from-into-do-not-skip-validation-boundary.md)，把 `UserId`、`OrderId`、`EmailAddress` 这类概念从 `String` / `u64` 里拆出来，并确认外部输入必须经过 `TryFrom` / `FromStr` / `new(...) -> Result<_, _>` 验证后才能进入领域类型。
+5. **trait 语义承诺**：最后读 [`derive-does-not-mean-automatic-correctness.md`](derive-does-not-mean-automatic-correctness.md) 和 [`tests-cover-success-and-failure.md`](tests-cover-success-and-failure.md)，逐个确认 `Debug`、`Clone`、`Copy`、`PartialEq`、`From`、`Into` 是否真符合业务语义，并用成功/失败测试固定边界。
 
-快速自检：如果一个函数签名里连续出现多个同类型原始值、返回值靠注释区分错误原因，或者 `#[derive(...)]` 暴露了还没讨论过的行为，就先停下来补领域类型、显式结果和最小测试。
+快速自检：如果一个函数签名里连续出现多个同类型原始值、返回值靠注释区分错误原因，`impl From<...> for DomainType` 可能绕过验证，或者 `#[derive(...)]` 暴露了还没讨论过的行为，就先停下来补领域类型、显式结果和最小测试。
 
 ## 可运行验证进度
 
 Rust 工具链已在本机确认可用（`rustc --version`）。当前优先把示例改成可复制运行的小程序；新增或改写卡片时，至少补一个 `rustc <file>.rs && ./<file>` 的检查命令。
 
-批量复核可在 `books` 仓库根目录运行：`python3 scripts/verify_rust_cards.py --verbose`。该脚本会从下列 14 张卡片抽取唯一 `rust` 代码块，编译并运行；测试卡片会额外执行 `rustc --test`。
+批量复核可在 `books` 仓库根目录运行：`python3 scripts/verify_rust_cards.py --verbose`。该脚本会从下列 15 张卡片抽取唯一 `rust` 代码块，编译并运行；测试卡片会额外执行 `rustc --test`。
 
 | 卡片 | 验证方式 |
 |---|---|
@@ -53,3 +54,4 @@ Rust 工具链已在本机确认可用（`rustc --version`）。当前优先把�
 | [`tests-cover-success-and-failure.md`](tests-cover-success-and-failure.md) | `rustc --test tests-cover-success-and-failure.rs && ./tests-cover-success-and-failure` |
 | [`newtype-separates-domain-from-primitive.md`](newtype-separates-domain-from-primitive.md) | `rustc newtype-separates-domain-from-primitive.rs && ./newtype-separates-domain-from-primitive` |
 | [`derive-does-not-mean-automatic-correctness.md`](derive-does-not-mean-automatic-correctness.md) | `rustc derive-does-not-mean-automatic-correctness.rs && ./derive-does-not-mean-automatic-correctness` |
+| [`from-into-do-not-skip-validation-boundary.md`](from-into-do-not-skip-validation-boundary.md) | `rustc from-into-do-not-skip-validation-boundary.rs && ./from-into-do-not-skip-validation-boundary` |
