@@ -82,13 +82,20 @@
 | 命名 | 方向 | 适用位置 | 不该做的事 |
 |---|---|---|---|
 | `parseXxx` / `decodeXxx` | `unknown` / raw → 已验证输入 | 网络、CLI、表单入口 | 不读取数据库，不调用业务服务 |
-| `toXxxDto` | 领域模型 → API DTO | controller、route handler、RPC resolver | 不返回领域对象引用，不泄漏内部字段 |
-| `fromXxxDto` | API DTO → 领域命令或领域输入 | client adapter、integration adapter | 不把 DTO 当成领域模型长期保存 |
+| `toXxxDto` / `toXxxDtoV1` | 领域模型 → API DTO | controller、route handler、RPC resolver | 不返回领域对象引用，不泄漏内部字段 |
+| `fromXxxDto` / `fromDeprecatedXxxDto` | API DTO → 领域命令或领域输入 | client adapter、integration adapter | 不把 DTO 当成领域模型长期保存 |
 | `toXxxViewModel` | 领域模型 / DTO → 页面展示模型 | page loader、component adapter | 不写回业务状态，不保存临时 UI 字段到领域层 |
 | `toXxxCommand` | 表单 ViewModel → 业务命令 | submit handler、action、mutation | 不携带错误提示、按钮状态、格式化文案 |
-| `toXxxEvent` | 领域结果 → domain / integration event | use case、transaction boundary | 不复用 HTTP response DTO，不塞入 UI 字段 |
+| `toXxxDomainEvent` | 业务结果 → 领域事件 | use case、transaction boundary | 不包含外部 topic、版本号或消费者兼容字段 |
+| `toXxxIntegrationEventV1` | domain event → integration event payload | outbox publisher、message adapter、webhook adapter | 不复用 HTTP response DTO，不暴露内部聚合结构 |
 
-维护规则：同一个 mapper 只跨越一条边界；如果函数名里说不清 `from` / `to`，通常说明它承担了两个以上职责，应该拆开。目录里新增卡片时，也优先按这个命名给示例函数命名。
+维护规则：
+
+- 同一个 mapper 只跨越一条边界；如果函数名里说不清 `from` / `to`，通常说明它承担了两个以上职责，应该拆开。
+- DTO 有多个公开版本时，把版本号写进 mapper 名字（例如 `toUserProfileDtoV1` / `toUserProfileDtoV2`），而不是把兼容字段塞回领域模型。
+- 弃用字段保留迁移窗口时，把旧字段读取集中到 `fromDeprecatedXxxDto` 或版本化 adapter，并配套契约测试；迁移窗口结束后删除 adapter 分支，而不是改领域类型来迎合旧消费者。
+- 事件发布先从领域结果生成 `toXxxDomainEvent`，再在 outbox / publisher 边界转换成 `toXxxIntegrationEventV1`；这能把内部事实、外部 topic 和消息版本分开演进。
+- 目录里新增卡片时，也优先按这个命名给示例函数命名，并在“可运行验证索引”里补上对应验证方式。
 
 ## 可运行验证索引
 
