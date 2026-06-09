@@ -49,11 +49,21 @@
 
 ### 3. 输出边界：不要让领域模型直接暴露出去
 
+这一段可以分成三组读：先学会从领域模型导出可公开 DTO，再处理 API 版本演进，最后把事件发布边界拆成内部事实和外部契约。读完后应能回答：“这份数据是给 HTTP 客户端、消息消费者，还是 UI 组件用？”
+
+**3.1 HTTP / RPC 输出契约**
+
 9. **工具类型从领域模型派生 DTO** ([`utility-types-derive-dtos.md`](utility-types-derive-dtos.md)) — 用 `Pick` / `Omit` / `Partial` 等从领域类型派生 API 层 DTO，避免手工同步。
 10. **DTO 边界不要泄漏领域模型** ([`dto-boundary-hides-domain-model.md`](dto-boundary-hides-domain-model.md)) — 用 mapper 固化公开 DTO、管理脱敏和字段格式转换，避免领域模型穿透外部边界。
 11. **API DTO 版本演进不要回灌领域模型** ([`api-dto-version-does-not-backflow-domain-model.md`](api-dto-version-does-not-backflow-domain-model.md)) — 把 v1 / v2 兼容逻辑留在 adapter 和 mapper，避免旧字段名、别名和迁移窗口污染领域模型。
+
+**3.2 事件发布契约**
+
 12. **领域事件不要复用 API DTO** ([`domain-events-do-not-reuse-api-dtos.md`](domain-events-do-not-reuse-api-dtos.md)) — 把 HTTP 请求/响应契约和“业务事实已发生”的事件 payload 分开，避免 API 版本变化拖动消息消费者。
 13. **Domain Event 与 Integration Event 要分层** ([`domain-event-integration-event-layering.md`](domain-event-integration-event-layering.md)) — 在发布边界把内部领域事件转换成外部集成事件，避免内部重构破坏跨服务契约。
+
+**3.3 单边界 mapper 规则**
+
 14. **不要用万能 mapper 跨多条边界** ([`universal-mapper-crosses-too-many-boundaries.md`](universal-mapper-crosses-too-many-boundaries.md)) — 把 DTO、ViewModel、Command、Event 的转换拆成单边界 mapper，避免一个函数同时承担多层职责。
 
 ### 4. 展示与提交边界：UI 状态只在 UI 层停留
