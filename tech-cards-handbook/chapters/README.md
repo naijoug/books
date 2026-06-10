@@ -21,6 +21,21 @@
 | Flutter 技术卡片 | [`flutter/`](flutter/) | 10 |
 | AI Agent 系统实践卡片 | [`ai-agent/`](ai-agent/) | 21 |
 
+## 跨技术栈复盘路径
+
+当一个问题已经在多个技术栈里反复出现，优先按“边界问题”而不是“语言特性”来复盘：
+
+### 存储与 adapter 边界
+
+这条路径适合审查 CRUD、后台管理、API handler 和 repository 代码，目标是防止外部契约、领域模型和数据库 row 相互泄漏。
+
+1. **输入边界**：先读 Go 的 [`go/request-json-does-not-decode-into-database-row.md`](go/request-json-does-not-decode-into-database-row.md)，确认请求 JSON 只进入 request DTO / command，不直接写进数据库 row。
+2. **handler 输出边界**：再读 Go 的 [`go/http-handler-does-not-bind-database-model.md`](go/http-handler-does-not-bind-database-model.md) 和 [`go/http-handler-hides-internal-errors.md`](go/http-handler-hides-internal-errors.md)，确认 handler 不透传存储字段、内部错误和日志上下文。
+3. **领域类型边界**：切到 Rust 的 [`rust/newtype-separates-domain-from-primitive.md`](rust/newtype-separates-domain-from-primitive.md) 与 [`rust/from-into-do-not-skip-validation-boundary.md`](rust/from-into-do-not-skip-validation-boundary.md)，检查 `UserId`、`EmailAddress`、状态枚举这类概念是否先经过可失败验证再进入业务层。
+4. **repository 边界**：最后读 Rust 的 [`rust/repository-does-not-leak-database-row.md`](rust/repository-does-not-leak-database-row.md)，确认 repository trait 只暴露领域模型和领域错误，ORM model / SQL row / driver error 被限制在 adapter 内。
+
+复盘输出可以是一张四列表：`输入 DTO`、`领域 command/model`、`存储 row`、`输出 DTO`。如果任意一列的字段名、错误语义或类型直接复制到另一列，就要补 mapper、newtype 或显式错误转换。
+
 ## 卡片维护规则
 
 - 新卡片放入对应技术栈目录，文件名使用英文 `kebab-case`，不要使用纯数字命名。
