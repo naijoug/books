@@ -13,7 +13,7 @@
 | 技术栈 | 目录 | 卡片数 |
 |---|---|---|
 | Python 技术卡片 | [`python/`](python/) | 18 |
-| Go 技术卡片 | [`go/`](go/) | 15 |
+| Go 技术卡片 | [`go/`](go/) | 16 |
 | Rust 技术卡片 | [`rust/`](rust/) | 18 |
 | TypeScript 技术卡片 | [`typescript/`](typescript/) | 26 |
 | React 技术卡片 | [`react/`](react/) | 54 |
@@ -35,6 +35,10 @@
 4. **repository 边界**:最后读 Rust 的 [`rust/repository-does-not-leak-database-row.md`](rust/repository-does-not-leak-database-row.md),确认 repository trait 只暴露领域模型和领域错误,ORM model / SQL row / driver error 被限制在 adapter 内。
 
 复盘输出可以是一张四列表:`输入 DTO`、`领域 command/model`、`存储 row`、`输出 DTO`。如果任意一列的字段名、错误语义或类型直接复制到另一列,就要补 mapper、newtype 或显式错误转换。
+
+### 存储边界审查清单
+
+如果需要在代码审查中快速走查存储边界，可以直接使用 [`storage-boundary-review-checklist.md`](storage-boundary-review-checklist.md)，它把输入 DTO、领域类型、可失败转换、repository adapter 和输出 DTO 压缩成五个检查点，并附带不符合项记录表。
 
 ### 错误传播与分类边界
 
