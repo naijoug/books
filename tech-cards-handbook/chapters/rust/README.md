@@ -34,6 +34,22 @@
 
 快速自检：如果一个函数签名里连续出现多个同类型原始值、repository trait 返回 `UserRow` / `Record`，返回值靠注释区分错误原因，`impl From<...> for DomainType` 可能绕过验证，或者 `#[derive(...)]` 暴露了还没讨论过的行为，就先停下来补领域类型、显式结果和最小测试。
 
+## 错误恢复阅读组
+
+当你要审查一个会调用数据库、外部 API、文件系统或队列的 Rust service 时，可以把下面几张卡片连成一次“失败路径”复盘：
+
+1. [`result-means-failable-with-reason.md`](result-means-failable-with-reason.md)：先确认函数签名把失败原因写进 `Result<T, E>`，调用方不用靠空值、日志或 panic 猜测失败。
+2. [`pattern-matching-exhaustive-branches.md`](pattern-matching-exhaustive-branches.md)：再检查调用方是否穷尽处理领域错误，而不是用 `_ =>` 把可恢复、不可恢复、用户可见和内部错误混在一起。
+3. [`retry-strategy-explicit-not-implicit-loop.md`](retry-strategy-explicit-not-implicit-loop.md)：最后把恢复动作显式化，确认可重试错误集合、最大次数、退避间隔和耗尽后的返回值都能被测试。
+
+复盘时可以直接问三个问题：
+
+- **错误分类是否稳定？** 上层应该匹配领域错误枚举，而不是匹配数据库驱动、HTTP client 或 SDK 的内部错误类型。
+- **恢复策略是否可配置、可测试？** 重试次数、退避间隔和是否允许降级不要散落在 `match` 分支里；用 `RetryPolicy`、配置项或显式函数参数表达。
+- **失败耗尽后是否仍保留上下文？** 重试结束后返回的错误要保留“做什么、对谁做、最后一次失败原因”，但对外消息不要直接泄露底层错误字符串。
+
+这组卡片可以和 Go 章节的 `errors-keep-context.md`、`error-wrapping-vs-result-propagation.md` 对照阅读：Go 更依赖 `%w` / `errors.Is` 保留链路，Rust 更适合用错误枚举和 `match` 固定分类，但两者都需要把“恢复动作”从临时错误处理代码里拆出来。
+
 ## 存储边界阅读组
 
 当你要把 Rust 用在真实业务服务里，可以把下面几张卡片连成一次 30 分钟的“存储边界”复盘：
