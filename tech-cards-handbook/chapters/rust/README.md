@@ -1,6 +1,6 @@
 # Rust 技术卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护，共 18 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护，共 19 张。文件名使用英文 `kebab-case`。
 
 | 卡片 | 文件 |
 |---|---|
@@ -22,6 +22,7 @@
 | Repository 不要把数据库 row 泄漏到领域层 | [`repository-does-not-leak-database-row.md`](repository-does-not-leak-database-row.md) |
 | 错误恢复要用显式重试策略，而不是在错误处理里循环 | [`retry-strategy-explicit-not-implicit-loop.md`](retry-strategy-explicit-not-implicit-loop.md) |
 | 对外错误码应由领域定义，而不是从基础设施泄漏 | [`external-error-codes-domain-defined-not-leaked.md`](external-error-codes-domain-defined-not-leaked.md) |
+| 降级策略要在调用方实现，而不是在被调方隐藏 | [`degradation-strategy-at-caller-not-callee.md`](degradation-strategy-at-caller-not-callee.md) |
 
 ## 领域建模阅读线
 
@@ -42,7 +43,8 @@
 1. [`result-means-failable-with-reason.md`](result-means-failable-with-reason.md):先确认函数签名把失败原因写进 `Result<T, E>`,调用方不用靠空值、日志或 panic 猜测失败。
 2. [`pattern-matching-exhaustive-branches.md`](pattern-matching-exhaustive-branches.md):再检查调用方是否穷尽处理领域错误,而不是用 `_ =>` 把可恢复、不可恢复、用户可见和内部错误混在一起。
 3. [`retry-strategy-explicit-not-implicit-loop.md`](retry-strategy-explicit-not-implicit-loop.md)：把恢复动作显式化，确认可重试错误集合、最大次数、退避间隔和耗尽后的返回值都能被测试。
-4. [`external-error-codes-domain-defined-not-leaked.md`](external-error-codes-domain-defined-not-leaked.md)：最后检查对外返回的错误码是否来自领域枚举，底层 SQL state、驱动类型名或内部错误字符串是否被 adapter 翻译成了稳定的领域错误码。
+4. [`external-error-codes-domain-defined-not-leaked.md`](external-error-codes-domain-defined-not-leaked.md)：检查对外返回的错误码是否来自领域枚举，底层 SQL state、驱动类型名或内部错误字符串是否被 adapter 翻译成了稳定的领域错误码。
+5. [`degradation-strategy-at-caller-not-callee.md`](degradation-strategy-at-caller-not-callee.md)：确认降级决策是在调用方根据业务语义做出，而不是被调方静默返回假结果。
 
 复盘时可以直接问三个问题:
 
@@ -94,3 +96,4 @@ Rust 工具链已在本机确认可用(`rustc --version`)。当前优先把示�
 | [`repository-does-not-leak-database-row.md`](repository-does-not-leak-database-row.md) | `rustc repository-does-not-leak-database-row.rs && ./repository-does-not-leak-database-row` |
 | [`retry-strategy-explicit-not-implicit-loop.md`](retry-strategy-explicit-not-implicit-loop.md) | `rustc retry-strategy-explicit-not-implicit-loop.rs && ./retry-strategy-explicit-not-implicit-loop` |
 | [`external-error-codes-domain-defined-not-leaked.md`](external-error-codes-domain-defined-not-leaked.md) | `rustc external-error-codes-domain-defined-not-leaked.rs && ./external-error-codes-domain-defined-not-leaked` |
+| [`degradation-strategy-at-caller-not-callee.md`](degradation-strategy-at-caller-not-callee.md) | `rustc degradation-strategy-at-caller-not-callee.rs && ./degradation-strategy-at-caller-not-callee` |
