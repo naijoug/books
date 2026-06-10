@@ -1,6 +1,6 @@
 # Go 技术卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护，共 15 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护，共 16 张。文件名使用英文 `kebab-case`。
 
 | 卡片 | 文件 |
 |---|---|
@@ -19,6 +19,7 @@
 | 请求 JSON 不直接反序列化到数据库 row | [`request-json-does-not-decode-into-database-row.md`](request-json-does-not-decode-into-database-row.md) |
 | Go 错误包装与 Rust 错误传播的对照 | [`error-wrapping-vs-result-propagation.md`](error-wrapping-vs-result-propagation.md) |
 | 重试策略要显式化，而不是藏在错误处理循环里 | [`retry-policy-explicit-not-hidden-loop.md`](retry-policy-explicit-not-hidden-loop.md) |
+| 对外错误码应由领域定义，而不是从基础设施泄漏 | [`external-error-codes-domain-defined-not-leaked.md`](external-error-codes-domain-defined-not-leaked.md) |
 
 ## 边界实践阅读线
 
@@ -70,3 +71,4 @@ python3 scripts/verify_go_cards.py
 | [`request-json-does-not-decode-into-database-row.md`](request-json-does-not-decode-into-database-row.md) | `go run request-json-does-not-decode-into-database-row.go` |
 | [`error-wrapping-vs-result-propagation.md`](error-wrapping-vs-result-propagation.md) | `go run error-wrapping-vs-result-propagation.go` |
 | [`retry-policy-explicit-not-hidden-loop.md`](retry-policy-explicit-not-hidden-loop.md) | `go run retry-policy-explicit-not-hidden-loop.go` |
+| [`external-error-codes-domain-defined-not-leaked.md`](external-error-codes-domain-defined-not-leaked.md) | `go run external-error-codes-domain-defined-not-leaked.go` |
