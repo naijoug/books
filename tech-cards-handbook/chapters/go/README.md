@@ -1,6 +1,6 @@
 # Go 技术卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护，共 13 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护，共 14 张。文件名使用英文 `kebab-case`。
 
 | 卡片 | 文件 |
 |---|---|
@@ -17,6 +17,7 @@
 | HTTP handler 不要把内部错误暴露给客户端 | [`http-handler-hides-internal-errors.md`](http-handler-hides-internal-errors.md) |
 | HTTP handler 不直接绑定数据库模型 | [`http-handler-does-not-bind-database-model.md`](http-handler-does-not-bind-database-model.md) |
 | 请求 JSON 不直接反序列化到数据库 row | [`request-json-does-not-decode-into-database-row.md`](request-json-does-not-decode-into-database-row.md) |
+| Go 错误包装与 Rust 错误传播的对照 | [`error-wrapping-vs-result-propagation.md`](error-wrapping-vs-result-propagation.md) |
 
 ## 边界实践阅读线
 
@@ -66,3 +67,4 @@ python3 scripts/verify_go_cards.py
 | [`http-handler-hides-internal-errors.md`](http-handler-hides-internal-errors.md) | `go run http-handler-hides-internal-errors.go` |
 | [`http-handler-does-not-bind-database-model.md`](http-handler-does-not-bind-database-model.md) | `go run http-handler-does-not-bind-database-model.go` |
 | [`request-json-does-not-decode-into-database-row.md`](request-json-does-not-decode-into-database-row.md) | `go run request-json-does-not-decode-into-database-row.go` |
+| [`error-wrapping-vs-result-propagation.md`](error-wrapping-vs-result-propagation.md) | `go run error-wrapping-vs-result-propagation.go` |

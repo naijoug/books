@@ -13,7 +13,7 @@
 | 技术栈 | 目录 | 卡片数 |
 |---|---|---|
 | Python 技术卡片 | [`python/`](python/) | 18 |
-| Go 技术卡片 | [`go/`](go/) | 13 |
+| Go 技术卡片 | [`go/`](go/) | 14 |
 | Rust 技术卡片 | [`rust/`](rust/) | 16 |
 | TypeScript 技术卡片 | [`typescript/`](typescript/) | 26 |
 | React 技术卡片 | [`react/`](react/) | 54 |
