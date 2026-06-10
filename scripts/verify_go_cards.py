@@ -66,8 +66,8 @@ def verify_card(card: str, code: str, temp_dir: Path) -> CheckResult:
 
 def verify() -> list[CheckResult]:
     cards = read_cards(README)
-    if len(cards) != 16:
-        raise RuntimeError(f"expected 16 Go cards in README, found {len(cards)}")
+    if len(cards) != 17:
+        raise RuntimeError(f"expected 17 Go cards in README, found {len(cards)}")
 
     results: list[CheckResult] = []
     with tempfile.TemporaryDirectory(prefix="go-card-verify-") as directory:
