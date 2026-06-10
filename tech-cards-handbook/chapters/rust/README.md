@@ -1,6 +1,6 @@
 # Rust 技术卡片
 
-本目录按“一张卡片一个 Markdown 文件”维护，共 16 张。文件名使用英文 `kebab-case`。
+本目录按“一张卡片一个 Markdown 文件”维护，共 17 张。文件名使用英文 `kebab-case`。
 
 | 卡片 | 文件 |
 |---|---|
@@ -20,6 +20,7 @@
 | derive 不等于自动正确 | [`derive-does-not-mean-automatic-correctness.md`](derive-does-not-mean-automatic-correctness.md) |
 | From/Into 不要跨越业务验证边界 | [`from-into-do-not-skip-validation-boundary.md`](from-into-do-not-skip-validation-boundary.md) |
 | Repository 不要把数据库 row 泄漏到领域层 | [`repository-does-not-leak-database-row.md`](repository-does-not-leak-database-row.md) |
+| 错误恢复要用显式重试策略，而不是在错误处理里循环 | [`retry-strategy-explicit-not-implicit-loop.md`](retry-strategy-explicit-not-implicit-loop.md) |
 
 ## 领域建模阅读线
 
@@ -53,7 +54,7 @@
 
 Rust 工具链已在本机确认可用（`rustc --version`）。当前优先把示例改成可复制运行的小程序；新增或改写卡片时，至少补一个 `rustc <file>.rs && ./<file>` 的检查命令。
 
-批量复核可在 `books` 仓库根目录运行：`python3 scripts/verify_rust_cards.py --verbose`。该脚本会从下列 16 张卡片抽取唯一 `rust` 代码块，编译并运行；测试卡片会额外执行 `rustc --test`。
+批量复核可在 `books` 仓库根目录运行：`python3 scripts/verify_rust_cards.py --verbose`。该脚本会从下列 17 张卡片抽取唯一 `rust` 代码块，编译并运行；测试卡片会额外执行 `rustc --test`。
 
 | 卡片 | 验证方式 |
 |---|---|
@@ -73,3 +74,4 @@ Rust 工具链已在本机确认可用（`rustc --version`）。当前优先把�
 | [`derive-does-not-mean-automatic-correctness.md`](derive-does-not-mean-automatic-correctness.md) | `rustc derive-does-not-mean-automatic-correctness.rs && ./derive-does-not-mean-automatic-correctness` |
 | [`from-into-do-not-skip-validation-boundary.md`](from-into-do-not-skip-validation-boundary.md) | `rustc from-into-do-not-skip-validation-boundary.rs && ./from-into-do-not-skip-validation-boundary` |
 | [`repository-does-not-leak-database-row.md`](repository-does-not-leak-database-row.md) | `rustc repository-does-not-leak-database-row.rs && ./repository-does-not-leak-database-row` |
+| [`retry-strategy-explicit-not-implicit-loop.md`](retry-strategy-explicit-not-implicit-loop.md) | `rustc retry-strategy-explicit-not-implicit-loop.rs && ./retry-strategy-explicit-not-implicit-loop` |
