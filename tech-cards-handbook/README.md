@@ -53,6 +53,17 @@ tech-cards-handbook/
 
 不要使用 `01.md`、`02.md` 这类纯数字命名。阅读顺序由各技术栈目录下的 `README.md` 维护。
 
+## 代码审查工具箱
+
+当卡片不只是用来学习，而是要直接服务一次代码审查时，优先从这些清单入口开始：
+
+| 审查主题 | 入口 | 适用场景 | 输出物 |
+|---|---|---|---|
+| 存储边界 | [`chapters/storage-boundary-review-checklist.md`](chapters/storage-boundary-review-checklist.md) | CRUD、后台管理、API handler、repository、ORM adapter | `输入 DTO / 领域 command/model / 存储 row / 输出 DTO` 字段映射表，以及不符合项记录 |
+| 错误边界 | [`chapters/error-boundary-review-checklist.md`](chapters/error-boundary-review-checklist.md) | service、repository、handler、CLI command、外部 SDK adapter | `底层错误 / 领域错误 / 调用方动作 / 重试/降级策略 / 对外消息` 决策表，以及 P0–P3 优先级记录 |
+
+使用方式：先用清单做 10–15 分钟快速走查，只记录“现象 + 风险 + 建议修复”；需要补背景时再跳到清单里的 Go / Rust 深度卡片。这样可以避免在 review 现场按语言特性发散，而是围绕边界是否泄漏、调用方能否稳定决策、对外契约是否安全来收束。
+
 ## 卡片标准
 
 每张正式卡片必须包含：
