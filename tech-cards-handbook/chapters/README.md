@@ -36,6 +36,16 @@
 
 复盘输出可以是一张四列表：`输入 DTO`、`领域 command/model`、`存储 row`、`输出 DTO`。如果任意一列的字段名、错误语义或类型直接复制到另一列，就要补 mapper、newtype 或显式错误转换。
 
+### 错误传播与分类边界
+
+这条路径适合审查 service、repository、handler 和 CLI command 的错误返回，目标是让错误既能保留诊断上下文，又能被调用方稳定分类处理。
+
+1. **先确认失败是否进入类型系统**：读 Rust 的 [`rust/result-means-failable-with-reason.md`](rust/result-means-failable-with-reason.md)，把“可能失败且有原因”写进返回类型，而不是用空值、布尔值或 panic 暗示。
+2. **再确认上下文没有断链**：读 Go 的 [`go/errors-keep-context.md`](go/errors-keep-context.md)，检查每一层是否用 `%w` 保留根因，并补上“做什么、对谁做”的上下文。
+3. **最后做跨语言对照**：读 Go 的 [`go/error-wrapping-vs-result-propagation.md`](go/error-wrapping-vs-result-propagation.md)，比较 Go 的 `errors.Is` / `errors.As` 与 Rust 的 `From` / `?` / `match`，确认调用方能区分重试、降级、用户可见错误和内部故障。
+
+复盘输出可以是一张四列表：`底层错误`、`领域错误`、`调用方动作`、`对外消息`。如果上层需要知道 SQL 状态码、文件系统错误码或第三方 SDK 类型才能决策，就要在 adapter 边界补领域错误转换；如果对外消息直接拼接底层错误字符串，就要拆出日志上下文和用户可见错误码。
+
 ## 卡片维护规则
 
 - 新卡片放入对应技术栈目录，文件名使用英文 `kebab-case`，不要使用纯数字命名。
