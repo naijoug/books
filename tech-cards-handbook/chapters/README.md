@@ -13,7 +13,7 @@
 | 技术栈 | 目录 | 卡片数 |
 |---|---|---|
 | Python 技术卡片 | [`python/`](python/) | 18 |
-| Go 技术卡片 | [`go/`](go/) | 14 |
+| Go 技术卡片 | [`go/`](go/) | 15 |
 | Rust 技术卡片 | [`rust/`](rust/) | 17 |
 | TypeScript 技术卡片 | [`typescript/`](typescript/) | 26 |
 | React 技术卡片 | [`react/`](react/) | 54 |
@@ -43,7 +43,7 @@
 1. **先确认失败是否进入类型系统**：读 Rust 的 [`rust/result-means-failable-with-reason.md`](rust/result-means-failable-with-reason.md)，把“可能失败且有原因”写进返回类型，而不是用空值、布尔值或 panic 暗示。
 2. **再确认上下文没有断链**：读 Go 的 [`go/errors-keep-context.md`](go/errors-keep-context.md)，检查每一层是否用 `%w` 保留根因，并补上“做什么、对谁做”的上下文。
 3. **再确认错误是否可分类**：读 Go 的 [`go/error-wrapping-vs-result-propagation.md`](go/error-wrapping-vs-result-propagation.md)，比较 Go 的 `errors.Is` / `errors.As` 与 Rust 的 `From` / `?` / `match`，确认调用方能区分重试、降级、用户可见错误和内部故障。
-4. **最后确认恢复动作显式化**：读 Rust 的 [`rust/retry-strategy-explicit-not-implicit-loop.md`](rust/retry-strategy-explicit-not-implicit-loop.md)，把“哪些错误可重试、最多重试几次、如何退避、耗尽后返回什么”从临时 `loop` / 嵌套 `match` 中拆成可测试的策略。
+4. **最后确认恢复动作显式化**：读 Rust 的 [`rust/retry-strategy-explicit-not-implicit-loop.md`](rust/retry-strategy-explicit-not-implicit-loop.md) 和 Go 的 [`go/retry-policy-explicit-not-hidden-loop.md`](go/retry-policy-explicit-not-hidden-loop.md)，把“哪些错误可重试、最多重试几次、如何退避、耗尽后返回什么”从临时 `loop` / 嵌套 `match` / `if err != nil` 中拆成可测试的策略。
 
 复盘输出可以是一张五列表：`底层错误`、`领域错误`、`调用方动作`、`重试/降级策略`、`对外消息`。如果上层需要知道 SQL 状态码、文件系统错误码或第三方 SDK 类型才能决策，就要在 adapter 边界补领域错误转换；如果对外消息直接拼接底层错误字符串，就要拆出日志上下文和用户可见错误码；如果重试次数、退避间隔或可重试错误集合散落在错误处理分支里，就要抽成显式策略并补最小测试。
 
