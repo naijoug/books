@@ -15,6 +15,8 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"net/http/httptest"
+	"strings"
 )
 
 // UserError 是可以安全返回给客户端的业务错误。
@@ -91,9 +93,25 @@ func getProductHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/product", getProductHandler)
-	fmt.Println("serving on :8080")
-	http.ListenAndServe(":8080", nil)
+	recorder := httptest.NewRecorder()
+	request := httptest.NewRequest(http.MethodGet, "/product?id=p-001", nil)
+	getProductHandler(recorder, request)
+	if recorder.Code != http.StatusOK {
+		panic("expected product response")
+	}
+	if strings.Contains(recorder.Body.String(), "password") {
+		panic("internal field leaked")
+	}
+
+	recorder = httptest.NewRecorder()
+	request = httptest.NewRequest(http.MethodGet, "/product?id=missing", nil)
+	getProductHandler(recorder, request)
+	if recorder.Code != http.StatusNotFound {
+		panic("expected safe user error")
+	}
+	if !strings.Contains(recorder.Body.String(), "product not found") {
+		panic("expected user-facing message")
+	}
 }
 ```
 
