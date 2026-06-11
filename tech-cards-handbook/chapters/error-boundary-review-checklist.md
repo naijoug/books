@@ -1,6 +1,6 @@
 # 跨栈错误边界审查清单
 
-> 这份清单把 Go、Rust 和 Python 错误传播、重试、调用方降级和对外错误码卡片串成一次可执行的代码审查。适用于审查 service、repository、handler 和 CLI command 的错误返回。
+> 这份清单把 Go、Rust、Python 和 TypeScript 错误传播、重试、调用方降级和对外错误码卡片串成一次可执行的代码审查。适用于审查 service、repository、handler 和 CLI command 的错误返回。
 
 ## 使用方法
 
@@ -17,12 +17,14 @@
 |---|---|---|
 | 函数签名是否用 `Result<T, E>`（Rust）或 `error` 返回值（Go）表达"可能失败"？ | | |
 | Python: 可能失败的路径是否抛出可分类异常，而不是返回 `None` / `{}` / `False` 让调用方猜？ | | |
+| TypeScript: `catch (e: unknown)` 后是否先缩窄到自定义错误类型或 `Result` 分支，而不是直接读取 `message`？ | | |
 | 调用方是否被迫处理失败，而不是靠空值、布尔标志或日志猜测？ | | |
 | 失败原因是否写在错误类型里，而不是靠注释、日志或 panic？ | | |
 
 **深度阅读：**
 - Rust: [`rust/result-means-failable-with-reason.md`](rust/result-means-failable-with-reason.md)
 - Python: [`python/custom-exception-hierarchy-makes-errors-classifiable.md`](python/custom-exception-hierarchy-makes-errors-classifiable.md)
+- TypeScript: [`typescript/result-type-makes-errors-explicit.md`](typescript/result-type-makes-errors-explicit.md)
 
 ---
 
@@ -50,11 +52,13 @@
 | Go: 是否用 `errors.Is`/`errors.As` 而不是字符串匹配？ | | |
 | Rust: 错误枚举变体是否覆盖所有领域失败场景？ | | |
 | Python: 是否用自定义异常层级（`except NotFoundError`）而不是 `except ValueError` 加字符串判断？ | | |
+| TypeScript: 是否用 `instanceof NotFoundError` / `instanceof RateLimitError` 等稳定类型缩窄，而不是字符串匹配？ | | |
 | 是否存在 `_ =>`（Rust）或 `default:` （Go switch）或裸 `except Exception` 吞掉未知错误？ | | |
 
 **深度阅读：**
 - Go + Rust 对照: [`go/error-wrapping-vs-result-propagation.md`](go/error-wrapping-vs-result-propagation.md)
 - Python: [`python/custom-exception-hierarchy-makes-errors-classifiable.md`](python/custom-exception-hierarchy-makes-errors-classifiable.md)
+- TypeScript: [`typescript/custom-error-types-make-failures-classifiable.md`](typescript/custom-error-types-make-failures-classifiable.md)
 
 ---
 
