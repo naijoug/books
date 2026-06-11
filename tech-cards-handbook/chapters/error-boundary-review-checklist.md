@@ -32,9 +32,11 @@
 | Go: 是否用 `fmt.Errorf("%w", err)` 保留根因链？ | | |
 | Rust: 错误枚举是否包含足够的领域语义（而不仅是 `String`）？ | | |
 | 是否能用 `errors.Is`/`errors.As`（Go）或 `match`（Rust）稳定地定位根因？ | | |
+| Python: 是否用 `raise DomainError(...) from error` 保留 `__cause__` 链？ | | |
 
 **深度阅读：**
 - Go: [`go/errors-keep-context.md`](go/errors-keep-context.md)
+- Python: [`python/external-error-codes-domain-defined-not-leaked.md`](python/external-error-codes-domain-defined-not-leaked.md)
 
 ---
 
