@@ -16,11 +16,13 @@
 | 问题 | 是 | 否 |
 |---|---|---|
 | 函数签名是否用 `Result<T, E>`（Rust）或 `error` 返回值（Go）表达"可能失败"？ | | |
+| Python: 可能失败的路径是否抛出可分类异常，而不是返回 `None` / `{}` / `False` 让调用方猜？ | | |
 | 调用方是否被迫处理失败，而不是靠空值、布尔标志或日志猜测？ | | |
-| 失败原因是否写在错误类型里，而不是靠注释或 panic？ | | |
+| 失败原因是否写在错误类型里，而不是靠注释、日志或 panic？ | | |
 
 **深度阅读：**
 - Rust: [`rust/result-means-failable-with-reason.md`](rust/result-means-failable-with-reason.md)
+- Python: [`python/custom-exception-hierarchy-makes-errors-classifiable.md`](python/custom-exception-hierarchy-makes-errors-classifiable.md)
 
 ---
 
