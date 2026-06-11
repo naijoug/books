@@ -88,12 +88,14 @@
 
 | 问题 | 是 | 否 |
 |---|---|---|
-| 对外响应的错误码是否由领域枚举定义？ | | |
+| 对外响应的错误码是否由领域枚举或领域异常定义？ | | |
 | SQL state、驱动类型名、第三方 SDK 错误是否在 adapter 层翻译成领域错误码？ | | |
+| Python 是否用 `raise DomainError(...) from error` 保留异常链，但只输出安全 `code` / `message`？ | | |
 | 内部错误细节是否只进日志，不进对外响应？ | | |
 | 对外消息是否直接拼接了底层错误字符串？ | | |
 
 **深度阅读：**
+- Python: [`python/external-error-codes-domain-defined-not-leaked.md`](python/external-error-codes-domain-defined-not-leaked.md)
 - Rust: [`rust/external-error-codes-domain-defined-not-leaked.md`](rust/external-error-codes-domain-defined-not-leaked.md)
 - Go: [`go/external-error-codes-domain-defined-not-leaked.md`](go/external-error-codes-domain-defined-not-leaked.md)
 

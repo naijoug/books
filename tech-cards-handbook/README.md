@@ -6,7 +6,7 @@
 
 本书已按技术栈重组正式内容：`chapters/` 下每个技术栈一个目录，每张卡片一个 Markdown 文件。
 
-当前共 174 张正式卡片。
+当前共 175 张正式卡片。
 
 ## 目录结构
 
@@ -34,7 +34,7 @@ tech-cards-handbook/
 | 技术栈 | 目录 | 内容 |
 |---|---|---|
 | 索引 | `chapters/README.md` | 阅读方式、技术栈目录和维护规则 |
-| Python | `chapters/python/` | 18 张：异步、并发原语、上下文管理、生成器、类型、测试和装饰器 |
+| Python | `chapters/python/` | 20 张：异步、并发原语、上下文管理、生成器、类型、测试、装饰器、自定义异常层级和领域定义的对外错误码 |
 | Go | `chapters/go/` | 17 张：WaitGroup、context、channel、worker pool、select、mutex、错误处理、接口、测试、HTTP handler adapter 边界、跨语言错误传播对照、显式重试策略、领域定义的对外错误码和调用方降级策略 |
 | Rust | `chapters/rust/` | 19 张：所有权、借用、Option、Result、trait、生命周期、模式匹配、模块、迭代器、并发、异步、测试、newtype 领域边界、From/TryFrom 验证边界、repository 存储边界、derive 语义选择、显式重试策略、领域定义的对外错误码和调用方降级策略 |
 | TypeScript | `chapters/typescript/` | 26 张：联合类型、`never` 穷尽检查、条件类型、`infer`、Mapped Type、深度只读、`satisfies`、`unknown`、类型守卫、断言函数、外部 schema 边界、请求状态分层、品牌类型、模板字面量类型、Result 错误处理、工具类型、DTO 边界、DTO 版本演进、DTO 字段迁移、消费者观测、事件分层、mapper 边界、ViewModel 边界和 Command 边界 |
