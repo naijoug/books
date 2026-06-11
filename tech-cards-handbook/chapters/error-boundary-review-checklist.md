@@ -74,6 +74,19 @@
 3. `分类方式` 必须写语言内可执行的机制，不写“看 message”或“根据日志判断”。
 4. `建议测试` 至少覆盖一个公开响应脱敏断言和一个诊断保留断言，例如“不含 SQLSTATE / host / path，但 `cause` 保留原始错误”。
 
+## 完整填写样例：Profile 查询调用链
+
+下面是一条跨语言都能套用的填写样例。真实项目里不必一次写满所有语言；如果本次只审 TypeScript handler，就保留 TypeScript 那一行，把其他行删掉即可。
+
+| 语言栈 | 底层错误/信号 | 分类方式 | 领域错误 | 调用方动作 | 重试/降级策略 | 对外 code/message | 诊断保留位置 | 建议测试 |
+|---|---|---|---|---|---|---|---|---|
+| Go | `context deadline exceeded` from `profiles.Repository.Get` | `errors.Is(err, context.DeadlineExceeded)` 后包装为领域错误 | `ProfileUnavailable` | `return public error` | `retry 2 次，指数退避；耗尽后停止，不降级付费资料页` | `PROFILE_UNAVAILABLE` / `profile temporarily unavailable` | `%w` cause、structured log、trace span | HTTP 响应不含 DSN/host/SQL；`errors.Is` 仍能命中 deadline；重试次数为 2 |
+| Python | `psycopg.errors.UniqueViolation` 或 `OperationalError` | adapter 捕获具体异常并 `raise ProfileStoreError(...) from exc` | `ProfileStoreConflict` / `ProfileUnavailable` | `return public error` 或 `retry` | conflict 不重试；operational error 重试 2 次后转 `ProfileUnavailable` | `PROFILE_CONFLICT` 或 `PROFILE_UNAVAILABLE`，message 不含 SQLSTATE | `__cause__`、logger extra、metric label | 公开响应不含 SQLSTATE/table/index；`__cause__` 保留原始异常；conflict 不触发重试 |
+| Rust | `sqlx::Error::RowNotFound` | `match` repository error enum variant | `ProfileMissing` | `degrade` | 不重试；recommendation 调用方返回默认头像并标记 `degraded=true` | 无公开错误；响应体包含 `degraded=true` | `source()`、`tracing` span、metric | 找不到 profile 时返回默认头像；trace 保留 query span；未知 DB error 不走降级 |
+| TypeScript | `{ kind: "pool-exhausted", host: "10.0.0.8" }` from profile client | discriminated union + `translateStorageError()` | `ProfileUnavailable` | `return public error` | `isRetryable()` 允许 2 次；耗尽后转公开错误，不暴露 host | `PROFILE_UNAVAILABLE` / `profile temporarily unavailable` | `inner`、log context、trace id | 响应不含 `10.0.0.8` / path / SDK message；`inner` 保留原始对象；retry exhausted 可断言 |
+
+这张表的关键不是“这些名字必须照抄”，而是每一行都能回答同一组问题：底层失败在哪里被分类，调用方能做什么，公开响应允许说什么，排障信息保留在哪里。若某一列只能写“看日志”或“由上层处理”，优先把它提升为 P1 finding。
+
 ---
 
 ## 检查 1：失败是否进入类型系统？
