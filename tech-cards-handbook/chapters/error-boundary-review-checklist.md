@@ -1,6 +1,6 @@
 # 跨栈错误边界审查清单
 
-> 这份清单把 Go 和 Rust 错误传播、重试、调用方降级和对外错误码卡片串成一次可执行的代码审查。适用于审查 service、repository、handler 和 CLI command 的错误返回。
+> 这份清单把 Go、Rust 和 Python 错误传播、重试、调用方降级和对外错误码卡片串成一次可执行的代码审查。适用于审查 service、repository、handler 和 CLI command 的错误返回。
 
 ## 使用方法
 
@@ -45,10 +45,12 @@
 | 调用方是否能区分"可重试"、"用户可见"、"内部故障"和"降级"？ | | |
 | Go: 是否用 `errors.Is`/`errors.As` 而不是字符串匹配？ | | |
 | Rust: 错误枚举变体是否覆盖所有领域失败场景？ | | |
-| 是否存在 `_ =>`（Rust）或 `default:` （Go switch）吞掉未知错误？ | | |
+| Python: 是否用自定义异常层级（`except NotFoundError`）而不是 `except ValueError` 加字符串判断？ | | |
+| 是否存在 `_ =>`（Rust）或 `default:` （Go switch）或裸 `except Exception` 吞掉未知错误？ | | |
 
 **深度阅读：**
 - Go + Rust 对照: [`go/error-wrapping-vs-result-propagation.md`](go/error-wrapping-vs-result-propagation.md)
+- Python: [`python/custom-exception-hierarchy-makes-errors-classifiable.md`](python/custom-exception-hierarchy-makes-errors-classifiable.md)
 
 ---
 
