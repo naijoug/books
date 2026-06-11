@@ -1,6 +1,6 @@
 # Python 技术卡片
 
-本目录按“一张卡片一个 Markdown 文件”维护，共 22 张。文件名使用英文 `kebab-case`。
+本目录按“一张卡片一个 Markdown 文件”维护，共 23 张。文件名使用英文 `kebab-case`。
 
 | 卡片 | 文件 |
 |---|---|
@@ -26,10 +26,11 @@
 | 重试策略要显式化，而不是藏在异常处理循环里 | [`retry-policy-explicit-not-hidden-loop.md`](retry-policy-explicit-not-hidden-loop.md) |
 | 对外错误码应由领域异常翻译，而不是泄漏底层异常 | [`external-error-codes-domain-defined-not-leaked.md`](external-error-codes-domain-defined-not-leaked.md) |
 | 降级策略应在调用方决定，而不是被调方隐藏 | [`degradation-strategy-at-caller-not-callee.md`](degradation-strategy-at-caller-not-callee.md) |
+| 错误恢复路径需要一张决策表串起来 | [`error-recovery-path-needs-one-decision-table.md`](error-recovery-path-needs-one-decision-table.md) |
 
 ## 可运行验证索引
 
-当前 22 张 Python 卡片都带有可复制的验证命令。维护原则：新增或改写卡片时，至少保留一个能在本地失败/通过的检查；优先使用标准库和无网络依赖，只有测试框架或静态检查确有价值时才引入外部工具。
+当前 23 张 Python 卡片都带有可复制的验证命令。维护原则：新增或改写卡片时，至少保留一个能在本地失败/通过的检查；优先使用标准库和无网络依赖，只有测试框架或静态检查确有价值时才引入外部工具。
 
 批量复核命令：
 
@@ -37,7 +38,7 @@
 python3 scripts/verify_python_cards.py
 ```
 
-脚本会从本目录 README 读取 22 张卡片，逐张抽取唯一 `python` 代码块并运行；测试卡片通过 `uv run --with pytest` 执行，类型卡片会额外运行 `npx -y pyright@1.1.407`。
+脚本会从本目录 README 读取 23 张卡片，逐张抽取唯一 `python` 代码块并运行；测试卡片通过 `uv run --with pytest` 执行，类型卡片会额外运行 `npx -y pyright@1.1.407`。
 
 | 类型 | 卡片 | 验证方式 |
 |---|---|---|
@@ -63,3 +64,4 @@ python3 scripts/verify_python_cards.py
 | 错误恢复 | [`retry-policy-explicit-not-hidden-loop.md`](retry-policy-explicit-not-hidden-loop.md) | `python3 retry-policy-explicit-not-hidden-loop.py` |
 | 错误边界 | [`external-error-codes-domain-defined-not-leaked.md`](external-error-codes-domain-defined-not-leaked.md) | `python3 external-error-codes-domain-defined-not-leaked.py` |
 | 错误恢复 | [`degradation-strategy-at-caller-not-callee.md`](degradation-strategy-at-caller-not-callee.md) | `python3 degradation-strategy-at-caller-not-callee.py` |
+| 错误恢复 | [`error-recovery-path-needs-one-decision-table.md`](error-recovery-path-needs-one-decision-table.md) | `python3 error-recovery-path-needs-one-decision-table.py` |
