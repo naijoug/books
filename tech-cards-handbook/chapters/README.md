@@ -12,7 +12,7 @@
 
 | 技术栈 | 目录 | 卡片数 |
 |---|---|---|
-| Python 技术卡片 | [`python/`](python/) | 18 |
+| Python 技术卡片 | [`python/`](python/) | 19 |
 | Go 技术卡片 | [`go/`](go/) | 17 |
 | Rust 技术卡片 | [`rust/`](rust/) | 19 |
 | TypeScript 技术卡片 | [`typescript/`](typescript/) | 26 |
@@ -46,7 +46,7 @@
 
 1. **先确认失败是否进入类型系统**:读 Rust 的 [`rust/result-means-failable-with-reason.md`](rust/result-means-failable-with-reason.md),把"可能失败且有原因"写进返回类型,而不是用空值、布尔值或 panic 暗示。
 2. **再确认上下文没有断链**:读 Go 的 [`go/errors-keep-context.md`](go/errors-keep-context.md),检查每一层是否用 `%w` 保留根因,并补上"做什么、对谁做"的上下文。
-3. **再确认错误是否可分类**:读 Go 的 [`go/error-wrapping-vs-result-propagation.md`](go/error-wrapping-vs-result-propagation.md),比较 Go 的 `errors.Is` / `errors.As` 与 Rust 的 `From` / `?` / `match`,确认调用方能区分重试、降级、用户可见错误和内部故障。
+3. **再确认错误是否可分类**:读 Python 的 [`python/custom-exception-hierarchy-makes-errors-classifiable.md`](python/custom-exception-hierarchy-makes-errors-classifiable.md) 和 Go 的 [`go/error-wrapping-vs-result-propagation.md`](go/error-wrapping-vs-result-propagation.md),比较 Python 的 `isinstance`/`except` 子类、Go 的 `errors.Is`/`errors.As` 与 Rust 的 `From`/`?`/`match`,确认调用方能区分重试、降级、用户可见错误和内部故障。
 4. **确认恢复动作显式化**：读 Rust 的 [`rust/retry-strategy-explicit-not-implicit-loop.md`](rust/retry-strategy-explicit-not-implicit-loop.md) 和 Go 的 [`go/retry-policy-explicit-not-hidden-loop.md`](go/retry-policy-explicit-not-hidden-loop.md)，把"哪些错误可重试、最多重试几次、如何退避、耗尽后返回什么"从临时 `loop` / 嵌套 `match` / `if err != nil` 中拆成可测试的策略。
 5. **确认降级决策在调用方**：读 Rust 的 [`rust/degradation-strategy-at-caller-not-callee.md`](rust/degradation-strategy-at-caller-not-callee.md) 和 Go 的 [`go/degradation-strategy-at-caller-not-callee.md`](go/degradation-strategy-at-caller-not-callee.md)，确认被依赖服务不可用时，降级（返回缓存、默认值、简化响应）由调用方根据业务容忍度决定，而不是被调方静默返回假结果。
 6. **最后确认对外错误码来自领域**：读 Rust 的 [`rust/external-error-codes-domain-defined-not-leaked.md`](rust/external-error-codes-domain-defined-not-leaked.md) 和 Go 的 [`go/external-error-codes-domain-defined-not-leaked.md`](go/external-error-codes-domain-defined-not-leaked.md)，检查对外响应的错误码是否由领域枚举定义、底层 SQL state / 驱动类型名是否被 adapter 翻译成稳定的领域错误码。

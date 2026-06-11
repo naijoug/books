@@ -1,6 +1,6 @@
 # Python 技术卡片
 
-本目录按“一张卡片一个 Markdown 文件”维护，共 18 张。文件名使用英文 `kebab-case`。
+本目录按“一张卡片一个 Markdown 文件”维护，共 19 张。文件名使用英文 `kebab-case`。
 
 | 卡片 | 文件 |
 |---|---|
@@ -22,10 +22,11 @@
 | 装饰器是在不改调用方的情况下包一层行为 | [`decorators-wrap-behavior.md`](decorators-wrap-behavior.md) |
 | 计时和权限检查适合做成装饰器 | [`decorators-for-timing-and-auth.md`](decorators-for-timing-and-auth.md) |
 | 带参数装饰器需要再多一层函数 | [`parameterized-decorator-extra-layer.md`](parameterized-decorator-extra-layer.md) |
+| 自定义异常层级让错误可分类 | [`custom-exception-hierarchy-makes-errors-classifiable.md`](custom-exception-hierarchy-makes-errors-classifiable.md) |
 
 ## 可运行验证索引
 
-当前 18 张 Python 卡片都带有可复制的验证命令。维护原则：新增或改写卡片时，至少保留一个能在本地失败/通过的检查；优先使用标准库和无网络依赖，只有测试框架或静态检查确有价值时才引入外部工具。
+当前 19 张 Python 卡片都带有可复制的验证命令。维护原则：新增或改写卡片时，至少保留一个能在本地失败/通过的检查；优先使用标准库和无网络依赖，只有测试框架或静态检查确有价值时才引入外部工具。
 
 批量复核命令：
 
@@ -33,7 +34,7 @@
 python3 scripts/verify_python_cards.py
 ```
 
-脚本会从本目录 README 读取 18 张卡片，逐张抽取唯一 `python` 代码块并运行；测试卡片通过 `uv run --with pytest` 执行，类型卡片会额外运行 `npx -y pyright@1.1.407`。
+脚本会从本目录 README 读取 19 张卡片，逐张抽取唯一 `python` 代码块并运行；测试卡片通过 `uv run --with pytest` 执行，类型卡片会额外运行 `npx -y pyright@1.1.407`。
 
 | 类型 | 卡片 | 验证方式 |
 |---|---|---|
@@ -55,3 +56,4 @@ python3 scripts/verify_python_cards.py
 | 装饰器 | [`parameterized-decorator-extra-layer.md`](parameterized-decorator-extra-layer.md) | `python3 parameterized-decorator-extra-layer.py` |
 | 类型契约 | [`type-hints-express-contracts.md`](type-hints-express-contracts.md) | `python3 type-hints-express-contracts.py` + `npx -y pyright@1.1.407 type-hints-express-contracts.py` |
 | 测试策略 | [`tests-cover-behavior-first.md`](tests-cover-behavior-first.md) | `uv run --with pytest python -m pytest -q tests-cover-behavior-first.py` |
+| 错误分类 | [`custom-exception-hierarchy-makes-errors-classifiable.md`](custom-exception-hierarchy-makes-errors-classifiable.md) | `python3 custom-exception-hierarchy-makes-errors-classifiable.py` |
