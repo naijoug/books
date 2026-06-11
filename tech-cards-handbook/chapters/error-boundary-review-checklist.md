@@ -56,6 +56,24 @@
 
 复审时优先找三类空洞：`领域错误` 为空（调用方无法分类）、`调用方动作` 为空（恢复策略被隐藏）、`诊断保留位置` 为空（修复公开泄漏时把根因也丢了）。
 
+## 跨语言空表模板
+
+把下面空表复制到具体项目的设计文档、PR 描述或 review comment 中，再按语言栈替换 `分类方式` 和 `诊断保留位置`。空表的价值是迫使团队先承认“这一列还不知道”，而不是让不同调用方各自猜错误字符串。
+
+| 语言栈 | 底层错误/信号 | 分类方式 | 领域错误 | 调用方动作 | 重试/降级策略 | 对外 code/message | 诊断保留位置 | 建议测试 |
+|---|---|---|---|---|---|---|---|---|
+| Go |  | `errors.Is` / `errors.As` / sentinel error |  |  |  |  | `%w`、log、trace、metric |  |
+| Python |  | custom exception hierarchy / `except SpecificError` |  |  |  |  | `__cause__`、log、trace、metric |  |
+| Rust |  | `match` error enum / `thiserror` variant |  |  |  |  | `source()`、span、log、metric |  |
+| TypeScript |  | `instanceof` / discriminated union / `AppError.code` |  |  |  |  | `cause` / `inner`、log、trace、metric |  |
+
+填写时按这 4 步走：
+
+1. 先选一条关键调用链，不要把全系统错误一次性塞进表里。
+2. 每一行只允许一个底层错误信号；如果一行同时写 timeout、404、decode error，调用方动作通常会被写糊。
+3. `分类方式` 必须写语言内可执行的机制，不写“看 message”或“根据日志判断”。
+4. `建议测试` 至少覆盖一个公开响应脱敏断言和一个诊断保留断言，例如“不含 SQLSTATE / host / path，但 `cause` 保留原始错误”。
+
 ---
 
 ## 检查 1：失败是否进入类型系统？
