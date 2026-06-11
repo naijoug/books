@@ -105,8 +105,18 @@
 |---|---|---|---|---|
 | | | | | |
 
+## 复审输出示例
+
+下面是一次 10 分钟错误边界走查可以留下的最小记录。重点不是写长报告，而是把“哪里会让调用方失去决策能力”记录成可执行修复项。
+
+| 检查点 | 不符合描述 | 涉及文件 | 修复方案 | 优先级 |
+|---|---|---|---|---|
+| 检查 5：降级决策是否留在调用方？ | `ProfileClient.Get` 在 404、timeout 和 JSON decode 失败时都返回空 `Profile{}`，service 无法区分“用户不存在”和“依赖故障”，也无法打 `degraded=true`。 | `internal/profile/client.go`、`internal/recommend/service.go` | client 只返回真实错误：404 映射为 `ErrProfileMissing`，timeout 保留 `%w` 根因；`RecommendationService` 只对 `ErrProfileMissing` 降级，并在响应里标记 `Degraded: true`。 | P1 |
+| 检查 4：恢复动作是否显式化？ | `OrderRepository.Save` 内部固定重试 5 次，没有退避参数，也没有把重试耗尽映射成领域错误。 | `internal/order/repository.go` | 抽出 `RetryPolicy`，只对 `ErrTransientStorage` 重试；耗尽后返回 `OrderSaveUnavailable` 并保留错误链。 | P1 |
+| 检查 6：对外错误码是否来自领域？ | handler 直接把 `pq: duplicate key value violates unique constraint` 拼进 HTTP response。 | `internal/http/order_handler.go` | repository 映射为 `ErrOrderAlreadyExists`，handler 统一输出 `ORDER_ALREADY_EXISTS`；底层错误只进日志。 | P0 |
+
 优先级参考：
 - **P0**: 错误码泄漏内部细节（SQL state、连接字符串、文件路径）→ 立即修复。
-- **P1**: 隐式重试或 `strings.Contains` 匹配 → 本迭代修复。
+- **P1**: 隐式重试、`strings.Contains` 匹配或静默默认值导致调用方无法分类 → 本迭代修复。
 - **P2**: 缺少 `Result` / `%w` 包装 → 重构时补齐。
 - **P3**: 退避间隔不可配置 → 后续迭代优化。
