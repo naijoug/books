@@ -69,11 +69,13 @@
 | 可重试错误集合是否由领域定义（而不是靠 `strings.Contains`）？ | | |
 | 最大重试次数、退避间隔是否可配置/可测试？ | | |
 | Python: 重试耗尽是否抛出领域异常，并用 `raise ... from error` 保留最后一次根因？ | | |
+| TypeScript: 是否把 `RetryPolicy` / `isRetryable()` 从 `catch` 分支里拆出来，并在耗尽后保留 `cause`？ | | |
 | 重试耗尽后是否返回领域错误（保留上下文但不泄漏内部细节）？ | | |
 | 是否存在嵌套 `match`/`if err != nil` 里的隐式重试？ | | |
 
 **深度阅读：**
 - Python: [`python/retry-policy-explicit-not-hidden-loop.md`](python/retry-policy-explicit-not-hidden-loop.md)
+- TypeScript: [`typescript/retry-policy-explicit-not-hidden-catch.md`](typescript/retry-policy-explicit-not-hidden-catch.md)
 - Rust: [`rust/retry-strategy-explicit-not-implicit-loop.md`](rust/retry-strategy-explicit-not-implicit-loop.md)
 - Go: [`go/retry-policy-explicit-not-hidden-loop.md`](go/retry-policy-explicit-not-hidden-loop.md)
 
