@@ -1,6 +1,6 @@
 # TypeScript 技术卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护，共 28 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护，共 29 张。文件名使用英文 `kebab-case`。
 
 | 卡片 | 文件 |
 |---|---|
@@ -32,6 +32,7 @@
 | 表单命令对象不要复用 ViewModel | [`form-command-does-not-reuse-view-model.md`](form-command-does-not-reuse-view-model.md) |
 | 自定义错误类型让失败可分类 | [`custom-error-types-make-failures-classifiable.md`](custom-error-types-make-failures-classifiable.md) |
 | 重试策略要显式化，而不是藏在 catch 分支里 | [`retry-policy-explicit-not-hidden-catch.md`](retry-policy-explicit-not-hidden-catch.md) |
+| 降级策略应在调用方决定，而不是被调方隐藏 | [`degradation-strategy-at-caller-not-callee.md`](degradation-strategy-at-caller-not-callee.md) |
 
 ## 边界建模阅读线
 
