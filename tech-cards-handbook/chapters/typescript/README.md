@@ -1,6 +1,6 @@
 # TypeScript 技术卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护，共 26 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护，共 27 张。文件名使用英文 `kebab-case`。
 
 | 卡片 | 文件 |
 |---|---|
@@ -30,6 +30,7 @@
 | 不要用万能 mapper 跨多条边界 | [`universal-mapper-crosses-too-many-boundaries.md`](universal-mapper-crosses-too-many-boundaries.md) |
 | ViewModel 不要污染领域模型 | [`view-model-keeps-ui-state-out-of-domain.md`](view-model-keeps-ui-state-out-of-domain.md) |
 | 表单命令对象不要复用 ViewModel | [`form-command-does-not-reuse-view-model.md`](form-command-does-not-reuse-view-model.md) |
+| 自定义错误类型让失败可分类 | [`custom-error-types-make-failures-classifiable.md`](custom-error-types-make-failures-classifiable.md) |
 
 ## 边界建模阅读线
 
