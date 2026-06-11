@@ -11,6 +11,30 @@
 
 如果这次审查交给 agent 执行，可以直接调用 reviewer skill：`skills/skills/manual/review/error-boundary/`。建议把本清单作为背景材料，把待审模块、语言栈和对外接口路径作为输入，要求输出“错误决策表 + P0–P3 findings + 建议测试”。当输出过于笼统时，对照 `skills/skills/manual/review/error-boundary/references/sample-review-output.md` 校准；当语言栈差异导致漏检时，对照 `skills/skills/manual/review/error-boundary/references/language-probes.md` 补充 probe。
 
+## Agent 审查输入模板
+
+把下面模板贴给 agent，可以把一次错误边界审查限制在可复核、可接力的范围内；没有的信息用“未知”标出，不要让 agent 自行假设。
+
+```text
+请使用 skills/skills/manual/review/error-boundary/ 审查以下模块的错误边界。
+
+语言栈：<Go / Python / Rust / TypeScript / mixed>
+待审范围：<相对路径列表，精确到 module / handler / repository / service>
+对外接口：<HTTP endpoint / CLI command / SDK method / background job output>
+关键调用链：<入口 -> service -> adapter/repository -> external dependency>
+已知错误类型：<领域错误、底层错误、第三方 SDK 错误；未知则写“未知”>
+允许的恢复动作：<retry / degrade / return public error / escalate / unknown>
+公开响应约束：<允许暴露的 code/message 字段；禁止暴露 SQL、host、path、token 等>
+需要重点检查：<分类、cause/context 保留、重试耗尽、调用方降级、对外错误码翻译>
+
+输出要求：
+1. 先给出“底层错误 / 领域错误 / 调用方动作 / 重试或降级策略 / 对外 code-message / 证据路径”的决策表。
+2. 再按 P0–P3 列出 findings，每条包含证据、风险、修复建议和建议测试。
+3. 如果信息不足，列出需要补读的相对路径或需要开发者确认的问题，不要编造实现细节。
+```
+
+建议把 `待审范围` 控制在 3–8 个文件内；如果模块更大，先只审一条关键调用链。审查完成后，把决策表中缺失或冲突的项同步回“复审输出模板”。
+
 ---
 
 ## 检查 1：失败是否进入类型系统？
