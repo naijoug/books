@@ -1,11 +1,11 @@
 # 跨栈错误边界审查清单
 
-> 这份清单把 Go 和 Rust 错误传播、重试和对外错误码卡片串成一次可执行的代码审查。适用于审查 service、repository、handler 和 CLI command 的错误返回。
+> 这份清单把 Go 和 Rust 错误传播、重试、调用方降级和对外错误码卡片串成一次可执行的代码审查。适用于审查 service、repository、handler 和 CLI command 的错误返回。
 
 ## 使用方法
 
 1. 打开要审查的模块。
-2. 按下面五个检查点逐项过。
+2. 按下面六个检查点逐项过。
 3. 每个检查点附带对应的深度阅读卡片。
 4. 记录不符合项，按优先级修复。
 
@@ -67,7 +67,22 @@
 
 ---
 
-## 检查 5：对外错误码是否来自领域？
+## 检查 5：降级决策是否留在调用方？
+
+| 问题 | 是 | 否 |
+|---|---|---|
+| client / repository / SDK adapter 是否只返回真实结果和错误，而不是静默返回默认值？ | | |
+| 调用方是否明确写出哪些错误可以降级，哪些错误必须继续传播？ | | |
+| 降级结果是否可观测，例如 `degraded=true`、metric、日志或 trace 标记？ | | |
+| 不可降级路径是否仍保留错误链，让上层 handler / CLI 能继续分类？ | | |
+
+**深度阅读：**
+- Rust: [`rust/degradation-strategy-at-caller-not-callee.md`](rust/degradation-strategy-at-caller-not-callee.md)
+- Go: [`go/degradation-strategy-at-caller-not-callee.md`](go/degradation-strategy-at-caller-not-callee.md)
+
+---
+
+## 检查 6：对外错误码是否来自领域？
 
 | 问题 | 是 | 否 |
 |---|---|---|
