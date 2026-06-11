@@ -1,6 +1,6 @@
 # TypeScript 技术卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护，共 29 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护，共 30 张。文件名使用英文 `kebab-case`。
 
 | 卡片 | 文件 |
 |---|---|
@@ -33,6 +33,7 @@
 | 自定义错误类型让失败可分类 | [`custom-error-types-make-failures-classifiable.md`](custom-error-types-make-failures-classifiable.md) |
 | 重试策略要显式化，而不是藏在 catch 分支里 | [`retry-policy-explicit-not-hidden-catch.md`](retry-policy-explicit-not-hidden-catch.md) |
 | 降级策略应在调用方决定，而不是被调方隐藏 | [`degradation-strategy-at-caller-not-callee.md`](degradation-strategy-at-caller-not-callee.md) |
+| 对外错误码应由领域错误翻译，而不是泄漏底层异常 | [`external-error-codes-domain-defined-not-leaked.md`](external-error-codes-domain-defined-not-leaked.md) |
 
 ## 边界建模阅读线
 
@@ -117,7 +118,7 @@
 
 ## 可运行验证索引
 
-当前 28 张 TypeScript 卡片都应能通过 `tsc --noEmit --strict` 做最小类型检查。维护原则:示例优先写成可复制的 `.ts` 片段;类型体操类卡片至少保留 `Expect<Equal<...>>` 断言;涉及浏览器 API、`console` 或现代内建对象时显式写出 `--lib`,避免读者在默认环境下遇到无关报错。
+当前 30 张 TypeScript 卡片都应能通过 `tsc --noEmit --strict` 做最小类型检查。维护原则:示例优先写成可复制的 `.ts` 片段;类型体操类卡片至少保留 `Expect<Equal<...>>` 断言;涉及浏览器 API、`console` 或现代内建对象时显式写出 `--lib`,避免读者在默认环境下遇到无关报错。
 
 章节级批量复核可从 `books` 仓库根目录运行:
 
@@ -125,7 +126,7 @@
 python3 scripts/verify_typescript_cards.py
 ```
 
-脚本会从本章 Markdown 中抽取 `ts` / `typescript` 代码块,按卡片合并写入临时 `.ts` 文件,并用 `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom` 逐张检查。当前预期输出为 `verified 28 TypeScript cards with 29 code blocks`。
+脚本会从本章 Markdown 中抽取 `ts` / `typescript` 代码块,按卡片合并写入临时 `.ts` 文件,并用 `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom` 逐张检查。当前预期输出为 `verified 30 TypeScript cards with 31 code blocks`。
 
 | 类型 | 卡片 | 验证方式 |
 |---|---|---|
@@ -157,3 +158,5 @@ python3 scripts/verify_typescript_cards.py
 | Command 边界 | [`form-command-does-not-reuse-view-model.md`](form-command-does-not-reuse-view-model.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom form-command-does-not-reuse-view-model.ts` |
 | 错误分类 | [`custom-error-types-make-failures-classifiable.md`](custom-error-types-make-failures-classifiable.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom custom-error-types-make-failures-classifiable.ts` |
 | 重试策略 | [`retry-policy-explicit-not-hidden-catch.md`](retry-policy-explicit-not-hidden-catch.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom retry-policy-explicit-not-hidden-catch.ts` |
+| 错误恢复 | [`degradation-strategy-at-caller-not-callee.md`](degradation-strategy-at-caller-not-callee.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom degradation-strategy-at-caller-not-callee.ts` |
+| 错误边界 | [`external-error-codes-domain-defined-not-leaked.md`](external-error-codes-domain-defined-not-leaked.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom external-error-codes-domain-defined-not-leaked.ts` |
