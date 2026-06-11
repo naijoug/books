@@ -117,7 +117,7 @@
 |---|---|---|---|---|---|
 | | | | | | |
 
-如果团队还没有决策表，可以先参考 Python 卡片 [`python/error-recovery-path-needs-one-decision-table.md`](python/error-recovery-path-needs-one-decision-table.md)，把错误类型、恢复动作、对外错误码和是否降级/重试整理到一张表里。
+如果团队还没有决策表，可以先参考 Python 卡片 [`python/error-recovery-path-needs-one-decision-table.md`](python/error-recovery-path-needs-one-decision-table.md)、Go 卡片 [`go/error-recovery-path-needs-one-decision-table.md`](go/error-recovery-path-needs-one-decision-table.md) 或 Rust 卡片 [`rust/error-recovery-path-needs-one-decision-table.md`](rust/error-recovery-path-needs-one-decision-table.md)，把错误类型、恢复动作、对外错误码和是否降级/重试整理到一张表里。
 
 ## 复审输出示例
 

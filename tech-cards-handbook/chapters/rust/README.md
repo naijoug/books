@@ -1,6 +1,6 @@
 # Rust 技术卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护，共 19 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护，共 20 张。文件名使用英文 `kebab-case`。
 
 | 卡片 | 文件 |
 |---|---|
@@ -23,6 +23,7 @@
 | 错误恢复要用显式重试策略，而不是在错误处理里循环 | [`retry-strategy-explicit-not-implicit-loop.md`](retry-strategy-explicit-not-implicit-loop.md) |
 | 对外错误码应由领域定义，而不是从基础设施泄漏 | [`external-error-codes-domain-defined-not-leaked.md`](external-error-codes-domain-defined-not-leaked.md) |
 | 降级策略要在调用方实现，而不是在被调方隐藏 | [`degradation-strategy-at-caller-not-callee.md`](degradation-strategy-at-caller-not-callee.md) |
+| 错误恢复路径需要一张决策表串起来 | [`error-recovery-path-needs-one-decision-table.md`](error-recovery-path-needs-one-decision-table.md) |
 
 ## 领域建模阅读线
 
@@ -45,6 +46,7 @@
 3. [`retry-strategy-explicit-not-implicit-loop.md`](retry-strategy-explicit-not-implicit-loop.md)：把恢复动作显式化，确认可重试错误集合、最大次数、退避间隔和耗尽后的返回值都能被测试。
 4. [`external-error-codes-domain-defined-not-leaked.md`](external-error-codes-domain-defined-not-leaked.md)：检查对外返回的错误码是否来自领域枚举，底层 SQL state、驱动类型名或内部错误字符串是否被 adapter 翻译成了稳定的领域错误码。
 5. [`degradation-strategy-at-caller-not-callee.md`](degradation-strategy-at-caller-not-callee.md)：确认降级决策是在调用方根据业务语义做出，而不是被调方静默返回假结果。
+6. [`error-recovery-path-needs-one-decision-table.md`](error-recovery-path-needs-one-decision-table.md)：最后用一张决策表把领域错误、恢复动作、重试/降级标记和对外错误码串起来，避免多个 `match` 分支各自决策。
 
 复盘时可以直接问三个问题:
 
@@ -74,7 +76,7 @@
 
 Rust 工具链已在本机确认可用(`rustc --version`)。当前优先把示例改成可复制运行的小程序；新增或改写卡片时，至少补一个 `rustc <file>.rs && ./<file>` 的检查命令。
 
-批量复核可在 `books` 仓库根目录运行：`python3 scripts/verify_rust_cards.py --verbose`。该脚本会从下列 18 张卡片抽取唯一 `rust` 代码块，编译并运行；测试卡片会额外执行 `rustc --test`。
+批量复核可在 `books` 仓库根目录运行：`python3 scripts/verify_rust_cards.py --verbose`。该脚本会从下列 20 张卡片抽取唯一 `rust` 代码块，编译并运行；测试卡片会额外执行 `rustc --test`。
 
 | 卡片 | 验证方式 |
 |---|---|
@@ -97,3 +99,4 @@ Rust 工具链已在本机确认可用(`rustc --version`)。当前优先把示�
 | [`retry-strategy-explicit-not-implicit-loop.md`](retry-strategy-explicit-not-implicit-loop.md) | `rustc retry-strategy-explicit-not-implicit-loop.rs && ./retry-strategy-explicit-not-implicit-loop` |
 | [`external-error-codes-domain-defined-not-leaked.md`](external-error-codes-domain-defined-not-leaked.md) | `rustc external-error-codes-domain-defined-not-leaked.rs && ./external-error-codes-domain-defined-not-leaked` |
 | [`degradation-strategy-at-caller-not-callee.md`](degradation-strategy-at-caller-not-callee.md) | `rustc degradation-strategy-at-caller-not-callee.rs && ./degradation-strategy-at-caller-not-callee` |
+| [`error-recovery-path-needs-one-decision-table.md`](error-recovery-path-needs-one-decision-table.md) | `rustc error-recovery-path-needs-one-decision-table.rs && ./error-recovery-path-needs-one-decision-table` |
