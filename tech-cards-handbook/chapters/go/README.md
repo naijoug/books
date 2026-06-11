@@ -1,6 +1,6 @@
 # Go 技术卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护，共 17 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护，共 18 张。文件名使用英文 `kebab-case`。
 
 | 卡片 | 文件 |
 |---|---|
@@ -21,6 +21,7 @@
 | 重试策略要显式化，而不是藏在错误处理循环里 | [`retry-policy-explicit-not-hidden-loop.md`](retry-policy-explicit-not-hidden-loop.md) |
 | 对外错误码应由领域定义，而不是从基础设施泄漏 | [`external-error-codes-domain-defined-not-leaked.md`](external-error-codes-domain-defined-not-leaked.md) |
 | 降级策略要在调用方实现，而不是在被调方隐藏 | [`degradation-strategy-at-caller-not-callee.md`](degradation-strategy-at-caller-not-callee.md) |
+| 错误恢复路径需要一张决策表串起来 | [`error-recovery-path-needs-one-decision-table.md`](error-recovery-path-needs-one-decision-table.md) |
 
 ## 边界实践阅读线
 
@@ -74,3 +75,4 @@ python3 scripts/verify_go_cards.py
 | [`retry-policy-explicit-not-hidden-loop.md`](retry-policy-explicit-not-hidden-loop.md) | `go run retry-policy-explicit-not-hidden-loop.go` |
 | [`external-error-codes-domain-defined-not-leaked.md`](external-error-codes-domain-defined-not-leaked.md) | `go run external-error-codes-domain-defined-not-leaked.go` |
 | [`degradation-strategy-at-caller-not-callee.md`](degradation-strategy-at-caller-not-callee.md) | `go run degradation-strategy-at-caller-not-callee.go` |
+| [`error-recovery-path-needs-one-decision-table.md`](error-recovery-path-needs-one-decision-table.md) | `go run error-recovery-path-needs-one-decision-table.go` |
