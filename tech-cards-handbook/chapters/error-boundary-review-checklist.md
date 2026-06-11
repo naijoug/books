@@ -9,6 +9,8 @@
 3. 每个检查点附带对应的深度阅读卡片。
 4. 记录不符合项，按优先级修复。
 
+如果这次审查交给 agent 执行，可以直接调用 reviewer skill：`skills/skills/manual/review/error-boundary/`。建议把本清单作为背景材料，把待审模块、语言栈和对外接口路径作为输入，要求输出“错误决策表 + P0–P3 findings + 建议测试”。当输出过于笼统时，对照 `skills/skills/manual/review/error-boundary/references/sample-review-output.md` 校准；当语言栈差异导致漏检时，对照 `skills/skills/manual/review/error-boundary/references/language-probes.md` 补充 probe。
+
 ---
 
 ## 检查 1：失败是否进入类型系统？
