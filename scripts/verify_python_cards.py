@@ -27,7 +27,7 @@ PYTHON_DIR = ROOT / "tech-cards-handbook" / "chapters" / "python"
 README = PYTHON_DIR / "README.md"
 TYPE_CARD = "type-hints-express-contracts.md"
 TEST_CARD = "tests-cover-behavior-first.md"
-EXPECTED_CARD_COUNT = 20
+EXPECTED_CARD_COUNT = 21
 
 
 @dataclass(frozen=True)

@@ -75,10 +75,12 @@
 |---|---|---|
 | client / repository / SDK adapter 是否只返回真实结果和错误，而不是静默返回默认值？ | | |
 | 调用方是否明确写出哪些错误可以降级，哪些错误必须继续传播？ | | |
+| Python: 降级路径是否只捕获可降级异常，并用 `raise ... from error` 传播不可降级异常？ | | |
 | 降级结果是否可观测，例如 `degraded=true`、metric、日志或 trace 标记？ | | |
 | 不可降级路径是否仍保留错误链，让上层 handler / CLI 能继续分类？ | | |
 
 **深度阅读：**
+- Python: [`python/degradation-strategy-at-caller-not-callee.md`](python/degradation-strategy-at-caller-not-callee.md)
 - Rust: [`rust/degradation-strategy-at-caller-not-callee.md`](rust/degradation-strategy-at-caller-not-callee.md)
 - Go: [`go/degradation-strategy-at-caller-not-callee.md`](go/degradation-strategy-at-caller-not-callee.md)
 
