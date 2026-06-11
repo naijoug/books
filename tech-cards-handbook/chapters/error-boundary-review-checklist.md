@@ -35,6 +35,27 @@
 
 建议把 `待审范围` 控制在 3–8 个文件内；如果模块更大，先只审一条关键调用链。审查完成后，把决策表中缺失或冲突的项同步回“复审输出模板”。
 
+## 决策表最小字段模板
+
+如果团队还没有错误恢复决策表，不要一开始就追求完整矩阵；先用下面 7 个字段把一条关键调用链跑通。每一行只描述一种“底层失败如何变成调用方动作”。
+
+| 底层错误/信号 | 领域错误 | 谁负责分类 | 调用方动作 | 重试/降级策略 | 对外 code/message | 诊断保留位置 |
+|---|---|---|---|---|---|---|
+| `SQL timeout` | `ProfileUnavailable` | `profiles/repository` | `return public error` | `retry 2 次后停止` | `PROFILE_UNAVAILABLE` / `profile temporarily unavailable` | `cause`、日志、trace |
+| `404 from profile service` | `ProfileMissing` | `profile client adapter` | `degrade` | `不重试；由 recommendation service 返回默认头像并标记 degraded` | 无公开错误；响应带 `degraded=true` | metric、日志、trace |
+
+最小填写规则：
+
+1. **底层错误/信号** 写依赖层能观察到的事实，例如 SQL state、HTTP status、SDK exception、filesystem errno；这一列可以包含内部细节，但不能直接进入公开响应。
+2. **领域错误** 写调用方稳定依赖的名字，例如 `ProfileMissing`、`OrderAlreadyExists`、`TemporaryStorageFailure`；如果写不出来，说明 adapter 还没有完成翻译。
+3. **谁负责分类** 必须是一个相对路径或模块名，用来避免“每个调用方都重新猜一次错误字符串”。
+4. **调用方动作** 只能从 `retry`、`degrade`、`return public error`、`escalate`、`ignore/observe` 中选；需要新动作时先补定义。
+5. **重试/降级策略** 写可测试规则：次数、退避、哪些错误可降级、降级标记在哪里；不要只写“稍后重试”或“返回默认值”。
+6. **对外 code/message** 只写用户或 API caller 可见的稳定字段；禁止把 SQL、host、path、token、SDK 原始 message 放进这一列。
+7. **诊断保留位置** 写 `cause` / `__cause__` / `%w` / `inner` / log / trace / metric，确保安全响应和排障信息不会互相替代。
+
+复审时优先找三类空洞：`领域错误` 为空（调用方无法分类）、`调用方动作` 为空（恢复策略被隐藏）、`诊断保留位置` 为空（修复公开泄漏时把根因也丢了）。
+
 ---
 
 ## 检查 1：失败是否进入类型系统？
