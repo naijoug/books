@@ -55,7 +55,7 @@
 
 ### 错误边界审查清单
 
-如果需要在代码审查中快速走查错误边界，可以直接使用 [`error-boundary-review-checklist.md`](error-boundary-review-checklist.md)，它把上述路径压缩为六个检查点，每个检查点附带深度阅读卡片链接和不符合项记录表。
+如果需要在代码审查中快速走查错误边界，优先把 [`error-boundary-review-checklist.md`](error-boundary-review-checklist.md) 当作错误恢复复盘入口：它把上述路径压缩为六个检查点，每个检查点附带深度阅读卡片链接、不符合项记录表和决策表证据列。先用它定位“类型系统、上下文、分类、重试、降级、对外错误码”哪一环断掉，再回到对应语言卡片补实现。
 
 ## 卡片维护规则
 
