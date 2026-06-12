@@ -91,7 +91,9 @@
 
 当发现错误边界问题时，不要只留一句“这里要处理异常”。用下面的短评模板把证据、风险、期望决策表和建议测试一次写清，方便作者直接改，也方便后续 agent 复查。
 
-如果用户只需要可粘贴 PR comments，而不是完整错误边界审查报告，让 agent 使用 `skills/skills/manual/review/error-boundary/references/sample-review-output.md` 里的 `PR-comments-only mode` 和 `PR-comments-only mini fixture` 校准输出：以 `## Error Boundary PR Comments` 开头，保留 1–3 条 `[error-boundary][P0/P1/P2]` 评论；每条必须包含具体相对路径证据、风险、期望决策表行和建议测试。没有 diff、函数名或相对路径证据时，不要编造行号或隐藏实现细节，先要求补充审查目标。
+如果用户只需要可粘贴 PR comments，而不是完整错误边界审查报告，让 agent 使用 `skills/skills/manual/review/error-boundary/references/sample-review-output.md` 里的 `PR-comments-only mode` 和 `PR-comments-only mini fixture` 校准输出：以 `## Error Boundary PR Comments` 开头，保留 1–3 条 `[error-boundary][P0/P1/P2]` 评论；每条必须包含具体相对路径证据、风险、期望决策表行和建议测试。
+
+短评模式最容易出错的地方是“证据不足但硬写评论”。如果用户只说“给我 PR comments”，却没有提供 diff hunk、相对路径、函数名、public response contract 或错误流证据，先对照 `PR-comments-only insufficient-evidence fixture`：不要输出假的 P0/P1/P2 评论，不要编造行号、日志、trace、handler 名或隐藏实现细节；改为列出需要补充的审查目标，例如 `services/profile/http.ts` 的 catch/return 片段、adapter/service 错误映射、公开响应契约、失败测试或 trace。只有证据足以指向具体边界时，才进入短评模板。
 
 ```text
 [error-boundary][P0/P1/P2] <一句话描述问题>
