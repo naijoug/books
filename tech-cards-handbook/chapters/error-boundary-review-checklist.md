@@ -87,6 +87,42 @@
 
 这张表的关键不是“这些名字必须照抄”，而是每一行都能回答同一组问题：底层失败在哪里被分类，调用方能做什么，公开响应允许说什么，排障信息保留在哪里。若某一列只能写“看日志”或“由上层处理”，优先把它提升为 P1 finding。
 
+## PR review comment 模板
+
+当发现错误边界问题时，不要只留一句“这里要处理异常”。用下面的短评模板把证据、风险、期望决策表和建议测试一次写清，方便作者直接改，也方便后续 agent 复查。
+
+```text
+[error-boundary][P0/P1/P2] <一句话描述问题>
+
+证据：<相对路径:行号 或 函数名> 现在把 <底层错误/信号> 直接变成 <公开响应 / 默认值 / 隐式重试 / 裸异常>。
+风险：调用方无法稳定区分 <可重试 / 可降级 / 用户可见 / 内部故障>；公开响应可能泄漏 <SQLSTATE / host / path / SDK message>，或修复泄漏时丢失 cause。
+期望决策表行：
+- 底层错误/信号：<例如 SQL timeout / 404 / RowNotFound / pool-exhausted>
+- 分类方式：<errors.Is / custom exception / match enum / discriminated union>
+- 领域错误：<ProfileUnavailable / ProfileMissing / ...>
+- 调用方动作：<retry / degrade / return public error / escalate>
+- 对外 code/message：<PROFILE_UNAVAILABLE / 安全 message / 无公开错误>
+- 诊断保留位置：<%w / __cause__ / source() / inner / log / trace>
+建议测试：断言公开响应不含 <SQLSTATE / host / path / SDK message>，并断言 <cause / __cause__ / source() / inner> 保留根因；如果有 retry/degrade，再断言次数、标记和不可降级分支。
+```
+
+示例短评：
+
+```text
+[error-boundary][P1] profile client 把 404 和 timeout 都降级成空 Profile
+
+证据：internal/profile/client.go GetProfile 直接 return Profile{}；service 无法知道是 ProfileMissing 还是 ProfileUnavailable。
+风险：推荐页会把依赖故障误当成用户无资料，既不会重试，也不会打 degraded=true，排障时也没有 timeout cause。
+期望决策表行：
+- 底层错误/信号：HTTP 404；request timeout
+- 分类方式：404 -> ErrProfileMissing；timeout -> ErrProfileUnavailable with %w
+- 领域错误：ErrProfileMissing / ErrProfileUnavailable
+- 调用方动作：404 degrade；timeout retry 后 return public error
+- 对外 code/message：PROFILE_UNAVAILABLE / profile temporarily unavailable；404 降级路径无公开错误
+- 诊断保留位置：%w、structured log、trace span
+建议测试：404 返回默认头像且 degraded=true；timeout 重试 2 次后响应不含 host/path，errors.Is 仍能命中 deadline。
+```
+
 ---
 
 ## 检查 1：失败是否进入类型系统？
