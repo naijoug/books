@@ -91,6 +91,8 @@
 
 当发现错误边界问题时，不要只留一句“这里要处理异常”。用下面的短评模板把证据、风险、期望决策表和建议测试一次写清，方便作者直接改，也方便后续 agent 复查。
 
+如果用户只需要可粘贴 PR comments，而不是完整错误边界审查报告，让 agent 使用 `skills/skills/manual/review/error-boundary/references/sample-review-output.md` 里的 `PR-comments-only mode` 和 `PR-comments-only mini fixture` 校准输出：以 `## Error Boundary PR Comments` 开头，保留 1–3 条 `[error-boundary][P0/P1/P2]` 评论；每条必须包含具体相对路径证据、风险、期望决策表行和建议测试。没有 diff、函数名或相对路径证据时，不要编造行号或隐藏实现细节，先要求补充审查目标。
+
 ```text
 [error-boundary][P0/P1/P2] <一句话描述问题>
 
