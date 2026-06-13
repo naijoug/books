@@ -146,6 +146,17 @@
 建议测试：404 返回默认头像且 degraded=true；timeout 重试 2 次后响应不含 host/path，errors.Is 仍能命中 deadline。
 ```
 
+> **PR-comments-only 证据门槛速查** — 如果你只想输出 PR comments，先用这张表判断证据是否足够进入短评模板，证据不足就停在这里，列出需要补充的目标。
+>
+> | 必要证据 | 已有？ | 缺少时的处理 |
+> |---|---|---|
+> | diff hunk 或受影响的相对路径 | ☐ | 列出需要补读的文件路径 |
+> | 函数名或 handler 入口 | ☐ | 列出需要定位的 catch/return 片段 |
+> | 公开响应契约（status code / error code / message） | ☐ | 列出需要检查的 HTTP handler 或 API 层 |
+> | 失败测试或 trace 证据 | ☐ | 列出需要补跑的测试用例或 trace 片段 |
+>
+> 四项全有 → 进入短评模板。任意一项缺少 → 输出 `NARROW_FIRST` 列表，不编造 P0/P1/P2 评论。
+
 ---
 
 ## 检查 1：失败是否进入类型系统？
