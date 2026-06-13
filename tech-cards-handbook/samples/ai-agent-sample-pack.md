@@ -96,6 +96,33 @@
 
 ---
 
+## 附录：错误边界 review agent 输入样例
+
+这份样本包主线是 Agent 工作流卡片；如果要把它用于真实代码审查，可以从一个足够小的错误边界任务开始。下面这个输入样例的目标不是让 Agent 一次性审完整个系统，而是把范围压到一条可验证调用链，并强制它留下证据、决策表和失败出口。
+
+```text
+请使用 skills/skills/manual/review/error-boundary/ 审查以下模块的错误边界。
+
+语言栈：TypeScript
+待审范围：services/profile/http.ts、services/profile/client.ts、services/profile/errors.ts
+对外接口：GET /api/profile/:id
+关键调用链：profileHttpHandler -> getProfileForResponse -> profileClient.fetchProfile
+已知错误类型：ProfileMissing、ProfileUnavailable、第三方 SDK timeout；其他未知
+允许的恢复动作：ProfileMissing 可 degrade；ProfileUnavailable 可 retry 2 次后 return public error；未知错误 escalate
+公开响应约束：允许 code/message/degraded；禁止暴露 host、path、SDK 原始 message、token、SQL 或内部 trace id
+需要重点检查：底层错误是否翻译成领域错误；调用方是否显式决定 retry/degrade；公开响应是否脱敏；cause/inner 是否保留
+
+输出要求：
+1. 先给出“底层错误 / 领域错误 / 调用方动作 / 重试或降级策略 / 对外 code-message / 证据路径”的决策表。
+2. 再按 P0–P3 列出 findings；每条包含证据、风险、修复建议和建议测试。
+3. 如果缺少 diff hunk、函数名、公开响应契约或失败测试，先输出 NARROW_FIRST，不要编造 PR 评论。
+4. 最后写一段交接记录：使用清单 books/tech-cards-handbook/chapters/error-boundary-review-checklist.md，使用 skill skills/skills/manual/review/error-boundary/，下一位 reviewer 优先检查哪一列。
+```
+
+**检查**：如果 Agent 的输出没有相对路径证据、没有决策表，或者把“看日志确认”当作测试，这次 review 还没有闭环；先要求它回到 `NARROW_FIRST`，补齐缺失证据后再升级到 findings 或 patch。
+
+---
+
 ## 关于完整版
 
 这 5 张卡片选自《技术卡片随身宝典》AI Agent 系列的 21 张卡片。
