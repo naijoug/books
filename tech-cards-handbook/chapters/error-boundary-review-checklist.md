@@ -35,6 +35,25 @@
 
 建议把 `待审范围` 控制在 3–8 个文件内；如果模块更大，先只审一条关键调用链。审查完成后，把决策表中缺失或冲突的项同步回“复审输出模板”。
 
+## CI / agent 交接记录模板
+
+当这份清单由 CI job、scheduled agent 或下一位 reviewer 接力执行时，不要只留下“已跑过”三个字；至少保存一次可复核的 routing artifact 和证据边界。`skills/skills/manual/review/error-boundary/references/near-miss-eval.md` 里有更完整的 CI / agent handoff 示例，书稿侧可以先使用下面这个最小模板。
+
+```text
+错误边界审查交接记录：
+- 审查范围：<相对路径列表；如果只审一条调用链，写入口 -> service -> adapter>
+- 使用清单：books/tech-cards-handbook/chapters/error-boundary-review-checklist.md
+- 使用 skill：skills/skills/manual/review/error-boundary/
+- routing artifact：<例如 artifacts/error-boundary-routing-YYYY-MM-DD-HHMM.json；必须是相对路径>
+- 生成命令：python3 skills/manual/review/error-boundary/scripts/dry_run_routing_cases.py --json --output <artifact>
+- gate：failure_count == 0；若失败，按 expected_route / actual_route 诊断 route drift，不要继续产出 findings
+- PR comment evidence：<diff hunk / 相对路径 / 函数名 / public response contract / failure test / trace；不足则写“证据不足”>
+- 证据不足时的动作：回退 NARROW_FIRST，列出需要补读的路径或问题，不编造 P0/P1/P2 评论
+- 下一位 reviewer 优先检查：<最可疑的检查点或决策表空列>
+```
+
+这个模板的目的有两个：一是让下一位 agent 能确认自己是否真的选中了错误边界 reviewer，而不是被相邻的通用 review prompt 误路由；二是把 PR comments-only 模式的证据门槛写清楚。只要缺少 diff、相对路径、函数名、公开响应契约或失败测试，就应该先缩小审查范围，而不是生成看似专业但无法复核的评论。
+
 ## 决策表最小字段模板
 
 如果团队还没有错误恢复决策表，不要一开始就追求完整矩阵；先用下面 7 个字段把一条关键调用链跑通。每一行只描述一种“底层失败如何变成调用方动作”。
