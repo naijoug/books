@@ -38,7 +38,7 @@
 
 ### 存储边界审查清单
 
-如果需要在代码审查中快速走查存储边界，可以直接使用 [`storage-boundary-review-checklist.md`](storage-boundary-review-checklist.md)，它把输入 DTO、领域类型、可失败转换、repository adapter 和输出 DTO 压缩成五个检查点，并附带不符合项记录表。
+如果需要在代码审查中快速走查存储边界,可以直接使用 [`storage-boundary-review-checklist.md`](storage-boundary-review-checklist.md),它把输入 DTO、领域类型、可失败转换、repository adapter 和输出 DTO 压缩成五个检查点,并附带不符合项记录表。
 
 ### 错误传播与分类边界
 
@@ -47,15 +47,19 @@
 1. **先确认失败是否进入类型系统**:读 Rust 的 [`rust/result-means-failable-with-reason.md`](rust/result-means-failable-with-reason.md),把"可能失败且有原因"写进返回类型,而不是用空值、布尔值或 panic 暗示。
 2. **再确认上下文没有断链**:读 Go 的 [`go/errors-keep-context.md`](go/errors-keep-context.md),检查每一层是否用 `%w` 保留根因,并补上"做什么、对谁做"的上下文。
 3. **再确认错误是否可分类**:读 Python 的 [`python/custom-exception-hierarchy-makes-errors-classifiable.md`](python/custom-exception-hierarchy-makes-errors-classifiable.md) 和 Go 的 [`go/error-wrapping-vs-result-propagation.md`](go/error-wrapping-vs-result-propagation.md),比较 Python 的 `isinstance`/`except` 子类、Go 的 `errors.Is`/`errors.As` 与 Rust 的 `From`/`?`/`match`,确认调用方能区分重试、降级、用户可见错误和内部故障。
-4. **确认恢复动作显式化**：读 Python 的 [`python/retry-policy-explicit-not-hidden-loop.md`](python/retry-policy-explicit-not-hidden-loop.md)、Rust 的 [`rust/retry-strategy-explicit-not-implicit-loop.md`](rust/retry-strategy-explicit-not-implicit-loop.md) 和 Go 的 [`go/retry-policy-explicit-not-hidden-loop.md`](go/retry-policy-explicit-not-hidden-loop.md)，把"哪些错误可重试、最多重试几次、如何退避、耗尽后返回什么"从临时 `for` / `while` / `loop` / 嵌套 `match` / `if err != nil` 中拆成可测试的策略。
-5. **确认降级决策在调用方**：读 Python 的 [`python/degradation-strategy-at-caller-not-callee.md`](python/degradation-strategy-at-caller-not-callee.md)、Rust 的 [`rust/degradation-strategy-at-caller-not-callee.md`](rust/degradation-strategy-at-caller-not-callee.md)、Go 的 [`go/degradation-strategy-at-caller-not-callee.md`](go/degradation-strategy-at-caller-not-callee.md) 和 TypeScript 的 [`typescript/degradation-strategy-at-caller-not-callee.md`](typescript/degradation-strategy-at-caller-not-callee.md)，确认被依赖服务不可用时，降级（返回缓存、默认值、简化响应）由调用方根据业务容忍度决定，而不是被调方静默返回假结果。
-6. **最后确认对外错误码来自领域**：读 Python 的 [`python/external-error-codes-domain-defined-not-leaked.md`](python/external-error-codes-domain-defined-not-leaked.md)、Rust 的 [`rust/external-error-codes-domain-defined-not-leaked.md`](rust/external-error-codes-domain-defined-not-leaked.md)、Go 的 [`go/external-error-codes-domain-defined-not-leaked.md`](go/external-error-codes-domain-defined-not-leaked.md) 和 TypeScript 的 [`typescript/external-error-codes-domain-defined-not-leaked.md`](typescript/external-error-codes-domain-defined-not-leaked.md)，检查对外响应的错误码是否由领域枚举/异常定义、底层 SQL state / 驱动类型名是否被 adapter 翻译成稳定的领域错误码。
+4. **确认恢复动作显式化**:读 Python 的 [`python/retry-policy-explicit-not-hidden-loop.md`](python/retry-policy-explicit-not-hidden-loop.md)、Rust 的 [`rust/retry-strategy-explicit-not-implicit-loop.md`](rust/retry-strategy-explicit-not-implicit-loop.md) 和 Go 的 [`go/retry-policy-explicit-not-hidden-loop.md`](go/retry-policy-explicit-not-hidden-loop.md),把"哪些错误可重试、最多重试几次、如何退避、耗尽后返回什么"从临时 `for` / `while` / `loop` / 嵌套 `match` / `if err != nil` 中拆成可测试的策略。
+5. **确认降级决策在调用方**:读 Python 的 [`python/degradation-strategy-at-caller-not-callee.md`](python/degradation-strategy-at-caller-not-callee.md)、Rust 的 [`rust/degradation-strategy-at-caller-not-callee.md`](rust/degradation-strategy-at-caller-not-callee.md)、Go 的 [`go/degradation-strategy-at-caller-not-callee.md`](go/degradation-strategy-at-caller-not-callee.md) 和 TypeScript 的 [`typescript/degradation-strategy-at-caller-not-callee.md`](typescript/degradation-strategy-at-caller-not-callee.md),确认被依赖服务不可用时,降级(返回缓存、默认值、简化响应)由调用方根据业务容忍度决定,而不是被调方静默返回假结果。
+6. **最后确认对外错误码来自领域**:读 Python 的 [`python/external-error-codes-domain-defined-not-leaked.md`](python/external-error-codes-domain-defined-not-leaked.md)、Rust 的 [`rust/external-error-codes-domain-defined-not-leaked.md`](rust/external-error-codes-domain-defined-not-leaked.md)、Go 的 [`go/external-error-codes-domain-defined-not-leaked.md`](go/external-error-codes-domain-defined-not-leaked.md) 和 TypeScript 的 [`typescript/external-error-codes-domain-defined-not-leaked.md`](typescript/external-error-codes-domain-defined-not-leaked.md),检查对外响应的错误码是否由领域枚举/异常定义、底层 SQL state / 驱动类型名是否被 adapter 翻译成稳定的领域错误码。
 
 复盘输出可以是一张五列表:`底层错误`、`领域错误`、`调用方动作`、`重试/降级策略`、`对外消息`。如果上层需要知道 SQL 状态码、文件系统错误码或第三方 SDK 类型才能决策,就要在 adapter 边界补领域错误转换;如果对外消息直接拼接底层错误字符串,就要拆出日志上下文和用户可见错误码;如果重试次数、退避间隔或可重试错误集合散落在错误处理分支里,就要抽成显式策略并补最小测试。Python 侧可以用 [`python/error-recovery-path-needs-one-decision-table.md`](python/error-recovery-path-needs-one-decision-table.md)、Go 侧可以用 [`go/error-recovery-path-needs-one-decision-table.md`](go/error-recovery-path-needs-one-decision-table.md)、Rust 侧可以用 [`rust/error-recovery-path-needs-one-decision-table.md`](rust/error-recovery-path-needs-one-decision-table.md)、TypeScript 侧可以用 [`typescript/error-recovery-path-needs-one-decision-table.md`](typescript/error-recovery-path-needs-one-decision-table.md) 把分类、重试、降级和对外错误码收束到一张决策表。
 
 ### 错误边界审查清单
 
-如果需要在代码审查中快速走查错误边界，优先把 [`error-boundary-review-checklist.md`](error-boundary-review-checklist.md) 当作错误恢复复盘入口：它把上述路径压缩为六个检查点，每个检查点附带深度阅读卡片链接、不符合项记录表和决策表证据列。先用它定位“类型系统、上下文、分类、重试、降级、对外错误码”哪一环断掉，再回到对应语言卡片补实现。
+如果需要在代码审查中快速走查错误边界，优先把 [`error-boundary-review-checklist.md`](error-boundary-review-checklist.md) 当作错误恢复复盘入口：它把上述路径压缩为六个检查点，每个检查点附带深度阅读卡片链接、不符合项记录表和决策表证据列。先用它定位"类型系统、上下文、分类、重试、降级、对外错误码"哪一环断掉，再回到对应语言卡片补实现。
+
+### 审查清单配套样本包
+
+使用清单之后，可以用 [`../samples/ai-agent-sample-pack.md`](../samples/ai-agent-sample-pack.md) 里的错误边界 review agent 输入样例直接启动一次可复核的小范围审查，其中包含 agent prompt、错误决策表模板和 `NARROW_FIRST` 证据边界交接记录。
 
 ## 卡片维护规则
 
