@@ -23,11 +23,13 @@ tech-cards-handbook/
 │   ├── rust/
 │   ├── swift/
 │   └── typescript/
+├── samples/
+│   └── ai-agent-sample-pack.md
 ├── .drafts/
 └── resources/
 ```
 
-正式卡片只放在 `chapters/<tech-stack>/` 下。草稿和未定稿片段放入 `.drafts/`，图片、图表、截图和参考素材放入 `resources/`。
+正式卡片只放在 `chapters/<tech-stack>/` 下。可复制的 agent 输入、审查样例和交接片段放入 `samples/`。草稿和未定稿片段放入 `.drafts/`，图片、图表、截图和参考素材放入 `resources/`。
 
 ## 正式内容
 
@@ -42,6 +44,7 @@ tech-cards-handbook/
 | Swift | `chapters/swift/` | 10 张：值语义、async/await、基础值、字符串、集合、switch、可选绑定、闭包、defer 清理和 Result 错误状态 |
 | Flutter | `chapters/flutter/` | 10 张：状态、列表、导航、测试、布局、输入控件、组件拆分、异步构建、生命周期检查和 controller 释放 |
 | AI Agent | `chapters/ai-agent/` | 21 张：Agent 边界、工具、工具结果、记忆、上下文预算、上下文状态设计、反馈判断、反馈修订、反馈池、迭代上限、心跳工作流、交接、接力取舍、短节拍边界、验证总结、未验证项交接、提交状态读回、失败输出吸收、启动层边界和助手操作系统 |
+| 样本包 | `samples/ai-agent-sample-pack.md` | 可直接复制给 agent 的审查 prompt、交接记录模板和错误边界 review 输入样例 |
 
 ## 文件命名
 
