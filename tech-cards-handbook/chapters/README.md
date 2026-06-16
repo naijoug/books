@@ -61,6 +61,18 @@
 
 使用清单之后，可以用 [`../samples/ai-agent-sample-pack.md`](../samples/ai-agent-sample-pack.md) 里的错误边界 review agent 输入样例直接启动一次可复核的小范围审查，其中包含 agent prompt、错误决策表模板和 `NARROW_FIRST` 证据边界交接记录。
 
+### AI Agent dirty workspace 心跳接力
+
+如果问题不是某个语言或代码边界，而是“周期性唤醒的 Agent 要在已有 dirty workspace 里继续工作”，优先从 [`ai-agent/`](ai-agent/) 的快速路径进入，而不是直接翻完整 AI Agent 目录。
+
+最短使用顺序：
+
+1. 先把 [`../samples/ai-agent-dirty-workspace-one-pager.md`](../samples/ai-agent-dirty-workspace-one-pager.md) 贴给本轮 Agent，要求它先记录启动快照。
+2. 再按 [`ai-agent/README.md`](ai-agent/README.md) 里的“快速路径：dirty workspace 心跳接力”阅读 5 张卡片：心跳、防漂移、启动快照、规划取舍、未提交归属判断和最终报告边界。
+3. 如果需要更完整的 prompt 和交接样例，再打开 [`../samples/ai-agent-sample-pack.md`](../samples/ai-agent-sample-pack.md) 的 dirty workspace 心跳交接输入样例。
+
+这条路径的输出不是一篇总结，而是一份可接力记录：本轮实际推进了什么、哪些 dirty path 没有接管、验证命令是什么、项目和 notebook 分别提交到了哪个 commit。
+
 ## 卡片维护规则
 
 - 新卡片放入对应技术栈目录,文件名使用英文 `kebab-case`,不要使用纯数字命名。
