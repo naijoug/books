@@ -41,6 +41,20 @@
  git -C summaries log -1 --pretty=%s
 ```
 
+**可复制最终响应模板**：
+
+```text
+本轮选择：<选了哪个低风险小块，以及为什么没有接管未归属 dirty path>
+实际推进：<写清完成的文件、章节、代码或验证脚本；不要只写“已优化”>
+验证证据：<列命令和真实结果，例如 diff --check / 测试 / 结构断言>
+项目提交：<repo> <hash> <subject>；如没有项目提交，写“无，原因：...”
+Notebook：summaries/hermes/YYYY-MM-DD.md；summaries <hash> <subject>；如未提交，写“未提交，原因：...”
+未接管边界：<repo/path 相对路径 + 启动前已有 / 来源不明 / 验证失败 / 非本轮范围 + 未 stage>
+下一段接力：<下一轮第一条可执行动作，而不是泛泛“继续优化”>
+```
+
+这个模板适合放在 cron / heartbeat 的最终投递里。它和 notebook 里的记录可以内容相近，但最终响应必须让只看投递摘要的人也知道：本轮成果在哪里、证据是什么、哪些 dirty path 没有被接管。
+
 **反例 / 修正做法**：
 
 ```text
