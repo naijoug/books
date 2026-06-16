@@ -1,7 +1,7 @@
 # AI Agent 工作流卡片 · 样本包
 
-> 5 张卡片，每张覆盖一个 Agent 失败模式、一条经验法则和一份验证清单。
-> 选自《技术卡片随身宝典》AI Agent 系列（共 21 张）。
+> 5 张精选卡片，每张覆盖一个 Agent 失败模式、一条经验法则和一份验证清单。
+> 选自《技术卡片随身宝典》AI Agent 系列（共 25 张）。
 
 ---
 
@@ -123,10 +123,46 @@
 
 ---
 
+## 附录：dirty workspace 心跳交接输入样例
+
+当 Agent 被周期性唤醒、workspace 里已经有多个 repo 处于 dirty 状态时，不要把“继续上次接力点”当作自动义务。先用下面的输入样例约束它完成启动快照、归属判断、path-limited 推进和最终报告边界。
+
+```text
+你正在一个已有 dirty workspace 的长期任务里工作。
+
+启动前必须先记录：
+1. workspace 根目录是否是 git repo；
+2. 每个相关 repo 的 git status --short；
+3. 上一轮 notebook 写下的 Next path / Next slice；
+4. 哪些 dirty path 在本轮启动前已经存在。
+
+决策规则：
+- 接力点只是信号，不是义务；如果接力文件启动前已 dirty，先判断归属。
+- 只有 known-own 或有明确证据可接管的 previous-agent 文件才能 stage。
+- user-or-unknown、generated/noise、无法解释来源的 dirty path 一律不 stage，只记录未接管边界。
+- 如果目标 repo 不适合动，选择一个 clean repo 的独立小任务推进。
+
+执行要求：
+1. 先写“上一段/当前状态、候选工作、本轮选择、选择理由、下一段计划”。
+2. 修改文件前检查目标 repo 状态；修改后只对本轮文件做 diff --check 和结构断言。
+3. 提交时只使用 path-limited staging，不使用 git add .。
+4. 最终报告必须同时列出项目 commit、notebook commit，以及未接管 dirty path 的相对路径和原因。
+
+参考卡片：
+- books/tech-cards-handbook/chapters/ai-agent/continuation-is-signal-not-obligation.md
+- books/tech-cards-handbook/chapters/ai-agent/uncommitted-handoff-needs-ownership-triage.md
+- books/tech-cards-handbook/chapters/ai-agent/dirty-workspace-exit-checklist.md
+- books/tech-cards-handbook/chapters/ai-agent/final-report-names-excluded-boundaries.md
+```
+
+**检查**：如果最终输出只列完成项、不列未接管边界，或者 notebook 里没有说明为什么避开某个 dirty repo，这次心跳仍不具备可接力性；下一轮应该先回到归属判断，而不是继续提交。
+
+---
+
 ## 关于完整版
 
-这 5 张卡片选自《技术卡片随身宝典》AI Agent 系列的 21 张卡片。
+这 5 张精选卡片选自《技术卡片随身宝典》AI Agent 系列的 25 张卡片。
 
-完整版覆盖：工具契约与证据、上下文预算与状态设计、反馈闭环、运行控制、交接机制、助手操作系统分层等主题。
+完整版覆盖：工具契约与证据、上下文预算与状态设计、反馈闭环、运行控制、交接机制、dirty workspace 收尾、最终报告边界和助手操作系统分层等主题。
 
 每张卡片遵循统一格式：**问题 → 要点 → 示例 → 坑 → 检查**，适合在日常工作中随手翻阅、团队分享或作为 Agent 配对编程的参考。
