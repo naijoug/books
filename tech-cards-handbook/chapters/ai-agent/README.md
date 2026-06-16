@@ -4,6 +4,22 @@
 
 本目录收录 Agent 系统设计、运行边界、工具、记忆、反馈判断、反馈池和心跳工作流等实践卡片；具体 SDK 或语言实现优先放入对应技术栈目录。
 
+如果读者正在处理“周期性唤醒的 Agent + 已有 dirty workspace + 多 repo 接力”这类场景，优先使用 [`../../samples/ai-agent-dirty-workspace-one-pager.md`](../../samples/ai-agent-dirty-workspace-one-pager.md)，再按下面的运行控制顺序深入阅读。
+
+## 快速路径：dirty workspace 心跳接力
+
+这条路径不是通用入门顺序，而是给已经在真实项目里工作的 Agent 使用：先建立启动快照，再选择可安全推进的小任务，最后把成果和未接管边界同时写清。
+
+| 步骤 | 目标 | 卡片 |
+|---|---|---|
+| 1 | 防止凭上一轮印象行动 | [`heartbeat-workflow-prevents-drift.md`](heartbeat-workflow-prevents-drift.md) |
+| 2 | 在规划前保存当前 repo 状态 | [`startup-snapshot-before-planning.md`](startup-snapshot-before-planning.md) |
+| 3 | 从候选工作中做取舍 | [`planning-selects-work-not-just-summary.md`](planning-selects-work-not-just-summary.md) |
+| 4 | 对启动前 dirty 接力文件做归属判断 | [`uncommitted-handoff-needs-ownership-triage.md`](uncommitted-handoff-needs-ownership-triage.md) |
+| 5 | 收尾时同时列成果和排除项 | [`final-report-names-excluded-boundaries.md`](final-report-names-excluded-boundaries.md) |
+
+配套可复制输入见 [`../../samples/ai-agent-sample-pack.md`](../../samples/ai-agent-sample-pack.md) 的 dirty workspace 心跳交接样例。
+
 ## 阅读顺序
 
 ### 1. 先确定 Agent 的边界
