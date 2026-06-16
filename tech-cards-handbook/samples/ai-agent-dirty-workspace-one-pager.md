@@ -58,6 +58,27 @@ workspace root：当前目录是否是 git repo
 - 代码类：运行目标 repo 的测试或最小 smoke test；失败时记录真实错误，不编造通过结果。
 - 交接类：notebook 中的 `变更文件` 与实际 staged / committed 文件一致。
 
+一个最小记录示例：
+
+```text
+验证：
+- git -C books diff --check -- tech-cards-handbook/samples/ai-agent-dirty-workspace-one-pager.md
+- python3 - <<'PY'
+  from pathlib import Path
+  p = Path('tech-cards-handbook/samples/ai-agent-dirty-workspace-one-pager.md')
+  text = p.read_text()
+  required = ['git status --short', 'path-limited', '未接管边界', 'rev-parse --short HEAD']
+  assert all(x in text for x in required)
+  assert '绝对路径前缀' not in text
+  PY
+提交：
+- git -C books add -- tech-cards-handbook/samples/ai-agent-dirty-workspace-one-pager.md
+- git -C books commit -m "Improve dirty workspace one pager"
+- git -C books rev-parse --short HEAD  # 例如：abc1234
+排除：
+- makemoney/...：启动前已有 dirty path，未接管、未 stage。
+```
+
 ## 4. 最终报告模板
 
 ```text
