@@ -18,7 +18,7 @@ Dirty workspace 不是不能工作，但必须把“启动前状态、本轮范�
   - 启动前已有：除非有证据确认归属，否则不提交。
   - 生成噪音：能安全删除则删除；不能确认则记录不接管。
   - 未验证项：不写成已完成，只写后续接力。
-- **最终报告要同时列完成项和排除项**：报告中至少包含 commit hash、变更文件、验证命令，以及仍未接管的 dirty path 类别。
+- **最终报告要同时列完成项和排除项**：报告中至少包含 commit hash、变更文件、验证命令，以及仍未接管的 dirty path 类别；可直接套用 [`final-report-names-excluded-boundaries.md`](final-report-names-excluded-boundaries.md) 里的最终响应模板。
 - **notebook 不是成果替代物**：工作记录只说明决策和证据；真正成果应该在书稿、文档、代码、技能或项目文件里落地，并经过验证。
 
 ## 示例
