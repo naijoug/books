@@ -19,7 +19,7 @@
 | React 技术卡片 | [`react/`](react/) | 54 |
 | Swift 技术卡片 | [`swift/`](swift/) | 10 |
 | Flutter 技术卡片 | [`flutter/`](flutter/) | 10 |
-| AI Agent 系统实践卡片 | [`ai-agent/`](ai-agent/) | 25 |
+| AI Agent 系统实践卡片 | [`ai-agent/`](ai-agent/) | 26 |
 
 ## 跨技术栈复盘路径
 
