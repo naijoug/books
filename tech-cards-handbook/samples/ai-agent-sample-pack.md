@@ -150,6 +150,14 @@
 3. 提交时只使用 path-limited staging，不使用 git add .。
 4. 最终报告必须同时列出项目 commit、notebook commit，以及未接管 dirty path 的相对路径和原因。
 
+最终报告可复制模板：
+- 本轮选择：{选择的 repo / 文件 / 小任务}，原因：{为什么它比其他候选更安全或更有价值}。
+- 实际推进：{具体改动 1–3 条}。
+- 验证证据：{命令及结果摘要，例如 diff --check、结构断言、测试命令}。
+- 项目提交：{repo} `{short_hash}`；notebook 提交：`summaries` `{short_hash}`。
+- 未接管边界：{repo/path + 原因，例如启动前已 dirty、归属未知、非本轮文件}。
+- 下一段接力：{下一轮优先打开的相对路径和第一条动作}。
+
 参考卡片：
 - books/tech-cards-handbook/chapters/ai-agent/heartbeat-workflow-prevents-drift.md
 - books/tech-cards-handbook/chapters/ai-agent/startup-snapshot-before-planning.md
