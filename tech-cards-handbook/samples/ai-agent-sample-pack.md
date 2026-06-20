@@ -151,12 +151,17 @@
 4. 最终报告必须同时列出项目 commit、notebook commit，以及未接管 dirty path 的相对路径和原因。
 
 最终报告可复制模板：
+
+收尾顺序固定为：`验证证据 -> 已提交状态读回 -> 排除边界`。不要只写“验证通过”；要写命令、结果摘要和仍未验证的部分。commit 信息从提交后的状态读回，至少包含 hash 和 subject，避免把计划中的提交误报成已经落地。
+
 - 本轮选择：{选择的 repo / 文件 / 小任务}，原因：{为什么它比其他候选更安全或更有价值}。
 - 实际推进：{具体改动 1–3 条}。
-- 验证证据：{命令及结果摘要，例如 diff --check、结构断言、测试命令}。
-- 项目提交：{repo} `{short_hash}`；notebook 提交：`summaries` `{short_hash}`。
+- 验证证据：{命令及结果摘要，例如 diff --check、结构断言、测试命令；未验证项也要写明}。
+- 写入 notebook：summaries/hermes/YYYY-MM-DD.md。
+- 项目提交：{repo} `{short_hash}` `{subject}`（如有；从已提交状态读回）。
+- notebook 提交：`summaries` `{short_hash}` `{subject}`（如有；从已提交状态读回）。
 - 未接管边界：{repo/path + 原因，例如启动前已 dirty、归属未知、非本轮文件}。
-- 下一段接力：{下一轮优先打开的相对路径和第一条动作}。
+- 下一段接力：{下一轮优先打开的相对路径、第一条动作和 verification destination}。
 
 参考卡片：
 - books/tech-cards-handbook/chapters/ai-agent/heartbeat-workflow-prevents-drift.md
