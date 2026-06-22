@@ -1,6 +1,6 @@
 # Flutter 技术卡片
 
-本目录按“一张卡片一个 Markdown 文件”维护，共 11 张。文件名使用英文 `kebab-case`。
+本目录按“一张卡片一个 Markdown 文件”维护，共 12 张。文件名使用英文 `kebab-case`。
 
 | 卡片 | 文件 |
 |---|---|
@@ -15,3 +15,4 @@
 | Flutter 异步回调后先检查 `mounted` | [`flutter-check-mounted-before-setstate.md`](flutter-check-mounted-before-setstate.md) |
 | Flutter controller 和 listener 要成对释放 | [`flutter-dispose-controllers-and-listeners.md`](flutter-dispose-controllers-and-listeners.md) |
 | Flutter 重试策略要显式化 | [`flutter-retry-policy-explicit-not-hidden-loop.md`](flutter-retry-policy-explicit-not-hidden-loop.md) |
+| Flutter 对外错误码要来自领域错误 | [`flutter-external-error-codes-domain-defined-not-leaked.md`](flutter-external-error-codes-domain-defined-not-leaked.md) |
