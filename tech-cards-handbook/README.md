@@ -6,7 +6,7 @@
 
 本书已按技术栈重组正式内容：`chapters/` 下每个技术栈一个目录，每张卡片一个 Markdown 文件。
 
-当前共 200 张正式卡片。
+当前共 201 张正式卡片。
 
 ## 目录结构
 
@@ -42,7 +42,7 @@ tech-cards-handbook/
 | Rust | `chapters/rust/` | 20 张：所有权、借用、Option、Result、trait、生命周期、模式匹配、模块、迭代器、并发、异步、测试、newtype 领域边界、From/TryFrom 验证边界、repository 存储边界、derive 语义选择、显式重试策略、领域定义的对外错误码、调用方降级策略和错误恢复决策表 |
 | TypeScript | `chapters/typescript/` | 31 张：联合类型、`never` 穷尽检查、条件类型、`infer`、Mapped Type、深度只读、`satisfies`、`unknown`、类型守卫、断言函数、外部 schema 边界、请求状态分层、品牌类型、模板字面量类型、Result 错误处理、工具类型、DTO 边界、DTO 版本演进、DTO 字段迁移、消费者观测、事件分层、mapper 边界、ViewModel 边界、Command 边界、错误分类、重试策略、调用方降级、领域错误码翻译和错误恢复决策表 |
 | React | `chapters/react/` | 54 张：Effect、状态、派生状态、URL 状态、服务端数据缓存、异步状态边界、请求过期保护、请求缓存去重、缓存 key 设计、缓存失效、缓存过期、搜索防抖、骨架屏、表单字段状态、提交状态、字段错误、幂等键、action 返回 contract、成功后重置、列表 key、虚拟列表、分页加载、加载更多并发锁、筛选排序重置、延迟渲染、过渡更新、ref、自定义 Hook、错误边界、Suspense、代码分割、可恢复重试、Context 拆分、回调身份、memo、Profiler、性能、乐观更新、React 19 表单状态、SSR hydration 稳定输入、浏览器 API 客户端读取、客户端个性化外壳、SSR 个性化首屏占位策略、外部 store、Strict Mode、Reducer 和状态机 |
-| Swift | `chapters/swift/` | 13 张：值语义、async/await、基础值、字符串、集合、switch、可选绑定、闭包、defer 清理、Result 错误状态、显式重试策略、领域定义的对外错误码和错误恢复决策表 |
+| Swift | `chapters/swift/` | 14 张：值语义、async/await、基础值、字符串、集合、switch、可选绑定、闭包、defer 清理、Result 错误状态、显式重试策略、领域定义的对外错误码、调用方降级策略和错误恢复决策表 |
 | Flutter | `chapters/flutter/` | 13 张：状态、列表、导航、测试、布局、输入控件、组件拆分、异步构建、生命周期检查、controller 释放、显式重试策略、领域定义的对外错误码和错误恢复决策表 |
 | AI Agent | `chapters/ai-agent/` | 28 张：Agent 边界、工具、工具结果、记忆、上下文预算、上下文状态设计、反馈判断、反馈修订、反馈池、迭代上限、心跳工作流、启动快照、规划取舍、交接、接力取舍、无人值守默认动作、启动前 staged 归属、短节拍边界、验证总结、未验证项交接、提交状态读回、dirty workspace 归属判断、dirty workspace 收尾清单、最终报告边界、失败输出吸收、启动层边界和助手操作系统；dirty workspace 心跳接力的推荐阅读路径见 `chapters/ai-agent/README.md` |
 | 样本包 | `samples/ai-agent-sample-pack.md`、`samples/ai-agent-dirty-workspace-one-pager.md` | 可直接复制给 agent 的审查 prompt、dirty workspace 心跳接力一页纸、交接记录模板和错误边界 review 输入样例；其中一页纸适合直接贴给周期性唤醒的 Agent 使用 |

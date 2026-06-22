@@ -1,6 +1,6 @@
 # Swift 技术卡片
 
-本目录按“一张卡片一个 Markdown 文件”维护，共 13 张。文件名使用英文 `kebab-case`。
+本目录按“一张卡片一个 Markdown 文件”维护，共 14 张。文件名使用英文 `kebab-case`。
 
 | 卡片 | 文件 |
 |---|---|
@@ -16,6 +16,7 @@
 | Swift `Result` 把成功和失败放进同一个值 | [`swift-result-explicit-failure-state.md`](swift-result-explicit-failure-state.md) |
 | Swift 重试策略要显式化，而不是藏在循环和 guard 里 | [`swift-retry-policy-explicit-not-hidden-loop.md`](swift-retry-policy-explicit-not-hidden-loop.md) |
 | Swift 对外错误码要由领域定义，不要泄漏底层错误 | [`swift-external-error-codes-domain-defined-not-leaked.md`](swift-external-error-codes-domain-defined-not-leaked.md) |
+| Swift 降级策略应由调用方决定，不要藏在 repository 里 | [`swift-degradation-strategy-at-caller-not-callee.md`](swift-degradation-strategy-at-caller-not-callee.md) |
 | Swift 错误恢复路径需要一张决策表串起来 | [`swift-error-recovery-decision-table.md`](swift-error-recovery-decision-table.md) |
 
 ## 可运行验证进度
@@ -44,7 +45,7 @@ python3 scripts/verify_swift_cards.py          # 简洁输出
 python3 scripts/verify_swift_cards.py --verbose # 含编译器输出
 ```
 
-预期输出：`verified 13 Swift cards with 15 code blocks`。也可通过统一入口一次验证所有语言：
+预期输出：`verified 14 Swift cards with 16 code blocks`。也可通过统一入口一次验证所有语言：
 
 ```bash
 python3 scripts/verify_all_cards.py --language Swift

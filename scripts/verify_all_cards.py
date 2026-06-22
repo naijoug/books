@@ -26,7 +26,7 @@ VERIFIERS: dict[str, tuple[str, int]] = {
     "verify_python_cards.py": ("Python", 18),
     "verify_react_cards.py": ("React", 34),
     "verify_typescript_cards.py": ("TypeScript", 14),
-    "verify_swift_cards.py": ("Swift", 13),
+    "verify_swift_cards.py": ("Swift", 14),
 }
 
 

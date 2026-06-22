@@ -23,7 +23,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SWIFT_DIR = ROOT / "tech-cards-handbook" / "chapters" / "swift"
 README = SWIFT_DIR / "README.md"
-EXPECTED_CARD_COUNT = 13
+EXPECTED_CARD_COUNT = 14
 
 
 @dataclass(frozen=True)
