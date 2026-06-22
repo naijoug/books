@@ -17,7 +17,7 @@
 | Rust 技术卡片 | [`rust/`](rust/) | 20 |
 | TypeScript 技术卡片 | [`typescript/`](typescript/) | 31 |
 | React 技术卡片 | [`react/`](react/) | 54 |
-| Swift 技术卡片 | [`swift/`](swift/) | 10 |
+| Swift 技术卡片 | [`swift/`](swift/) | 11 |
 | Flutter 技术卡片 | [`flutter/`](flutter/) | 10 |
 | AI Agent 系统实践卡片 | [`ai-agent/`](ai-agent/) | 28 |
 
