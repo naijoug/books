@@ -68,7 +68,14 @@ workspace root：当前目录是否是 git repo
   from pathlib import Path
   p = Path('tech-cards-handbook/samples/ai-agent-dirty-workspace-one-pager.md')
   text = p.read_text()
-  required = ['git status --short', 'path-limited', '未接管边界', 'rev-parse --short HEAD']
+  required = [
+      'git status --short',
+      'path-limited',
+      '未接管边界',
+      'rev-parse --short HEAD',
+      '失败当成背景噪音',
+      '改变范围、顺序、目标或交接',
+  ]
   assert all(x in text for x in required)
   assert '绝对路径前缀' not in text
   PY
