@@ -191,13 +191,13 @@
 - 未接管边界：{repo/path + 原因，例如启动前已 dirty、归属未知、非本轮文件}。
 - 下一段接力：{下一轮优先打开的相对路径、第一条动作和 verification destination}。
 
-参考卡片：
+参考卡片（按 prompt 中的决策顺序排列）：
 - books/tech-cards-handbook/chapters/ai-agent/heartbeat-workflow-prevents-drift.md
 - books/tech-cards-handbook/chapters/ai-agent/startup-snapshot-before-planning.md
 - books/tech-cards-handbook/chapters/ai-agent/planning-selects-work-not-just-summary.md
-- books/tech-cards-handbook/chapters/ai-agent/continuation-is-signal-not-obligation.md
-- books/tech-cards-handbook/chapters/ai-agent/failure-output-must-change-plan.md
 - books/tech-cards-handbook/chapters/ai-agent/unattended-agent-chooses-default-action.md
+- books/tech-cards-handbook/chapters/ai-agent/failure-output-must-change-plan.md
+- books/tech-cards-handbook/chapters/ai-agent/continuation-is-signal-not-obligation.md
 - books/tech-cards-handbook/chapters/ai-agent/uncommitted-handoff-needs-ownership-triage.md
 - books/tech-cards-handbook/chapters/ai-agent/dirty-workspace-exit-checklist.md
 - books/tech-cards-handbook/chapters/ai-agent/final-report-names-excluded-boundaries.md
