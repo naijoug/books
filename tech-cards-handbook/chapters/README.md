@@ -19,7 +19,7 @@
 | React 技术卡片 | [`react/`](react/) | 54 |
 | Swift 技术卡片 | [`swift/`](swift/) | 10 |
 | Flutter 技术卡片 | [`flutter/`](flutter/) | 10 |
-| AI Agent 系统实践卡片 | [`ai-agent/`](ai-agent/) | 26 |
+| AI Agent 系统实践卡片 | [`ai-agent/`](ai-agent/) | 28 |
 
 ## 跨技术栈复盘路径
 
@@ -68,7 +68,7 @@
 最短使用顺序：
 
 1. 先把 [`../samples/ai-agent-dirty-workspace-one-pager.md`](../samples/ai-agent-dirty-workspace-one-pager.md) 贴给本轮 Agent，要求它先记录启动快照。
-2. 再按 [`ai-agent/README.md`](ai-agent/README.md) 里的“快速路径：dirty workspace 心跳接力”阅读 5 张卡片：心跳、防漂移、启动快照、规划取舍、未提交归属判断和最终报告边界。
+2. 再按 [`ai-agent/README.md`](ai-agent/README.md) 里的“快速路径：dirty workspace 心跳接力”阅读 11 个步骤：心跳、防漂移、启动快照、规划取舍、无人值守默认动作、失败输出吸收、未提交与 staged 归属、dirty workspace 收尾、验证与未验证项交接、提交状态读回和最终报告边界。
 3. 如果需要更完整的 prompt 和交接样例，再打开 [`../samples/ai-agent-sample-pack.md`](../samples/ai-agent-sample-pack.md) 的 dirty workspace 心跳交接输入样例。
 
 这条路径的输出不是一篇总结，而是一份可接力记录：本轮实际推进了什么、哪些 dirty path 没有接管、验证命令是什么、项目和 notebook 分别提交到了哪个 commit。
