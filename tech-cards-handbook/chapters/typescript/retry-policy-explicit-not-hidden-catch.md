@@ -141,6 +141,6 @@ main().catch((e: unknown) => {
 
 **对照阅读**：
 
-- Go: [`go/retry-policy-explicit-not-hidden-loop.md`](go/retry-policy-explicit-not-hidden-loop.md)
-- Rust: [`rust/retry-strategy-explicit-not-implicit-loop.md`](rust/retry-strategy-explicit-not-implicit-loop.md)
-- Python: [`python/retry-policy-explicit-not-hidden-loop.md`](python/retry-policy-explicit-not-hidden-loop.md)
+- Go: [`../go/retry-policy-explicit-not-hidden-loop.md`](../go/retry-policy-explicit-not-hidden-loop.md)
+- Rust: [`../rust/retry-strategy-explicit-not-implicit-loop.md`](../rust/retry-strategy-explicit-not-implicit-loop.md)
+- Python: [`../python/retry-policy-explicit-not-hidden-loop.md`](../python/retry-policy-explicit-not-hidden-loop.md)
