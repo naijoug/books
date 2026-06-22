@@ -38,7 +38,7 @@ struct RetryPolicy {
 }
 
 func isRetryable(_ error: Error) -> Bool {
-    if case .temporary = error { return true }
+    if case AppError.temporary = error { return true }
     return false
 }
 

@@ -1,6 +1,6 @@
 # Swift 技术卡片
 
-本目录按“一张卡片一个 Markdown 文件”维护，共 11 张。文件名使用英文 `kebab-case`。
+本目录按“一张卡片一个 Markdown 文件”维护，共 12 张。文件名使用英文 `kebab-case`。
 
 | 卡片 | 文件 |
 |---|---|
@@ -15,6 +15,7 @@
 | Swift `defer` 把清理逻辑贴近资源获取 | [`swift-defer-for-cleanup.md`](swift-defer-for-cleanup.md) |
 | Swift `Result` 把成功和失败放进同一个值 | [`swift-result-explicit-failure-state.md`](swift-result-explicit-failure-state.md) |
 | Swift 重试策略要显式化，而不是藏在循环和 guard 里 | [`swift-retry-policy-explicit-not-hidden-loop.md`](swift-retry-policy-explicit-not-hidden-loop.md) |
+| Swift 对外错误码要由领域定义，不要泄漏底层错误 | [`swift-external-error-codes-domain-defined-not-leaked.md`](swift-external-error-codes-domain-defined-not-leaked.md) |
 
 ## 可运行验证进度
 
@@ -42,7 +43,7 @@ python3 scripts/verify_swift_cards.py          # 简洁输出
 python3 scripts/verify_swift_cards.py --verbose # 含编译器输出
 ```
 
-预期输出：`verified 11 Swift cards with 12 code blocks`。也可通过统一入口一次验证所有语言：
+预期输出：`verified 12 Swift cards with 14 code blocks`。也可通过统一入口一次验证所有语言：
 
 ```bash
 python3 scripts/verify_all_cards.py --language Swift
