@@ -165,6 +165,7 @@
 
 决策规则：
 - 接力点只是信号，不是义务；如果接力文件启动前已 dirty，先判断归属。
+- 如果处在 cron、scheduled job、CI 等无人值守环境，不能等待澄清时，要先写出默认解释，再选择低风险、可验证、可回滚的小动作。
 - 如果上一轮验证、测试或命令输出失败，先判断它是否改变本轮范围、顺序、目标或交接；不要一边沿用原计划，一边把失败写成背景噪音。
 - 只有 known-own 或有明确证据可接管的 previous-agent 文件才能 stage。
 - user-or-unknown、generated/noise、无法解释来源的 dirty path 一律不 stage，只记录未接管边界。
@@ -196,6 +197,7 @@
 - books/tech-cards-handbook/chapters/ai-agent/planning-selects-work-not-just-summary.md
 - books/tech-cards-handbook/chapters/ai-agent/continuation-is-signal-not-obligation.md
 - books/tech-cards-handbook/chapters/ai-agent/failure-output-must-change-plan.md
+- books/tech-cards-handbook/chapters/ai-agent/unattended-agent-chooses-default-action.md
 - books/tech-cards-handbook/chapters/ai-agent/uncommitted-handoff-needs-ownership-triage.md
 - books/tech-cards-handbook/chapters/ai-agent/dirty-workspace-exit-checklist.md
 - books/tech-cards-handbook/chapters/ai-agent/final-report-names-excluded-boundaries.md
