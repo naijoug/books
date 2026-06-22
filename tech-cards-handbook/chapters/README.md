@@ -81,3 +81,24 @@
 - 目录优先按具体技术栈命名,避免使用"前端""移动端"这类领域混合桶。
 - 跨技术栈内容优先放在主要实践场景所在目录,并在相关目录 README 中交叉引用。
 - Agent 系统设计、工具、记忆和心跳工作流放入 `ai-agent/`;具体 SDK 或语言实现优先放入对应技术栈目录。
+
+## 索引校验
+
+更新任一 `chapters/<tech-stack>/` 目录后，先用下面的仓库相对路径脚本重新统计正式卡片数，再同步更新 `README.md` 和本文件的目录表：
+
+```bash
+python3 - <<'PY'
+from pathlib import Path
+base = Path('chapters')
+counts = {
+    path.name: len([f for f in path.glob('*.md') if f.name != 'README.md'])
+    for path in sorted(base.iterdir())
+    if path.is_dir()
+}
+print('total', sum(counts.values()))
+for name, count in counts.items():
+    print(name, count)
+PY
+```
+
+提交前还要确认 `README.md` 的“当前共 N 张正式卡片”和本文件“技术栈目录”表中的数字都来自同一次统计，避免只更新某个入口。
