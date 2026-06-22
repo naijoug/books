@@ -108,11 +108,17 @@ summaries commit：<hash> <subject>（如有；从已提交状态读回）
 
 ## 5. 参考卡片
 
+这组参考卡片按 `chapters/ai-agent/README.md` 的 quick path 排列；一页纸只保留操作清单，遇到边界判断时回到对应卡片补细节。
+
 - `books/tech-cards-handbook/chapters/ai-agent/heartbeat-workflow-prevents-drift.md`
 - `books/tech-cards-handbook/chapters/ai-agent/startup-snapshot-before-planning.md`
 - `books/tech-cards-handbook/chapters/ai-agent/planning-selects-work-not-just-summary.md`
-- `books/tech-cards-handbook/chapters/ai-agent/failure-output-must-change-plan.md`
 - `books/tech-cards-handbook/chapters/ai-agent/unattended-agent-chooses-default-action.md`
+- `books/tech-cards-handbook/chapters/ai-agent/failure-output-must-change-plan.md`
 - `books/tech-cards-handbook/chapters/ai-agent/uncommitted-handoff-needs-ownership-triage.md`
+- `books/tech-cards-handbook/chapters/ai-agent/staged-changes-are-not-ownership.md`
 - `books/tech-cards-handbook/chapters/ai-agent/dirty-workspace-exit-checklist.md`
+- `books/tech-cards-handbook/chapters/ai-agent/verify-before-optimistic-summary.md`
+- `books/tech-cards-handbook/chapters/ai-agent/unverified-items-need-explicit-handoff.md`
+- `books/tech-cards-handbook/chapters/ai-agent/report-from-committed-state.md`
 - `books/tech-cards-handbook/chapters/ai-agent/final-report-names-excluded-boundaries.md`
