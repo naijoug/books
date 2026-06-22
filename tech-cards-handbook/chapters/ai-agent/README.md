@@ -15,12 +15,13 @@
 | 1 | 防止凭上一轮印象行动 | [`heartbeat-workflow-prevents-drift.md`](heartbeat-workflow-prevents-drift.md) |
 | 2 | 在规划前保存当前 repo 状态 | [`startup-snapshot-before-planning.md`](startup-snapshot-before-planning.md) |
 | 3 | 从候选工作中做取舍 | [`planning-selects-work-not-just-summary.md`](planning-selects-work-not-just-summary.md) |
-| 4 | 对启动前 dirty 接力文件做归属判断 | [`uncommitted-handoff-needs-ownership-triage.md`](uncommitted-handoff-needs-ownership-triage.md) |
-| 5 | 单独识别启动前 staged path，不把 index 状态误当授权 | [`staged-changes-are-not-ownership.md`](staged-changes-are-not-ownership.md) |
-| 6 | 用清单做 path-limited 收尾 | [`dirty-workspace-exit-checklist.md`](dirty-workspace-exit-checklist.md) |
-| 7 | 先跑聚焦验证并显式交接未验证项 | [`verify-before-optimistic-summary.md`](verify-before-optimistic-summary.md)、[`unverified-items-need-explicit-handoff.md`](unverified-items-need-explicit-handoff.md) |
-| 8 | 从已提交状态读回 hash 和 subject | [`report-from-committed-state.md`](report-from-committed-state.md) |
-| 9 | 最终响应同时列成果和排除项 | [`final-report-names-excluded-boundaries.md`](final-report-names-excluded-boundaries.md) |
+| 4 | 让失败输出改变范围、顺序、目标或交接 | [`failure-output-must-change-plan.md`](failure-output-must-change-plan.md) |
+| 5 | 对启动前 dirty 接力文件做归属判断 | [`uncommitted-handoff-needs-ownership-triage.md`](uncommitted-handoff-needs-ownership-triage.md) |
+| 6 | 单独识别启动前 staged path，不把 index 状态误当授权 | [`staged-changes-are-not-ownership.md`](staged-changes-are-not-ownership.md) |
+| 7 | 用清单做 path-limited 收尾 | [`dirty-workspace-exit-checklist.md`](dirty-workspace-exit-checklist.md) |
+| 8 | 先跑聚焦验证并显式交接未验证项 | [`verify-before-optimistic-summary.md`](verify-before-optimistic-summary.md)、[`unverified-items-need-explicit-handoff.md`](unverified-items-need-explicit-handoff.md) |
+| 9 | 从已提交状态读回 hash 和 subject | [`report-from-committed-state.md`](report-from-committed-state.md) |
+| 10 | 最终响应同时列成果和排除项 | [`final-report-names-excluded-boundaries.md`](final-report-names-excluded-boundaries.md) |
 
 配套可复制输入见 [`../../samples/ai-agent-sample-pack.md`](../../samples/ai-agent-sample-pack.md) 的 dirty workspace 心跳交接样例；若只需要收尾核对，先读 `dirty-workspace-exit-checklist.md`，再按“验证证据 -> 已提交状态读回 -> 排除边界”的顺序把 `final-report-names-excluded-boundaries.md` 的最终响应模板填完整。
 
