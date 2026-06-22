@@ -36,10 +36,11 @@ workspace root：当前目录是否是 git repo
 选择顺序：
 
 1. 如果上一轮验证或命令输出失败，先判断它是否改变范围、顺序、目标或交接；不要把失败当成背景噪音继续原计划。
-2. 如果接力 path 是 `known-own` 或证据充分的 `previous-agent`，先验证再推进。
-3. 如果接力 path 是 `user-or-unknown`，记录未接管边界，换 clean repo 的独立小任务。
-4. 如果没有合适代码任务，优先沉淀可复用资产：`books/...`、`docs/...`、`skills/skills/...`。
-5. 不要把“写 notebook”当成本轮成果；notebook 只记录成果和边界。
+2. 如果当前运行在无人值守环境，不能等待澄清；写出默认解释，选择低风险、可验证、可回滚的小动作。
+3. 如果接力 path 是 `known-own` 或证据充分的 `previous-agent`，先验证再推进。
+4. 如果接力 path 是 `user-or-unknown`，记录未接管边界，换 clean repo 的独立小任务。
+5. 如果没有合适代码任务，优先沉淀可复用资产：`books/...`、`docs/...`、`skills/skills/...`。
+6. 不要把“写 notebook”当成本轮成果；notebook 只记录成果和边界。
 
 ## 3. 执行与验证
 
@@ -111,6 +112,7 @@ summaries commit：<hash> <subject>（如有；从已提交状态读回）
 - `books/tech-cards-handbook/chapters/ai-agent/startup-snapshot-before-planning.md`
 - `books/tech-cards-handbook/chapters/ai-agent/planning-selects-work-not-just-summary.md`
 - `books/tech-cards-handbook/chapters/ai-agent/failure-output-must-change-plan.md`
+- `books/tech-cards-handbook/chapters/ai-agent/unattended-agent-chooses-default-action.md`
 - `books/tech-cards-handbook/chapters/ai-agent/uncommitted-handoff-needs-ownership-triage.md`
 - `books/tech-cards-handbook/chapters/ai-agent/dirty-workspace-exit-checklist.md`
 - `books/tech-cards-handbook/chapters/ai-agent/final-report-names-excluded-boundaries.md`
