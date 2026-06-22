@@ -70,6 +70,8 @@ tech-cards-handbook/
 
 ## 卡片标准
 
+维护入口数字或跨卡片链接时，先按 `chapters/README.md` 的“索引校验”和“链接校验”运行提交前检查。
+
 每张正式卡片必须包含：
 
 ```text
