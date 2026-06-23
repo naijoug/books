@@ -83,6 +83,10 @@
 - 跨技术栈内容优先放在主要实践场景所在目录,并在相关目录 README 中交叉引用。
 - Agent 系统设计、工具、记忆和心跳工作流放入 `ai-agent/`;具体 SDK 或语言实现优先放入对应技术栈目录。
 
+## Verifier 覆盖边界
+
+`scripts/verify_all_cards.py --language ...` 覆盖有代码块 verifier 的语言章节：Go、Python、Rust、TypeScript、React、Swift 和 Flutter。AI Agent 章节是工作流/运行边界卡片，不纳入语言代码 verifier；维护 `ai-agent/` 时按下面的索引校验、链接校验和每张卡片“问题、要点、示例、坑、检查”五段人工复核执行。
+
 ## 索引校验
 
 更新任一 `chapters/<tech-stack>/` 目录后，先用下面的仓库相对路径脚本重新统计正式卡片数，再同步更新 `README.md` 和本文件的目录表：
