@@ -127,6 +127,12 @@
 python3 scripts/verify_typescript_cards.py
 ```
 
+也可以通过统一入口复核本章：
+
+```bash
+python3 scripts/verify_all_cards.py --language TypeScript
+```
+
 脚本会从本章 Markdown 中抽取 `ts` / `typescript` 代码块,按卡片合并写入临时 `.ts` 文件,并用 `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom` 逐张检查。当前预期输出为 `verified 31 TypeScript cards with 32 code blocks`。
 
 | 类型 | 卡片 | 验证方式 |

@@ -76,7 +76,7 @@
 
 Rust 工具链已在本机确认可用(`rustc --version`)。当前优先把示例改成可复制运行的小程序；新增或改写卡片时，至少补一个 `rustc <file>.rs && ./<file>` 的检查命令。
 
-批量复核可在 `books` 仓库根目录运行：`python3 scripts/verify_rust_cards.py --verbose`。该脚本会从下列 20 张卡片抽取唯一 `rust` 代码块，编译并运行；测试卡片会额外执行 `rustc --test`。
+批量复核可在 `books` 仓库根目录运行：`python3 scripts/verify_rust_cards.py --verbose`。也可以通过统一入口复核本章：`python3 scripts/verify_all_cards.py --language Rust`。该脚本会从下列 20 张卡片抽取唯一 `rust` 代码块，编译并运行；测试卡片会额外执行 `rustc --test`。
 
 | 卡片 | 验证方式 |
 |---|---|

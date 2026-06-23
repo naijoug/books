@@ -38,6 +38,12 @@
 python3 scripts/verify_python_cards.py
 ```
 
+也可以通过统一入口复核本章：
+
+```bash
+python3 scripts/verify_all_cards.py --language Python
+```
+
 脚本会从本目录 README 读取 23 张卡片，逐张抽取唯一 `python` 代码块并运行；测试卡片通过 `uv run --with pytest` 执行，类型卡片会额外运行 `npx -y pyright@1.1.407`。
 
 | 类型 | 卡片 | 验证方式 |

@@ -56,6 +56,12 @@ Go 工具链已在本机确认可用(`go version`)。当前优先把示例改成
 python3 scripts/verify_go_cards.py
 ```
 
+也可以通过统一入口复核本章：
+
+```bash
+python3 scripts/verify_all_cards.py --language Go
+```
+
 | 卡片 | 验证方式 |
 |---|---|
 | [`sync-waitgroup-goroutine-completion.md`](sync-waitgroup-goroutine-completion.md) | `go run sync-waitgroup-goroutine-completion.go` |
