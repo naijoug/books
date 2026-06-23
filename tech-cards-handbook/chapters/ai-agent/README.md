@@ -4,6 +4,8 @@
 
 本目录收录 Agent 系统设计、运行边界、工具、记忆、反馈判断、反馈池和心跳工作流等实践卡片；具体 SDK 或语言实现优先放入对应技术栈目录。
 
+本章不纳入 `scripts/verify_all_cards.py --language ...` 的语言代码 verifier；维护时以 `chapters/README.md` 的索引校验和链接校验为准，并人工复核每张卡片是否仍包含问题、要点、示例、坑、检查五段。
+
 如果读者正在处理“周期性唤醒的 Agent + 已有 dirty workspace + 多 repo 接力”这类场景，优先使用 [`../../samples/ai-agent-dirty-workspace-one-pager.md`](../../samples/ai-agent-dirty-workspace-one-pager.md)，再按下面的运行控制顺序深入阅读。
 
 ## 快速路径：dirty workspace 心跳接力
