@@ -9,7 +9,6 @@ verification of the entire tech-cards-handbook.
 from __future__ import annotations
 
 import argparse
-import re
 import subprocess
 import sys
 from dataclasses import dataclass
@@ -17,9 +16,12 @@ from pathlib import Path
 
 
 SCRIPTS_DIR = Path(__file__).resolve().parent
+HANDBOOK_DIR = SCRIPTS_DIR.parent / "tech-cards-handbook"
+CHAPTERS_DIR = HANDBOOK_DIR / "chapters"
 
 # Map verifier script → (language name, expected card count).
-# Add new entries as new language chapters get verifiers.
+# The expected count is asserted against the chapter directory before the child
+# verifier runs, so this table fails fast when a chapter gains or loses cards.
 VERIFIERS: dict[str, tuple[str, int]] = {
     "verify_flutter_cards.py": ("Flutter", 14),
     "verify_rust_cards.py": ("Rust", 20),
@@ -39,7 +41,33 @@ class LanguageResult:
     output: str
 
 
-def run_verifier(script: str, language: str, verbose: bool) -> LanguageResult:
+def chapter_dir_for(language: str) -> Path:
+    """Return the chapter directory for a verifier language label."""
+    return CHAPTERS_DIR / language.lower().replace(" ", "-")
+
+
+def count_chapter_cards(language: str) -> int:
+    """Count formal card files in a language chapter, excluding README.md."""
+    chapter_dir = chapter_dir_for(language)
+    if not chapter_dir.exists():
+        raise FileNotFoundError(f"chapter directory not found: {chapter_dir}")
+    return sum(1 for path in chapter_dir.glob("*.md") if path.name != "README.md")
+
+
+def run_verifier(script: str, language: str, expected_count: int, verbose: bool) -> LanguageResult:
+    try:
+        actual_count = count_chapter_cards(language)
+    except FileNotFoundError as exc:
+        return LanguageResult(language, script, False, str(exc))
+    if actual_count != expected_count:
+        chapter_dir = chapter_dir_for(language).relative_to(HANDBOOK_DIR)
+        return LanguageResult(
+            language,
+            script,
+            False,
+            f"expected {expected_count} cards in {chapter_dir}, found {actual_count}",
+        )
+
     script_path = SCRIPTS_DIR / script
     if not script_path.exists():
         return LanguageResult(language, script, False, f"script not found: {script_path}")
@@ -68,11 +96,11 @@ def main() -> int:
     languages_to_run = {lang.lower() for lang in (args.language or [])}
 
     results: list[LanguageResult] = []
-    for script, (language, _expected) in sorted(VERIFIERS.items(), key=lambda kv: kv[1][0]):
+    for script, (language, expected_count) in sorted(VERIFIERS.items(), key=lambda kv: kv[1][0]):
         if languages_to_run and language.lower() not in languages_to_run:
             continue
         print(f"--- {language} ({script}) ---")
-        lang_result = run_verifier(script, language, args.verbose)
+        lang_result = run_verifier(script, language, expected_count, args.verbose)
         results.append(lang_result)
         # Stream output for visibility
         for line in lang_result.output.splitlines():
