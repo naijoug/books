@@ -27,4 +27,8 @@
 python3 scripts/verify_flutter_cards.py
 ```
 
-预期输出包含：`verified 14 Flutter cards with 18 dart code blocks`。
+预期输出包含：`verified 14 Flutter cards with 18 dart code blocks`。也可通过统一入口只验证 Flutter：
+
+```bash
+python3 scripts/verify_all_cards.py --language Flutter
+```
