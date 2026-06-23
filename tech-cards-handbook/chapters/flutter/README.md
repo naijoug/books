@@ -21,7 +21,7 @@
 
 ## 批量复核
 
-从 `books/` 目录运行：
+从 `books` 仓库根目录运行：
 
 ```bash
 python3 scripts/verify_flutter_cards.py

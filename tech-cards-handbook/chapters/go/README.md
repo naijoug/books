@@ -50,7 +50,7 @@ Go 代码的边界问题通常先出现在并发所有权，再进入取消、�
 
 Go 工具链已在本机确认可用(`go version`)。当前优先把示例改成可复制运行的小程序;新增或改写卡片时,至少补一个 `go run <file>.go` 或 `go test` 的检查命令。
 
-批量复核命令:
+从 `books` 仓库根目录运行批量复核命令:
 
 ```bash
 python3 scripts/verify_go_cards.py
