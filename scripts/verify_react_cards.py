@@ -98,9 +98,7 @@ export function useFormStatus(): {
 };
 '''
 
-BASE_PRELUDE = r'''
-export {};
-
+JSX_GLOBALS = r'''
 declare global {
   namespace JSX {
     interface Element {}
@@ -108,6 +106,11 @@ declare global {
     interface IntrinsicElements { [elemName: string]: any }
   }
 }
+export {};
+'''
+
+BASE_PRELUDE = r'''
+export {};
 
 declare const todos: Array<{ id: string; title: string; done: boolean }>;
 declare const items: Array<{ id: string; title: string }>;
@@ -205,40 +208,40 @@ def run(command: list[str], cwd: Path) -> subprocess.CompletedProcess[str]:
     return result
 
 
-def verify_card(card: str, blocks: list[str], temp_dir: Path) -> CheckResult:
+def tsc_command(source_names: list[str]) -> list[str]:
+    return [
+        "npx",
+        "-y",
+        "-p",
+        f"typescript@{TYPESCRIPT_VERSION}",
+        "tsc",
+        "--noEmit",
+        "--strict",
+        "--jsx",
+        "react-jsx",
+        "--lib",
+        "es2020,dom",
+        "--moduleResolution",
+        "node",
+        "--module",
+        "commonjs",
+        "--skipLibCheck",
+        *source_names,
+    ]
+
+
+def write_card_sources(card: str, blocks: list[str], temp_dir: Path) -> tuple[list[str], CheckResult]:
     stem = Path(card).stem
-    commands: list[str] = []
-    outputs: list[str] = []
+    source_names: list[str] = []
     for index, block in enumerate(blocks, start=1):
         source = temp_dir / f"{stem}-{index}.tsx"
         source.write_text(prepare_block(block, index), encoding="utf-8")
-        command = [
-            "npx",
-            "-y",
-            "-p",
-            f"typescript@{TYPESCRIPT_VERSION}",
-            "tsc",
-            "--noEmit",
-            "--strict",
-            "--jsx",
-            "react-jsx",
-            "--lib",
-            "es2020,dom",
-            "--moduleResolution",
-            "node",
-            "--module",
-            "commonjs",
-            "--skipLibCheck",
-            source.name,
-        ]
-        result = run(command, cwd=temp_dir)
-        commands.append(command_text(command))
-        outputs.extend(part for part in [result.stdout.strip(), result.stderr.strip()] if part)
-    return CheckResult(
+        source_names.append(source.name)
+    return source_names, CheckResult(
         card=card,
         block_count=len(blocks),
-        command=" && ".join(commands),
-        stdout="\n".join(outputs),
+        command="",
+        stdout="",
         stderr="",
     )
 
@@ -252,15 +255,38 @@ def verify() -> list[CheckResult]:
         raise RuntimeError(f"expected {EXPECTED_CARD_COUNT} React cards in README, found {len(cards)}")
 
     results: list[CheckResult] = []
+    all_source_names: list[str] = []
     with tempfile.TemporaryDirectory(prefix="react-card-verify-") as directory:
         temp_dir = Path(directory)
         write_react_shim(temp_dir)
+        globals_path = temp_dir / "globals.d.ts"
+        globals_path.write_text(JSX_GLOBALS, encoding="utf-8")
+        all_source_names.append(globals_path.name)
         for card in cards:
             card_path = REACT_DIR / card
             blocks = extract_react_blocks(card_path.read_text(encoding="utf-8"))
             if not blocks:
                 raise RuntimeError(f"{card}: expected at least one ts/tsx/typescript code block, found 0")
-            results.append(verify_card(card, blocks, temp_dir))
+            source_names, result = write_card_sources(card, blocks, temp_dir)
+            all_source_names.extend(source_names)
+            results.append(result)
+        command = tsc_command(all_source_names)
+        run(command, cwd=temp_dir)
+        source_command_count = len(all_source_names) - 1  # exclude globals.d.ts
+        command_display = (
+            f"npx -y -p typescript@{TYPESCRIPT_VERSION} tsc --noEmit --strict "
+            f"--jsx react-jsx ... ({source_command_count} sources in one batch)"
+        )
+        results = [
+            CheckResult(
+                card=result.card,
+                block_count=result.block_count,
+                command=command_display,
+                stdout=result.stdout,
+                stderr=result.stderr,
+            )
+            for result in results
+        ]
     return results
 
 
