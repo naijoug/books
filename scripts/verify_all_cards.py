@@ -21,11 +21,12 @@ SCRIPTS_DIR = Path(__file__).resolve().parent
 # Map verifier script → (language name, expected card count).
 # Add new entries as new language chapters get verifiers.
 VERIFIERS: dict[str, tuple[str, int]] = {
-    "verify_rust_cards.py": ("Rust", 12),
-    "verify_go_cards.py": ("Go", 10),
-    "verify_python_cards.py": ("Python", 18),
-    "verify_react_cards.py": ("React", 34),
-    "verify_typescript_cards.py": ("TypeScript", 14),
+    "verify_flutter_cards.py": ("Flutter", 14),
+    "verify_rust_cards.py": ("Rust", 20),
+    "verify_go_cards.py": ("Go", 18),
+    "verify_python_cards.py": ("Python", 23),
+    "verify_react_cards.py": ("React", 54),
+    "verify_typescript_cards.py": ("TypeScript", 31),
     "verify_swift_cards.py": ("Swift", 14),
 }
 

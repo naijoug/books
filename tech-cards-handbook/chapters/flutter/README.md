@@ -18,3 +18,13 @@
 | Flutter 对外错误码要来自领域错误 | [`flutter-external-error-codes-domain-defined-not-leaked.md`](flutter-external-error-codes-domain-defined-not-leaked.md) |
 | Flutter 降级策略要放在调用方而不是 repository | [`flutter-degradation-strategy-at-caller-not-callee.md`](flutter-degradation-strategy-at-caller-not-callee.md) |
 | Flutter 错误恢复路径需要一张决策表串起来 | [`flutter-error-recovery-decision-table.md`](flutter-error-recovery-decision-table.md) |
+
+## 批量复核
+
+从 `books/` 目录运行：
+
+```bash
+python3 scripts/verify_flutter_cards.py
+```
+
+预期输出包含：`verified 14 Flutter cards with 18 dart code blocks`。
