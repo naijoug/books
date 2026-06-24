@@ -272,6 +272,11 @@ loom       docs/PLANS.md                            staged/unknown  未接管   
 - 未接管边界：{repo/path + 原因，例如启动前已 dirty、归属未知、非本轮文件}。
 - 下一段接力：{下一轮优先打开的相对路径、第一条动作和 verification destination}。
 
+未接管边界的正反例：
+- ✅ `未接管边界：无（启动和收尾 status 均未发现本轮外 dirty path）。`
+- ✅ `未接管边界：docs/documents/awesome/ai/agent.md 启动前已 dirty，归属未知，未 stage。`
+- ❌ 省略 `未接管边界` 字段。
+
 参考卡片（按 `心跳/快照 -> 规划 -> 接力信号 -> 无人值守默认动作 -> 失败吸收 -> 归属/验证/报告` 的 quick path 顺序排列；完整路径见 `books/tech-cards-handbook/chapters/ai-agent/README.md` 和 `books/tech-cards-handbook/samples/ai-agent-dirty-workspace-one-pager.md`）：
 - books/tech-cards-handbook/chapters/ai-agent/heartbeat-workflow-prevents-drift.md
 - books/tech-cards-handbook/chapters/ai-agent/startup-snapshot-before-planning.md

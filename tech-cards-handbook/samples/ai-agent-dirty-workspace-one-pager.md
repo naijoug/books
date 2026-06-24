@@ -114,6 +114,16 @@ notebook 提交：summaries <hash> <subject>（如有；从已提交状态读回
 
 报告里必须同时出现完成项、变更文件、验证证据和排除项。只报 commit hash、不报未接管边界，会让下一轮误把旧 dirty path 当成本轮成果；只报“验证通过”、不写命令和未验证项，会让读者无法判断这个结论能证明什么。
 
+正反例：
+
+```text
+✅ 未接管边界：无（启动和收尾 status 均未发现本轮外 dirty path）。
+✅ 未接管边界：docs/documents/awesome/ai/agent.md 启动前已 dirty，归属未知，未 stage。
+❌ 未接管边界：（字段省略）
+```
+
+即使边界为空，也要显式写 `无` 并说明依据来自启动/收尾状态；字段省略会让下一轮无法判断是“没有边界”还是“忘了检查”。
+
 ## 5. 参考卡片
 
 这组参考卡片按 `chapters/ai-agent/README.md` 的 quick path 排列；一页纸只保留操作清单，遇到边界判断时回到对应卡片补细节。
