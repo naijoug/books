@@ -18,7 +18,9 @@ Dirty workspace 不是不能工作，但必须把“启动前状态、本轮范�
   - 启动前已有：除非有证据确认归属，否则不提交。
   - 生成噪音：能安全删除则删除；不能确认则记录不接管。
   - 未验证项：不写成已完成，只写后续接力。
-- **最终报告要同时列完成项、状态证据和排除项**：报告中至少包含 commit hash、变更文件、验证命令、启动/收尾 `git status --short` 摘要，以及仍未接管的 dirty path 类别；可直接套用 [`final-report-names-excluded-boundaries.md`](final-report-names-excluded-boundaries.md) 里的最终响应模板。
+- **提交前 index 快照要单独留存**：在 `git add -- <本轮路径>` 之后、`git commit` 之前，读一次 `git diff --cached --name-status`；它回答“这次提交到底会带走哪些 path”，不能用工作区的 dirty 列表替代。
+- **项目 repo 与 notebook repo 分开读回**：项目成果提交后读回项目 repo 的 `rev-parse --short HEAD` 和 `git status --short`；写入 `summaries/` 后再读回 `summaries` 的提交。不要把 notebook commit 当成项目成果，也不要把项目 commit 当成 notebook 已落盘。
+- **最终报告要同时列完成项、状态证据和排除项**：报告中至少包含项目 repo 与 `summaries` repo 各自的 commit hash、变更文件、验证命令、启动/提交前/收尾 `git status --short` 或 index 快照摘要，以及仍未接管的 dirty path 类别；可直接套用 [`final-report-names-excluded-boundaries.md`](final-report-names-excluded-boundaries.md) 里的最终响应模板。
 - **notebook 不是成果替代物**：工作记录只说明决策和证据；真正成果应该在书稿、文档、代码、技能或项目文件里落地，并经过验证。
 
 ## 示例
@@ -38,17 +40,24 @@ Dirty workspace 不是不能工作，但必须把“启动前状态、本轮范�
 - git -C books diff --check -- <本轮路径>
 - python3 <断言脚本>  # 检查章节结构、索引计数、无绝对路径
 - git -C books status --short
+- git -C books add -- <本轮路径>
+- git -C books diff --cached --name-status  # 只允许出现本轮路径
 
 状态证据：
 - 启动：docs/alpha.md、loom/plans/beta.md 已 dirty/staged，未接管
-- 收尾：上述 path 仍未 stage；books 只包含本轮 path，提交后 clean
+- 提交前 index：books 只 stage 本轮路径
+- 收尾：上述 path 仍未 stage；books 提交后 clean
 
-提交：
-- git -C books add -- <本轮路径>
+提交与读回：
 - git -C books commit -m "Add dirty workspace exit checklist"
 - git -C books rev-parse --short HEAD
+- git -C books status --short
+- git -C summaries add -- hermes/YYYY-MM-DD.md
+- git -C summaries commit -m "Record Hermes progress for YYYY-MM-DD"
+- git -C summaries rev-parse --short HEAD
 
 最终报告边界：
+- 项目提交：books `<hash>`；notebook 提交：summaries `<hash>`。
 - 未接管 docs/alpha.md、loom/plans/beta.md；下一轮不要视为本轮成果。
 ```
 
@@ -63,13 +72,14 @@ Dirty workspace 不是不能工作，但必须把“启动前状态、本轮范�
 
 ## 检查
 
-收尾前问五个问题：
+收尾前问七个问题：
 
 1. 我是否保存了启动前 `git status --short` 的关键信息？
 2. 本轮 stage 的每个 path 是否都能解释为本轮创建或本轮明确修改？
-3. 是否对本轮文件跑过 `diff --check`、结构断言或项目测试？
-4. 最终报告是否包含 commit hash 和相对路径，而不是绝对路径？
-5. 最终报告是否包含启动/收尾 `git status --short` 摘要作为状态证据？
-6. 是否明确列出了未接管的 dirty path 和下一轮处理规则？
+3. 提交前 `git diff --cached --name-status` 是否只包含本轮路径？
+4. 是否对本轮文件跑过 `diff --check`、结构断言或项目测试？
+5. 项目 repo 与 `summaries` repo 是否分别读回了 commit hash 和收尾 `git status --short`？
+6. 最终报告是否包含 commit hash 和相对路径，而不是绝对路径？
+7. 最终报告是否包含启动/提交前/收尾状态证据，并明确列出未接管 dirty path 与下一轮处理规则？
 
 只要其中任意一个问题答不上来，就先暂停提交，回到归属判断和验证步骤。
