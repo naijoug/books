@@ -28,7 +28,7 @@
 | 12 | 从已提交状态读回 hash 和 subject | [`report-from-committed-state.md`](report-from-committed-state.md) |
 | 13 | 最终响应同时列成果和排除项 | [`final-report-names-excluded-boundaries.md`](final-report-names-excluded-boundaries.md) |
 
-配套可复制输入见 [`../../samples/ai-agent-sample-pack.md`](../../samples/ai-agent-sample-pack.md) 的 dirty workspace 心跳交接样例；若只需要收尾核对，先读 `dirty-workspace-exit-checklist.md`，再按“验证证据 -> 已提交状态读回 -> 排除边界”的顺序把 `final-report-names-excluded-boundaries.md` 的最终响应模板填完整。
+配套可复制输入见 [`../../samples/ai-agent-sample-pack.md`](../../samples/ai-agent-sample-pack.md) 的 dirty workspace 心跳交接样例；若只需要收尾核对，先读 `dirty-workspace-exit-checklist.md`，再按“验证证据 -> 状态证据 -> 已提交状态读回 -> 排除边界”的顺序把启动/收尾 `git status --short` 摘要和 `final-report-names-excluded-boundaries.md` 的最终响应模板填完整。
 
 ## 阅读顺序
 
