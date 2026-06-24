@@ -18,7 +18,7 @@ Dirty workspace 不是不能工作，但必须把“启动前状态、本轮范�
   - 启动前已有：除非有证据确认归属，否则不提交。
   - 生成噪音：能安全删除则删除；不能确认则记录不接管。
   - 未验证项：不写成已完成，只写后续接力。
-- **最终报告要同时列完成项和排除项**：报告中至少包含 commit hash、变更文件、验证命令，以及仍未接管的 dirty path 类别；可直接套用 [`final-report-names-excluded-boundaries.md`](final-report-names-excluded-boundaries.md) 里的最终响应模板。
+- **最终报告要同时列完成项、状态证据和排除项**：报告中至少包含 commit hash、变更文件、验证命令、启动/收尾 `git status --short` 摘要，以及仍未接管的 dirty path 类别；可直接套用 [`final-report-names-excluded-boundaries.md`](final-report-names-excluded-boundaries.md) 里的最终响应模板。
 - **notebook 不是成果替代物**：工作记录只说明决策和证据；真正成果应该在书稿、文档、代码、技能或项目文件里落地，并经过验证。
 
 ## 示例
@@ -38,6 +38,10 @@ Dirty workspace 不是不能工作，但必须把“启动前状态、本轮范�
 - git -C books diff --check -- <本轮路径>
 - python3 <断言脚本>  # 检查章节结构、索引计数、无绝对路径
 - git -C books status --short
+
+状态证据：
+- 启动：docs/alpha.md、loom/plans/beta.md 已 dirty/staged，未接管
+- 收尾：上述 path 仍未 stage；books 只包含本轮 path，提交后 clean
 
 提交：
 - git -C books add -- <本轮路径>
@@ -65,6 +69,7 @@ Dirty workspace 不是不能工作，但必须把“启动前状态、本轮范�
 2. 本轮 stage 的每个 path 是否都能解释为本轮创建或本轮明确修改？
 3. 是否对本轮文件跑过 `diff --check`、结构断言或项目测试？
 4. 最终报告是否包含 commit hash 和相对路径，而不是绝对路径？
-5. 是否明确列出了未接管的 dirty path 和下一轮处理规则？
+5. 最终报告是否包含启动/收尾 `git status --short` 摘要作为状态证据？
+6. 是否明确列出了未接管的 dirty path 和下一轮处理规则？
 
 只要其中任意一个问题答不上来，就先暂停提交，回到归属判断和验证步骤。
