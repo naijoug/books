@@ -2,7 +2,7 @@
 
 > 9 张精选卡片，每张覆盖一个 Agent 失败模式、一条经验法则和一份验证清单。
 > 选自《技术卡片随身宝典》AI Agent 系列（共 29 张）。本样本包优先覆盖“心跳型 Agent 在 dirty workspace 中如何安全接力”的最小链路。
-> 阅读顺序就是这条链路的决策顺序：心跳/快照 → 规划 → 接力信号 → 无人值守默认动作 → 失败吸收 → 归属/验证/报告；样本卡片只保留最小闭环，完整 quick path 见文末参考卡片。
+> 阅读顺序就是这条链路的决策顺序：心跳/快照 → 规划 → 接力信号 → 无人值守默认动作 → 失败吸收 → 归属边界 → 状态证据 → 验证与报告；样本卡片只保留最小闭环，完整 quick path 见文末参考卡片。
 
 ---
 
@@ -150,10 +150,11 @@
 - 未提交文件可能来自用户、另一个 Agent、失败生成物或上一轮未提交产物，不是天然可接管工作区。
 - 只有 `known-own` 可以直接 stage；`previous-agent` 也要先重新验证，再 path-limited staging。
 - `user-or-unknown` 不要为了完成接力而改写或提交；应记录未接管边界，换一个 clean 小任务。
+- 最终报告必须保留状态证据：启动快照、收尾 `git status --short`、项目 repo 与 `summaries` repo 各自的 commit hash。
 
 **坑**：看到上一轮写“继续 Day 3”，又看到同名 dirty 文件，就直接 `git add docs/` 提交。
 
-**检查**：最终报告里出现某个未提交文件时，能否回答它在本轮开始时是否已存在、本轮改了哪一行、提交时是否只 stage 本轮路径？答不出就不要纳入成果。
+**检查**：最终报告里出现某个未提交文件时，能否回答它在本轮开始时是否已存在、本轮改了哪一行、提交时是否只 stage 本轮路径、收尾状态证据是否支持“未接管边界”？答不出就不要纳入成果。
 
 ---
 
@@ -163,22 +164,23 @@
 
 **要点**：
 
-- 在 stage 前维护一张最小台账：`repo / path / 启动状态 / 本轮动作 / 是否提交 / 验证证据`。
+- 在 stage 前维护一张最小台账：`repo / path / 启动状态 / 本轮动作 / 是否提交 / 验证证据 / 状态证据`。
 - 每个准备提交的 path 都必须能回答“本轮改了什么、验证在哪里、为什么可以 stage”。
 - 台账里的 `不提交` 不是失败，而是边界证据；最终报告要保留这些排除项，方便下一轮继续判断。
+- 启动快照、提交前 index 快照、收尾 status 是三类不同证据：分别证明“起点边界”“stage 范围”和“最终状态”。
 
 **示例**：
 
 ```text
-repo       path                                      启动状态       本轮动作        是否提交  验证证据
-books      tech-cards-handbook/samples/...          clean          新增样本段落    是        diff --check + 关键词断言
-docs       documents/awesome/ai/agent.md            dirty/unknown  只读观察        否        启动快照
-loom       docs/PLANS.md                            staged/unknown  未接管          否        启动快照
+repo       path                                      启动状态       本轮动作        是否提交  验证证据                  状态证据
+books      tech-cards-handbook/samples/...          clean          新增样本段落    是        diff --check + 关键词断言  启动/收尾 status clean
+docs       documents/awesome/ai/agent.md            dirty/unknown  只读观察        否        启动快照                  收尾仍 dirty，未 stage
+loom       docs/PLANS.md                            staged/unknown  未接管          否        启动快照 + index 快照      收尾仍 staged/unknown
 ```
 
 **坑**：只在脑中记得“我没碰那些文件”，但 stage 时使用 `git add .` 或 `git add docs/`；最终报告只写本轮 commit，不写被排除的 dirty path。
 
-**检查**：提交前的 `git diff --cached --name-status` 是否只包含台账中 `是否提交=是` 的 path？最终报告是否能从台账直接复制完成项和未接管边界？
+**检查**：提交前的 `git diff --cached --name-status` 是否只包含台账中 `是否提交=是` 的 path？最终报告是否能从台账直接复制完成项、启动/收尾状态证据和未接管边界？
 
 ---
 
@@ -191,10 +193,11 @@ loom       docs/PLANS.md                            staged/unknown  未接管   
 - 最终报告不只列“做了什么”，还要列“哪些已有改动没有接管”。
 - 排除边界必须来自本轮启动或收尾的 `git status --short`，并使用相对路径。
 - 如果某个候选任务因为 dirty 状态被放弃，最终报告要把它放到“未接管/下一段接力点”。
+- 收尾顺序固定为：验证证据 → 状态证据 → 已提交状态读回 → 排除边界；没有项目提交或 notebook 提交也要写 `未提交`，不要删除字段。
 
 **坑**：只写 commit hash，不写未接管边界；下一轮可能误把旧脏文件当成本轮成果提交。
 
-**检查**：最终报告至少能回答三件事：本轮提交了哪个 repo 的哪些成果；notebook 记录在哪里；哪些启动前已有或未归属的相对路径明确没有接管。
+**检查**：最终报告至少能回答四件事：本轮提交了哪个 repo 的哪些成果；启动/收尾 `git status --short` 证据是什么；notebook 记录在哪里；哪些启动前已有或未归属的相对路径明确没有接管。
 
 ---
 
