@@ -2,7 +2,7 @@
 
 > 8 张精选卡片，每张覆盖一个 Agent 失败模式、一条经验法则和一份验证清单。
 > 选自《技术卡片随身宝典》AI Agent 系列（共 29 张）。本样本包优先覆盖“心跳型 Agent 在 dirty workspace 中如何安全接力”的最小链路。
-> 阅读顺序就是这条链路的决策顺序：先建立心跳和启动快照，再做规划，把接力点当作信号，选择无人值守默认动作并吸收失败输出，然后用提交范围台账处理未提交归属和最终报告边界。
+> 阅读顺序就是这条链路的决策顺序：心跳/快照 → 规划 → 接力信号 → 无人值守默认动作 → 失败吸收 → 归属/验证/报告；样本卡片只保留最小闭环，完整 quick path 见文末参考卡片。
 
 ---
 
@@ -243,13 +243,13 @@ loom       docs/PLANS.md                            staged/unknown  未接管   
 - 未接管边界：{repo/path + 原因，例如启动前已 dirty、归属未知、非本轮文件}。
 - 下一段接力：{下一轮优先打开的相对路径、第一条动作和 verification destination}。
 
-参考卡片（按 prompt 中的决策顺序排列；完整 quick path 见 `books/tech-cards-handbook/chapters/ai-agent/README.md` 和 `books/tech-cards-handbook/samples/ai-agent-dirty-workspace-one-pager.md`）：
+参考卡片（按 `心跳/快照 -> 规划 -> 接力信号 -> 无人值守默认动作 -> 失败吸收 -> 归属/验证/报告` 的 quick path 顺序排列；完整路径见 `books/tech-cards-handbook/chapters/ai-agent/README.md` 和 `books/tech-cards-handbook/samples/ai-agent-dirty-workspace-one-pager.md`）：
 - books/tech-cards-handbook/chapters/ai-agent/heartbeat-workflow-prevents-drift.md
 - books/tech-cards-handbook/chapters/ai-agent/startup-snapshot-before-planning.md
 - books/tech-cards-handbook/chapters/ai-agent/planning-selects-work-not-just-summary.md
+- books/tech-cards-handbook/chapters/ai-agent/continuation-is-signal-not-obligation.md
 - books/tech-cards-handbook/chapters/ai-agent/unattended-agent-chooses-default-action.md
 - books/tech-cards-handbook/chapters/ai-agent/failure-output-must-change-plan.md
-- books/tech-cards-handbook/chapters/ai-agent/continuation-is-signal-not-obligation.md
 - books/tech-cards-handbook/chapters/ai-agent/uncommitted-handoff-needs-ownership-triage.md
 - books/tech-cards-handbook/chapters/ai-agent/staged-changes-are-not-ownership.md
 - books/tech-cards-handbook/chapters/ai-agent/commit-scope-ledger-prevents-mixed-ownership.md
@@ -266,7 +266,7 @@ loom       docs/PLANS.md                            staged/unknown  未接管   
 
 ## 关于完整版
 
-这 7 张精选卡片选自《技术卡片随身宝典》AI Agent 系列的 28 张卡片。
+这 8 张精选卡片选自《技术卡片随身宝典》AI Agent 系列的 29 张卡片。
 
 完整版覆盖：工具契约与证据、上下文预算与状态设计、反馈闭环、运行控制、无人值守默认动作、交接机制、dirty workspace 收尾、失败输出改计划、最终报告边界和助手操作系统分层等主题。
 
