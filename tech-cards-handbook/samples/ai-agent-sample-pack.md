@@ -254,6 +254,7 @@ loom       docs/PLANS.md                            staged/unknown  未接管   
 3. 验证失败时必须回到规划：说明失败改变了什么、缩小了什么，或为什么只作为未验证项交接。
 4. 提交时只使用 path-limited staging，不使用 git add .。
 5. 最终报告必须同时列出项目 commit、notebook commit，以及未接管 dirty path 的相对路径和原因。
+6. 最终报告固定字段都要保留；没有发生的项目写 `无` 或 `未提交`，不要删掉字段让下一轮猜测。
 
 最终报告可复制模板：
 
