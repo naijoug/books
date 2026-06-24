@@ -1,6 +1,6 @@
 # AI Agent 系统实践卡片
 
-本目录按“一张卡片一个 Markdown 文件”维护，共 28 张。文件名使用英文 `kebab-case`。
+本目录按“一张卡片一个 Markdown 文件”维护，共 29 张。文件名使用英文 `kebab-case`。
 
 本目录收录 Agent 系统设计、运行边界、工具、记忆、反馈判断、反馈池和心跳工作流等实践卡片；具体 SDK 或语言实现优先放入对应技术栈目录。
 
@@ -21,10 +21,11 @@
 | 5 | 让失败输出改变范围、顺序、目标或交接 | [`failure-output-must-change-plan.md`](failure-output-must-change-plan.md) |
 | 6 | 对启动前 dirty 接力文件做归属判断 | [`uncommitted-handoff-needs-ownership-triage.md`](uncommitted-handoff-needs-ownership-triage.md) |
 | 7 | 单独识别启动前 staged path，不把 index 状态误当授权 | [`staged-changes-are-not-ownership.md`](staged-changes-are-not-ownership.md) |
-| 8 | 用清单做 path-limited 收尾 | [`dirty-workspace-exit-checklist.md`](dirty-workspace-exit-checklist.md) |
-| 9 | 先跑聚焦验证并显式交接未验证项 | [`verify-before-optimistic-summary.md`](verify-before-optimistic-summary.md)、[`unverified-items-need-explicit-handoff.md`](unverified-items-need-explicit-handoff.md) |
-| 10 | 从已提交状态读回 hash 和 subject | [`report-from-committed-state.md`](report-from-committed-state.md) |
-| 11 | 最终响应同时列成果和排除项 | [`final-report-names-excluded-boundaries.md`](final-report-names-excluded-boundaries.md) |
+| 8 | 用提交范围台账防止混入未知归属 | [`commit-scope-ledger-prevents-mixed-ownership.md`](commit-scope-ledger-prevents-mixed-ownership.md) |
+| 9 | 用清单做 path-limited 收尾 | [`dirty-workspace-exit-checklist.md`](dirty-workspace-exit-checklist.md) |
+| 10 | 先跑聚焦验证并显式交接未验证项 | [`verify-before-optimistic-summary.md`](verify-before-optimistic-summary.md)、[`unverified-items-need-explicit-handoff.md`](unverified-items-need-explicit-handoff.md) |
+| 11 | 从已提交状态读回 hash 和 subject | [`report-from-committed-state.md`](report-from-committed-state.md) |
+| 12 | 最终响应同时列成果和排除项 | [`final-report-names-excluded-boundaries.md`](final-report-names-excluded-boundaries.md) |
 
 配套可复制输入见 [`../../samples/ai-agent-sample-pack.md`](../../samples/ai-agent-sample-pack.md) 的 dirty workspace 心跳交接样例；若只需要收尾核对，先读 `dirty-workspace-exit-checklist.md`，再按“验证证据 -> 已提交状态读回 -> 排除边界”的顺序把 `final-report-names-excluded-boundaries.md` 的最终响应模板填完整。
 
@@ -71,6 +72,7 @@
 | 无人值守 Agent 要选择默认动作，不要等待澄清 | [`unattended-agent-chooses-default-action.md`](unattended-agent-chooses-default-action.md) |
 | 未提交接力文件先判断归属，不要直接接管 | [`uncommitted-handoff-needs-ownership-triage.md`](uncommitted-handoff-needs-ownership-triage.md) |
 | Staged 改动不等于本轮所有权 | [`staged-changes-are-not-ownership.md`](staged-changes-are-not-ownership.md) |
+| 提交范围台账防止混入未知归属 | [`commit-scope-ledger-prevents-mixed-ownership.md`](commit-scope-ledger-prevents-mixed-ownership.md) |
 | 短节拍任务不要变成重构 | [`short-cadence-tasks-must-not-become-refactors.md`](short-cadence-tasks-must-not-become-refactors.md) |
 | 验证先于乐观总结，不要把“看起来完成”当完成 | [`verify-before-optimistic-summary.md`](verify-before-optimistic-summary.md) |
 | 未验证项要显式交接，不要藏在顺利总结里 | [`unverified-items-need-explicit-handoff.md`](unverified-items-need-explicit-handoff.md) |
