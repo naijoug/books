@@ -117,6 +117,7 @@ summaries commit：<hash> <subject>（如有；从已提交状态读回）
 - `books/tech-cards-handbook/chapters/ai-agent/heartbeat-workflow-prevents-drift.md`
 - `books/tech-cards-handbook/chapters/ai-agent/startup-snapshot-before-planning.md`
 - `books/tech-cards-handbook/chapters/ai-agent/planning-selects-work-not-just-summary.md`
+- `books/tech-cards-handbook/chapters/ai-agent/continuation-is-signal-not-obligation.md`
 - `books/tech-cards-handbook/chapters/ai-agent/unattended-agent-chooses-default-action.md`
 - `books/tech-cards-handbook/chapters/ai-agent/failure-output-must-change-plan.md`
 - `books/tech-cards-handbook/chapters/ai-agent/uncommitted-handoff-needs-ownership-triage.md`
