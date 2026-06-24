@@ -229,7 +229,7 @@ loom       docs/PLANS.md                            staged/unknown  未接管   
 
 当 Agent 被周期性唤醒、workspace 里已经有多个 repo 处于 dirty 状态时，不要把“继续上次接力点”当作自动义务。先用下面的输入样例约束它完成启动快照、归属判断、path-limited 推进和最终报告边界。如果只需要一页纸版本，使用 `samples/ai-agent-dirty-workspace-one-pager.md`。
 
-一页纸里已经包含一个最小记录示例和最终报告模板，覆盖 `git -C books diff --check`、Python 结构断言、`git -C books add --`、`git -C books commit -m`、`rev-parse --short HEAD`、本轮变更文件和启动前 dirty path 的未接管说明。把本附录作为完整 prompt 使用时，建议在执行要求里保留同样的证据链：先验证、再 path-limited stage、提交后读回 hash、最后按“验证证据 -> 已提交状态读回 -> 排除边界”报告未接管边界。
+一页纸里已经包含一个最小记录示例和最终报告模板，覆盖 `git -C books diff --check`、Python 结构断言、`git -C books add --`、`git -C books commit -m`、`rev-parse --short HEAD`、本轮变更文件、启动/收尾 status 证据和启动前 dirty path 的未接管说明。把本附录作为完整 prompt 使用时，建议在执行要求里保留同样的证据链：先验证、再 path-limited stage、记录状态证据、提交后读回 hash、最后按“验证证据 -> 状态证据 -> 已提交状态读回 -> 排除边界”报告未接管边界。
 
 ```text
 你正在一个已有 dirty workspace 的长期任务里工作。
@@ -258,7 +258,7 @@ loom       docs/PLANS.md                            staged/unknown  未接管   
 
 最终报告可复制模板：
 
-收尾顺序固定为：`验证证据 -> 已提交状态读回 -> 排除边界`。不要只写“验证通过”；要写命令、结果摘要和仍未验证的部分。commit 信息从提交后的状态读回，至少包含 hash 和 subject，避免把计划中的提交误报成已经落地。
+收尾顺序固定为：`验证证据 -> 状态证据 -> 已提交状态读回 -> 排除边界`。不要只写“验证通过”；要写命令、结果摘要、仍未验证的部分，以及启动/收尾 `git status --short` 摘要。commit 信息从提交后的状态读回，至少包含 hash 和 subject，避免把计划中的提交误报成已经落地。
 
 字段顺序固定为：`本轮选择 -> 实际推进 -> 变更文件 -> 验证证据 -> 状态证据 -> 写入 notebook -> 项目提交 -> notebook 提交 -> 未接管边界 -> 下一段接力`。如果某一项没有发生，也保留字段并写“无”或“未提交”，不要删除字段让下一轮猜测。
 
