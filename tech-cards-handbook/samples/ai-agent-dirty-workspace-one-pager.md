@@ -38,19 +38,21 @@ workspace root：当前目录是否是 git repo
 1. 如果上一轮验证或命令输出失败，先判断它是否改变范围、顺序、目标或交接；不要把失败当成背景噪音继续原计划。
 2. 如果当前运行在无人值守环境，不能等待澄清；写出默认解释，选择低风险、可验证、可回滚的小动作。
 3. 如果接力 path 是 `known-own` 或证据充分的 `previous-agent`，先验证再推进。
-4. 如果接力 path 是 `user-or-unknown`，记录未接管边界，换 clean repo 的独立小任务。
-5. 如果没有合适代码任务，优先沉淀可复用资产：`books/...`、`docs/...`、`skills/skills/...`。
-6. 不要把“写 notebook”当成本轮成果；notebook 只记录成果和边界。
+4. 如果启动前已有 staged path，单独标记为 `staged/unknown`，不要把 index 状态当作授权。
+5. 如果接力 path 是 `user-or-unknown`，记录未接管边界，换 clean repo 的独立小任务。
+6. 如果没有合适代码任务，优先沉淀可复用资产：`books/...`、`docs/...`、`skills/skills/...`。
+7. 不要把“写 notebook”当成本轮成果；notebook 只记录成果和边界。
 
 ## 3. 执行与验证
 
-执行时保持 path-limited：
+执行时保持 path-limited，并在 stage 前补一张提交范围台账：
 
 ```text
 修改前：确认目标 repo 的 git status --short。
 修改中：只触碰本轮选择的路径。
+台账：列出 repo / path / 启动状态 / 本轮动作 / 是否提交 / 验证证据。
 验证：至少做 diff --check；能结构断言就用脚本断言关键词、链接、计数和绝对路径。
-提交：只 stage 本轮路径，不使用 git add .。
+提交：只 stage 本轮路径，不使用 git add .；提交前用 git diff --cached --name-status 对照台账。
 读回：提交后 rev-parse --short HEAD。
 ```
 
@@ -74,7 +76,9 @@ workspace root：当前目录是否是 git repo
       'git status --short',
       'path-limited',
       '未接管边界',
+      'git diff --cached --name-status',
       'rev-parse --short HEAD',
+      'repo / path / 启动状态 / 本轮动作 / 是否提交 / 验证证据',
       '失败当成背景噪音',
       '改变范围、顺序、目标或交接',
   ]
@@ -117,6 +121,7 @@ summaries commit：<hash> <subject>（如有；从已提交状态读回）
 - `books/tech-cards-handbook/chapters/ai-agent/failure-output-must-change-plan.md`
 - `books/tech-cards-handbook/chapters/ai-agent/uncommitted-handoff-needs-ownership-triage.md`
 - `books/tech-cards-handbook/chapters/ai-agent/staged-changes-are-not-ownership.md`
+- `books/tech-cards-handbook/chapters/ai-agent/commit-scope-ledger-prevents-mixed-ownership.md`
 - `books/tech-cards-handbook/chapters/ai-agent/dirty-workspace-exit-checklist.md`
 - `books/tech-cards-handbook/chapters/ai-agent/verify-before-optimistic-summary.md`
 - `books/tech-cards-handbook/chapters/ai-agent/unverified-items-need-explicit-handoff.md`

@@ -1,8 +1,8 @@
 # AI Agent 工作流卡片 · 样本包
 
-> 7 张精选卡片，每张覆盖一个 Agent 失败模式、一条经验法则和一份验证清单。
-> 选自《技术卡片随身宝典》AI Agent 系列（共 28 张）。本样本包优先覆盖“心跳型 Agent 在 dirty workspace 中如何安全接力”的最小链路。
-> 阅读顺序就是这条链路的决策顺序：先建立心跳和启动快照，再做规划、吸收失败、选择无人值守默认动作，最后处理未提交归属和最终报告边界。
+> 8 张精选卡片，每张覆盖一个 Agent 失败模式、一条经验法则和一份验证清单。
+> 选自《技术卡片随身宝典》AI Agent 系列（共 29 张）。本样本包优先覆盖“心跳型 Agent 在 dirty workspace 中如何安全接力”的最小链路。
+> 阅读顺序就是这条链路的决策顺序：先建立心跳和启动快照，再做规划、吸收失败、选择无人值守默认动作，然后用提交范围台账处理未提交归属和最终报告边界。
 
 ---
 
@@ -148,6 +148,31 @@
 
 ---
 
+## 卡片 8：提交范围台账防止混入未知归属
+
+**问题**：多个子 repo 同时 dirty 时，Agent 如何防止把启动前已有、归属未知或其他 agent 的改动一起提交？
+
+**要点**：
+
+- 在 stage 前维护一张最小台账：`repo / path / 启动状态 / 本轮动作 / 是否提交 / 验证证据`。
+- 每个准备提交的 path 都必须能回答“本轮改了什么、验证在哪里、为什么可以 stage”。
+- 台账里的 `不提交` 不是失败，而是边界证据；最终报告要保留这些排除项，方便下一轮继续判断。
+
+**示例**：
+
+```text
+repo       path                                      启动状态       本轮动作        是否提交  验证证据
+books      tech-cards-handbook/samples/...          clean          新增样本段落    是        diff --check + 关键词断言
+docs       documents/awesome/ai/agent.md            dirty/unknown  只读观察        否        启动快照
+loom       docs/PLANS.md                            staged/unknown  未接管          否        启动快照
+```
+
+**坑**：只在脑中记得“我没碰那些文件”，但 stage 时使用 `git add .` 或 `git add docs/`；最终报告只写本轮 commit，不写被排除的 dirty path。
+
+**检查**：提交前的 `git diff --cached --name-status` 是否只包含台账中 `是否提交=是` 的 path？最终报告是否能从台账直接复制完成项和未接管边界？
+
+---
+
 ## 附录：错误边界 review agent 输入样例
 
 这份样本包主线是 Agent 工作流卡片；如果要把它用于真实代码审查，可以从一个足够小的错误边界任务开始。下面这个输入样例的目标不是让 Agent 一次性审完整个系统，而是把范围压到一条可验证调用链，并强制它留下证据、决策表和失败出口。
@@ -227,6 +252,7 @@
 - books/tech-cards-handbook/chapters/ai-agent/continuation-is-signal-not-obligation.md
 - books/tech-cards-handbook/chapters/ai-agent/uncommitted-handoff-needs-ownership-triage.md
 - books/tech-cards-handbook/chapters/ai-agent/staged-changes-are-not-ownership.md
+- books/tech-cards-handbook/chapters/ai-agent/commit-scope-ledger-prevents-mixed-ownership.md
 - books/tech-cards-handbook/chapters/ai-agent/dirty-workspace-exit-checklist.md
 - books/tech-cards-handbook/chapters/ai-agent/verify-before-optimistic-summary.md
 - books/tech-cards-handbook/chapters/ai-agent/unverified-items-need-explicit-handoff.md
