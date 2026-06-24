@@ -100,15 +100,16 @@ workspace root：当前目录是否是 git repo
 ```text
 本轮选择：<为什么选这个小任务>
 实际推进：<完成的具体资产或代码改动>
+变更文件：<本轮实际修改或提交的相对路径；无则写“无”>
 验证证据：<命令 + 结果摘要；未验证项也要写明>
 写入 notebook：summaries/hermes/YYYY-MM-DD.md
-项目 commit：<repo> <hash> <subject>（如有；从已提交状态读回）
-summaries commit：<hash> <subject>（如有；从已提交状态读回）
-下一段接力：<下一轮第一步 + verification destination>
+项目提交：<repo> <hash> <subject>（如有；从已提交状态读回）
+notebook 提交：summaries <hash> <subject>（如有；从已提交状态读回）
 未接管边界：<启动前已有或来源不明的 dirty path，说明未 stage>
+下一段接力：<下一轮第一步 + verification destination>
 ```
 
-报告里必须同时出现完成项、验证证据和排除项。只报 commit hash、不报未接管边界，会让下一轮误把旧 dirty path 当成本轮成果；只报“验证通过”、不写命令和未验证项，会让读者无法判断这个结论能证明什么。
+报告里必须同时出现完成项、变更文件、验证证据和排除项。只报 commit hash、不报未接管边界，会让下一轮误把旧 dirty path 当成本轮成果；只报“验证通过”、不写命令和未验证项，会让读者无法判断这个结论能证明什么。
 
 ## 5. 参考卡片
 
