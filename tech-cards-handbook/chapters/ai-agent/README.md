@@ -12,21 +12,21 @@
 
 这条路径不是通用入门顺序，而是给已经在真实项目里工作的 Agent 使用：先建立启动快照，把上一轮接力点当作信号而不是义务，再选择可安全推进的小任务，最后把成果和未接管边界同时写清。
 
-| 步骤 | 目标 | 卡片 |
-|---|---|---|
-| 1 | 防止凭上一轮印象行动 | [`heartbeat-workflow-prevents-drift.md`](heartbeat-workflow-prevents-drift.md) |
-| 2 | 在规划前保存当前 repo 状态 | [`startup-snapshot-before-planning.md`](startup-snapshot-before-planning.md) |
-| 3 | 从候选工作中做取舍 | [`planning-selects-work-not-just-summary.md`](planning-selects-work-not-just-summary.md) |
-| 4 | 把上一轮接力点当作信号，而不是自动义务 | [`continuation-is-signal-not-obligation.md`](continuation-is-signal-not-obligation.md) |
-| 5 | 无人值守时选择低风险默认动作，而不是等待澄清 | [`unattended-agent-chooses-default-action.md`](unattended-agent-chooses-default-action.md) |
-| 6 | 让失败输出改变范围、顺序、目标或交接 | [`failure-output-must-change-plan.md`](failure-output-must-change-plan.md) |
-| 7 | 对启动前 dirty 接力文件做归属判断 | [`uncommitted-handoff-needs-ownership-triage.md`](uncommitted-handoff-needs-ownership-triage.md) |
-| 8 | 单独识别启动前 staged path，不把 index 状态误当授权 | [`staged-changes-are-not-ownership.md`](staged-changes-are-not-ownership.md) |
-| 9 | 用提交范围台账防止混入未知归属 | [`commit-scope-ledger-prevents-mixed-ownership.md`](commit-scope-ledger-prevents-mixed-ownership.md) |
-| 10 | 用清单做 path-limited 收尾 | [`dirty-workspace-exit-checklist.md`](dirty-workspace-exit-checklist.md) |
-| 11 | 先跑聚焦验证并显式交接未验证项 | [`verify-before-optimistic-summary.md`](verify-before-optimistic-summary.md)、[`unverified-items-need-explicit-handoff.md`](unverified-items-need-explicit-handoff.md) |
-| 12 | 从已提交状态读回 hash 和 subject | [`report-from-committed-state.md`](report-from-committed-state.md) |
-| 13 | 最终响应同时列成果和排除项 | [`final-report-names-excluded-boundaries.md`](final-report-names-excluded-boundaries.md) |
+| 步骤 | 阶段 | 目标 | 卡片 |
+|---|---|---|---|
+| 1 | 唤醒与事实 | 防止凭上一轮印象行动 | [`heartbeat-workflow-prevents-drift.md`](heartbeat-workflow-prevents-drift.md) |
+| 2 | 唤醒与事实 | 在规划前保存当前 repo 状态 | [`startup-snapshot-before-planning.md`](startup-snapshot-before-planning.md) |
+| 3 | 规划与取舍 | 从候选工作中做取舍 | [`planning-selects-work-not-just-summary.md`](planning-selects-work-not-just-summary.md) |
+| 4 | 规划与取舍 | 把上一轮接力点当作信号，而不是自动义务 | [`continuation-is-signal-not-obligation.md`](continuation-is-signal-not-obligation.md) |
+| 5 | 规划与取舍 | 无人值守时选择低风险默认动作，而不是等待澄清 | [`unattended-agent-chooses-default-action.md`](unattended-agent-chooses-default-action.md) |
+| 6 | 规划与取舍 | 让失败输出改变范围、顺序、目标或交接 | [`failure-output-must-change-plan.md`](failure-output-must-change-plan.md) |
+| 7 | 所有权边界 | 对启动前 dirty 接力文件做归属判断 | [`uncommitted-handoff-needs-ownership-triage.md`](uncommitted-handoff-needs-ownership-triage.md) |
+| 8 | 所有权边界 | 单独识别启动前 staged path，不把 index 状态误当授权 | [`staged-changes-are-not-ownership.md`](staged-changes-are-not-ownership.md) |
+| 9 | 所有权边界 | 用提交范围台账防止混入未知归属 | [`commit-scope-ledger-prevents-mixed-ownership.md`](commit-scope-ledger-prevents-mixed-ownership.md) |
+| 10 | 收尾与状态证据 | 用清单做 path-limited 收尾 | [`dirty-workspace-exit-checklist.md`](dirty-workspace-exit-checklist.md) |
+| 11 | 收尾与状态证据 | 先跑聚焦验证并显式交接未验证项 | [`verify-before-optimistic-summary.md`](verify-before-optimistic-summary.md)、[`unverified-items-need-explicit-handoff.md`](unverified-items-need-explicit-handoff.md) |
+| 12 | 报告与读回 | 从已提交状态读回 hash 和 subject | [`report-from-committed-state.md`](report-from-committed-state.md) |
+| 13 | 报告与读回 | 最终响应同时列成果和排除项 | [`final-report-names-excluded-boundaries.md`](final-report-names-excluded-boundaries.md) |
 
 配套可复制输入见 [`../../samples/ai-agent-sample-pack.md`](../../samples/ai-agent-sample-pack.md) 的 dirty workspace 心跳交接样例；若只需要收尾核对，先读 `dirty-workspace-exit-checklist.md`，再按“验证证据 -> 状态证据 -> 已提交状态读回 -> 排除边界”的顺序把启动/收尾 `git status --short` 摘要和 `final-report-names-excluded-boundaries.md` 的最终响应模板填完整。
 
