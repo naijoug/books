@@ -6,11 +6,11 @@
 
 ## 要点
 
-- **提交前先列台账**：在动手前或第一处修改后，写下 `repo / path / 启动状态 / 本轮动作 / 是否提交 / 验证证据` 六列；它不需要单独成文，但要能进入 notebook 或最终报告。
+- **提交前先列台账**：在动手前或第一处修改后，写下 `repo / path / 启动状态 / 本轮动作 / 是否提交 / 验证证据 / 状态证据` 七列；它不需要单独成文，但要能进入 notebook 或最终报告。
 - **只提交台账里标为本轮负责的 path**：`known-own` 可以提交；`previous-agent` 需要重新验证后才可提交；`user-or-unknown` 和 `generated/noise` 默认排除。
 - **验证证据要和 path 对齐**：不要只写“跑了测试”；要说明这条命令覆盖了哪些 path，哪些 path 只是人工复核或未验证交接。
 - **notebook 和项目 repo 分开提交**：书稿、代码、技能和 `summaries/` 是不同 repo 时，分别做 path-limited stage 与 commit；不要为了省事跨 repo 混报一个 hash。
-- **最终报告从已提交台账读回**：提交后用 `git status --short` 和 `git log -1 --oneline` 确认，报告 commit hash，同时列出明确排除的启动前 dirty path。
+- **最终报告从已提交台账读回**：提交后分别在项目 repo 与 `summaries/` repo 用 `git status --short` 和 `git log -1 --oneline` 确认，报告各自 commit hash、收尾状态证据，同时列出明确排除的启动前 dirty path。
 
 ## 示例
 
@@ -22,13 +22,13 @@
 - summaries：启动前有 ?? openclaw/2026-06-23.md，不属于 Hermes notebook，本轮不接管；本轮只写 summaries/hermes/2026-06-24.md。
 
 提交范围台账：
-| repo | path | 启动状态 | 本轮动作 | 是否提交 | 验证证据 |
-|---|---|---|---|---|---|
-| books | tech-cards-handbook/chapters/ai-agent/commit-scope-ledger-prevents-mixed-ownership.md | absent | 新增卡片 | 是 | 索引统计、链接扫描、人工五段复核 |
-| books | tech-cards-handbook/chapters/ai-agent/README.md | clean | 加入阅读顺序 | 是 | 链接扫描 |
-| books | tech-cards-handbook/README.md | clean | 更新卡片数与目录描述 | 是 | 索引统计 |
-| summaries | hermes/2026-06-24.md | absent/clean | 追加本轮记录 | 是 | read_file 复核、git status 只 stage 该文件 |
-| docs | documents/awesome/ai/agent.md | dirty before start | 未接管 | 否 | 最终报告列为排除边界 |
+| repo | path | 启动状态 | 本轮动作 | 是否提交 | 验证证据 | 状态证据 |
+|---|---|---|---|---|---|---|
+| books | tech-cards-handbook/chapters/ai-agent/commit-scope-ledger-prevents-mixed-ownership.md | absent | 新增卡片 | 是 | 索引统计、链接扫描、人工五段复核 | `git diff --cached --name-status` 只含台账 path；提交后 `git status --short` clean |
+| books | tech-cards-handbook/chapters/ai-agent/README.md | clean | 加入阅读顺序 | 是 | 链接扫描 | 提交后 `git log -1 --oneline` 读回项目 commit |
+| books | tech-cards-handbook/README.md | clean | 更新卡片数与目录描述 | 是 | 索引统计 | 提交后 `git status --short` clean |
+| summaries | hermes/2026-06-24.md | absent/clean | 追加本轮记录 | 是 | read_file 复核、git status 只 stage 该文件 | 提交后 `git status --short` 仍只剩未接管 openclaw path |
+| docs | documents/awesome/ai/agent.md | dirty before start | 未接管 | 否 | 最终报告列为排除边界 | 启动快照与收尾 `git status --short` 均列出该 path |
 ```
 
 提交时按台账执行：
@@ -61,6 +61,7 @@ git -C summaries commit -m "Record Hermes 08:34 books scope ledger"
 2. 启动前 dirty 的 path 是否明确标为“未接管”或“重新验证后接管”，而不是默认为待提交？
 3. `git diff --cached --name-status` 是否只包含台账中 `是否提交=是` 的 path？
 4. 验证命令或人工复核标准是否能对应到每个已提交 path？
-5. 最终报告是否分别给出项目 repo 和 `summaries/` repo 的 commit hash，并列出排除边界？
+5. 台账是否保留启动快照、提交前 index 快照和收尾 `git status --short` 三类状态证据？
+6. 最终报告是否分别给出项目 repo 和 `summaries/` repo 的 commit hash，并列出排除边界？
 
 提交范围台账的目标不是增加文档负担，而是在短节拍、多 repo、无人值守场景里，让“我做了什么”和“我没有接管什么”同样可复核。
