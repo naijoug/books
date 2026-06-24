@@ -9,6 +9,7 @@
 - 只有 `known-own` 可以直接 stage；`previous-agent` 也要先重新验证、必要时只补最小修正，再用 path-limited staging 提交。
 - `user-or-unknown` 不要为了完成接力而改写或提交；如果确实要推进，选择不触碰这些文件的独立小块，并在记录里写清边界。
 - 判断依据必须来自可观察证据：`git status --short`、path-limited diff、最近 notebook、验证命令输出，而不是“看起来像上一轮做的”。
+- 最终报告必须保留状态证据：写清启动快照、收尾 `git status --short`、本轮实际 stage/commit 的 path，以及项目 repo 与 `summaries/` repo 各自的 commit hash；未接管的启动前文件也要列为排除边界。
 
 **示例**：
 
@@ -17,6 +18,7 @@
 启动状态：`makemoney/docs/interview-qa-day3-publish-kit.md` 已经未跟踪，计划和指标文件也有修改。
 归属判断：notebook 只说下一段优先判断这些文件是否可接管，本轮启动前已存在，不能算 known-own。
 决策：不 stage 这些文件；改在 clean 的 `books/` 中补一张 Agent 运行卡片，并记录 makemoney 的边界条件。
+状态证据：最终报告写明 `makemoney` 的启动前 `?? docs/interview-qa-day3-publish-kit.md` 未接管；提交前 `git -C books diff --cached --name-status` 只包含本轮卡片；收尾分别读回 `books` 和 `summaries` 的 commit hash。
 ```
 
 **反例 / 修正做法**：
@@ -43,4 +45,4 @@
 - 为了让工作显得连续，事后把启动前已有文件描述成本轮新增。
 - 只检查 `git status`，不看 diff、notebook 和验证记录，导致归属判断没有证据。
 
-**检查**：如果最终报告里出现某个未提交文件，能否回答三件事：它在本轮开始时是否已存在？本轮对它做了哪一行可复核修改？提交时是否只 stage 了本轮明确相关路径？如果答不出来，就不要把它纳入本轮成果。
+**检查**：如果最终报告里出现某个未提交文件，能否回答五件事：它在本轮开始时是否已存在？启动快照和收尾 `git status --short` 是否都记录了它的状态？本轮对它做了哪一行可复核修改？提交时是否只 stage 了本轮明确相关路径？项目 repo 与 `summaries/` repo 的 commit hash 是否分别读回？如果答不出来，就不要把它纳入本轮成果。
