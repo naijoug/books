@@ -23,7 +23,7 @@
 - 验证证据：`git -C books diff --check -- ...` exit 0；结构断言通过。
 - 状态证据：启动时 `docs`、`loom`、`summaries/openclaw/...` 已 dirty/untracked；提交前 index 快照只包含 `books/tech-cards-handbook/chapters/ai-agent/final-report-names-excluded-boundaries.md`；收尾时这些 path 仍未 stage，`books` 项目 repo clean。
 - 项目提交：`books` 1a2b3c4 Add final-report boundary card；读回 `books` subject 与收尾 status。
-- Notebook 提交：`summaries` 5d6e7f8 Record Hermes progress for 2026-06-16 11:00；读回 `summaries` subject 与收尾 status。
+- notebook 提交：`summaries` 5d6e7f8 Record Hermes progress for 2026-06-16 11:00；读回 `summaries` subject 与收尾 status。
 - 未接管边界：`makemoney` 仍有启动前已存在的 Day 3 发布包改动；`docs`、`loom` 仍有非本轮改动；`summaries/openclaw/2026-06-12.md` 仍未跟踪。
 - 下一段接力：先判断 `makemoney` 的 Day 3 发布包归属；不可确认时继续选择 clean repo 的独立小任务。
 ```
@@ -57,7 +57,7 @@
  git -C summaries status --short
 ```
 
-**可复制最终响应模板**：
+**可复制最终响应模板**：字段名统一写作 `验证证据`、`状态证据`、`项目提交`、`notebook 提交`，避免在不同卡片之间混用大小写不一致的 notebook 字段或只写 `commit`。
 
 ```text
 本轮选择：<选了哪个低风险小块，以及为什么没有接管未归属 dirty path>
@@ -67,7 +67,7 @@
 状态证据：<启动 git status --short、提交前 index 快照、收尾 git status --short 摘要；说明本轮外 dirty path 是否仍未接管>
 写入 notebook：summaries/hermes/YYYY-MM-DD.md
 项目提交：<repo> <hash> <subject>；读回项目 repo 收尾 status；如没有项目提交，写“无，原因：...”>
-Notebook 提交：summaries <hash> <subject>；读回 summaries 收尾 status；如未提交，写“未提交，原因：...”>
+notebook 提交：summaries <hash> <subject>；读回 summaries 收尾 status；如未提交，写“未提交，原因：...”>
 未接管边界：<repo/path 相对路径 + 启动前已有 / 来源不明 / 验证失败 / 非本轮范围 + 未 stage>
 下一段接力：<下一轮第一条可执行动作，而不是泛泛“继续优化”>
 ```
