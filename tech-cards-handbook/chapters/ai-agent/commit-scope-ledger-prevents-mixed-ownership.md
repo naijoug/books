@@ -25,7 +25,7 @@
 | repo | path | 启动状态 | 本轮动作 | 是否提交 | 验证证据 | 状态证据 |
 |---|---|---|---|---|---|---|
 | books | tech-cards-handbook/chapters/ai-agent/commit-scope-ledger-prevents-mixed-ownership.md | absent | 新增卡片 | 是 | 索引统计、链接扫描、人工五段复核 | `git diff --cached --name-status` 只含台账 path；提交后 `git status --short` clean |
-| books | tech-cards-handbook/chapters/ai-agent/README.md | clean | 加入阅读顺序 | 是 | 链接扫描 | 提交后 `git log -1 --oneline` 读回项目 commit |
+| books | tech-cards-handbook/chapters/ai-agent/README.md | clean | 加入阅读顺序 | 是 | 链接扫描 | 提交后 `git log -1 --oneline` 读回标准字段 `项目提交` |
 | books | tech-cards-handbook/README.md | clean | 更新卡片数与目录描述 | 是 | 索引统计 | 提交后 `git status --short` clean |
 | summaries | hermes/2026-06-24.md | absent/clean | 追加本轮记录 | 是 | read_file 复核、git status 只 stage 该文件 | 提交后 `git status --short` 仍只剩未接管 openclaw path |
 | docs | documents/awesome/ai/agent.md | dirty before start | 未接管 | 否 | 最终报告列为排除边界 | 启动快照与收尾 `git status --short` 均列出该 path |
