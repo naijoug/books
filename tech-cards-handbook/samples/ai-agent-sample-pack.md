@@ -249,11 +249,11 @@ loom       docs/PLANS.md                            staged/unknown  未接管   
 - 如果上一轮验证、测试或命令输出失败，先判断它是否改变本轮范围、顺序、目标或交接；不要一边沿用原计划，一边把失败写成背景噪音。
 - 只有 known-own 或有明确证据可接管的 previous-agent 文件才能 stage。
 - user-or-unknown、generated/noise、无法解释来源的 dirty path 一律不 stage，只记录未接管边界。
-- 如果目标 repo 不适合动，选择一个 clean repo 的独立小任务推进。
+- 如果项目 repo 不适合动，选择一个 clean repo 的独立小任务推进。
 
 执行要求：
 1. 先写“上一段/当前状态、候选工作、本轮选择、选择理由、下一段计划”。
-2. 修改文件前检查目标 repo 状态；修改后只对本轮文件做 diff --check 和结构断言。
+2. 修改文件前检查项目 repo 状态；修改后只对本轮文件做 diff --check 和结构断言。
 3. 验证失败时必须回到规划：说明失败改变了什么、缩小了什么，或为什么只作为未验证项交接。
 4. 提交时只使用 path-limited staging，不使用 git add .。
 5. 最终报告必须同时列出项目 commit、notebook commit、启动/收尾 `git status --short` 证据，以及未接管 dirty path 的相对路径和原因。

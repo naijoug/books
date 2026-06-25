@@ -31,14 +31,14 @@
 最小收尾顺序：
 
 ```bash
-# 1. 提交本轮目标 repo 前后都保留工作区状态证据
+# 1. 提交本轮项目 repo 前后都保留工作区状态证据
  git -C books status --short
 
 # 2. stage 后、commit 前读回 index 快照，只允许出现本轮路径
  git -C books add -- tech-cards-handbook/chapters/ai-agent/final-report-names-excluded-boundaries.md
  git -C books diff --cached --name-status
 
-# 3. 提交本轮目标 repo 后读回项目证据
+# 3. 提交本轮项目 repo 后读回项目证据
  git -C books commit -m "Add final-report boundary card"
  git -C books rev-parse --short HEAD
  git -C books log -1 --pretty=%s
@@ -49,7 +49,7 @@
  git -C docs status --short
  git -C loom status --short
 
-# 5. 提交 notebook 后读回记录 repo 证据
+# 5. 提交 notebook 后读回 notebook repo 证据
  git -C summaries add -- hermes/YYYY-MM-DD.md
  git -C summaries commit -m "Record Hermes progress for YYYY-MM-DD HH:mm"
  git -C summaries rev-parse --short HEAD

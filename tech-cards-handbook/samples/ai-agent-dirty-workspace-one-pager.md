@@ -48,7 +48,7 @@ workspace root：当前目录是否是 git repo
 执行时保持 path-limited，并在 stage 前补一张提交范围台账：
 
 ```text
-修改前：确认目标 repo 的 git status --short。
+修改前：确认项目 repo 的 git status --short。
 修改中：只触碰本轮选择的路径。
 台账：列出 repo / path / 启动状态 / 本轮动作 / 是否提交 / 验证证据 / 状态证据。
 验证：至少做 diff --check；能结构断言就用脚本断言关键词、链接、计数和绝对路径。
@@ -59,7 +59,7 @@ workspace root：当前目录是否是 git repo
 最低验证标准：
 
 - 文档类：`git diff --check -- <paths>` 通过；关键词、相对路径、目录索引计数可复核。
-- 代码类：运行目标 repo 的测试或最小 smoke test；失败时记录真实错误，不编造通过结果。
+- 代码类：运行项目 repo 的测试或最小 smoke test；失败时记录真实错误，不编造通过结果。
 - 失败类：验证、测试或命令失败时，必须说明它是否改变本轮范围、顺序、目标或交接；不能只写“失败，下一轮继续”。
 - 交接类：notebook 中的 `变更文件` 与实际 staged / committed 文件一致。
 - 报告类：最终报告模板中的固定字段不能因为“没有发生”而删除；必须写出启动/收尾 `git status --short` 证据；没有项目提交写 `未提交`，没有变更文件写 `无`，未接管边界为空也写 `无`。
