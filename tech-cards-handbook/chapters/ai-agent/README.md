@@ -28,9 +28,9 @@
 | 12 | 报告与读回 | 从已提交状态读回 hash 和 subject;报告包含启动/收尾状态证据 | [`report-from-committed-state.md`](report-from-committed-state.md) |
 | 13 | 报告与读回 | 最终响应同时列成果和排除项 | [`final-report-names-excluded-boundaries.md`](final-report-names-excluded-boundaries.md) |
 
-状态证据线索：步骤 7–9 和 12 的卡片已在 2026-06-25 补强，要求最终报告保留启动/收尾 `git status --short`、分 repo 读回 commit hash、提交范围台账包含状态证据列；读者可按这条线索从所有权边界串到最终报告。
+状态证据线索：步骤 7–9 和 12 的卡片已在 2026-06-25 补强，要求最终报告保留启动/收尾 `git status --short`、分 repo 读回 commit hash、提交范围台账包含状态证据列；读者可按这条线索从所有权边界串到最终报告，并用 [`../../samples/ai-agent-sample-pack.md`](../../samples/ai-agent-sample-pack.md) 的样本包和 [`../../samples/ai-agent-dirty-workspace-one-pager.md`](../../samples/ai-agent-dirty-workspace-one-pager.md) 的一页纸核对可复制输入是否同步。
 
-配套可复制输入见 [`../../samples/ai-agent-sample-pack.md`](../../samples/ai-agent-sample-pack.md) 的 dirty workspace 心跳交接样例；若只需要收尾核对，先读 `dirty-workspace-exit-checklist.md`，再按"验证证据 -> 状态证据 -> 已提交状态读回 -> 排除边界"的顺序把启动/收尾 `git status --short` 摘要和 `final-report-names-excluded-boundaries.md` 的最终响应模板填完整。
+配套可复制输入见 [`../../samples/ai-agent-sample-pack.md`](../../samples/ai-agent-sample-pack.md) 的 dirty workspace 心跳交接样例；若只需要收尾核对，先读 [`../../samples/ai-agent-dirty-workspace-one-pager.md`](../../samples/ai-agent-dirty-workspace-one-pager.md) 和 `dirty-workspace-exit-checklist.md`，再按"验证证据 -> 状态证据 -> 已提交状态读回 -> 排除边界"的顺序把启动/收尾 `git status --short` 摘要和 `final-report-names-excluded-boundaries.md` 的最终响应模板填完整。
 
 ## 阅读顺序
 
