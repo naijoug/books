@@ -265,7 +265,7 @@ loom       docs/PLANS.md                            staged/unknown  未接管   
 执行要求：
 1. 先写“上一段/当前状态、候选工作、本轮选择、选择理由、下一段计划”。
 2. 修改文件前检查项目 repo 状态；修改后只对本轮文件做 diff --check 和结构断言。
-3. 验证失败时必须回到规划：说明失败改变了什么、缩小了什么，或为什么只作为未验证项交接。
+3. 验证失败时必须回到规划：说明失败改变了什么、缩小了什么，或为什么只作为未验证项交接；如果不知道怎么写交接块，复制 `books/tech-cards-handbook/samples/ai-agent-verification-failure-handoff-template.md`。
 4. 提交时只使用 path-limited staging，不使用 git add .。
 5. 最终报告必须使用标准字段名 `项目提交`、`notebook 提交`，同时列出启动/收尾 `git status --short` 证据，以及未接管 dirty path 的相对路径和原因。
 6. 最终报告固定字段都要保留；没有发生的项目写 `无` 或 `未提交`，不要删掉字段让下一轮猜测。
@@ -315,6 +315,9 @@ notebook 提交：summaries `8c026a9` `Record Hermes heartbeat progress`（提�
 - books/tech-cards-handbook/chapters/ai-agent/unverified-items-need-explicit-handoff.md
 - books/tech-cards-handbook/chapters/ai-agent/report-from-committed-state.md
 - books/tech-cards-handbook/chapters/ai-agent/final-report-names-excluded-boundaries.md
+
+配套模板：
+- books/tech-cards-handbook/samples/ai-agent-verification-failure-handoff-template.md
 ```
 
 **检查**：如果最终输出只列完成项、不列未接管边界，或者 notebook 里没有说明为什么避开某个 dirty repo，这次心跳仍不具备可接力性；下一轮应该先回到归属判断，而不是继续提交。
