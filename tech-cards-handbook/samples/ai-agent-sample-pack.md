@@ -276,6 +276,14 @@ loom       docs/PLANS.md                            staged/unknown  未接管   
 
 字段顺序固定为：`本轮选择 -> 实际推进 -> 变更文件 -> 验证证据 -> 状态证据 -> 写入 notebook -> 项目提交 -> notebook 提交 -> 未接管边界 -> 下一段接力`。如果某一项没有发生，也保留字段并写“无”或“未提交”，不要删除字段让下一轮猜测。
 
+提交读回的最短写法：
+
+```text
+项目提交：books `19bbcfa` `Link AI agent sample pack to reading path`（提交后用 `git -C books log -1 --oneline` 读回）。
+notebook 提交：summaries `8c026a9` `Record Hermes heartbeat progress`（提交后用 `git -C summaries log -1 --oneline` 读回）。
+未提交：项目 repo 本轮无可提交改动；仍保留字段，不把计划中的提交写成已落地。
+```
+
 - 本轮选择：{选择的 repo / 文件 / 小任务}，原因：{为什么它比其他候选更安全或更有价值}。
 - 实际推进：{具体改动 1–3 条}。
 - 变更文件：{本轮实际修改或提交的相对路径；无则写“无”}。
