@@ -8,6 +8,16 @@
 
 如果读者正在处理"周期性唤醒的 Agent + 已有 dirty workspace + 多 repo 接力"这类场景,优先使用 [`../../samples/ai-agent-dirty-workspace-one-pager.md`](../../samples/ai-agent-dirty-workspace-one-pager.md),再按下面的运行控制顺序深入阅读。
 
+## 3 分钟读法
+
+如果只想马上减少一次心跳接力的事故率,先按三条线读,不要从 29 张卡片顺序扫完:
+
+1. **失败吸收线**:读 [`failure-output-must-change-plan.md`](failure-output-must-change-plan.md),再用 [`../../samples/ai-agent-failure-absorption-one-pager.md`](../../samples/ai-agent-failure-absorption-one-pager.md) 记录`信号 -> 影响 -> 证据位置`,确认失败是否改变了范围、顺序、目标或交接。
+2. **dirty workspace 线**:读 [`startup-snapshot-before-planning.md`](startup-snapshot-before-planning.md)、[`uncommitted-handoff-needs-ownership-triage.md`](uncommitted-handoff-needs-ownership-triage.md) 和 [`staged-changes-are-not-ownership.md`](staged-changes-are-not-ownership.md),先分清启动前改动、staged path、可接管 path,再决定本轮文件范围。
+3. **提交证据线**:读 [`commit-scope-ledger-prevents-mixed-ownership.md`](commit-scope-ledger-prevents-mixed-ownership.md)、[`dirty-workspace-exit-checklist.md`](dirty-workspace-exit-checklist.md) 和 [`report-from-committed-state.md`](report-from-committed-state.md),最终报告从已提交状态读回 hash,同时写清排除边界。
+
+完成这三条线后,再进入下面的 13 步快速路径补齐运行控制细节。
+
 ## 快速路径:dirty workspace 心跳接力
 
 这条路径不是通用入门顺序,而是给已经在真实项目里工作的 Agent 使用:先建立启动快照,把上一轮接力点当作信号而不是义务,再选择可安全推进的小任务,最后把成果和未接管边界同时写清。
