@@ -115,6 +115,16 @@ notebook 提交：summaries <hash> <subject>（如有；从已提交状态读回
 下一段接力：<下一轮第一步 + verification destination>
 ```
 
+提交读回的最短写法：
+
+```text
+项目提交：books 1a2b3c4 Add dirty workspace report example
+  证据：git -C books log -1 --oneline
+notebook 提交：summaries 5d6e7f8 Record Hermes heartbeat
+  证据：git -C summaries log -1 --oneline
+未提交：项目 repo 本轮无可提交改动（或验证失败未提交）；不要把计划中的提交写成已落地。
+```
+
 报告里必须同时出现完成项、变更文件、验证证据、状态证据和排除项。只报 commit hash、不报启动/收尾 status 与未接管边界，会让下一轮误把旧 dirty path 当成本轮成果；只报“验证通过”、不写命令和未验证项，会让读者无法判断这个结论能证明什么。
 
 正反例：
