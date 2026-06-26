@@ -9,6 +9,7 @@
 - 如果还要提交工作记录，先把 notebook 写入并提交到 notebook repo（当前固定为 `summaries`），再读回 notebook repo 的 hash；最终响应同时列出项目 repo 与 notebook repo，不能混成一个 hash。
 - 标准字段名固定写作 `项目提交` 与 `notebook 提交`：项目 repo 没提交时写“无项目提交”，notebook repo 没提交时写“notebook 提交：未提交，原因：...”。
 - 报告顺序要跟证据顺序一致：验证 → 状态证据 → 项目提交读回 → notebook 提交读回 → 最终响应。
+- 如果需要可复制的字段顺序，先套用 [`AI Agent 最终报告字段速查`](../../samples/ai-agent-final-report-field-quickref.md)：按“验证证据 -> 状态证据 -> 已提交状态读回 -> 排除边界 -> 下一段接力”收尾，再把项目提交和 notebook 提交分别读回。
 
 **示例**：
 
