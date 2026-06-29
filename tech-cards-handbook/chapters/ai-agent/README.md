@@ -1,6 +1,6 @@
 # AI Agent 系统实践卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护,共 32 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护,共 33 张。文件名使用英文 `kebab-case`。
 
 本目录收录 Agent 系统设计、运行边界、工具、记忆、反馈判断、反馈池和心跳工作流等实践卡片;具体 SDK 或语言实现优先放入对应技术栈目录。
 
@@ -97,6 +97,7 @@
 | 失败输出要改变计划,不要当作背景噪音 | [`failure-output-must-change-plan.md`](failure-output-must-change-plan.md) |
 | AI 编程审查要先做固定范围 offer,不要一上来卖全栈自动化 | [`ai-coding-audit-is-fixed-scope-offer.md`](ai-coding-audit-is-fixed-scope-offer.md) |
 | AI 生成 PR 需要单独审查入口,不要混进普通代码审查 | [`ai-generated-pr-needs-review-entry.md`](ai-generated-pr-needs-review-entry.md) |
+| AI 辅助 PR 审查路径要像产品阶梯,不要只是一组文章 | [`ai-assisted-pr-review-path-is-product-ladder.md`](ai-assisted-pr-review-path-is-product-ladder.md) |
 | Repo 里的 Agent 规则要有可见入口,不要只藏在聊天记录里 | [`repo-agent-rules-need-visible-entry.md`](repo-agent-rules-need-visible-entry.md) |
 
 ### 4. 最后抽象为助手操作系统
