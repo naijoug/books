@@ -146,6 +146,16 @@
 
 如果本轮失败信号较多，先用 [`ai-agent-failure-absorption-one-pager.md`](ai-agent-failure-absorption-one-pager.md) 把每条失败写成“信号 -> 影响 -> 证据位置”，再决定它改变范围、顺序、目标还是交接。
 
+当失败已经阻断验证，不要只把它塞进最终报告的一句话；改用 [`ai-agent-verification-failure-handoff-template.md`](ai-agent-verification-failure-handoff-template.md) 拆出一个最小交接块：
+
+```text
+已验证：<仍然可信的命令或人工检查>
+未验证：<被失败阻断的范围 + 失败归属>
+结论措辞：<本轮只能说什么，不能说什么>
+下一步：<按失败归属选择的第一条动作>
+证据位置：<命令输出、diff、notebook 段落或相对路径>
+```
+
 **坑**：测试失败后只改最终措辞，不改变验证策略或实现方案；搜索或读取没有结果时继续凭记忆写结论。
 
 **检查**：每条关键失败输出都能在计划、执行记录或后续交接中看到对应变化；如果看不到范围、顺序、目标或交接的改变，说明 Agent 只是观察到了失败，还没有吸收失败。
