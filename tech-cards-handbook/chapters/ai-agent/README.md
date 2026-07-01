@@ -1,6 +1,6 @@
 # AI Agent 系统实践卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护,共 36 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护,共 37 张。文件名使用英文 `kebab-case`。
 
 本目录收录 Agent 系统设计、运行边界、工具、记忆、反馈判断、反馈池和心跳工作流等实践卡片;具体 SDK 或语言实现优先放入对应技术栈目录。
 
@@ -10,7 +10,7 @@
 
 ## 3 分钟读法
 
-如果只想马上减少一次心跳接力的事故率,先按三条线读,不要从 36 张卡片顺序扫完:
+如果只想马上减少一次心跳接力的事故率,先按三条线读,不要从 37 张卡片顺序扫完:
 
 1. **失败吸收线**:读 [`failure-output-must-change-plan.md`](failure-output-must-change-plan.md),再用 [`../../samples/ai-agent-failure-absorption-one-pager.md`](../../samples/ai-agent-failure-absorption-one-pager.md) 记录`信号 -> 影响 -> 证据位置`,确认失败是否改变了范围、顺序、目标或交接。
 2. **dirty workspace 线**:读 [`startup-snapshot-before-planning.md`](startup-snapshot-before-planning.md)、[`uncommitted-handoff-needs-ownership-triage.md`](uncommitted-handoff-needs-ownership-triage.md) 和 [`staged-changes-are-not-ownership.md`](staged-changes-are-not-ownership.md),先分清启动前改动、staged path、可接管 path,再决定本轮文件范围。
@@ -96,6 +96,7 @@
 | Dirty workspace 收尾要有清单,不要靠最后一眼状态 | [`dirty-workspace-exit-checklist.md`](dirty-workspace-exit-checklist.md) |
 | 失败输出要改变计划,不要当作背景噪音 | [`failure-output-must-change-plan.md`](failure-output-must-change-plan.md) |
 | AI 编程审查要先做固定范围 offer,不要一上来卖全栈自动化 | [`ai-coding-audit-is-fixed-scope-offer.md`](ai-coding-audit-is-fixed-scope-offer.md) |
+| 先交付首份报告，不要先卖咨询 | [`first-report-before-consulting.md`](first-report-before-consulting.md) |
 | AI 生成 PR 需要单独审查入口,不要混进普通代码审查 | [`ai-generated-pr-needs-review-entry.md`](ai-generated-pr-needs-review-entry.md) |
 | AI 辅助 PR 审查路径要像产品阶梯,不要只是一组文章 | [`ai-assisted-pr-review-path-is-product-ladder.md`](ai-assisted-pr-review-path-is-product-ladder.md) |
 | 下一条安全命令梯不是测试清单，不要只写“再跑一遍” | [`next-safe-command-ladder-is-not-test-list.md`](next-safe-command-ladder-is-not-test-list.md) |
