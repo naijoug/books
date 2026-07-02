@@ -16,6 +16,14 @@
 - **排除边界**：列出本轮没有接管、没有 stage、没有验证的相对路径；为空也写 `无`，并说明依据。
 - **下一段接力**：给下一轮第一条动作和验证目的地，不只写“继续完善”。
 
+在写这些字段前，先把素材分成三层：
+
+- **事实**：已经运行的命令、真实输出、实际变更文件、已读回的 commit hash。
+- **推断**：基于事实得到的判断，例如“这个 dirty path 是启动前已有，所以本轮未接管”。推断必须指出依据。
+- **计划**：下一轮要做的第一步。计划不能冒充已经完成的事实，也不能写成已验证结论。
+
+最终报告只把事实写成完成项；推断要带证据来源；计划只放在“下一段接力”。这样 notebook 和最终回复才会成为下一轮可复用的工作资产，而不是把执行、解释和愿望混成流水账。
+
 ## 2. 固定字段
 
 最终报告字段固定保留；某项没有发生时写 `无` 或 `未提交`，不要删除字段。
@@ -73,7 +81,20 @@ notebook 提交：summaries <hash> <subject>。
 下一步：若继续收尾证据线，运行全书链接检查或只检查新增样本入口。
 ```
 
-## 5. 排除边界正反例
+## 5. 日志资产化检查
+
+最终报告不是对 notebook 的复读，而是把 notebook 里的可接力资产压缩出来。发送前做一次快速检查：
+
+```text
+事实够不够：有没有命令、输出摘要、文件路径、commit 读回？
+推断清不清：有没有把“为什么没接管/为什么只验证到这里”写出依据？
+计划可执行吗：下一段能不能按第一条动作直接开工？
+边界可复核吗：所有路径是否为相对路径，且没有把旧 dirty path 混成本轮成果？
+```
+
+如果某一项答不上来，先补证据或降级措辞；不要用“应该没问题”“已经处理好”填空。
+
+## 6. 排除边界正反例
 
 ```text
 ✅ 未接管边界：loom/docs/PLANS.md 启动前已 staged/modified，归属未知，未修改、未 stage。
@@ -85,11 +106,12 @@ notebook 提交：summaries <hash> <subject>。
 
 边界必须使用相对路径，且要说明证据来自启动或收尾状态；否则下一轮无法判断它是旧改动、用户改动、生成噪音还是本轮漏提交。
 
-## 6. 相关入口
+## 7. 相关入口
 
 - `books/tech-cards-handbook/chapters/ai-agent/report-from-committed-state.md`
 - `books/tech-cards-handbook/chapters/ai-agent/final-report-names-excluded-boundaries.md`
 - `books/tech-cards-handbook/chapters/ai-agent/unverified-items-need-explicit-handoff.md`
+- `books/tech-cards-handbook/chapters/ai-agent/work-log-is-reusable-asset.md`
 - `books/tech-cards-handbook/samples/ai-agent-verification-failure-handoff-template.md`
 - `books/tech-cards-handbook/samples/ai-agent-dirty-workspace-one-pager.md`
 - `books/tech-cards-handbook/samples/ai-agent-sample-pack.md`
