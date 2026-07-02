@@ -70,7 +70,7 @@ tech-cards-handbook/
 
 ## 卡片标准
 
-维护入口数字、跨卡片链接或语言代码示例时，先按 `chapters/README.md` 的“Verifier 覆盖边界”“索引校验”和“链接校验”运行提交前检查；AI Agent 章节按索引、链接和五段人工复核维护，不纳入语言代码 verifier。
+维护入口数字、跨卡片链接或语言代码示例时，先按 `chapters/README.md` 的“Verifier 覆盖边界”“索引校验”和“链接校验”运行提交前检查；链接检查使用 `scripts/verify_tech_cards_links.py`，索引检查使用 `scripts/verify_tech_cards_index.py`。AI Agent 章节按索引、链接和五段人工复核维护，不纳入语言代码 verifier。
 
 每张正式卡片必须包含：
 

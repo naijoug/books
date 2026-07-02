@@ -89,21 +89,10 @@
 
 ## 索引校验
 
-更新任一 `chapters/<tech-stack>/` 目录后，先用下面的仓库相对路径脚本重新统计正式卡片数，再同步更新 `README.md` 和本文件的目录表：
+更新任一 `chapters/<tech-stack>/` 目录后，先用仓库相对路径脚本重新统计正式卡片数，再同步更新 `README.md` 和本文件的目录表：
 
 ```bash
-python3 - <<'PY'
-from pathlib import Path
-base = Path('chapters')
-counts = {
-    path.name: len([f for f in path.glob('*.md') if f.name != 'README.md'])
-    for path in sorted(base.iterdir())
-    if path.is_dir()
-}
-print('total', sum(counts.values()))
-for name, count in counts.items():
-    print(name, count)
-PY
+python3 scripts/verify_tech_cards_index.py
 ```
 
 提交前还要确认 `README.md` 的“当前共 N 张正式卡片”和本文件“技术栈目录”表中的数字都来自同一次统计，避免只更新某个入口。
@@ -113,30 +102,7 @@ PY
 更新任何跨技术栈引用、样本包链接或目录 README 链接后，提交前至少跑一次 Markdown 内部链接扫描，确保相对路径没有因为移动文件或跨目录引用而断掉：
 
 ```bash
-python3 - <<'PY'
-import re
-from pathlib import Path
-
-root = Path('.')
-missing = []
-for md in root.rglob('*.md'):
-    text = md.read_text(encoding='utf-8')
-    for match in re.finditer(r'\[[^\]]+\]\(([^)]+)\)', text):
-        target = match.group(1).split('#', 1)[0]
-        if not target or '://' in target or target.startswith('mailto:'):
-            continue
-        if target.startswith('<') and target.endswith('>'):
-            target = target[1:-1]
-        resolved = (md.parent / target).resolve()
-        if not resolved.exists():
-            missing.append((str(md), target))
-
-if missing:
-    for source, target in missing:
-        print(f'MISSING {source} -> {target}')
-    raise SystemExit(1)
-print('missing_links 0')
-PY
+python3 scripts/verify_tech_cards_links.py
 ```
 
-这条检查应和上面的“索引校验”一起运行：索引数字保证入口可信，链接扫描保证读者从任意卡片跳转时不会进入不存在的路径。
+这条检查应和上面的“索引校验”一起运行：索引数字保证入口可信，链接扫描保证读者从任意卡片跳转时不会进入不存在的路径。脚本只检查 `tech-cards-handbook/` 内部的本地 Markdown 链接，忽略外链、纯锚点和 fenced code block；目录链接会尝试解析同名 `.md` 与 `README.md`。
