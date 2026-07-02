@@ -47,8 +47,8 @@ tech-cards-handbook/
 | Swift | `chapters/swift/` | 14 张：值语义、async/await、基础值、字符串、集合、switch、可选绑定、闭包、defer 清理、Result 错误状态、显式重试策略、领域定义的对外错误码、调用方降级策略和错误恢复决策表 |
 | Flutter | `chapters/flutter/` | 14 张：状态、列表、导航、测试、布局、输入控件、组件拆分、异步构建、生命周期检查、controller 释放、显式重试策略、领域定义的对外错误码、调用方降级策略和错误恢复决策表 |
 | AI Agent | `chapters/ai-agent/` | 42 张：Agent 边界、工具、工具结果、记忆、上下文预算、上下文状态设计、反馈判断、反馈修订、反馈池、迭代上限、心跳工作流、工作日志资产化、启动快照、规划取舍、交接、接力取舍、无人值守默认动作、启动前 staged 归属、提交范围台账、短节拍边界、验证总结、未验证项交接、提交状态读回、dirty workspace 归属判断、dirty workspace 收尾清单、最终报告边界、失败输出吸收、固定范围 AI 编程审查 offer、首份报告交付、30 分钟路线验证、发布反馈证据形状、AI 生成 PR 审查入口、AI 辅助 PR 审查产品阶梯、下一条安全命令梯、匿名案例证据边界、公开案例事实/推断/未验证分层、repo 入口里的 Agent 规则、本地 proof checker、统一 preflight wrapper、启动层边界和助手操作系统；dirty workspace 心跳接力的推荐阅读路径见 `chapters/ai-agent/README.md` |
-| 样本索引 | `samples/README.md` | 可复制输入的场景入口：完整 dirty workspace 接力、短接力一页纸、失败吸收、轻量 proof、命令梯、未验证项交接、验证失败交接、最终报告字段速查和 AI 编程审查一页纸 |
-| 样本包 | `samples/ai-agent-sample-pack.md`、`samples/ai-agent-dirty-workspace-one-pager.md`、`samples/ai-agent-audit-report-one-pager.md` | dirty workspace 心跳接力主线和固定范围审查交付：10 张精选卡片建立最小闭环，附录和配套一页纸模板补足验证证据、未验证项交接、下一条安全命令、最终报告字段、错误边界 review 输入和 AI Coding Audit Report；适合复制给周期性唤醒的 Agent 或收入实验使用 |
+| 样本索引 | `samples/README.md` | 可复制输入的场景入口：完整 dirty workspace 接力、短接力一页纸、失败吸收、轻量 proof、命令梯、未验证项交接、验证失败交接、最终报告字段速查、AI 编程审查一页纸和案例发布阶梯 |
+| 样本包 | `samples/ai-agent-sample-pack.md`、`samples/ai-agent-dirty-workspace-one-pager.md`、`samples/ai-agent-audit-report-one-pager.md`、`samples/ai-agent-case-publishing-ladder-one-pager.md` | dirty workspace 心跳接力主线、固定范围审查交付和安全发布：10 张精选卡片建立最小闭环，附录和配套一页纸模板补足验证证据、未验证项交接、下一条安全命令、最终报告字段、错误边界 review 输入、AI Coding Audit Report 和从报告到案例的发布决策；适合复制给周期性唤醒的 Agent、收入实验或公开内容复盘使用 |
 
 ## 文件命名
 
