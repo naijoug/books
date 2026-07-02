@@ -73,7 +73,7 @@ tech-cards-handbook/
 
 ## 卡片标准
 
-维护入口数字、跨卡片链接或语言代码示例时，先运行 `python3 scripts/verify_tech_cards.py`：它会先跑链接/索引 verifier 的回归测试，再跑全量链接与索引检查。只想快速复核当前书稿、且本轮没有修改 verifier 脚本时，可运行 `python3 scripts/verify_tech_cards.py --full-only`。AI Agent 章节按索引、链接和五段人工复核维护，不纳入语言代码 verifier。
+维护入口数字、跨卡片链接或语言代码示例时，先运行 `python3 scripts/verify_tech_cards.py`：它会先跑链接/索引 verifier 的回归测试，再跑全量链接与索引检查。只想快速复核当前书稿、且本轮没有修改 verifier 脚本时，可运行 `python3 scripts/verify_tech_cards.py --full-only`。若修改的是 wrapper 本身，先运行 `python3 scripts/test_verify_tech_cards.py` 证明默认顺序、快速模式和失败停止语义没有漂移。AI Agent 章节按索引、链接和五段人工复核维护，不纳入语言代码 verifier。
 
 每张正式卡片必须包含：
 
