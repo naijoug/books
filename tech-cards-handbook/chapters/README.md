@@ -106,3 +106,10 @@ python3 scripts/verify_tech_cards_links.py
 ```
 
 这条检查应和上面的“索引校验”一起运行：索引数字保证入口可信，链接扫描保证读者从任意卡片跳转时不会进入不存在的路径。脚本只检查 `tech-cards-handbook/` 内部的本地 Markdown 链接，忽略外链、纯锚点和 fenced code block；目录链接会尝试解析同名 `.md` 与 `README.md`。
+
+修改链接校验脚本本身时，先补或更新 stdlib 回归测试，再一起运行：
+
+```bash
+python3 scripts/test_verify_tech_cards_links.py
+python3 scripts/verify_tech_cards_links.py
+```
