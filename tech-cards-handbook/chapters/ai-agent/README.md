@@ -1,6 +1,6 @@
 # AI Agent 系统实践卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护,共 40 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护，共 40 张。文件名使用英文 `kebab-case`。
 
 本目录收录 Agent 系统设计、运行边界、工具、记忆、反馈判断、反馈池和心跳工作流等实践卡片;具体 SDK 或语言实现优先放入对应技术栈目录。
 
@@ -14,7 +14,7 @@
 
 1. **失败吸收线**:读 [`failure-output-must-change-plan.md`](failure-output-must-change-plan.md),再用 [`../../samples/ai-agent-failure-absorption-one-pager.md`](../../samples/ai-agent-failure-absorption-one-pager.md) 记录`信号 -> 影响 -> 证据位置`,确认失败是否改变了范围、顺序、目标或交接。
 2. **dirty workspace 线**:读 [`startup-snapshot-before-planning.md`](startup-snapshot-before-planning.md)、[`uncommitted-handoff-needs-ownership-triage.md`](uncommitted-handoff-needs-ownership-triage.md) 和 [`staged-changes-are-not-ownership.md`](staged-changes-are-not-ownership.md),先分清启动前改动、staged path、可接管 path,再决定本轮文件范围。
-3. **提交证据线**:读 [`commit-scope-ledger-prevents-mixed-ownership.md`](commit-scope-ledger-prevents-mixed-ownership.md)、[`dirty-workspace-exit-checklist.md`](dirty-workspace-exit-checklist.md) 和 [`report-from-committed-state.md`](report-from-committed-state.md),最终报告从已提交状态读回 hash,同时写清排除边界；收尾前可用 [`../../samples/ai-agent-final-report-field-quickref.md`](../../samples/ai-agent-final-report-field-quickref.md) 核对固定字段，若验证失败或无法执行，再用 [`../../samples/ai-agent-verification-failure-handoff-template.md`](../../samples/ai-agent-verification-failure-handoff-template.md) 把可信结论、未验证项和下一步第一条动作拆开。
+3. **提交证据线**:读 [`commit-scope-ledger-prevents-mixed-ownership.md`](commit-scope-ledger-prevents-mixed-ownership.md)、[`dirty-workspace-exit-checklist.md`](dirty-workspace-exit-checklist.md) 和 [`report-from-committed-state.md`](report-from-committed-state.md),最终报告从已提交状态读回 hash,同时写清排除边界；如果本轮是文档/索引/配置小改，先用 [`../../samples/ai-agent-proof-checker-one-pager.md`](../../samples/ai-agent-proof-checker-one-pager.md) 设计轻量 preflight，再决定是否追加重型构建；收尾前可用 [`../../samples/ai-agent-final-report-field-quickref.md`](../../samples/ai-agent-final-report-field-quickref.md) 核对固定字段，若验证失败或无法执行，再用 [`../../samples/ai-agent-verification-failure-handoff-template.md`](../../samples/ai-agent-verification-failure-handoff-template.md) 把可信结论、未验证项和下一步第一条动作拆开。
 
 完成这三条线后,再进入下面的 13 步快速路径补齐运行控制细节。
 
@@ -35,7 +35,7 @@
 | 9 | 所有权边界 | 用提交范围台账防止混入未知归属;台账包含状态证据列 | [`commit-scope-ledger-prevents-mixed-ownership.md`](commit-scope-ledger-prevents-mixed-ownership.md) |
 | 10 | 收尾与状态证据 | 用清单做 path-limited 收尾 | [`dirty-workspace-exit-checklist.md`](dirty-workspace-exit-checklist.md) |
 | 11 | 收尾与状态证据 | 先跑聚焦验证并显式交接未验证项 | [`verify-before-optimistic-summary.md`](verify-before-optimistic-summary.md)、[`unverified-items-need-explicit-handoff.md`](unverified-items-need-explicit-handoff.md) |
-| 12 | 验证与集成边界 | 先用窄范围 proof checker 证明基础契约,再把渲染和插件行为交给重型构建 | [`local-proof-checker-precedes-heavy-build.md`](local-proof-checker-precedes-heavy-build.md) |
+| 12 | 验证与集成边界 | 先用窄范围 proof checker 证明基础契约,再把渲染和插件行为交给重型构建 | [`local-proof-checker-precedes-heavy-build.md`](local-proof-checker-precedes-heavy-build.md); 可复制输入见 [`../../samples/ai-agent-proof-checker-one-pager.md`](../../samples/ai-agent-proof-checker-one-pager.md) |
 | 13 | 报告与读回 | 从已提交状态读回 hash 和 subject;报告包含启动/收尾状态证据 | [`report-from-committed-state.md`](report-from-committed-state.md) |
 | 14 | 报告与读回 | 最终响应同时列成果和排除项 | [`final-report-names-excluded-boundaries.md`](final-report-names-excluded-boundaries.md) |
 
@@ -43,7 +43,7 @@
 
 状态证据线索：步骤 7–9 和 12 的卡片已在 2026-06-25 补强，要求最终报告保留启动/收尾 `git status --short`、分 repo 读回 commit hash、提交范围台账包含状态证据列；读者可按这条线索从所有权边界串到最终报告，并用 [`../../samples/ai-agent-sample-pack.md`](../../samples/ai-agent-sample-pack.md) 的样本包、[`../../samples/ai-agent-dirty-workspace-one-pager.md`](../../samples/ai-agent-dirty-workspace-one-pager.md) 的一页纸和 [`../../samples/ai-agent-final-report-field-quickref.md`](../../samples/ai-agent-final-report-field-quickref.md) 的字段速查核对可复制输入是否同步。
 
-配套可复制输入见 [`../../samples/ai-agent-sample-pack.md`](../../samples/ai-agent-sample-pack.md) 的 dirty workspace 心跳交接样例；若只需要收尾核对，先读 [`../../samples/ai-agent-dirty-workspace-one-pager.md`](../../samples/ai-agent-dirty-workspace-one-pager.md) 和 [`dirty-workspace-exit-checklist.md`](dirty-workspace-exit-checklist.md)，再按"验证证据 -> 状态证据 -> 已提交状态读回 -> 排除边界"的顺序把启动/收尾 `git status --short` 摘要和 [`final-report-names-excluded-boundaries.md`](final-report-names-excluded-boundaries.md) 的最终响应模板填完整。
+配套可复制输入见 [`../../samples/ai-agent-sample-pack.md`](../../samples/ai-agent-sample-pack.md) 的 dirty workspace 心跳交接样例；若只需要收尾核对，先读 [`../../samples/ai-agent-dirty-workspace-one-pager.md`](../../samples/ai-agent-dirty-workspace-one-pager.md) 和 [`dirty-workspace-exit-checklist.md`](dirty-workspace-exit-checklist.md)，再按"验证证据 -> 状态证据 -> 已提交状态读回 -> 排除边界"的顺序把启动/收尾 `git status --short` 摘要和 [`final-report-names-excluded-boundaries.md`](final-report-names-excluded-boundaries.md) 的最终响应模板填完整。若本轮需要解释轻量验证和重型构建的分工，复制 [`../../samples/ai-agent-proof-checker-one-pager.md`](../../samples/ai-agent-proof-checker-one-pager.md) 的风险表与 notebook 句式。
 
 ## 阅读顺序
 

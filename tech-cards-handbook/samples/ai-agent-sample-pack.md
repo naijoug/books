@@ -1,7 +1,7 @@
 # AI Agent 工作流卡片 · 样本包
 
 > 9 张精选卡片，每张覆盖一个 Agent 失败模式、一条经验法则和一份验证清单。
-> 选自《技术卡片随身宝典》AI Agent 系列（共 29 张）。本样本包优先覆盖“心跳型 Agent 在 dirty workspace 中如何安全接力”的最小链路。
+> 选自《技术卡片随身宝典》AI Agent 系列（共 40 张）。本样本包优先覆盖“心跳型 Agent 在 dirty workspace 中如何安全接力”的最小链路。
 > 第一次使用时，先读 `books/tech-cards-handbook/chapters/ai-agent/README.md` 的“3 分钟读法”，再复制本样本包；这样能先分清失败吸收线、dirty workspace 线和提交证据线，避免把样本当成机械待办。
 > 阅读顺序就是这条链路的决策顺序：心跳/快照 → 规划 → 接力信号 → 无人值守默认动作 → 失败吸收 → 归属边界 → 状态证据 → 验证与报告；样本卡片只保留最小闭环，完整 quick path 见文末参考卡片。
 
@@ -323,11 +323,13 @@ notebook 提交：summaries `8c026a9` `Record Hermes heartbeat progress`（提�
 - books/tech-cards-handbook/chapters/ai-agent/dirty-workspace-exit-checklist.md
 - books/tech-cards-handbook/chapters/ai-agent/verify-before-optimistic-summary.md
 - books/tech-cards-handbook/chapters/ai-agent/unverified-items-need-explicit-handoff.md
+- books/tech-cards-handbook/chapters/ai-agent/local-proof-checker-precedes-heavy-build.md
 - books/tech-cards-handbook/chapters/ai-agent/report-from-committed-state.md
 - books/tech-cards-handbook/chapters/ai-agent/final-report-names-excluded-boundaries.md
 
 配套模板：
 - books/tech-cards-handbook/samples/ai-agent-final-report-field-quickref.md
+- books/tech-cards-handbook/samples/ai-agent-proof-checker-one-pager.md
 - books/tech-cards-handbook/samples/ai-agent-verification-failure-handoff-template.md
 ```
 
@@ -337,7 +339,7 @@ notebook 提交：summaries `8c026a9` `Record Hermes heartbeat progress`（提�
 
 ## 关于完整版
 
-这 9 张精选卡片选自《技术卡片随身宝典》AI Agent 系列的 29 张卡片。
+这 9 张精选卡片选自《技术卡片随身宝典》AI Agent 系列的 40 张卡片。
 
 完整版覆盖：工具契约与证据、上下文预算与状态设计、反馈闭环、运行控制、无人值守默认动作、交接机制、dirty workspace 收尾、失败输出改计划、最终报告边界和助手操作系统分层等主题。
 
