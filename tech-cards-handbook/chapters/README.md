@@ -92,8 +92,11 @@
 更新任一 `chapters/<tech-stack>/` 目录后，先用仓库相对路径脚本重新统计正式卡片数，再同步更新 `README.md` 和本文件的目录表：
 
 ```bash
+python3 scripts/test_verify_tech_cards_index.py
 python3 scripts/verify_tech_cards_index.py
 ```
+
+修改 `scripts/verify_tech_cards_index.py` 本身时，先跑回归测试，再跑全量索引校验；只改普通卡片或 README 计数时，至少保留全量索引校验。
 
 提交前还要确认 `README.md` 的“当前共 N 张正式卡片”和本文件“技术栈目录”表中的数字都来自同一次统计，避免只更新某个入口。
 

@@ -30,6 +30,7 @@
 
 ```bash
 python3 scripts/test_verify_tech_cards_links.py
+python3 scripts/test_verify_tech_cards_index.py
 python3 scripts/verify_tech_cards_links.py
 python3 scripts/verify_tech_cards_index.py
 ```
