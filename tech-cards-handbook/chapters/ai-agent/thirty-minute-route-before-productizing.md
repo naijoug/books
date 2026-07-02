@@ -10,7 +10,7 @@ AI 编程审查的机会看起来很容易产品化：做一个 landing page、�
 
 - **先验证证据供给**：真正的信号不是点赞，而是有人愿意提供 PR、agent log、失败命令、reviewer comment 或脱敏 final report。
 - **每一步都要有出口**：30 分钟路线不是迷你咨询，而是用 `Continue / Narrow / Stop` 判断下一步。没有授权、没有证据或范围过大时，直接 `Stop` 或 `Narrow`。
-- **输出先小后硬**：材料不足时只交付 `Next evidence needed`；材料足够时交付 1 页报告；不要一开始承诺完整工作流改造。
+- **输出先小后硬**：材料不足时只交付 `Next evidence needed`；材料足够时交付 1 页报告，可直接用 [`../../samples/ai-agent-audit-report-one-pager.md`](../../samples/ai-agent-audit-report-one-pager.md)；不要一开始承诺完整工作流改造。
 - **公开前先分层 claim**：任何案例、短帖或复盘都先标 `Fact`、`Inference`、`Unverified`、`Private`、`Stop`，不要把样本写成未经授权的战报。
 - **产品化来自重复信号**：只有同一类问题重复出现，并且有人愿意补证据、给预算或复用模板，才把它升级成付费审查、模板包、skill 或工具。
 
@@ -22,6 +22,8 @@ AI 编程审查的机会看起来很容易产品化：做一个 landing page、�
 05:00-10:00 收到回复后，只问目标、范围、证据、公开边界和期望输出。
 10:00-20:00 判断样本是否足够支持只读审查。
 20:00-30:00 输出下一条安全命令梯、Next evidence needed，或 1 页首份报告草稿。
+           如果样本足够，复制 books/tech-cards-handbook/samples/ai-agent-audit-report-one-pager.md；
+           如果样本不足，只填 Evidence inspected / Unverified items / Next evidence needed。
 
 收口：
 - Continue：对方补了具体证据，并愿意进入 PR / 持续审查。
@@ -51,4 +53,4 @@ AI 编程审查的机会看起来很容易产品化：做一个 landing page、�
 
 ## 检查
 
-准备产品化前检查：是否已经跑过至少一次 30 分钟路线；是否拿到真实可复核证据；是否能把关键判断标成 `Fact`、`Inference`、`Unverified`、`Private` 或 `Stop`；是否交付过 `Next evidence needed` 或 1 页报告；是否有 `Continue / Narrow / Stop` 记录；是否出现重复问题和明确购买/复用信号。若答案是否，继续跑样本路线，不要先做产品包装。
+准备产品化前检查：是否已经跑过至少一次 30 分钟路线；是否拿到真实可复核证据；是否能把关键判断标成 `Fact`、`Inference`、`Unverified`、`Private` 或 `Stop`；是否交付过 `Next evidence needed` 或基于 [`../../samples/ai-agent-audit-report-one-pager.md`](../../samples/ai-agent-audit-report-one-pager.md) 的 1 页报告；是否有 `Continue / Narrow / Stop` 记录；是否出现重复问题和明确购买/复用信号。若答案是否，继续跑样本路线，不要先做产品包装。
