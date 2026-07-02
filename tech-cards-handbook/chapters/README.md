@@ -87,32 +87,20 @@
 
 `scripts/verify_all_cards.py --language ...` 覆盖有代码块 verifier 的语言章节：Go、Python、Rust、TypeScript、React、Swift 和 Flutter。AI Agent 章节是工作流/运行边界卡片，不纳入语言代码 verifier；维护 `ai-agent/` 时按下面的索引校验、链接校验和每张卡片“问题、要点、示例、坑、检查”五段人工复核执行。
 
-## 索引校验
+## 索引与链接校验
 
-更新任一 `chapters/<tech-stack>/` 目录后，先用仓库相对路径脚本重新统计正式卡片数，再同步更新 `README.md` 和本文件的目录表：
+更新任一 `chapters/<tech-stack>/` 目录、跨技术栈引用、样本包链接或目录 README 链接后，先运行统一 preflight：
 
 ```bash
-python3 scripts/test_verify_tech_cards_index.py
-python3 scripts/verify_tech_cards_index.py
+python3 scripts/verify_tech_cards.py
 ```
 
-修改 `scripts/verify_tech_cards_index.py` 本身时，先跑回归测试，再跑全量索引校验；只改普通卡片或 README 计数时，至少保留全量索引校验。
+它会按顺序运行链接 verifier 回归测试、索引 verifier 回归测试、全量链接校验和全量索引校验。索引数字保证入口可信，链接扫描保证读者从任意卡片跳转时不会进入不存在的路径；链接脚本只检查 `tech-cards-handbook/` 内部的本地 Markdown 链接，忽略外链、纯锚点和 fenced code block，目录链接会尝试解析同名 `.md` 与 `README.md`。
+
+只改普通卡片或 README 文案、且没有修改 verifier 脚本时，可用下面的快速模式跳过回归 fixture：
+
+```bash
+python3 scripts/verify_tech_cards.py --full-only
+```
 
 提交前还要确认 `README.md` 的“当前共 N 张正式卡片”和本文件“技术栈目录”表中的数字都来自同一次统计，避免只更新某个入口。
-
-## 链接校验
-
-更新任何跨技术栈引用、样本包链接或目录 README 链接后，提交前至少跑一次 Markdown 内部链接扫描，确保相对路径没有因为移动文件或跨目录引用而断掉：
-
-```bash
-python3 scripts/verify_tech_cards_links.py
-```
-
-这条检查应和上面的“索引校验”一起运行：索引数字保证入口可信，链接扫描保证读者从任意卡片跳转时不会进入不存在的路径。脚本只检查 `tech-cards-handbook/` 内部的本地 Markdown 链接，忽略外链、纯锚点和 fenced code block；目录链接会尝试解析同名 `.md` 与 `README.md`。
-
-修改链接校验脚本本身时，先补或更新 stdlib 回归测试，再一起运行：
-
-```bash
-python3 scripts/test_verify_tech_cards_links.py
-python3 scripts/verify_tech_cards_links.py
-```
