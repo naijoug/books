@@ -330,6 +330,7 @@ notebook 提交：summaries `8c026a9` `Record Hermes heartbeat progress`（提�
 配套模板：
 - books/tech-cards-handbook/samples/ai-agent-final-report-field-quickref.md
 - books/tech-cards-handbook/samples/ai-agent-proof-checker-one-pager.md
+- books/tech-cards-handbook/samples/ai-agent-next-safe-command-ladder-one-pager.md
 - books/tech-cards-handbook/samples/ai-agent-verification-failure-handoff-template.md
 ```
 
