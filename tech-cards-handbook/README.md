@@ -6,7 +6,7 @@
 
 本书已按技术栈重组正式内容：`chapters/` 下每个技术栈一个目录，每张卡片一个 Markdown 文件。
 
-当前共 215 张正式卡片。
+当前共 216 张正式卡片。
 
 ## 目录结构
 
@@ -46,7 +46,7 @@ tech-cards-handbook/
 | React | `chapters/react/` | 54 张：Effect、状态、派生状态、URL 状态、服务端数据缓存、异步状态边界、请求过期保护、请求缓存去重、缓存 key 设计、缓存失效、缓存过期、搜索防抖、骨架屏、表单字段状态、提交状态、字段错误、幂等键、action 返回 contract、成功后重置、列表 key、虚拟列表、分页加载、加载更多并发锁、筛选排序重置、延迟渲染、过渡更新、ref、自定义 Hook、错误边界、Suspense、代码分割、可恢复重试、Context 拆分、回调身份、memo、Profiler、性能、乐观更新、React 19 表单状态、SSR hydration 稳定输入、浏览器 API 客户端读取、客户端个性化外壳、SSR 个性化首屏占位策略、外部 store、Strict Mode、Reducer 和状态机 |
 | Swift | `chapters/swift/` | 14 张：值语义、async/await、基础值、字符串、集合、switch、可选绑定、闭包、defer 清理、Result 错误状态、显式重试策略、领域定义的对外错误码、调用方降级策略和错误恢复决策表 |
 | Flutter | `chapters/flutter/` | 14 张：状态、列表、导航、测试、布局、输入控件、组件拆分、异步构建、生命周期检查、controller 释放、显式重试策略、领域定义的对外错误码、调用方降级策略和错误恢复决策表 |
-| AI Agent | `chapters/ai-agent/` | 41 张：Agent 边界、工具、工具结果、记忆、上下文预算、上下文状态设计、反馈判断、反馈修订、反馈池、迭代上限、心跳工作流、启动快照、规划取舍、交接、接力取舍、无人值守默认动作、启动前 staged 归属、提交范围台账、短节拍边界、验证总结、未验证项交接、提交状态读回、dirty workspace 归属判断、dirty workspace 收尾清单、最终报告边界、失败输出吸收、固定范围 AI 编程审查 offer、首份报告交付、30 分钟路线验证、发布反馈证据形状、AI 生成 PR 审查入口、AI 辅助 PR 审查产品阶梯、下一条安全命令梯、匿名案例证据边界、公开案例事实/推断/未验证分层、repo 入口里的 Agent 规则、本地 proof checker、统一 preflight wrapper、启动层边界和助手操作系统；dirty workspace 心跳接力的推荐阅读路径见 `chapters/ai-agent/README.md` |
+| AI Agent | `chapters/ai-agent/` | 42 张：Agent 边界、工具、工具结果、记忆、上下文预算、上下文状态设计、反馈判断、反馈修订、反馈池、迭代上限、心跳工作流、工作日志资产化、启动快照、规划取舍、交接、接力取舍、无人值守默认动作、启动前 staged 归属、提交范围台账、短节拍边界、验证总结、未验证项交接、提交状态读回、dirty workspace 归属判断、dirty workspace 收尾清单、最终报告边界、失败输出吸收、固定范围 AI 编程审查 offer、首份报告交付、30 分钟路线验证、发布反馈证据形状、AI 生成 PR 审查入口、AI 辅助 PR 审查产品阶梯、下一条安全命令梯、匿名案例证据边界、公开案例事实/推断/未验证分层、repo 入口里的 Agent 规则、本地 proof checker、统一 preflight wrapper、启动层边界和助手操作系统；dirty workspace 心跳接力的推荐阅读路径见 `chapters/ai-agent/README.md` |
 | 样本索引 | `samples/README.md` | 可复制输入的场景入口：完整 dirty workspace 接力、短接力一页纸、失败吸收、轻量 proof、命令梯、未验证项交接、验证失败交接和最终报告字段速查 |
 | 样本包 | `samples/ai-agent-sample-pack.md`、`samples/ai-agent-dirty-workspace-one-pager.md` | dirty workspace 心跳接力主线：9 张精选卡片建立最小闭环，附录和配套一页纸模板补足验证证据、未验证项交接、下一条安全命令、最终报告字段和错误边界 review 输入；适合复制给周期性唤醒的 Agent 使用 |
 
