@@ -16,32 +16,33 @@
 2. **dirty workspace 线**:读 [`startup-snapshot-before-planning.md`](startup-snapshot-before-planning.md)、[`uncommitted-handoff-needs-ownership-triage.md`](uncommitted-handoff-needs-ownership-triage.md) 和 [`staged-changes-are-not-ownership.md`](staged-changes-are-not-ownership.md),先分清启动前改动、staged path、可接管 path,再决定本轮文件范围。
 3. **提交证据线**:读 [`commit-scope-ledger-prevents-mixed-ownership.md`](commit-scope-ledger-prevents-mixed-ownership.md)、[`dirty-workspace-exit-checklist.md`](dirty-workspace-exit-checklist.md) 和 [`report-from-committed-state.md`](report-from-committed-state.md),最终报告从已提交状态读回 hash,同时写清排除边界；如果本轮是文档/索引/配置小改，先用 [`../../samples/ai-agent-proof-checker-one-pager.md`](../../samples/ai-agent-proof-checker-one-pager.md) 设计轻量 preflight，再用 [`../../samples/ai-agent-next-safe-command-ladder-one-pager.md`](../../samples/ai-agent-next-safe-command-ladder-one-pager.md) 把验证清单改写为“当前最大风险 -> 下一条安全命令 -> pass/fail 语义”的命令梯；收尾前可用 [`../../samples/ai-agent-final-report-field-quickref.md`](../../samples/ai-agent-final-report-field-quickref.md) 核对固定字段。若验证失败或无法执行，用 [`../../samples/ai-agent-verification-failure-handoff-template.md`](../../samples/ai-agent-verification-failure-handoff-template.md) 交接失败证据；若只是存在未覆盖边界，用 [`../../samples/ai-agent-unverified-handoff-one-pager.md`](../../samples/ai-agent-unverified-handoff-one-pager.md) 把已验证事实、未验证项、结论措辞和下一步第一条动作拆开。
 
-完成这三条线后,再进入下面的 14 步快速路径补齐运行控制细节；如果要把整套输入直接交给下一轮 Agent，使用 [`../../samples/ai-agent-sample-pack.md`](../../samples/ai-agent-sample-pack.md) 中的 9 张精选卡片、附录和配套一页纸模板；如果不确定该复制哪份输入，先看 [`../../samples/README.md`](../../samples/README.md) 的场景索引。
+完成这三条线后,再进入下面的 15 步快速路径补齐运行控制细节；如果要把整套输入直接交给下一轮 Agent，使用 [`../../samples/ai-agent-sample-pack.md`](../../samples/ai-agent-sample-pack.md) 中的 10 张精选卡片、附录和配套一页纸模板；如果不确定该复制哪份输入，先看 [`../../samples/README.md`](../../samples/README.md) 的场景索引。
 
 ## 快速路径:dirty workspace 心跳接力
 
-这条路径不是通用入门顺序,而是给已经在真实项目里工作的 Agent 使用:先建立启动快照,把上一轮接力点当作信号而不是义务,再选择可安全推进的小任务,最后把成果和未接管边界同时写清。它和样本包的关系是：本表负责解释为什么按 14 步推进，样本包负责提供可复制 prompt、证据表和最终报告字段。
+这条路径不是通用入门顺序,而是给已经在真实项目里工作的 Agent 使用:先建立启动快照,把上一轮接力点当作信号而不是义务,再选择可安全推进的小任务,最后把成果和未接管边界同时写清。它和样本包的关系是：本表负责解释为什么按 15 步推进，样本包负责提供可复制 prompt、证据表和最终报告字段。
 
 | 步骤 | 阶段 | 目标 | 卡片 |
 |---|---|---|---|
 | 1 | 唤醒与事实 | 防止凭上一轮印象行动 | [`heartbeat-workflow-prevents-drift.md`](heartbeat-workflow-prevents-drift.md) |
-| 2 | 唤醒与事实 | 在规划前保存当前 repo 状态 | [`startup-snapshot-before-planning.md`](startup-snapshot-before-planning.md) |
-| 3 | 规划与取舍 | 从候选工作中做取舍 | [`planning-selects-work-not-just-summary.md`](planning-selects-work-not-just-summary.md) |
-| 4 | 规划与取舍 | 把上一轮接力点当作信号,而不是自动义务 | [`continuation-is-signal-not-obligation.md`](continuation-is-signal-not-obligation.md) |
-| 5 | 规划与取舍 | 无人值守时选择低风险默认动作,而不是等待澄清 | [`unattended-agent-chooses-default-action.md`](unattended-agent-chooses-default-action.md) |
-| 6 | 规划与取舍 | 让失败输出改变范围、顺序、目标或交接 | [`failure-output-must-change-plan.md`](failure-output-must-change-plan.md) |
-| 7 | 所有权边界 | 对启动前 dirty 接力文件做归属判断;最终报告保留状态证据 | [`uncommitted-handoff-needs-ownership-triage.md`](uncommitted-handoff-needs-ownership-triage.md) |
-| 8 | 所有权边界 | 单独识别启动前 staged path,不把 index 状态误当授权;状态证据必须进入最终报告 | [`staged-changes-are-not-ownership.md`](staged-changes-are-not-ownership.md) |
-| 9 | 所有权边界 | 用提交范围台账防止混入未知归属;台账包含状态证据列 | [`commit-scope-ledger-prevents-mixed-ownership.md`](commit-scope-ledger-prevents-mixed-ownership.md) |
-| 10 | 收尾与状态证据 | 用清单做 path-limited 收尾 | [`dirty-workspace-exit-checklist.md`](dirty-workspace-exit-checklist.md) |
-| 11 | 收尾与状态证据 | 先跑聚焦验证并显式交接未验证项 | [`verify-before-optimistic-summary.md`](verify-before-optimistic-summary.md)、[`unverified-items-need-explicit-handoff.md`](unverified-items-need-explicit-handoff.md); 命令梯模板见 [`../../samples/ai-agent-next-safe-command-ladder-one-pager.md`](../../samples/ai-agent-next-safe-command-ladder-one-pager.md)，未验证项一页纸见 [`../../samples/ai-agent-unverified-handoff-one-pager.md`](../../samples/ai-agent-unverified-handoff-one-pager.md) |
-| 12 | 验证与集成边界 | 先用窄范围 proof checker 证明基础契约,再把渲染和插件行为交给重型构建 | [`local-proof-checker-precedes-heavy-build.md`](local-proof-checker-precedes-heavy-build.md); 可复制输入见 [`../../samples/ai-agent-proof-checker-one-pager.md`](../../samples/ai-agent-proof-checker-one-pager.md) |
-| 13 | 报告与读回 | 从已提交状态读回 hash 和 subject;报告包含启动/收尾状态证据 | [`report-from-committed-state.md`](report-from-committed-state.md) |
-| 14 | 报告与读回 | 最终响应同时列成果和排除项 | [`final-report-names-excluded-boundaries.md`](final-report-names-excluded-boundaries.md) |
+| 2 | 唤醒与事实 | 把工作日志写成下一轮可复用资产 | [`work-log-is-reusable-asset.md`](work-log-is-reusable-asset.md) |
+| 3 | 唤醒与事实 | 在规划前保存当前 repo 状态 | [`startup-snapshot-before-planning.md`](startup-snapshot-before-planning.md) |
+| 4 | 规划与取舍 | 从候选工作中做取舍 | [`planning-selects-work-not-just-summary.md`](planning-selects-work-not-just-summary.md) |
+| 5 | 规划与取舍 | 把上一轮接力点当作信号,而不是自动义务 | [`continuation-is-signal-not-obligation.md`](continuation-is-signal-not-obligation.md) |
+| 6 | 规划与取舍 | 无人值守时选择低风险默认动作,而不是等待澄清 | [`unattended-agent-chooses-default-action.md`](unattended-agent-chooses-default-action.md) |
+| 7 | 规划与取舍 | 让失败输出改变范围、顺序、目标或交接 | [`failure-output-must-change-plan.md`](failure-output-must-change-plan.md) |
+| 8 | 所有权边界 | 对启动前 dirty 接力文件做归属判断;最终报告保留状态证据 | [`uncommitted-handoff-needs-ownership-triage.md`](uncommitted-handoff-needs-ownership-triage.md) |
+| 9 | 所有权边界 | 单独识别启动前 staged path,不把 index 状态误当授权;状态证据必须进入最终报告 | [`staged-changes-are-not-ownership.md`](staged-changes-are-not-ownership.md) |
+| 10 | 所有权边界 | 用提交范围台账防止混入未知归属;台账包含状态证据列 | [`commit-scope-ledger-prevents-mixed-ownership.md`](commit-scope-ledger-prevents-mixed-ownership.md) |
+| 11 | 收尾与状态证据 | 用清单做 path-limited 收尾 | [`dirty-workspace-exit-checklist.md`](dirty-workspace-exit-checklist.md) |
+| 12 | 收尾与状态证据 | 先跑聚焦验证并显式交接未验证项 | [`verify-before-optimistic-summary.md`](verify-before-optimistic-summary.md)、[`unverified-items-need-explicit-handoff.md`](unverified-items-need-explicit-handoff.md); 命令梯模板见 [`../../samples/ai-agent-next-safe-command-ladder-one-pager.md`](../../samples/ai-agent-next-safe-command-ladder-one-pager.md)，未验证项一页纸见 [`../../samples/ai-agent-unverified-handoff-one-pager.md`](../../samples/ai-agent-unverified-handoff-one-pager.md) |
+| 13 | 验证与集成边界 | 先用窄范围 proof checker 证明基础契约,再把渲染和插件行为交给重型构建 | [`local-proof-checker-precedes-heavy-build.md`](local-proof-checker-precedes-heavy-build.md); 可复制输入见 [`../../samples/ai-agent-proof-checker-one-pager.md`](../../samples/ai-agent-proof-checker-one-pager.md) |
+| 14 | 报告与读回 | 从已提交状态读回 hash 和 subject;报告包含启动/收尾状态证据 | [`report-from-committed-state.md`](report-from-committed-state.md) |
+| 15 | 报告与读回 | 最终响应同时列成果和排除项 | [`final-report-names-excluded-boundaries.md`](final-report-names-excluded-boundaries.md) |
 
-失败吸收线索：步骤 6 不是事后解释失败，而是要求失败输出立刻改变范围、顺序、目标或交接；可先读 [`failure-output-must-change-plan.md`](failure-output-must-change-plan.md)，再用 [`../../samples/ai-agent-failure-absorption-one-pager.md`](../../samples/ai-agent-failure-absorption-one-pager.md) 做收尾检查，并对照 [`../../samples/ai-agent-sample-pack.md`](../../samples/ai-agent-sample-pack.md) 中“失败吸收速记”的四类最小改计划例子，检查最终 notebook 是否写清“失败如何改变了本轮选择”。
+失败吸收线索：步骤 7 不是事后解释失败，而是要求失败输出立刻改变范围、顺序、目标或交接；可先读 [`failure-output-must-change-plan.md`](failure-output-must-change-plan.md)，再用 [`../../samples/ai-agent-failure-absorption-one-pager.md`](../../samples/ai-agent-failure-absorption-one-pager.md) 做收尾检查，并对照 [`../../samples/ai-agent-sample-pack.md`](../../samples/ai-agent-sample-pack.md) 中“失败吸收速记”的四类最小改计划例子，检查最终 notebook 是否写清“失败如何改变了本轮选择”。
 
-状态证据线索：步骤 7–9 和 12 的卡片已在 2026-06-25 补强，要求最终报告保留启动/收尾 `git status --short`、分 repo 读回 commit hash、提交范围台账包含状态证据列；读者可按这条线索从所有权边界串到最终报告，并用 [`../../samples/ai-agent-sample-pack.md`](../../samples/ai-agent-sample-pack.md) 的样本包、[`../../samples/ai-agent-dirty-workspace-one-pager.md`](../../samples/ai-agent-dirty-workspace-one-pager.md) 的一页纸和 [`../../samples/ai-agent-final-report-field-quickref.md`](../../samples/ai-agent-final-report-field-quickref.md) 的字段速查核对可复制输入是否同步。
+状态证据线索：步骤 8–10 和 13 的卡片已在 2026-06-25 补强，要求最终报告保留启动/收尾 `git status --short`、分 repo 读回 commit hash、提交范围台账包含状态证据列；读者可按这条线索从所有权边界串到最终报告，并用 [`../../samples/ai-agent-sample-pack.md`](../../samples/ai-agent-sample-pack.md) 的样本包、[`../../samples/ai-agent-dirty-workspace-one-pager.md`](../../samples/ai-agent-dirty-workspace-one-pager.md) 的一页纸和 [`../../samples/ai-agent-final-report-field-quickref.md`](../../samples/ai-agent-final-report-field-quickref.md) 的字段速查核对可复制输入是否同步。
 
 配套可复制输入见 [`../../samples/ai-agent-sample-pack.md`](../../samples/ai-agent-sample-pack.md) 的 dirty workspace 心跳交接样例；若只需要收尾核对，先读 [`../../samples/ai-agent-dirty-workspace-one-pager.md`](../../samples/ai-agent-dirty-workspace-one-pager.md) 和 [`dirty-workspace-exit-checklist.md`](dirty-workspace-exit-checklist.md)，再按"验证证据 -> 状态证据 -> 已提交状态读回 -> 排除边界"的顺序把启动/收尾 `git status --short` 摘要和 [`final-report-names-excluded-boundaries.md`](final-report-names-excluded-boundaries.md) 的最终响应模板填完整。若本轮需要解释轻量验证和重型构建的分工，复制 [`../../samples/ai-agent-proof-checker-one-pager.md`](../../samples/ai-agent-proof-checker-one-pager.md) 的风险表与 notebook 句式；若本轮只是写了“lint/test/build”清单，先用 [`../../samples/ai-agent-next-safe-command-ladder-one-pager.md`](../../samples/ai-agent-next-safe-command-ladder-one-pager.md) 补齐当前最大风险、每级 pass/fail 语义和停止条件；若最终仍有未覆盖边界，用 [`../../samples/ai-agent-unverified-handoff-one-pager.md`](../../samples/ai-agent-unverified-handoff-one-pager.md) 写清已验证事实、未验证原因、结论边界和下一段第一条动作。
 

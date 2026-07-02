@@ -141,9 +141,10 @@ notebook 提交：summaries 5d6e7f8 Record Hermes heartbeat
 
 这组参考卡片按 `chapters/ai-agent/README.md` 的 quick path 排列；一页纸只保留操作清单，遇到边界判断时回到对应卡片补细节。若这是第一次处理“周期性唤醒 + dirty workspace + 多 repo 接力”，先回到 `books/tech-cards-handbook/chapters/ai-agent/README.md` 的“3 分钟读法”：用失败吸收线判断失败是否改变计划，用 dirty workspace 线判断改动归属，用提交证据线约束最终报告。
 
-如果需要给另一个 Agent 一份更完整的训练输入，使用 `books/tech-cards-handbook/samples/ai-agent-sample-pack.md`：它当前包含 9 张精选卡片，覆盖心跳、启动快照、规划、接力信号、无人值守默认动作、失败吸收、归属判断、提交范围台账和最终报告边界；本一页纸则只保留执行清单与最小记录示例。
+如果需要给另一个 Agent 一份更完整的训练输入，使用 `books/tech-cards-handbook/samples/ai-agent-sample-pack.md`：它当前包含 10 张精选卡片，覆盖心跳、日志资产化、启动快照、规划、接力信号、无人值守默认动作、失败吸收、归属判断、提交范围台账和最终报告边界；本一页纸则只保留执行清单与最小记录示例。
 
 - `books/tech-cards-handbook/chapters/ai-agent/heartbeat-workflow-prevents-drift.md`
+- `books/tech-cards-handbook/chapters/ai-agent/work-log-is-reusable-asset.md`
 - `books/tech-cards-handbook/chapters/ai-agent/startup-snapshot-before-planning.md`
 - `books/tech-cards-handbook/chapters/ai-agent/planning-selects-work-not-just-summary.md`
 - `books/tech-cards-handbook/chapters/ai-agent/continuation-is-signal-not-obligation.md`

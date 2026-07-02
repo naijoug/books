@@ -1,9 +1,9 @@
 # AI Agent 工作流卡片 · 样本包
 
-> 本样本包不是 AI Agent 章节的完整目录，而是一条可复制的 dirty workspace 心跳接力主线：9 张精选卡片负责建立最小闭环，附录和配套模板负责把它落到真实 prompt、验证证据和最终报告字段。
-> 选自《技术卡片随身宝典》AI Agent 系列（共 40 张）。如果只想减少一次无人值守接力的事故率，先按本包顺序走完；如果要扩展到工具契约、上下文预算、反馈池或助手操作系统，再回到完整章节目录。
+> 本样本包不是 AI Agent 章节的完整目录，而是一条可复制的 dirty workspace 心跳接力主线：10 张精选卡片负责建立最小闭环，附录和配套模板负责把它落到真实 prompt、验证证据和最终报告字段。
+> 选自《技术卡片随身宝典》AI Agent 系列（共 42 张）。如果只想减少一次无人值守接力的事故率，先按本包顺序走完；如果要扩展到工具契约、上下文预算、反馈池或助手操作系统，再回到完整章节目录。
 > 第一次使用时，先读 `books/tech-cards-handbook/chapters/ai-agent/README.md` 的“3 分钟读法”，再复制本样本包；这样能先分清失败吸收线、dirty workspace 线和提交证据线，避免把样本当成机械待办。
-> 阅读顺序就是这条链路的决策顺序：心跳/快照 → 规划 → 接力信号 → 无人值守默认动作 → 失败吸收 → 归属边界 → 状态证据 → 验证与报告；样本卡片只保留最小闭环，完整 quick path 和一页纸入口见文末参考卡片与配套模板。
+> 阅读顺序就是这条链路的决策顺序：心跳/日志资产化/快照 → 规划 → 接力信号 → 无人值守默认动作 → 失败吸收 → 归属边界 → 状态证据 → 验证与报告；样本卡片只保留最小闭环，完整 quick path 和一页纸入口见文末参考卡片与配套模板。
 
 ---
 
@@ -34,7 +34,32 @@
 
 ---
 
-## 卡片 2：启动快照先于规划，不要凭上一轮印象选任务
+## 卡片 2：工作日志是可复用资产，不要写成心情流水账
+
+**问题**：心跳型 Agent 每轮都会写 notebook、summary 或交接记录，如何避免这些记录只变成“我做了什么”的流水账，而是成为下一轮可直接复用的资产？
+
+**要点**：
+
+- 日志要服务接力，不是服务存在感；每段记录必须能回答“当前状态、候选工作、取舍理由、实际推进、验证证据、下一条动作”。
+- 把事实、推断和计划分开写：事实来自命令、diff、文件路径或测试输出；推断要说明依据；计划要落到下一条可执行动作。
+- 记录要能反向审计提交范围：变更文件、验证命令、commit hash、未接管边界必须能对上实际 repo 状态。
+
+**示例**：
+
+```text
+上一段/当前状态：books clean；loom 启动前已有 dirty path，未接管。
+本轮选择：修改 books/.../samples/...，因为它是 clean repo 的低风险文档小块。
+验证证据：git diff --check；python3 scripts/verify_tech_cards.py --full-only。
+后续接力：下一轮先检查 samples/README.md 是否需要同步入口文案。
+```
+
+**坑**：只写“继续优化”“已完成总结”，却不写为什么没碰 dirty repo、验证命令是什么、下一轮第一条命令在哪里；下一轮只能重新摸索，日志没有变成资产。
+
+**检查**：另一个 Agent 只读这段日志，能否在不猜测的情况下复现本轮提交边界、验证证据和下一步？能，才算可复用资产。
+
+---
+
+## 卡片 3：启动快照先于规划，不要凭上一轮印象选任务
 
 **问题**：心跳型 Agent 醒来后，如何避免把上一轮 `Next path` 误当成当前可安全执行的命令？
 
@@ -50,7 +75,7 @@
 
 ---
 
-## 卡片 3：规划要选择工作，不要只复述状态
+## 卡片 4：规划要选择工作，不要只复述状态
 
 **问题**：周期性运行的 Agent 如何避免把“复盘”和“总结”误当成本轮成果？
 
@@ -66,7 +91,7 @@
 
 ---
 
-## 卡片 4：接力点是信号，不是义务
+## 卡片 5：接力点是信号，不是义务
 
 **问题**：上一轮 Agent 已经写了“后续接力”，下一轮是否必须照做？
 
@@ -91,7 +116,7 @@
 
 ---
 
-## 卡片 5：无人值守 Agent 要选择默认动作，不要等待澄清
+## 卡片 6：无人值守 Agent 要选择默认动作，不要等待澄清
 
 **问题**：cron、scheduled job 或 CI 里的 Agent 没有用户在场，遇到轻微歧义时应该怎么办？
 
@@ -117,7 +142,7 @@
 
 ---
 
-## 卡片 6：失败输出要改变计划，不要当作背景噪音
+## 卡片 7：失败输出要改变计划，不要当作背景噪音
 
 **问题**：Agent 已经看到命令失败、工作区 dirty、测试不通过或搜索结果缺失时，如何避免继续按原计划推进，最后把失败信号包装成顺利完成？
 
@@ -162,7 +187,7 @@
 
 ---
 
-## 卡片 7：未提交接力文件先判断归属，不要直接接管
+## 卡片 8：未提交接力文件先判断归属，不要直接接管
 
 **问题**：上一轮记录的接力点正好对应 repo 里的未提交文件，下一轮 Agent 能不能直接继续改、一起提交？
 
@@ -179,7 +204,7 @@
 
 ---
 
-## 卡片 8：提交范围台账防止混入未知归属
+## 卡片 9：提交范围台账防止混入未知归属
 
 **问题**：多个子 repo 同时 dirty 时，Agent 如何防止把启动前已有、归属未知或其他 agent 的改动一起提交？
 
@@ -205,7 +230,7 @@ loom       docs/PLANS.md                            staged/unknown  未接管   
 
 ---
 
-## 卡片 9：最终报告要写清排除边界，不要只报完成项
+## 卡片 10：最终报告要写清排除边界，不要只报完成项
 
 **问题**：Agent 正确只提交了自己的文件，为什么最终报告仍可能误导下一轮或用户？
 
@@ -310,8 +335,9 @@ notebook 提交：summaries `8c026a9` `Record Hermes heartbeat progress`（提�
 - ✅ `未接管边界：docs/documents/awesome/ai/agent.md 启动前已 dirty，归属未知，未 stage。`
 - ❌ 省略 `未接管边界` 字段。
 
-参考卡片（按 `心跳/快照 -> 规划 -> 接力信号 -> 无人值守默认动作 -> 失败吸收 -> 归属/验证/报告` 的 quick path 顺序排列；完整路径见 `books/tech-cards-handbook/chapters/ai-agent/README.md` 和 `books/tech-cards-handbook/samples/ai-agent-dirty-workspace-one-pager.md`）：
+参考卡片（按 `心跳/日志资产化/快照 -> 规划 -> 接力信号 -> 无人值守默认动作 -> 失败吸收 -> 归属/验证/报告` 的 quick path 顺序排列；完整路径见 `books/tech-cards-handbook/chapters/ai-agent/README.md` 和 `books/tech-cards-handbook/samples/ai-agent-dirty-workspace-one-pager.md`）：
 - books/tech-cards-handbook/chapters/ai-agent/heartbeat-workflow-prevents-drift.md
+- books/tech-cards-handbook/chapters/ai-agent/work-log-is-reusable-asset.md
 - books/tech-cards-handbook/chapters/ai-agent/startup-snapshot-before-planning.md
 - books/tech-cards-handbook/chapters/ai-agent/planning-selects-work-not-just-summary.md
 - books/tech-cards-handbook/chapters/ai-agent/continuation-is-signal-not-obligation.md
@@ -341,7 +367,7 @@ notebook 提交：summaries `8c026a9` `Record Hermes heartbeat progress`（提�
 
 ## 关于完整版
 
-这 9 张精选卡片选自《技术卡片随身宝典》AI Agent 系列的 40 张卡片。
+这 10 张精选卡片选自《技术卡片随身宝典》AI Agent 系列的 42 张卡片。
 
 完整版覆盖：工具契约与证据、上下文预算与状态设计、反馈闭环、运行控制、无人值守默认动作、交接机制、dirty workspace 收尾、失败输出改计划、最终报告边界和助手操作系统分层等主题。
 
