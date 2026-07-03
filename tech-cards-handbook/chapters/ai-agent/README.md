@@ -100,7 +100,7 @@
 | 最终报告要写清排除边界,不要只报完成项 | [`final-report-names-excluded-boundaries.md`](final-report-names-excluded-boundaries.md) |
 | Dirty workspace 收尾要有清单,不要靠最后一眼状态 | [`dirty-workspace-exit-checklist.md`](dirty-workspace-exit-checklist.md) |
 | 失败输出要改变计划,不要当作背景噪音 | [`failure-output-must-change-plan.md`](failure-output-must-change-plan.md) |
-| AI 编程审查要先做固定范围 offer,不要一上来卖全栈自动化 | [`ai-coding-audit-is-fixed-scope-offer.md`](ai-coding-audit-is-fixed-scope-offer.md)；可复制交付物见 [`../../samples/ai-agent-audit-report-one-pager.md`](../../samples/ai-agent-audit-report-one-pager.md) |
+| AI 编程审查要先做固定范围 offer,不要一上来卖全栈自动化 | [`ai-coding-audit-is-fixed-scope-offer.md`](ai-coding-audit-is-fixed-scope-offer.md)；可复制交付物见 [`../../samples/ai-agent-audit-report-one-pager.md`](../../samples/ai-agent-audit-report-one-pager.md)，公开复盘前用 [`../../samples/ai-agent-case-publishing-ladder-one-pager.md`](../../samples/ai-agent-case-publishing-ladder-one-pager.md) 降级证据不足的 claim |
 | 先交付首份报告，不要先卖咨询 | [`first-report-before-consulting.md`](first-report-before-consulting.md)；报告骨架见 [`../../samples/ai-agent-audit-report-one-pager.md`](../../samples/ai-agent-audit-report-one-pager.md) |
 | 先跑 30 分钟路线，不要先产品化 | [`thirty-minute-route-before-productizing.md`](thirty-minute-route-before-productizing.md)；路线收口可复用 [`../../samples/ai-agent-audit-report-one-pager.md`](../../samples/ai-agent-audit-report-one-pager.md) |
 | 发布反馈先看证据形状，不要只看互动量 | [`publish-feedback-needs-evidence-shape.md`](publish-feedback-needs-evidence-shape.md)；从报告到案例的发布决策见 [`../../samples/ai-agent-case-publishing-ladder-one-pager.md`](../../samples/ai-agent-case-publishing-ladder-one-pager.md) |
