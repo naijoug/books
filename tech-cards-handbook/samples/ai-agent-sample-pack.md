@@ -4,6 +4,7 @@
 > 选自《技术卡片随身宝典》AI Agent 系列（共 42 张）。如果只想减少一次无人值守接力的事故率，先按本包顺序走完；如果要扩展到工具契约、上下文预算、反馈池或助手操作系统，再回到完整章节目录。
 > 第一次使用时，先读 `books/tech-cards-handbook/chapters/ai-agent/README.md` 的“3 分钟读法”，再复制本样本包；这样能先分清失败吸收线、dirty workspace 线和提交证据线，避免把样本当成机械待办。
 > 阅读顺序就是这条链路的决策顺序：心跳/日志资产化/快照 → 规划 → 接力信号 → 无人值守默认动作 → 失败吸收 → 归属边界 → 状态证据 → 验证与报告；样本卡片只保留最小闭环，完整 quick path 和一页纸入口见文末参考卡片与配套模板。
+> 如果你的目标不只是让接力更稳，而是把一次 AI 编程审查转成收入实验，先用本包稳住 dirty workspace，再在文末“收入实验接力”里复制审查报告一页纸和案例发布阶梯；不要把未验证的交付物直接包装成公开战报。
 
 ---
 
@@ -362,6 +363,53 @@ notebook 提交：summaries `8c026a9` `Record Hermes heartbeat progress`（提�
 ```
 
 **检查**：如果最终输出只列完成项、不列未接管边界，或者 notebook 里没有说明为什么避开某个 dirty repo，这次心跳仍不具备可接力性；下一轮应该先回到归属判断，而不是继续提交。
+
+---
+
+## 附录：收入实验接力输入样例
+
+当 dirty workspace 心跳已经跑通，下一步可以把一次小范围 AI 编程审查变成可交付的收入实验。不要跳过固定范围、证据边界和发布降级：交付给客户的是审查报告，不是“AI 全自动改好一切”；公开复盘前先判断材料能否支撑 claim。
+
+```text
+你正在把一次 AI 编程审查做成固定范围收入实验。
+
+启动前必须先确认：
+1. 待审范围是否能在 30–60 分钟内读完；
+2. 输入证据是否包含 diff、关键调用链、运行命令或失败输出；
+3. 哪些信息只能写成 Fact / Inference / Unverified；
+4. 是否有客户、项目或公开 repo 的授权边界。
+
+执行顺序：
+1. 先读 `books/tech-cards-handbook/chapters/ai-agent/ai-coding-audit-is-fixed-scope-offer.md`，把服务压成一个固定范围 offer。
+2. 用 `books/tech-cards-handbook/samples/ai-agent-audit-report-one-pager.md` 填交付报告：Scope、Executive Summary、Top Risks、Next Safe Command Ladder、Handoff Template、Continue / Narrow / Stop。
+3. 如果材料不足以支持风险结论，先降级为 `NARROW_FIRST` 或 `Unverified`，不要补想象中的测试结果。
+4. 如果想把交付物转成内容或案例，再用 `books/tech-cards-handbook/samples/ai-agent-case-publishing-ladder-one-pager.md` 判断 Evidence shape、公开边界和 Claim labels。
+5. 公开输出只能使用可公开证据；客户私有上下文、未验证推断和缺失命令必须降级或删除。
+
+最终报告固定字段：
+- Offer scope：<本次审查包含/不包含什么>
+- Evidence used：<相对路径、diff、命令输出或公开链接>
+- Top risks：<最多 3 条，带 Fact / Inference / Unverified 标签>
+- Next safe command：<下一条最小验证命令或需要补的证据>
+- Delivery artifact：books/tech-cards-handbook/samples/ai-agent-audit-report-one-pager.md
+- Publishing decision：<Continue / Narrow / Stop + 原因>
+- Case artifact：books/tech-cards-handbook/samples/ai-agent-case-publishing-ladder-one-pager.md
+```
+
+参考卡片：
+- books/tech-cards-handbook/chapters/ai-agent/ai-coding-audit-is-fixed-scope-offer.md
+- books/tech-cards-handbook/chapters/ai-agent/first-report-before-consulting.md
+- books/tech-cards-handbook/chapters/ai-agent/thirty-minute-route-before-productizing.md
+- books/tech-cards-handbook/chapters/ai-agent/ai-assisted-pr-review-path-is-product-ladder.md
+- books/tech-cards-handbook/chapters/ai-agent/publish-feedback-needs-evidence-shape.md
+- books/tech-cards-handbook/chapters/ai-agent/anonymous-case-must-not-invent-evidence.md
+- books/tech-cards-handbook/chapters/ai-agent/public-case-separates-facts-inferences-unverified.md
+
+配套模板：
+- books/tech-cards-handbook/samples/ai-agent-audit-report-one-pager.md
+- books/tech-cards-handbook/samples/ai-agent-case-publishing-ladder-one-pager.md
+
+**检查**：如果报告里没有明确 Scope、证据路径、未验证项和下一条安全命令，就不能称为可交付审查；如果公开复盘没有 Evidence shape 和 Claim labels，就只能保留为内部复盘或方法样板。
 
 ---
 
