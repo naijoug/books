@@ -357,6 +357,7 @@ notebook 提交：summaries `8c026a9` `Record Hermes heartbeat progress`（提�
 配套模板：
 - books/tech-cards-handbook/samples/ai-agent-final-report-field-quickref.md
 - books/tech-cards-handbook/samples/ai-agent-proof-checker-one-pager.md
+- books/tech-cards-handbook/samples/ai-agent-full-proof-baseline-one-pager.md
 - books/tech-cards-handbook/samples/ai-agent-next-safe-command-ladder-one-pager.md
 - books/tech-cards-handbook/samples/ai-agent-unverified-handoff-one-pager.md
 - books/tech-cards-handbook/samples/ai-agent-verification-failure-handoff-template.md
@@ -415,7 +416,7 @@ notebook 提交：summaries `8c026a9` `Record Hermes heartbeat progress`（提�
 
 ## 关于完整版
 
-这 10 张精选卡片选自《技术卡片随身宝典》AI Agent 系列的 42 张卡片。
+这 10 张精选卡片选自《技术卡片随身宝典》AI Agent 系列的 43 张卡片。
 
 完整版覆盖：工具契约与证据、上下文预算与状态设计、反馈闭环、运行控制、无人值守默认动作、交接机制、dirty workspace 收尾、失败输出改计划、最终报告边界和助手操作系统分层等主题。
 
