@@ -12,6 +12,7 @@
 | 轻量 proof：小改动需要先证明基础契约，再决定是否跑重型构建 | [`ai-agent-proof-checker-one-pager.md`](ai-agent-proof-checker-one-pager.md) | 设计轻量 preflight 的风险边界、命令顺序和 notebook 句式 |
 | 全量 proof：想把 checker 升级成 AGENTS/preflight/CI 候选 | [`ai-agent-full-proof-baseline-one-pager.md`](ai-agent-full-proof-baseline-one-pager.md) | 先建立红绿基线、分类失败项，再决定是否升级为常规必跑项 |
 | 统一 preflight：验证命令超过三条，下一轮容易漏跑或报告漂移 | [`ai-agent-preflight-wrapper-one-pager.md`](ai-agent-preflight-wrapper-one-pager.md) | 判断是否该包成 wrapper，固定默认/快速模式、失败标签、编排测试和文档入口边界 |
+| proof / baseline / wrapper / 命令梯容易混用，不确定下一份输入该选哪张 | [`ai-agent-proof-to-preflight-decision-table.md`](ai-agent-proof-to-preflight-decision-table.md) | 用四个问题和决策矩阵判断下一步复制 proof checker、全量基线、wrapper、命令梯还是交接模板 |
 | 验证清单太散，需要确定下一条最安全命令 | [`ai-agent-next-safe-command-ladder-one-pager.md`](ai-agent-next-safe-command-ladder-one-pager.md) | 把“跑哪些检查”改写成“当前最大风险 -> 下一条命令 -> pass/fail 语义” |
 | 部分边界没有覆盖，但本轮验证没有失败 | [`ai-agent-unverified-handoff-one-pager.md`](ai-agent-unverified-handoff-one-pager.md) | 拆开已验证事实、未验证原因、结论措辞和下一步第一条动作 |
 | 验证被失败阻断，需要把失败证据交给下一轮 | [`ai-agent-verification-failure-handoff-template.md`](ai-agent-verification-failure-handoff-template.md) | 固定“已验证 / 未验证 / 结论措辞 / 下一步 / 证据位置”字段 |
@@ -22,7 +23,7 @@
 ## 使用顺序
 
 1. **先选主入口**：完整接力用样本包，只做一次短接力用 dirty workspace 一页纸。
-2. **再补风险模板**：失败多就用失败吸收；验证边界不清就用 proof checker、全量 proof 基线、统一 preflight wrapper、命令梯或未验证项交接。
+2. **再补风险模板**：失败多就用失败吸收；验证边界不清就先用 proof 到 preflight 决策表选入口，再复制 proof checker、全量 proof 基线、统一 preflight wrapper、命令梯或未验证项交接。
 3. **最后核对报告字段或商业化样本**：提交后用最终报告字段速查表，确保成果和排除边界同时可接力；如果目标是收入实验，用 AI Coding Audit Report 一页纸把审查压缩成固定范围交付；如果想把交付物公开，先用案例发布阶梯确认材料只能写成匿名案例、公开案例、方法样板还是不发布。
 
 完整背景阅读见 [`../chapters/ai-agent/README.md`](../chapters/ai-agent/README.md) 的“3 分钟读法”和“快速路径：dirty workspace 心跳接力”。
