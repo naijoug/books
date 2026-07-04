@@ -1,7 +1,7 @@
 # AI Agent 工作流卡片 · 样本包
 
 > 本样本包不是 AI Agent 章节的完整目录，而是一条可复制的 dirty workspace 心跳接力主线：10 张精选卡片负责建立最小闭环，附录和配套模板负责把它落到真实 prompt、验证证据和最终报告字段。
-> 选自《技术卡片随身宝典》AI Agent 系列（共 42 张）。如果只想减少一次无人值守接力的事故率，先按本包顺序走完；如果要扩展到工具契约、上下文预算、反馈池或助手操作系统，再回到完整章节目录。
+> 选自《技术卡片随身宝典》AI Agent 系列（共 43 张）。如果只想减少一次无人值守接力的事故率，先按本包顺序走完；如果要扩展到工具契约、上下文预算、反馈池或助手操作系统，再回到完整章节目录。
 > 第一次使用时，先读 `books/tech-cards-handbook/chapters/ai-agent/README.md` 的“3 分钟读法”，再复制本样本包；这样能先分清失败吸收线、dirty workspace 线和提交证据线，避免把样本当成机械待办。
 > 阅读顺序就是这条链路的决策顺序：心跳/日志资产化/快照 → 规划 → 接力信号 → 无人值守默认动作 → 失败吸收 → 归属边界 → 状态证据 → 验证与报告；样本卡片只保留最小闭环，完整 quick path 和一页纸入口见文末参考卡片与配套模板。
 > 如果你的目标不只是让接力更稳，而是把一次 AI 编程审查转成收入实验，先用本包稳住 dirty workspace，再在文末“收入实验接力”里复制审查报告一页纸和案例发布阶梯；不要把未验证的交付物直接包装成公开战报。
@@ -351,6 +351,8 @@ notebook 提交：summaries `8c026a9` `Record Hermes heartbeat progress`（提�
 - books/tech-cards-handbook/chapters/ai-agent/verify-before-optimistic-summary.md
 - books/tech-cards-handbook/chapters/ai-agent/unverified-items-need-explicit-handoff.md
 - books/tech-cards-handbook/chapters/ai-agent/local-proof-checker-precedes-heavy-build.md
+- books/tech-cards-handbook/chapters/ai-agent/full-proof-baseline-before-ci.md
+- books/tech-cards-handbook/chapters/ai-agent/unified-preflight-wrapper-prevents-command-drift.md
 - books/tech-cards-handbook/chapters/ai-agent/report-from-committed-state.md
 - books/tech-cards-handbook/chapters/ai-agent/final-report-names-excluded-boundaries.md
 
@@ -358,6 +360,7 @@ notebook 提交：summaries `8c026a9` `Record Hermes heartbeat progress`（提�
 - books/tech-cards-handbook/samples/ai-agent-final-report-field-quickref.md
 - books/tech-cards-handbook/samples/ai-agent-proof-checker-one-pager.md
 - books/tech-cards-handbook/samples/ai-agent-full-proof-baseline-one-pager.md
+- books/tech-cards-handbook/samples/ai-agent-preflight-wrapper-one-pager.md
 - books/tech-cards-handbook/samples/ai-agent-next-safe-command-ladder-one-pager.md
 - books/tech-cards-handbook/samples/ai-agent-unverified-handoff-one-pager.md
 - books/tech-cards-handbook/samples/ai-agent-verification-failure-handoff-template.md
