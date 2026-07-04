@@ -6,6 +6,20 @@
 > 阅读顺序就是这条链路的决策顺序：心跳/日志资产化/快照 → 规划 → 接力信号 → 无人值守默认动作 → 失败吸收 → 归属边界 → 状态证据 → 验证与报告；样本卡片只保留最小闭环，完整 quick path 和一页纸入口见文末参考卡片与配套模板。
 > 如果你的目标不只是让接力更稳，而是把一次 AI 编程审查转成收入实验，先用本包稳住 dirty workspace，再在文末“收入实验接力”里复制审查报告一页纸和案例发布阶梯；不要把未验证的交付物直接包装成公开战报。
 
+## 验证入口速记
+
+只想决定下一份验证输入时，先用这张速记表，不要在 proof、baseline、wrapper 和命令梯之间反复切换：
+
+| 当前最大风险 | 复制哪份输入 | 通过后下一步 |
+|---|---|---|
+| 小改动需要证明基础契约，但全量构建太重 | [`ai-agent-proof-checker-one-pager.md`](ai-agent-proof-checker-one-pager.md) | 若 proof 连续稳定，再考虑全量基线 |
+| 想把 checker 写进 AGENTS、preflight 或 CI，但还不知道全量是否真的绿 | [`ai-agent-full-proof-baseline-one-pager.md`](ai-agent-full-proof-baseline-one-pager.md) | 先分类失败项；只有稳定绿项进入常规必跑 |
+| 验证命令超过三条，下一轮容易漏跑或报告漂移 | [`ai-agent-preflight-wrapper-one-pager.md`](ai-agent-preflight-wrapper-one-pager.md) | 给 wrapper 补默认/快速模式和编排测试 |
+| 不确定该选 proof、baseline、wrapper、命令梯还是交接模板 | [`ai-agent-proof-to-preflight-decision-table.md`](ai-agent-proof-to-preflight-decision-table.md) | 按矩阵选一个入口，不要同时复制多份 |
+| 已经知道最大风险，只缺下一条安全命令和停止条件 | [`ai-agent-next-safe-command-ladder-one-pager.md`](ai-agent-next-safe-command-ladder-one-pager.md) | 把验证结果写回 notebook 和最终报告 |
+
+判断口径：先问“我要降低哪一个风险”，再选模板；不要因为模板已经存在就机械补齐。若当前风险是命令失败或未覆盖边界，优先使用失败吸收、验证失败交接或未验证项交接模板，而不是继续升级 preflight。
+
 ---
 
 ## 卡片 1：心跳工作流让长期任务不漂移

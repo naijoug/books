@@ -23,7 +23,7 @@
 ## 使用顺序
 
 1. **先选主入口**：完整接力用样本包，只做一次短接力用 dirty workspace 一页纸。
-2. **再补风险模板**：失败多就用失败吸收；验证边界不清就先用 proof 到 preflight 决策表选入口，再复制 proof checker、全量 proof 基线、统一 preflight wrapper、命令梯或未验证项交接。
+2. **再补风险模板**：失败多就用失败吸收；验证边界不清就先看样本包顶部的“验证入口速记”或 proof 到 preflight 决策表选入口，再复制 proof checker、全量 proof 基线、统一 preflight wrapper、命令梯或未验证项交接。
 3. **最后核对报告字段或商业化样本**：提交后用最终报告字段速查表，确保成果和排除边界同时可接力；如果目标是收入实验，用 AI Coding Audit Report 一页纸把审查压缩成固定范围交付；如果想把交付物公开，先用案例发布阶梯确认材料只能写成匿名案例、公开案例、方法样板还是不发布。
 
 完整背景阅读见 [`../chapters/ai-agent/README.md`](../chapters/ai-agent/README.md) 的“3 分钟读法”和“快速路径：dirty workspace 心跳接力”。
