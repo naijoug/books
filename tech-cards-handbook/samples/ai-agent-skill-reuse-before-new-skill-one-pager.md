@@ -2,6 +2,8 @@
 
 用途：当一次观察看起来“值得沉淀成 skill”时，先用这页纸判断是否应该复用已有技能、继续收窄，还是才进入新技能草稿。它配套 [`../chapters/ai-agent/reuse-existing-skill-before-new-skill.md`](../chapters/ai-agent/reuse-existing-skill-before-new-skill.md)，重点不是写更多技能，而是减少下一轮选择成本。
 
+已填写样例可参考 `docs/documents/trending/ai/ai-coding-audit-one-pager-filled-example.md`：它用一条脱敏 CI lint 失败观察演示如何保持 `Narrow`、先复用已有技能，并把 `Next evidence needed` 写成下一轮可执行请求。这里故意使用路径文本而不是书内链接，因为样例位于 `docs/` 仓库，不属于本书链接校验范围。
+
 ## 30 秒入口判断
 
 | 当前信号 | 先复制哪段 | 暂时不要做什么 |

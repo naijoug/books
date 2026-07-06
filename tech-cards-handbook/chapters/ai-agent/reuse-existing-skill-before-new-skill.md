@@ -4,7 +4,7 @@
 
 AI 编程审查或心跳工作流跑久以后，Agent 很容易把每次新观察都沉淀成一个新 skill：一次 CI 失败写一个 skill，一次发布反馈写一个 skill，一次客户问法再写一个 skill。短期看像是在积累资产，长期会让技能目录变成难以选择的碎片库，下一轮仍然不知道该先用哪个入口。
 
-更稳的做法是：先把观察放进已有技能链路里跑一遍，确认它到底缺的是下一条安全命令、证据公开边界、结果记录字段，还是一个真正可重复的新流程。只有当同一类观察重复出现、输入输出稳定、验证标准明确时，才值得新增技能。需要把一次观察压成可复制输入时，先用配套一页纸 [`../../samples/ai-agent-skill-reuse-before-new-skill-one-pager.md`](../../samples/ai-agent-skill-reuse-before-new-skill-one-pager.md) 填观察快照、复用路径和技能化门槛。
+更稳的做法是：先把观察放进已有技能链路里跑一遍，确认它到底缺的是下一条安全命令、证据公开边界、结果记录字段，还是一个真正可重复的新流程。只有当同一类观察重复出现、输入输出稳定、验证标准明确时，才值得新增技能。需要把一次观察压成可复制输入时，先用配套一页纸 [`../../samples/ai-agent-skill-reuse-before-new-skill-one-pager.md`](../../samples/ai-agent-skill-reuse-before-new-skill-one-pager.md) 填观察快照、复用路径和技能化门槛；已填写脱敏样例见 `docs/documents/trending/ai/ai-coding-audit-one-pager-filled-example.md`。
 
 ## 要点
 
