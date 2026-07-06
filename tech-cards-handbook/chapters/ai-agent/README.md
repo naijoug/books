@@ -1,6 +1,6 @@
 # AI Agent 系统实践卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护，共 43 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护，共 44 张。文件名使用英文 `kebab-case`。
 
 本目录收录 Agent 系统设计、运行边界、工具、记忆、反馈判断、反馈池和心跳工作流等实践卡片;具体 SDK 或语言实现优先放入对应技术栈目录。
 
@@ -107,6 +107,7 @@
 | 发布反馈先看证据形状，不要只看互动量 | [`publish-feedback-needs-evidence-shape.md`](publish-feedback-needs-evidence-shape.md)；从报告到案例的发布决策见 [`../../samples/ai-agent-case-publishing-ladder-one-pager.md`](../../samples/ai-agent-case-publishing-ladder-one-pager.md) |
 | AI 生成 PR 需要单独审查入口,不要混进普通代码审查 | [`ai-generated-pr-needs-review-entry.md`](ai-generated-pr-needs-review-entry.md) |
 | AI 辅助 PR 审查路径要像产品阶梯,不要只是一组文章 | [`ai-assisted-pr-review-path-is-product-ladder.md`](ai-assisted-pr-review-path-is-product-ladder.md)；交付层接 [`../../samples/ai-agent-audit-report-one-pager.md`](../../samples/ai-agent-audit-report-one-pager.md)，公开复盘前接 [`../../samples/ai-agent-case-publishing-ladder-one-pager.md`](../../samples/ai-agent-case-publishing-ladder-one-pager.md) |
+| 先复用已有技能，不要把每条观察都写成新技能 | [`reuse-existing-skill-before-new-skill.md`](reuse-existing-skill-before-new-skill.md) |
 | 下一条安全命令梯不是测试清单，不要只写“再跑一遍” | [`next-safe-command-ladder-is-not-test-list.md`](next-safe-command-ladder-is-not-test-list.md) |
 | 匿名案例不能编造证据，不要把样板写成战报 | [`anonymous-case-must-not-invent-evidence.md`](anonymous-case-must-not-invent-evidence.md)；发布前先用 [`../../samples/ai-agent-case-publishing-ladder-one-pager.md`](../../samples/ai-agent-case-publishing-ladder-one-pager.md) 判断 Continue / Narrow / Stop |
 | 公开案例先分事实、推断和未验证，不要把审查记录直接写成结论 | [`public-case-separates-facts-inferences-unverified.md`](public-case-separates-facts-inferences-unverified.md)；claim 标签模板见 [`../../samples/ai-agent-case-publishing-ladder-one-pager.md`](../../samples/ai-agent-case-publishing-ladder-one-pager.md) |
