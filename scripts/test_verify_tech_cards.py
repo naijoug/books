@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import importlib.util
+import subprocess
 import sys
 from contextlib import contextmanager
 from pathlib import Path
@@ -75,11 +76,29 @@ def test_failure_stops_at_first_failed_step() -> None:
     assert labels == ["link verifier regression", "index verifier regression"]
 
 
+def test_run_step_flushes_heading_before_subprocess() -> None:
+    module = load_wrapper()
+    events: list[str] = []
+
+    def fake_print(*args, **kwargs) -> None:
+        events.append(f"print:{args[0]}:flush={kwargs.get('flush')}")
+
+    def fake_run(command: list[str], cwd: Path, check: bool) -> subprocess.CompletedProcess[str]:
+        events.append("subprocess")
+        return subprocess.CompletedProcess(command, 0)
+
+    with patch.object(module, "print", fake_print), patch.object(module.subprocess, "run", fake_run):
+        assert module.run_step("link verifier", ["python", "verify.py"])
+
+    assert events == ["print:==> link verifier: python verify.py:flush=True", "subprocess"]
+
+
 def main() -> int:
     tests = [
         test_default_runs_regressions_before_full_checks,
         test_full_only_skips_regressions,
         test_failure_stops_at_first_failed_step,
+        test_run_step_flushes_heading_before_subprocess,
     ]
     for test in tests:
         test()

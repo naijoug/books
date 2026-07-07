@@ -28,10 +28,10 @@ FULL_COMMANDS = [
 
 def run_step(label: str, command: list[str]) -> bool:
     printable = " ".join(command)
-    print(f"==> {label}: {printable}")
+    print(f"==> {label}: {printable}", flush=True)
     result = subprocess.run(command, cwd=ROOT, check=False)
     if result.returncode != 0:
-        print(f"tech-cards verification failed at `{label}` with exit {result.returncode}")
+        print(f"tech-cards verification failed at `{label}` with exit {result.returncode}", flush=True)
         return False
     return True
 
@@ -52,7 +52,7 @@ def main() -> int:
         if not run_step(label, command):
             return 1
 
-    print(f"tech-cards verification suite ok: {len(commands)} step(s)")
+    print(f"tech-cards verification suite ok: {len(commands)} step(s)", flush=True)
     return 0
 
 
