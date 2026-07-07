@@ -94,6 +94,14 @@ def main() -> int:
     args = parser.parse_args()
 
     languages_to_run = {lang.lower() for lang in (args.language or [])}
+    supported_languages = {language.lower() for language, _ in VERIFIERS.values()}
+    unknown_languages = sorted(languages_to_run - supported_languages)
+    if unknown_languages:
+        supported = ", ".join(sorted(language for language, _ in VERIFIERS.values()))
+        parser.error(
+            "unknown --language value(s): "
+            f"{', '.join(unknown_languages)}. Supported languages: {supported}"
+        )
 
     results: list[LanguageResult] = []
     for script, (language, expected_count) in sorted(VERIFIERS.items(), key=lambda kv: kv[1][0]):
@@ -122,7 +130,7 @@ def main() -> int:
             for line in idx_output.splitlines():
                 print(f"  {line}")
             index_passed = idx_result.returncode == 0
-            print(f"  => {'PASS' if index_passed else 'FAIL'}\n"  )
+            print(f"  => {'PASS' if index_passed else 'FAIL'}\n")
         else:
             print("--- Index counts: SKIPPED (script not found) ---\n")
 
