@@ -1,6 +1,6 @@
 # AI Agent 系统实践卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护，共 46 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护，共 47 张。文件名使用英文 `kebab-case`。
 
 本目录收录 Agent 系统设计、运行边界、工具、记忆、反馈判断、反馈池和心跳工作流等实践卡片;具体 SDK 或语言实现优先放入对应技术栈目录。
 
@@ -13,10 +13,10 @@
 如果只想马上减少一次心跳接力的事故率,先按三条线读,不要从全部卡片顺序扫完:
 
 1. **失败吸收线**:读 [`failure-output-must-change-plan.md`](failure-output-must-change-plan.md),再用 [`../../samples/ai-agent-failure-absorption-one-pager.md`](../../samples/ai-agent-failure-absorption-one-pager.md) 记录`信号 -> 影响 -> 证据位置`,确认失败是否改变了范围、顺序、目标或交接。
-2. **dirty workspace 线**:读 [`startup-snapshot-before-planning.md`](startup-snapshot-before-planning.md)、[`uncommitted-handoff-needs-ownership-triage.md`](uncommitted-handoff-needs-ownership-triage.md) 和 [`staged-changes-are-not-ownership.md`](staged-changes-are-not-ownership.md),先分清启动前改动、staged path、可接管 path,再决定本轮文件范围。
+2. **dirty workspace 线**:读 [`startup-snapshot-before-planning.md`](startup-snapshot-before-planning.md)、[`human-hypothesis-before-agent.md`](human-hypothesis-before-agent.md)、[`uncommitted-handoff-needs-ownership-triage.md`](uncommitted-handoff-needs-ownership-triage.md) 和 [`staged-changes-are-not-ownership.md`](staged-changes-are-not-ownership.md),先分清启动前改动、自己的可证伪假设、staged path、可接管 path,再决定本轮文件范围。
 3. **提交证据线**:读 [`commit-scope-ledger-prevents-mixed-ownership.md`](commit-scope-ledger-prevents-mixed-ownership.md)、[`dirty-workspace-exit-checklist.md`](dirty-workspace-exit-checklist.md) 和 [`report-from-committed-state.md`](report-from-committed-state.md),最终报告从已提交状态读回 hash,同时写清排除边界；如果本轮是文档/索引/配置小改，先用 [`../../samples/ai-agent-proof-checker-one-pager.md`](../../samples/ai-agent-proof-checker-one-pager.md) 设计轻量 preflight，再用 [`../../samples/ai-agent-next-safe-command-ladder-one-pager.md`](../../samples/ai-agent-next-safe-command-ladder-one-pager.md) 把验证清单改写为“当前最大风险 -> 下一条安全命令 -> pass/fail 语义”的命令梯；收尾前可用 [`../../samples/ai-agent-final-report-field-quickref.md`](../../samples/ai-agent-final-report-field-quickref.md) 核对固定字段。若验证失败或无法执行，用 [`../../samples/ai-agent-verification-failure-handoff-template.md`](../../samples/ai-agent-verification-failure-handoff-template.md) 交接失败证据；若只是存在未覆盖边界，用 [`../../samples/ai-agent-unverified-handoff-one-pager.md`](../../samples/ai-agent-unverified-handoff-one-pager.md) 把已验证事实、未验证项、结论措辞和下一步第一条动作拆开。
 
-完成这三条线后,再进入下面的 15 步快速路径补齐运行控制细节；如果要把整套输入直接交给下一轮 Agent，使用 [`../../samples/ai-agent-sample-pack.md`](../../samples/ai-agent-sample-pack.md) 中的 10 张精选卡片、附录和配套一页纸模板。验证类输入按两层入口选择：样本包开头的“验证入口速记”适合 30 秒内按“当前最大风险”做入口判断，决定该接 proof checker、全量基线、preflight wrapper、命令梯还是交接模板；如果不确定该复制哪份输入，先看 [`../../samples/README.md`](../../samples/README.md) 的场景索引。若困惑集中在 proof checker、全量基线、preflight wrapper 和命令梯的先后顺序，再用 [`../../samples/ai-agent-proof-to-preflight-decision-table.md`](../../samples/ai-agent-proof-to-preflight-decision-table.md) 做 2 分钟展开判断。
+完成这三条线后,再进入下面的 17 步快速路径补齐运行控制细节；如果要把整套输入直接交给下一轮 Agent，使用 [`../../samples/ai-agent-sample-pack.md`](../../samples/ai-agent-sample-pack.md) 中的 10 张精选卡片、附录和配套一页纸模板。验证类输入按两层入口选择：样本包开头的“验证入口速记”适合 30 秒内按“当前最大风险”做入口判断，决定该接 proof checker、全量基线、preflight wrapper、命令梯还是交接模板；如果不确定该复制哪份输入，先看 [`../../samples/README.md`](../../samples/README.md) 的场景索引。若困惑集中在 proof checker、全量基线、preflight wrapper 和命令梯的先后顺序，再用 [`../../samples/ai-agent-proof-to-preflight-decision-table.md`](../../samples/ai-agent-proof-to-preflight-decision-table.md) 做 2 分钟展开判断。
 
 ## 快速路径:dirty workspace 心跳接力
 
@@ -29,19 +29,20 @@
 | 3 | 唤醒与事实 | 在规划前保存当前 repo 状态 | [`startup-snapshot-before-planning.md`](startup-snapshot-before-planning.md) |
 | 4 | 规划与取舍 | 从候选工作中做取舍 | [`planning-selects-work-not-just-summary.md`](planning-selects-work-not-just-summary.md) |
 | 5 | 规划与取舍 | 把上一轮接力点当作信号,而不是自动义务 | [`continuation-is-signal-not-obligation.md`](continuation-is-signal-not-obligation.md) |
-| 6 | 规划与取舍 | 无人值守时选择低风险默认动作,而不是等待澄清 | [`unattended-agent-chooses-default-action.md`](unattended-agent-chooses-default-action.md) |
-| 7 | 规划与取舍 | 让失败输出改变范围、顺序、目标或交接 | [`failure-output-must-change-plan.md`](failure-output-must-change-plan.md) |
-| 8 | 所有权边界 | 对启动前 dirty 接力文件做归属判断;最终报告保留状态证据 | [`uncommitted-handoff-needs-ownership-triage.md`](uncommitted-handoff-needs-ownership-triage.md) |
-| 9 | 所有权边界 | 单独识别启动前 staged path,不把 index 状态误当授权;状态证据必须进入最终报告 | [`staged-changes-are-not-ownership.md`](staged-changes-are-not-ownership.md) |
-| 10 | 所有权边界 | 用提交范围台账防止混入未知归属;台账包含状态证据列 | [`commit-scope-ledger-prevents-mixed-ownership.md`](commit-scope-ledger-prevents-mixed-ownership.md) |
-| 11 | 范围与预算 | 给心跳交付设预算,避免连续工具维护循环 | [`delivery-budget-prevents-heartbeat-drift.md`](delivery-budget-prevents-heartbeat-drift.md) |
-| 12 | 收尾与状态证据 | 用清单做 path-limited 收尾 | [`dirty-workspace-exit-checklist.md`](dirty-workspace-exit-checklist.md) |
-| 13 | 收尾与状态证据 | 先跑聚焦验证并显式交接未验证项 | [`verify-before-optimistic-summary.md`](verify-before-optimistic-summary.md)、[`unverified-items-need-explicit-handoff.md`](unverified-items-need-explicit-handoff.md); 命令梯模板见 [`../../samples/ai-agent-next-safe-command-ladder-one-pager.md`](../../samples/ai-agent-next-safe-command-ladder-one-pager.md)，未验证项一页纸见 [`../../samples/ai-agent-unverified-handoff-one-pager.md`](../../samples/ai-agent-unverified-handoff-one-pager.md) |
-| 14 | 验证与集成边界 | 先用窄范围 proof checker 证明基础契约,再把渲染和插件行为交给重型构建；若要升级为常规必跑项，先建立全量红绿基线，再把稳定命令收束成统一 preflight wrapper | [`local-proof-checker-precedes-heavy-build.md`](local-proof-checker-precedes-heavy-build.md)、[`full-proof-baseline-before-ci.md`](full-proof-baseline-before-ci.md)、[`unified-preflight-wrapper-prevents-command-drift.md`](unified-preflight-wrapper-prevents-command-drift.md); 可复制输入见 [`../../samples/ai-agent-proof-to-preflight-decision-table.md`](../../samples/ai-agent-proof-to-preflight-decision-table.md)、[`../../samples/ai-agent-proof-checker-one-pager.md`](../../samples/ai-agent-proof-checker-one-pager.md)、[`../../samples/ai-agent-full-proof-baseline-one-pager.md`](../../samples/ai-agent-full-proof-baseline-one-pager.md)、[`../../samples/ai-agent-preflight-wrapper-one-pager.md`](../../samples/ai-agent-preflight-wrapper-one-pager.md) |
-| 15 | 报告与读回 | 从已提交状态读回 hash 和 subject;报告包含启动/收尾状态证据 | [`report-from-committed-state.md`](report-from-committed-state.md) |
-| 16 | 报告与读回 | 最终响应同时列成果和排除项 | [`final-report-names-excluded-boundaries.md`](final-report-names-excluded-boundaries.md) |
+| 6 | 规划与取舍 | 先写可证伪的人类假设,再让 Agent 生成或修改 | [`human-hypothesis-before-agent.md`](human-hypothesis-before-agent.md) |
+| 7 | 规划与取舍 | 无人值守时选择低风险默认动作,而不是等待澄清 | [`unattended-agent-chooses-default-action.md`](unattended-agent-chooses-default-action.md) |
+| 8 | 规划与取舍 | 让失败输出改变范围、顺序、目标或交接 | [`failure-output-must-change-plan.md`](failure-output-must-change-plan.md) |
+| 9 | 所有权边界 | 对启动前 dirty 接力文件做归属判断;最终报告保留状态证据 | [`uncommitted-handoff-needs-ownership-triage.md`](uncommitted-handoff-needs-ownership-triage.md) |
+| 10 | 所有权边界 | 单独识别启动前 staged path,不把 index 状态误当授权;状态证据必须进入最终报告 | [`staged-changes-are-not-ownership.md`](staged-changes-are-not-ownership.md) |
+| 11 | 所有权边界 | 用提交范围台账防止混入未知归属;台账包含状态证据列 | [`commit-scope-ledger-prevents-mixed-ownership.md`](commit-scope-ledger-prevents-mixed-ownership.md) |
+| 12 | 范围与预算 | 给心跳交付设预算,避免连续工具维护循环 | [`delivery-budget-prevents-heartbeat-drift.md`](delivery-budget-prevents-heartbeat-drift.md) |
+| 13 | 收尾与状态证据 | 用清单做 path-limited 收尾 | [`dirty-workspace-exit-checklist.md`](dirty-workspace-exit-checklist.md) |
+| 14 | 收尾与状态证据 | 先跑聚焦验证并显式交接未验证项 | [`verify-before-optimistic-summary.md`](verify-before-optimistic-summary.md)、[`unverified-items-need-explicit-handoff.md`](unverified-items-need-explicit-handoff.md); 命令梯模板见 [`../../samples/ai-agent-next-safe-command-ladder-one-pager.md`](../../samples/ai-agent-next-safe-command-ladder-one-pager.md)，未验证项一页纸见 [`../../samples/ai-agent-unverified-handoff-one-pager.md`](../../samples/ai-agent-unverified-handoff-one-pager.md) |
+| 15 | 验证与集成边界 | 先用窄范围 proof checker 证明基础契约,再把渲染和插件行为交给重型构建；若要升级为常规必跑项，先建立全量红绿基线，再把稳定命令收束成统一 preflight wrapper | [`local-proof-checker-precedes-heavy-build.md`](local-proof-checker-precedes-heavy-build.md)、[`full-proof-baseline-before-ci.md`](full-proof-baseline-before-ci.md)、[`unified-preflight-wrapper-prevents-command-drift.md`](unified-preflight-wrapper-prevents-command-drift.md); 可复制输入见 [`../../samples/ai-agent-proof-to-preflight-decision-table.md`](../../samples/ai-agent-proof-to-preflight-decision-table.md)、[`../../samples/ai-agent-proof-checker-one-pager.md`](../../samples/ai-agent-proof-checker-one-pager.md)、[`../../samples/ai-agent-full-proof-baseline-one-pager.md`](../../samples/ai-agent-full-proof-baseline-one-pager.md)、[`../../samples/ai-agent-preflight-wrapper-one-pager.md`](../../samples/ai-agent-preflight-wrapper-one-pager.md) |
+| 16 | 报告与读回 | 从已提交状态读回 hash 和 subject;报告包含启动/收尾状态证据 | [`report-from-committed-state.md`](report-from-committed-state.md) |
+| 17 | 报告与读回 | 最终响应同时列成果和排除项 | [`final-report-names-excluded-boundaries.md`](final-report-names-excluded-boundaries.md) |
 
-失败吸收线索：步骤 7 不是事后解释失败，而是要求失败输出立刻改变范围、顺序、目标或交接；可先读 [`failure-output-must-change-plan.md`](failure-output-must-change-plan.md)，再用 [`../../samples/ai-agent-failure-absorption-one-pager.md`](../../samples/ai-agent-failure-absorption-one-pager.md) 做收尾检查，并对照 [`../../samples/ai-agent-sample-pack.md`](../../samples/ai-agent-sample-pack.md) 中“失败吸收速记”的四类最小改计划例子，检查最终 notebook 是否写清“失败如何改变了本轮选择”。
+失败吸收线索：步骤 8 不是事后解释失败，而是要求失败输出立刻改变范围、顺序、目标或交接；可先读 [`failure-output-must-change-plan.md`](failure-output-must-change-plan.md)，再用 [`../../samples/ai-agent-failure-absorption-one-pager.md`](../../samples/ai-agent-failure-absorption-one-pager.md) 做收尾检查，并对照 [`../../samples/ai-agent-sample-pack.md`](../../samples/ai-agent-sample-pack.md) 中“失败吸收速记”的四类最小改计划例子，检查最终 notebook 是否写清“失败如何改变了本轮选择”。
 
 状态证据线索：步骤 8–10 和 13 的卡片已在 2026-06-25 补强，要求最终报告保留启动/收尾 `git status --short`、分 repo 读回 commit hash、提交范围台账包含状态证据列；读者可按这条线索从所有权边界串到最终报告，并用 [`../../samples/ai-agent-sample-pack.md`](../../samples/ai-agent-sample-pack.md) 的样本包、[`../../samples/ai-agent-dirty-workspace-one-pager.md`](../../samples/ai-agent-dirty-workspace-one-pager.md) 的一页纸和 [`../../samples/ai-agent-final-report-field-quickref.md`](../../samples/ai-agent-final-report-field-quickref.md) 的字段速查核对可复制输入是否同步。
 
@@ -87,6 +88,7 @@
 | 启动快照先于规划,不要凭上一轮印象选任务 | [`startup-snapshot-before-planning.md`](startup-snapshot-before-planning.md) |
 | 规划要选择工作,不要只复述状态 | [`planning-selects-work-not-just-summary.md`](planning-selects-work-not-just-summary.md) |
 | 交接必须写下一步动作,不要只写状态 | [`handoff-must-name-next-action.md`](handoff-must-name-next-action.md) |
+| 先写人类假设，再让 Agent 动手 | [`human-hypothesis-before-agent.md`](human-hypothesis-before-agent.md) |
 | 接力点是信号,不是义务 | [`continuation-is-signal-not-obligation.md`](continuation-is-signal-not-obligation.md) |
 | 无人值守 Agent 要选择默认动作,不要等待澄清 | [`unattended-agent-chooses-default-action.md`](unattended-agent-chooses-default-action.md) |
 | 未提交接力文件先判断归属,不要直接接管 | [`uncommitted-handoff-needs-ownership-triage.md`](uncommitted-handoff-needs-ownership-triage.md) |
