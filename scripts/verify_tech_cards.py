@@ -26,8 +26,25 @@ FULL_COMMANDS = [
 ]
 
 
+def printable_command(command: list[str]) -> str:
+    """Render a command without leaking machine-local absolute paths."""
+    rendered: list[str] = []
+    for part in command:
+        path = Path(part)
+        if path.is_absolute():
+            try:
+                rendered.append(path.resolve().relative_to(ROOT).as_posix())
+                continue
+            except ValueError:
+                if path.resolve() == Path(sys.executable).resolve():
+                    rendered.append(Path(sys.executable).name)
+                    continue
+        rendered.append(part)
+    return " ".join(rendered)
+
+
 def run_step(label: str, command: list[str]) -> bool:
-    printable = " ".join(command)
+    printable = printable_command(command)
     print(f"==> {label}: {printable}", flush=True)
     result = subprocess.run(command, cwd=ROOT, check=False)
     if result.returncode != 0:

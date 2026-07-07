@@ -93,12 +93,25 @@ def test_run_step_flushes_heading_before_subprocess() -> None:
     assert events == ["print:==> link verifier: python verify.py:flush=True", "subprocess"]
 
 
+def test_printable_command_uses_relative_script_paths() -> None:
+    module = load_wrapper()
+
+    rendered = module.printable_command([
+        sys.executable,
+        str(ROOT / "scripts" / "verify_tech_cards_links.py"),
+    ])
+
+    assert rendered == f"{Path(sys.executable).name} scripts/verify_tech_cards_links.py"
+    assert str(ROOT) not in rendered
+
+
 def main() -> int:
     tests = [
         test_default_runs_regressions_before_full_checks,
         test_full_only_skips_regressions,
         test_failure_stops_at_first_failed_step,
         test_run_step_flushes_heading_before_subprocess,
+        test_printable_command_uses_relative_script_paths,
     ]
     for test in tests:
         test()
