@@ -2,13 +2,14 @@
 
 用途：当一次观察看起来“值得沉淀成 skill”时，先用这页纸判断是否应该复用已有技能、继续收窄，还是才进入新技能草稿。它配套 [`../chapters/ai-agent/reuse-existing-skill-before-new-skill.md`](../chapters/ai-agent/reuse-existing-skill-before-new-skill.md)，重点不是写更多技能，而是减少下一轮选择成本。
 
-已填写样例可参考 `docs/documents/trending/ai/ai-coding-audit-one-pager-filled-example.md`：它用一条脱敏 CI lint 失败观察演示如何保持 `Narrow`、先复用已有技能，并把 `Next evidence needed` 写成下一轮可执行请求。这里故意使用路径文本而不是书内链接，因为样例位于 `docs/` 仓库，不属于本书链接校验范围。
+已填写样例可参考 `docs/documents/trending/ai/ai-coding-audit-one-pager-filled-example.md` 和 `docs/documents/trending/ai/ai-coding-audit-result-log-filled-example.md`：前者用一条脱敏 CI lint 失败观察演示如何保持 `Narrow`、先复用已有技能，并把 `Next evidence needed` 写成下一轮可执行请求；后者把同一类证据不足线索写进 Audit Result，演示为什么“缺原始失败命令和 exit code”只能收窄，不能升级成新 skill 或公开案例。这里故意使用路径文本而不是书内链接，因为样例位于 `docs/` 仓库，不属于本书链接校验范围。
 
 ## 30 秒入口判断
 
 | 当前信号 | 先复制哪段 | 暂时不要做什么 |
 |---|---|---|
 | 只有一条观察，且证据不完整 | `观察快照` + `复用路径` | 不要新建 skill |
+| 只有一条 `Narrow` 结果记录 | `观察快照` + `停止条件` | 不要把结果表当成技能化证据 |
 | 不知道下一条安全命令 | `复用路径` 的 Step 1 | 不要把测试清单伪装成 skill |
 | 不确定哪些内容能公开 | `复用路径` 的 Step 2 | 不要写案例标题或营销 claim |
 | 已有两到三条相似观察 | `技能化门槛` | 不要跳过旧技能查重 |
@@ -66,6 +67,7 @@ Why:
 如果出现任一情况，保持 `Narrow` 或 `Stop`，不要新建 skill：
 
 - 只有一个脱敏样例，尚未看到重复性。
+- 只有一条 Audit Result，且决策仍是 `Narrow`：它可以证明下一条证据请求是什么，不能证明已经形成稳定技能输入。
 - 最大问题只是“还没写清楚”，可以通过文档、书稿卡片或报告模板解决。
 - 公开边界不清，无法区分 facts、inferences 和 private 信息。
 - 新 skill 的名字必须包含特定项目、特定工具或特定错误码才说得清。
