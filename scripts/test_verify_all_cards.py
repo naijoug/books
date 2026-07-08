@@ -74,10 +74,34 @@ def test_known_language_filter_runs_only_selected_language() -> None:
     assert "Index counts" not in output
 
 
+def test_missing_script_message_uses_repo_relative_path() -> None:
+    module = load_wrapper()
+
+    with patch.object(module, "count_chapter_cards", lambda language: 23):
+        result = module.run_verifier("verify_missing_cards.py", "Python", 23, verbose=False)
+
+    assert result.passed is False
+    assert result.output == "script not found: scripts/verify_missing_cards.py"
+    assert str(ROOT) not in result.output
+
+
+def test_missing_chapter_message_uses_repo_relative_path() -> None:
+    module = load_wrapper()
+
+    with patch.object(module, "CHAPTERS_DIR", module.HANDBOOK_DIR / "_missing_chapters"):
+        result = module.run_verifier("verify_python_cards.py", "Python", 23, verbose=False)
+
+    assert result.passed is False
+    assert result.output == "chapter directory not found: tech-cards-handbook/_missing_chapters/python"
+    assert str(ROOT) not in result.output
+
+
 def main() -> int:
     tests = [
         test_unknown_language_fails_before_running_verifiers,
         test_known_language_filter_runs_only_selected_language,
+        test_missing_script_message_uses_repo_relative_path,
+        test_missing_chapter_message_uses_repo_relative_path,
     ]
     for test in tests:
         test()

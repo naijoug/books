@@ -18,6 +18,7 @@ from pathlib import Path
 SCRIPTS_DIR = Path(__file__).resolve().parent
 HANDBOOK_DIR = SCRIPTS_DIR.parent / "tech-cards-handbook"
 CHAPTERS_DIR = HANDBOOK_DIR / "chapters"
+ROOT = SCRIPTS_DIR.parent
 
 # Map verifier script → (language name, expected card count).
 # The expected count is asserted against the chapter directory before the child
@@ -41,6 +42,14 @@ class LanguageResult:
     output: str
 
 
+def printable_path(path: Path) -> str:
+    """Return a stable repo-relative path for human-readable proof output."""
+    try:
+        return path.resolve().relative_to(ROOT).as_posix()
+    except ValueError:
+        return path.as_posix()
+
+
 def chapter_dir_for(language: str) -> Path:
     """Return the chapter directory for a verifier language label."""
     return CHAPTERS_DIR / language.lower().replace(" ", "-")
@@ -50,7 +59,7 @@ def count_chapter_cards(language: str) -> int:
     """Count formal card files in a language chapter, excluding README.md."""
     chapter_dir = chapter_dir_for(language)
     if not chapter_dir.exists():
-        raise FileNotFoundError(f"chapter directory not found: {chapter_dir}")
+        raise FileNotFoundError(f"chapter directory not found: {printable_path(chapter_dir)}")
     return sum(1 for path in chapter_dir.glob("*.md") if path.name != "README.md")
 
 
@@ -70,7 +79,7 @@ def run_verifier(script: str, language: str, expected_count: int, verbose: bool)
 
     script_path = SCRIPTS_DIR / script
     if not script_path.exists():
-        return LanguageResult(language, script, False, f"script not found: {script_path}")
+        return LanguageResult(language, script, False, f"script not found: {printable_path(script_path)}")
 
     command = [sys.executable, str(script_path)]
     if verbose:
