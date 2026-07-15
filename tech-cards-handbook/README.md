@@ -6,7 +6,7 @@
 
 本书已按技术栈重组正式内容：`chapters/` 下每个技术栈一个目录，每张卡片一个 Markdown 文件。
 
-当前共 227 张正式卡片。
+当前共 229 张正式卡片。
 
 ## 目录结构
 
@@ -42,11 +42,11 @@ tech-cards-handbook/
 | Python | `chapters/python/` | 23 张：异步、并发原语、上下文管理、生成器、类型、测试、装饰器、自定义异常层级、显式重试策略、领域定义的对外错误码、调用方降级策略和错误恢复决策表 |
 | Go | `chapters/go/` | 18 张：WaitGroup、context、channel、worker pool、select、mutex、错误处理、接口、测试、HTTP handler adapter 边界、跨语言错误传播对照、显式重试策略、领域定义的对外错误码、调用方降级策略和错误恢复决策表 |
 | Rust | `chapters/rust/` | 20 张：所有权、借用、Option、Result、trait、生命周期、模式匹配、模块、迭代器、并发、异步、测试、newtype 领域边界、From/TryFrom 验证边界、repository 存储边界、derive 语义选择、显式重试策略、领域定义的对外错误码、调用方降级策略和错误恢复决策表 |
-| TypeScript | `chapters/typescript/` | 31 张：联合类型、`never` 穷尽检查、条件类型、`infer`、Mapped Type、深度只读、`satisfies`、`unknown`、类型守卫、断言函数、外部 schema 边界、请求状态分层、品牌类型、模板字面量类型、Result 错误处理、工具类型、DTO 边界、DTO 版本演进、DTO 字段迁移、消费者观测、事件分层、mapper 边界、ViewModel 边界、Command 边界、错误分类、重试策略、调用方降级、领域错误码翻译和错误恢复决策表 |
+| TypeScript | `chapters/typescript/` | 32 张：联合类型、`never` 穷尽检查、条件类型、`infer`、Mapped Type、深度只读、`satisfies`、`unknown`、类型守卫、断言函数、外部 schema 边界、请求状态分层、品牌类型、模板字面量类型、Result 错误处理、工具类型、DTO 边界、DTO 版本演进、DTO 字段迁移、消费者观测、事件分层、mapper 边界、ViewModel 边界、Command 边界、错误分类、重试策略、调用方降级、领域错误码翻译、错误恢复决策表和抽象层 `unknown` 传输类型 |
 | React | `chapters/react/` | 54 张：Effect、状态、派生状态、URL 状态、服务端数据缓存、异步状态边界、请求过期保护、请求缓存去重、缓存 key 设计、缓存失效、缓存过期、搜索防抖、骨架屏、表单字段状态、提交状态、字段错误、幂等键、action 返回 contract、成功后重置、列表 key、虚拟列表、分页加载、加载更多并发锁、筛选排序重置、延迟渲染、过渡更新、ref、自定义 Hook、错误边界、Suspense、代码分割、可恢复重试、Context 拆分、回调身份、memo、Profiler、性能、乐观更新、React 19 表单状态、SSR hydration 稳定输入、浏览器 API 客户端读取、客户端个性化外壳、SSR 个性化首屏占位策略、外部 store、Strict Mode、Reducer 和状态机 |
 | Swift | `chapters/swift/` | 14 张：值语义、async/await、基础值、字符串、集合、switch、可选绑定、闭包、defer 清理、Result 错误状态、显式重试策略、领域定义的对外错误码、调用方降级策略和错误恢复决策表 |
 | Flutter | `chapters/flutter/` | 14 张：状态、列表、导航、测试、布局、输入控件、组件拆分、异步构建、生命周期检查、controller 释放、显式重试策略、领域定义的对外错误码、调用方降级策略和错误恢复决策表 |
-| AI Agent | `chapters/ai-agent/` | 53 张：Agent 边界、工具、工具结果、记忆、上下文预算、上下文状态设计、反馈判断、反馈修订、反馈池、迭代上限、心跳工作流、工作日志资产化、启动快照、规划取舍、人类假设、静默成功反向测试、交接、接力取舍、无人值守默认动作、外部发布授权、无真实链接验证、启动前 staged 归属、提交范围台账、短节拍边界、交付预算、新表面复用证明、green baseline 后切换资产、验证总结、未验证项交接、提交状态读回、dirty workspace 归属判断、dirty workspace 收尾清单、最终报告边界、失败输出吸收、固定范围 AI 编程审查 offer、证据请求边界、首份报告交付、30 分钟路线验证、发布反馈证据形状、AI 生成 PR 审查入口、AI 辅助 PR 审查产品阶梯、先复用已有技能、下一条安全命令梯、匿名案例证据边界、公开案例事实/推断/未验证分层、repo 入口里的 Agent 规则、本地 proof checker、全量 proof 基线、统一 preflight wrapper、proof 输出可移植、启动层边界和助手操作系统；dirty workspace 心跳接力的推荐阅读路径见 `chapters/ai-agent/README.md` |
+| AI Agent | `chapters/ai-agent/` | 54 张：Agent 边界、工具、工具结果、记忆、上下文预算、上下文状态设计、反馈判断、反馈修订、反馈池、迭代上限、心跳工作流、工作日志资产化、启动快照、规划取舍、人类假设、静默成功反向测试、交接、接力取舍、无人值守默认动作、外部发布授权、无真实链接验证、启动前 staged 归属、提交范围台账、短节拍边界、交付预算、新表面复用证明、green baseline 后切换资产、安全债生产风险分组、验证总结、未验证项交接、提交状态读回、dirty workspace 归属判断、dirty workspace 收尾清单、最终报告边界、失败输出吸收、固定范围 AI 编程审查 offer、证据请求边界、首份报告交付、30 分钟路线验证、发布反馈证据形状、AI 生成 PR 审查入口、AI 辅助 PR 审查产品阶梯、先复用已有技能、下一条安全命令梯、匿名案例证据边界、公开案例事实/推断/未验证分层、repo 入口里的 Agent 规则、本地 proof checker、全量 proof 基线、统一 preflight wrapper、proof 输出可移植、启动层边界和助手操作系统；dirty workspace 心跳接力的推荐阅读路径见 `chapters/ai-agent/README.md` |
 | 样本索引 | `samples/README.md` | 可复制输入的场景入口：完整 dirty workspace 接力、短接力一页纸、失败吸收、proof 到 preflight 决策表、轻量 proof、命令梯、未验证项交接、验证失败交接、最终报告字段速查、AI 编程审查一页纸和案例发布阶梯 |
 | 样本包 | `samples/ai-agent-sample-pack.md`、`samples/ai-agent-dirty-workspace-one-pager.md`、`samples/ai-agent-proof-to-preflight-decision-table.md`、`samples/ai-agent-audit-report-one-pager.md`、`samples/ai-agent-case-publishing-ladder-one-pager.md` | dirty workspace 心跳接力主线、固定范围审查交付和安全发布：10 张精选卡片建立最小闭环；样本包开头的“验证入口速记”用“当前最大风险”做入口判断，先决定该接 proof checker、全量基线、preflight wrapper、命令梯还是交接模板，附录和配套一页纸模板再补足验证证据、proof 到 preflight 入口判断、未验证项交接、下一条安全命令、最终报告字段、错误边界 review 输入、AI Coding Audit Report 和从报告到案例的发布决策；适合复制给周期性唤醒的 Agent、收入实验或公开内容复盘使用 |
 

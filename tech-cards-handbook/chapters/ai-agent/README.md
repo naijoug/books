@@ -1,6 +1,6 @@
 # AI Agent 系统实践卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护，共 53 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护，共 54 张。文件名使用英文 `kebab-case`。
 
 本目录收录 Agent 系统设计、运行边界、工具、记忆、反馈判断、反馈池和心跳工作流等实践卡片;具体 SDK 或语言实现优先放入对应技术栈目录。
 
@@ -105,6 +105,7 @@
 | 交付预算防止心跳漂移 | [`delivery-budget-prevents-heartbeat-drift.md`](delivery-budget-prevents-heartbeat-drift.md) |
 | 新表面要有复用证明 | [`no-new-surface-without-reuse-proof.md`](no-new-surface-without-reuse-proof.md) |
 | 先确认 Green Baseline，再切换资产任务 | [`green-baseline-before-asset-switch.md`](green-baseline-before-asset-switch.md) |
+| 安全债先分生产风险，不要默认 `audit fix --force` | [`security-debt-prioritizes-production-before-force.md`](security-debt-prioritizes-production-before-force.md) |
 | 验证先于乐观总结,不要把"看起来完成"当完成 | [`verify-before-optimistic-summary.md`](verify-before-optimistic-summary.md) |
 | 未验证项要显式交接,不要藏在顺利总结里 | [`unverified-items-need-explicit-handoff.md`](unverified-items-need-explicit-handoff.md) |
 | 本地 proof checker 先于重型构建，不要把每次小改都交给全量 build | [`local-proof-checker-precedes-heavy-build.md`](local-proof-checker-precedes-heavy-build.md) |
