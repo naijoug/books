@@ -247,7 +247,7 @@ LLM-as-judge 可以帮助扩展评估，但要用人工标注样本校准，避�
 | 工具 schema、Prompt、模型和 Agent 版本 | `tool_schema_version`、`prompt_hash`、`model_version`、`agent_version` | 定位退化来自哪一层变更，并决定回滚代码、Prompt、模型路由还是工具 schema |
 | 审批、权限拒绝、熔断和人工接管事件 | `audit_event_ids` | 核对高风险动作是否经过审批、是否触发正确拦截，以及事故后能否追责 |
 
-如果某一列缺失，就不要把它藏在“待补充”里：第九章的发布报告应把缺失项写入 `decision_reason`，第十章的安全门禁再决定是 `warn` 限制灰度范围，还是 `block` 阻断发布。
+如果某一列缺失，就不要把它藏在“待补充”里：第九章的发布报告应把缺失项写入 `decision_reason`，第十章的安全门禁再决定是 `warn` 限制灰度范围，还是 `block` 阻断发布。需要在发布会上逐项对账时，可以直接使用 `docs/` 的 [Agent 发布证据字段映射表](../../../docs/documents/trending/ai/agent-release-evidence-field-map.md)，把本节评估字段落到第九章发布报告和第十章安全门禁。
 
 ### 8.5.4 为第十章预留安全回归集
 

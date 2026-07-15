@@ -300,7 +300,7 @@ Agent 发布清单要同时覆盖代码、模型、Prompt、工具和数据。�
 
 ### 9.7.4 发布报告模板：把 `gate_decision` 变成可执行结论
 
-发布报告不应该只是“这次部署了什么”的流水账，而应该是第 8 章评估结果、第 9 章灰度监控和第 10 章安全门禁共同消费的证据包。建议把报告固定成机器可读结构，让 CI、发布会和事故复盘使用同一份 artifact。第 8 章 8.5.3 已经给出评估产出到发布字段再到安全门禁的映射表；这里的报告模板就是那张映射表的发布侧落点。若团队需要会议中可直接填写的版本，可以先使用 `docs/` 的 [Agent 上线前 90 分钟审查模板](../../../docs/documents/trending/ai/agent-release-90-minute-review-template.md) 收集字段，再把结论沉淀为下面的发布报告：
+发布报告不应该只是“这次部署了什么”的流水账，而应该是第 8 章评估结果、第 9 章灰度监控和第 10 章安全门禁共同消费的证据包。建议把报告固定成机器可读结构，让 CI、发布会和事故复盘使用同一份 artifact。第 8 章 8.5.3 已经给出评估产出到发布字段再到安全门禁的映射表；这里的报告模板就是那张映射表的发布侧落点。若团队需要会议中可直接填写的版本，可以先使用 `docs/` 的 [Agent 上线前 90 分钟审查模板](../../../docs/documents/trending/ai/agent-release-90-minute-review-template.md) 收集字段，再用 [Agent 发布证据字段映射表](../../../docs/documents/trending/ai/agent-release-evidence-field-map.md) 检查字段断链，最后把结论沉淀为下面的发布报告：
 
 ```yaml
 release_report:
