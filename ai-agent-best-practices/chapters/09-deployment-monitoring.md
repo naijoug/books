@@ -298,6 +298,59 @@ Agent 发布清单要同时覆盖代码、模型、Prompt、工具和数据。�
 
 这样第八章的测试资产、第九章的发布能力和第十章的安全控制就形成闭环：测试发现退化，发布流程阻断风险，监控与 runbook 把线上异常再反哺为新的回归样本。
 
+### 9.7.4 发布报告模板：把 `gate_decision` 变成可执行结论
+
+发布报告不应该只是“这次部署了什么”的流水账，而应该是第 8 章评估结果、第 9 章灰度监控和第 10 章安全门禁共同消费的证据包。建议把报告固定成机器可读结构，让 CI、发布会和事故复盘使用同一份 artifact：
+
+```yaml
+release_report:
+  release_id: "agent-support-2026-07-16-001"
+  owner: "agent_release_owner"
+  agent_version: "2026.07.16"
+  prompt_hash: "sha256:..."
+  model_version: "provider/model@2026-07-15"
+  tool_schema_version: "tools-support-v18"
+  golden_tasks_version: "golden-support-v42"
+  security_suite_version: "security-agent-v11"
+  gate_decision: "warn" # pass | warn | block
+  decision_reason: "只读灰度通过；写操作审批参数绑定仍缺 2 个样例"
+  rollout_scope:
+    tenant_group: "internal-beta"
+    traffic_percent: 1
+    allowed_tools:
+      - "kb_search"
+      - "ticket_summarize"
+    blocked_tools:
+      - "crm_update"
+  evidence:
+    failed_case_ids:
+      - "SEC-approval-parameter-binding-002"
+    safe_trace_links:
+      - "safe_trace://release/agent-support-2026-07-16-001/SEC-approval-parameter-binding-002"
+    audit_event_ids:
+      - "audit_01HX..."
+  rollback:
+    version_switch: "prompt:model:tools -> previous_stable"
+    capability_switch: "disable_write_tools"
+    traffic_switch: "beta -> 0%"
+    owner: "agent_oncall"
+  next_review:
+    required_before_write_gray: true
+    tasks:
+      - "补齐写操作审批参数绑定样例并重跑安全回归集"
+      - "演练 crm_update 熔断后人工接管路径"
+```
+
+消费这份报告时，先看 `gate_decision`，再决定能做什么：
+
+| 结论 | 发布动作 | 必须留下的证据 |
+|------|----------|----------------|
+| `pass` | 允许按灰度计划开放声明范围内的工具；高风险写能力仍按审批策略执行 | 完整评估结果、监控基线、回滚开关和第 10 章安全清单通过记录 |
+| `warn` | 只能只读灰度、内部灰度或人工接管灰度；不得扩大到高风险写操作 | 未满足项、负责人、补齐期限、失败样本 ID 和下一次复审条件 |
+| `block` | 阻断发布，冻结候选 Prompt/模型/工具 schema 组合 | 阻断原因、失败 trace、审计事件、回滚或修复任务、重新进入门禁的条件 |
+
+这样做的收益是把“能不能上线”的争论转成可执行分支：`pass` 进入灰度，`warn` 降级范围并设复审条件，`block` 回到修复队列。第十章 10.9 的发布前安全检查清单产出的结论，必须回写到这里的 `gate_decision` 和 `decision_reason`，否则监控、回滚和值班人员无法知道当前版本到底被允许执行哪些能力。
+
 ---
 
 ## 9.8 本章小结
