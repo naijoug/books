@@ -1,40 +1,41 @@
 # TypeScript 技术卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护，共 31 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护，共 32 张。文件名使用英文 `kebab-case`。
 
-| 卡片 | 文件 |
-|---|---|
-| 用联合类型表达状态机 | [`union-types-state-machine.md`](union-types-state-machine.md) |
-| `never` 穷尽检查防止漏掉状态分支 | [`never-exhaustive-state-checks.md`](never-exhaustive-state-checks.md) |
-| `infer` 用于从类型里提取信息 | [`typescript-infer-extracts-types.md`](typescript-infer-extracts-types.md) |
-| 条件类型让类型根据输入变化 | [`conditional-types-input-dependent.md`](conditional-types-input-dependent.md) |
-| `infer` 可以提取函数、Promise 和数组内部类型 | [`infer-function-promise-array-types.md`](infer-function-promise-array-types.md) |
-| Mapped Type + 条件类型可以按值类型筛选字段 | [`mapped-type-filter-fields-by-value.md`](mapped-type-filter-fields-by-value.md) |
-| 深度只读类型要谨慎处理对象边界 | [`deep-readonly-object-boundaries.md`](deep-readonly-object-boundaries.md) |
-| `satisfies` 检查形状但保留推断 | [`satisfies-checks-shape-keeps-inference.md`](satisfies-checks-shape-keeps-inference.md) |
-| `unknown` 要先缩窄再使用 | [`unknown-requires-narrowing.md`](unknown-requires-narrowing.md) |
-| 类型守卫把外部输入缩窄成领域对象 | [`type-guards-narrow-domain-inputs.md`](type-guards-narrow-domain-inputs.md) |
-| 断言函数让边界错误提前失败 | [`assertion-functions-fail-fast-boundaries.md`](assertion-functions-fail-fast-boundaries.md) |
-| 外部 API 响应先过 schema 边界 | [`external-api-response-schema-boundary.md`](external-api-response-schema-boundary.md) |
-| 请求状态和数据 schema 分层 | [`request-state-keeps-schema-data-separate.md`](request-state-keeps-schema-data-separate.md) |
-| 模板字面量类型约束字符串格式 | [`template-literal-types-constrain-strings.md`](template-literal-types-constrain-strings.md) |
-| 品牌类型防止不同 ID 互相混用 | [`branded-types-prevent-id-mixing.md`](branded-types-prevent-id-mixing.md) |
-| Result 类型让错误处理显式 | [`result-type-makes-errors-explicit.md`](result-type-makes-errors-explicit.md) |
-| 工具类型从领域模型派生 DTO | [`utility-types-derive-dtos.md`](utility-types-derive-dtos.md) |
-| DTO 边界不要泄漏领域模型 | [`dto-boundary-hides-domain-model.md`](dto-boundary-hides-domain-model.md) |
-| API DTO 版本演进不要回灌领域模型 | [`api-dto-version-does-not-backflow-domain-model.md`](api-dto-version-does-not-backflow-domain-model.md) |
-| 弃用 DTO 字段要有迁移窗口和测试 | [`deprecated-dto-fields-need-migration-window-tests.md`](deprecated-dto-fields-need-migration-window-tests.md) |
-| API 兼容删除需要消费者观测信号 | [`api-compatible-removal-needs-consumer-telemetry.md`](api-compatible-removal-needs-consumer-telemetry.md) |
-| 领域事件不要复用 API DTO | [`domain-events-do-not-reuse-api-dtos.md`](domain-events-do-not-reuse-api-dtos.md) |
-| Domain Event 与 Integration Event 要分层 | [`domain-event-integration-event-layering.md`](domain-event-integration-event-layering.md) |
-| 不要用万能 mapper 跨多条边界 | [`universal-mapper-crosses-too-many-boundaries.md`](universal-mapper-crosses-too-many-boundaries.md) |
-| ViewModel 不要污染领域模型 | [`view-model-keeps-ui-state-out-of-domain.md`](view-model-keeps-ui-state-out-of-domain.md) |
-| 表单命令对象不要复用 ViewModel | [`form-command-does-not-reuse-view-model.md`](form-command-does-not-reuse-view-model.md) |
-| 自定义错误类型让失败可分类 | [`custom-error-types-make-failures-classifiable.md`](custom-error-types-make-failures-classifiable.md) |
-| 重试策略要显式化，而不是藏在 catch 分支里 | [`retry-policy-explicit-not-hidden-catch.md`](retry-policy-explicit-not-hidden-catch.md) |
-| 降级策略应在调用方决定，而不是被调方隐藏 | [`degradation-strategy-at-caller-not-callee.md`](degradation-strategy-at-caller-not-callee.md) |
-| 对外错误码应由领域错误翻译，而不是泄漏底层异常 | [`external-error-codes-domain-defined-not-leaked.md`](external-error-codes-domain-defined-not-leaked.md) |
-| 错误恢复路径需要一张决策表串起来 | [`error-recovery-path-needs-one-decision-table.md`](error-recovery-path-needs-one-decision-table.md) |
+| 卡片                                           | 文件                                                                                                           |
+| ---------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| 用联合类型表达状态机                           | [`union-types-state-machine.md`](union-types-state-machine.md)                                                 |
+| `never` 穷尽检查防止漏掉状态分支               | [`never-exhaustive-state-checks.md`](never-exhaustive-state-checks.md)                                         |
+| `infer` 用于从类型里提取信息                   | [`typescript-infer-extracts-types.md`](typescript-infer-extracts-types.md)                                     |
+| 条件类型让类型根据输入变化                     | [`conditional-types-input-dependent.md`](conditional-types-input-dependent.md)                                 |
+| `infer` 可以提取函数、Promise 和数组内部类型   | [`infer-function-promise-array-types.md`](infer-function-promise-array-types.md)                               |
+| Mapped Type + 条件类型可以按值类型筛选字段     | [`mapped-type-filter-fields-by-value.md`](mapped-type-filter-fields-by-value.md)                               |
+| 深度只读类型要谨慎处理对象边界                 | [`deep-readonly-object-boundaries.md`](deep-readonly-object-boundaries.md)                                     |
+| `satisfies` 检查形状但保留推断                 | [`satisfies-checks-shape-keeps-inference.md`](satisfies-checks-shape-keeps-inference.md)                       |
+| `unknown` 要先缩窄再使用                       | [`unknown-requires-narrowing.md`](unknown-requires-narrowing.md)                                               |
+| 类型守卫把外部输入缩窄成领域对象               | [`type-guards-narrow-domain-inputs.md`](type-guards-narrow-domain-inputs.md)                                   |
+| 断言函数让边界错误提前失败                     | [`assertion-functions-fail-fast-boundaries.md`](assertion-functions-fail-fast-boundaries.md)                   |
+| 外部 API 响应先过 schema 边界                  | [`external-api-response-schema-boundary.md`](external-api-response-schema-boundary.md)                         |
+| 请求状态和数据 schema 分层                     | [`request-state-keeps-schema-data-separate.md`](request-state-keeps-schema-data-separate.md)                   |
+| 模板字面量类型约束字符串格式                   | [`template-literal-types-constrain-strings.md`](template-literal-types-constrain-strings.md)                   |
+| 品牌类型防止不同 ID 互相混用                   | [`branded-types-prevent-id-mixing.md`](branded-types-prevent-id-mixing.md)                                     |
+| Result 类型让错误处理显式                      | [`result-type-makes-errors-explicit.md`](result-type-makes-errors-explicit.md)                                 |
+| 工具类型从领域模型派生 DTO                     | [`utility-types-derive-dtos.md`](utility-types-derive-dtos.md)                                                 |
+| DTO 边界不要泄漏领域模型                       | [`dto-boundary-hides-domain-model.md`](dto-boundary-hides-domain-model.md)                                     |
+| API DTO 版本演进不要回灌领域模型               | [`api-dto-version-does-not-backflow-domain-model.md`](api-dto-version-does-not-backflow-domain-model.md)       |
+| 弃用 DTO 字段要有迁移窗口和测试                | [`deprecated-dto-fields-need-migration-window-tests.md`](deprecated-dto-fields-need-migration-window-tests.md) |
+| API 兼容删除需要消费者观测信号                 | [`api-compatible-removal-needs-consumer-telemetry.md`](api-compatible-removal-needs-consumer-telemetry.md)     |
+| 领域事件不要复用 API DTO                       | [`domain-events-do-not-reuse-api-dtos.md`](domain-events-do-not-reuse-api-dtos.md)                             |
+| Domain Event 与 Integration Event 要分层       | [`domain-event-integration-event-layering.md`](domain-event-integration-event-layering.md)                     |
+| 不要用万能 mapper 跨多条边界                   | [`universal-mapper-crosses-too-many-boundaries.md`](universal-mapper-crosses-too-many-boundaries.md)           |
+| ViewModel 不要污染领域模型                     | [`view-model-keeps-ui-state-out-of-domain.md`](view-model-keeps-ui-state-out-of-domain.md)                     |
+| 表单命令对象不要复用 ViewModel                 | [`form-command-does-not-reuse-view-model.md`](form-command-does-not-reuse-view-model.md)                       |
+| 自定义错误类型让失败可分类                     | [`custom-error-types-make-failures-classifiable.md`](custom-error-types-make-failures-classifiable.md)         |
+| 重试策略要显式化，而不是藏在 catch 分支里      | [`retry-policy-explicit-not-hidden-catch.md`](retry-policy-explicit-not-hidden-catch.md)                       |
+| 降级策略应在调用方决定，而不是被调方隐藏       | [`degradation-strategy-at-caller-not-callee.md`](degradation-strategy-at-caller-not-callee.md)                 |
+| 对外错误码应由领域错误翻译，而不是泄漏底层异常 | [`external-error-codes-domain-defined-not-leaked.md`](external-error-codes-domain-defined-not-leaked.md)       |
+| 错误恢复路径需要一张决策表串起来               | [`error-recovery-path-needs-one-decision-table.md`](error-recovery-path-needs-one-decision-table.md)           |
+| `unknown` 在抽象方法签名中作为传输类型         | [`unknown-transit-type-in-abstract-hierarchies.md`](unknown-transit-type-in-abstract-hierarchies.md)           |
 
 ## 边界建模阅读线
 
@@ -86,15 +87,15 @@
 
 边界越多，越需要让函数名直接暴露“从哪里来、到哪里去”。本章示例优先采用下面的命名，避免一个 `mapProduct` 同时承担输入校验、DTO 脱敏、页面格式化和提交转换等职责。
 
-| 命名 | 方向 | 适用位置 | 不该做的事 |
-|---|---|---|---|
-| `parseXxx` / `decodeXxx` | `unknown` / raw → 已验证输入 | 网络、CLI、表单入口 | 不读取数据库，不调用业务服务 |
-| `toXxxDto` / `toXxxDtoV1` | 领域模型 → API DTO | controller、route handler、RPC resolver | 不返回领域对象引用，不泄漏内部字段 |
-| `fromXxxDto` / `fromDeprecatedXxxDto` | API DTO → 领域命令或领域输入 | client adapter、integration adapter | 不把 DTO 当成领域模型长期保存 |
-| `toXxxViewModel` | 领域模型 / DTO → 页面展示模型 | page loader、component adapter | 不写回业务状态，不保存临时 UI 字段到领域层 |
-| `toXxxCommand` | 表单 ViewModel → 业务命令 | submit handler、action、mutation | 不携带错误提示、按钮状态、格式化文案 |
-| `toXxxDomainEvent` | 业务结果 → 领域事件 | use case、transaction boundary | 不包含外部 topic、版本号或消费者兼容字段 |
-| `toXxxIntegrationEventV1` | domain event → integration event payload | outbox publisher、message adapter、webhook adapter | 不复用 HTTP response DTO，不暴露内部聚合结构 |
+| 命名                                  | 方向                                     | 适用位置                                           | 不该做的事                                   |
+| ------------------------------------- | ---------------------------------------- | -------------------------------------------------- | -------------------------------------------- |
+| `parseXxx` / `decodeXxx`              | `unknown` / raw → 已验证输入             | 网络、CLI、表单入口                                | 不读取数据库，不调用业务服务                 |
+| `toXxxDto` / `toXxxDtoV1`             | 领域模型 → API DTO                       | controller、route handler、RPC resolver            | 不返回领域对象引用，不泄漏内部字段           |
+| `fromXxxDto` / `fromDeprecatedXxxDto` | API DTO → 领域命令或领域输入             | client adapter、integration adapter                | 不把 DTO 当成领域模型长期保存                |
+| `toXxxViewModel`                      | 领域模型 / DTO → 页面展示模型            | page loader、component adapter                     | 不写回业务状态，不保存临时 UI 字段到领域层   |
+| `toXxxCommand`                        | 表单 ViewModel → 业务命令                | submit handler、action、mutation                   | 不携带错误提示、按钮状态、格式化文案         |
+| `toXxxDomainEvent`                    | 业务结果 → 领域事件                      | use case、transaction boundary                     | 不包含外部 topic、版本号或消费者兼容字段     |
+| `toXxxIntegrationEventV1`             | domain event → integration event payload | outbox publisher、message adapter、webhook adapter | 不复用 HTTP response DTO，不暴露内部聚合结构 |
 
 维护规则：
 
@@ -133,38 +134,39 @@ python3 scripts/verify_typescript_cards.py
 python3 scripts/verify_all_cards.py --language TypeScript
 ```
 
-脚本会从本章 Markdown 中抽取 `ts` / `typescript` 代码块,按卡片合并写入临时 `.ts` 文件,并用 `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom` 逐张检查。当前预期输出为 `verified 31 TypeScript cards with 32 code blocks`。
+脚本会从本章 Markdown 中抽取 `ts` / `typescript` 代码块,按卡片合并写入临时 `.ts` 文件,并用 `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom` 逐张检查。当前预期输出为 `verified 32 TypeScript cards with 33 code blocks`。
 
-| 类型 | 卡片 | 验证方式 |
-|---|---|---|
-| 状态建模 | [`union-types-state-machine.md`](union-types-state-machine.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom union-types-state-machine.ts` |
-| 状态建模 | [`never-exhaustive-state-checks.md`](never-exhaustive-state-checks.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom never-exhaustive-state-checks.ts` |
-| 类型提取 | [`typescript-infer-extracts-types.md`](typescript-infer-extracts-types.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict typescript-infer-extracts-types.ts` |
-| 类型提取 | [`infer-function-promise-array-types.md`](infer-function-promise-array-types.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict infer-function-promise-array-types.ts` |
-| 条件类型 | [`conditional-types-input-dependent.md`](conditional-types-input-dependent.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict conditional-types-input-dependent.ts` |
-| 映射类型 | [`mapped-type-filter-fields-by-value.md`](mapped-type-filter-fields-by-value.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict mapped-type-filter-fields-by-value.ts` |
-| 只读边界 | [`deep-readonly-object-boundaries.md`](deep-readonly-object-boundaries.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom deep-readonly-object-boundaries.ts` |
-| 形状检查 | [`satisfies-checks-shape-keeps-inference.md`](satisfies-checks-shape-keeps-inference.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom satisfies-checks-shape-keeps-inference.ts` |
-| 输入缩窄 | [`unknown-requires-narrowing.md`](unknown-requires-narrowing.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom unknown-requires-narrowing.ts` |
-| 输入缩窄 | [`type-guards-narrow-domain-inputs.md`](type-guards-narrow-domain-inputs.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom type-guards-narrow-domain-inputs.ts` |
-| 输入断言 | [`assertion-functions-fail-fast-boundaries.md`](assertion-functions-fail-fast-boundaries.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom assertion-functions-fail-fast-boundaries.ts` |
-| Schema 边界 | [`external-api-response-schema-boundary.md`](external-api-response-schema-boundary.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom external-api-response-schema-boundary.ts` |
-| 请求状态 | [`request-state-keeps-schema-data-separate.md`](request-state-keeps-schema-data-separate.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom request-state-keeps-schema-data-separate.ts` |
-| 字符串约束 | [`template-literal-types-constrain-strings.md`](template-literal-types-constrain-strings.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom template-literal-types-constrain-strings.ts` |
-| 领域隔离 | [`branded-types-prevent-id-mixing.md`](branded-types-prevent-id-mixing.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom branded-types-prevent-id-mixing.ts` |
-| 错误建模 | [`result-type-makes-errors-explicit.md`](result-type-makes-errors-explicit.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom result-type-makes-errors-explicit.ts` |
-| DTO 派生 | [`utility-types-derive-dtos.md`](utility-types-derive-dtos.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom utility-types-derive-dtos.ts` |
-| DTO 边界 | [`dto-boundary-hides-domain-model.md`](dto-boundary-hides-domain-model.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom dto-boundary-hides-domain-model.ts` |
-| DTO 版本 | [`api-dto-version-does-not-backflow-domain-model.md`](api-dto-version-does-not-backflow-domain-model.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom api-dto-version-does-not-backflow-domain-model.ts` |
-| DTO 迁移 | [`deprecated-dto-fields-need-migration-window-tests.md`](deprecated-dto-fields-need-migration-window-tests.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom deprecated-dto-fields-need-migration-window-tests.ts` |
-| DTO 迁移 | [`api-compatible-removal-needs-consumer-telemetry.md`](api-compatible-removal-needs-consumer-telemetry.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom api-compatible-removal-needs-consumer-telemetry.ts` |
-| 事件边界 | [`domain-events-do-not-reuse-api-dtos.md`](domain-events-do-not-reuse-api-dtos.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom domain-events-do-not-reuse-api-dtos.ts` |
-| 事件边界 | [`domain-event-integration-event-layering.md`](domain-event-integration-event-layering.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom domain-event-integration-event-layering.ts` |
-| 边界 mapper | [`universal-mapper-crosses-too-many-boundaries.md`](universal-mapper-crosses-too-many-boundaries.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom universal-mapper-crosses-too-many-boundaries.ts` |
-| ViewModel 边界 | [`view-model-keeps-ui-state-out-of-domain.md`](view-model-keeps-ui-state-out-of-domain.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom view-model-keeps-ui-state-out-of-domain.ts` |
-| Command 边界 | [`form-command-does-not-reuse-view-model.md`](form-command-does-not-reuse-view-model.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom form-command-does-not-reuse-view-model.ts` |
-| 错误分类 | [`custom-error-types-make-failures-classifiable.md`](custom-error-types-make-failures-classifiable.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom custom-error-types-make-failures-classifiable.ts` |
-| 重试策略 | [`retry-policy-explicit-not-hidden-catch.md`](retry-policy-explicit-not-hidden-catch.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom retry-policy-explicit-not-hidden-catch.ts` |
-| 错误恢复 | [`degradation-strategy-at-caller-not-callee.md`](degradation-strategy-at-caller-not-callee.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom degradation-strategy-at-caller-not-callee.ts` |
-| 错误边界 | [`external-error-codes-domain-defined-not-leaked.md`](external-error-codes-domain-defined-not-leaked.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom external-error-codes-domain-defined-not-leaked.ts` |
-| 错误恢复 | [`error-recovery-path-needs-one-decision-table.md`](error-recovery-path-needs-one-decision-table.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom error-recovery-path-needs-one-decision-table.ts` |
+| 类型           | 卡片                                                                                                           | 验证方式                                                                                                                 |
+| -------------- | -------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| 状态建模       | [`union-types-state-machine.md`](union-types-state-machine.md)                                                 | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom union-types-state-machine.ts`                         |
+| 状态建模       | [`never-exhaustive-state-checks.md`](never-exhaustive-state-checks.md)                                         | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom never-exhaustive-state-checks.ts`                     |
+| 类型提取       | [`typescript-infer-extracts-types.md`](typescript-infer-extracts-types.md)                                     | `npx -y -p typescript@5.9.3 tsc --noEmit --strict typescript-infer-extracts-types.ts`                                    |
+| 类型提取       | [`infer-function-promise-array-types.md`](infer-function-promise-array-types.md)                               | `npx -y -p typescript@5.9.3 tsc --noEmit --strict infer-function-promise-array-types.ts`                                 |
+| 条件类型       | [`conditional-types-input-dependent.md`](conditional-types-input-dependent.md)                                 | `npx -y -p typescript@5.9.3 tsc --noEmit --strict conditional-types-input-dependent.ts`                                  |
+| 映射类型       | [`mapped-type-filter-fields-by-value.md`](mapped-type-filter-fields-by-value.md)                               | `npx -y -p typescript@5.9.3 tsc --noEmit --strict mapped-type-filter-fields-by-value.ts`                                 |
+| 只读边界       | [`deep-readonly-object-boundaries.md`](deep-readonly-object-boundaries.md)                                     | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom deep-readonly-object-boundaries.ts`                   |
+| 形状检查       | [`satisfies-checks-shape-keeps-inference.md`](satisfies-checks-shape-keeps-inference.md)                       | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom satisfies-checks-shape-keeps-inference.ts`            |
+| 输入缩窄       | [`unknown-requires-narrowing.md`](unknown-requires-narrowing.md)                                               | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom unknown-requires-narrowing.ts`                        |
+| 输入缩窄       | [`type-guards-narrow-domain-inputs.md`](type-guards-narrow-domain-inputs.md)                                   | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom type-guards-narrow-domain-inputs.ts`                  |
+| 输入断言       | [`assertion-functions-fail-fast-boundaries.md`](assertion-functions-fail-fast-boundaries.md)                   | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom assertion-functions-fail-fast-boundaries.ts`          |
+| Schema 边界    | [`external-api-response-schema-boundary.md`](external-api-response-schema-boundary.md)                         | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom external-api-response-schema-boundary.ts`             |
+| 请求状态       | [`request-state-keeps-schema-data-separate.md`](request-state-keeps-schema-data-separate.md)                   | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom request-state-keeps-schema-data-separate.ts`          |
+| 字符串约束     | [`template-literal-types-constrain-strings.md`](template-literal-types-constrain-strings.md)                   | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom template-literal-types-constrain-strings.ts`          |
+| 领域隔离       | [`branded-types-prevent-id-mixing.md`](branded-types-prevent-id-mixing.md)                                     | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom branded-types-prevent-id-mixing.ts`                   |
+| 错误建模       | [`result-type-makes-errors-explicit.md`](result-type-makes-errors-explicit.md)                                 | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom result-type-makes-errors-explicit.ts`                 |
+| DTO 派生       | [`utility-types-derive-dtos.md`](utility-types-derive-dtos.md)                                                 | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom utility-types-derive-dtos.ts`                         |
+| DTO 边界       | [`dto-boundary-hides-domain-model.md`](dto-boundary-hides-domain-model.md)                                     | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom dto-boundary-hides-domain-model.ts`                   |
+| DTO 版本       | [`api-dto-version-does-not-backflow-domain-model.md`](api-dto-version-does-not-backflow-domain-model.md)       | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom api-dto-version-does-not-backflow-domain-model.ts`    |
+| DTO 迁移       | [`deprecated-dto-fields-need-migration-window-tests.md`](deprecated-dto-fields-need-migration-window-tests.md) | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom deprecated-dto-fields-need-migration-window-tests.ts` |
+| DTO 迁移       | [`api-compatible-removal-needs-consumer-telemetry.md`](api-compatible-removal-needs-consumer-telemetry.md)     | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom api-compatible-removal-needs-consumer-telemetry.ts`   |
+| 事件边界       | [`domain-events-do-not-reuse-api-dtos.md`](domain-events-do-not-reuse-api-dtos.md)                             | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom domain-events-do-not-reuse-api-dtos.ts`               |
+| 事件边界       | [`domain-event-integration-event-layering.md`](domain-event-integration-event-layering.md)                     | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom domain-event-integration-event-layering.ts`           |
+| 边界 mapper    | [`universal-mapper-crosses-too-many-boundaries.md`](universal-mapper-crosses-too-many-boundaries.md)           | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom universal-mapper-crosses-too-many-boundaries.ts`      |
+| ViewModel 边界 | [`view-model-keeps-ui-state-out-of-domain.md`](view-model-keeps-ui-state-out-of-domain.md)                     | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom view-model-keeps-ui-state-out-of-domain.ts`           |
+| Command 边界   | [`form-command-does-not-reuse-view-model.md`](form-command-does-not-reuse-view-model.md)                       | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom form-command-does-not-reuse-view-model.ts`            |
+| 错误分类       | [`custom-error-types-make-failures-classifiable.md`](custom-error-types-make-failures-classifiable.md)         | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom custom-error-types-make-failures-classifiable.ts`     |
+| 重试策略       | [`retry-policy-explicit-not-hidden-catch.md`](retry-policy-explicit-not-hidden-catch.md)                       | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom retry-policy-explicit-not-hidden-catch.ts`            |
+| 错误恢复       | [`degradation-strategy-at-caller-not-callee.md`](degradation-strategy-at-caller-not-callee.md)                 | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom degradation-strategy-at-caller-not-callee.ts`         |
+| 错误边界       | [`external-error-codes-domain-defined-not-leaked.md`](external-error-codes-domain-defined-not-leaked.md)       | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom external-error-codes-domain-defined-not-leaked.ts`    |
+| 错误恢复       | [`error-recovery-path-needs-one-decision-table.md`](error-recovery-path-needs-one-decision-table.md)           | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom error-recovery-path-needs-one-decision-table.ts`      |
+| 抽象传输       | [`unknown-transit-type-in-abstract-hierarchies.md`](unknown-transit-type-in-abstract-hierarchies.md)           | `npx -y -p typescript@5.9.3 tsc --noEmit --strict --lib es2020,dom unknown-transit-type-in-abstract-hierarchies.ts`      |
