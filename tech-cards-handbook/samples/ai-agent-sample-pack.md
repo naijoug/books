@@ -1,7 +1,7 @@
 # AI Agent 工作流卡片 · 样本包
 
 > 本样本包不是 AI Agent 章节的完整目录，而是一条可复制的 dirty workspace 心跳接力主线：10 张精选卡片负责建立最小闭环，附录和配套模板负责把它落到真实 prompt、验证证据和最终报告字段。
-> 选自《技术卡片随身宝典》AI Agent 系列（共 43 张）。如果只想减少一次无人值守接力的事故率，先按本包顺序走完；如果要扩展到工具契约、上下文预算、反馈池或助手操作系统，再回到完整章节目录。
+> 选自《技术卡片随身宝典》AI Agent 系列（共 58 张）。如果只想减少一次无人值守接力的事故率，先按本包顺序走完；如果要扩展到工具契约、上下文预算、反馈池、交付工程化或助手操作系统，再回到完整章节目录。
 > 第一次使用时，先读 `books/tech-cards-handbook/chapters/ai-agent/README.md` 的“3 分钟读法”，再复制本样本包；这样能先分清失败吸收线、dirty workspace 线和提交证据线，避免把样本当成机械待办。
 > 阅读顺序就是这条链路的决策顺序：心跳/日志资产化/快照 → 规划 → 接力信号 → 无人值守默认动作 → 失败吸收 → 归属边界 → 状态证据 → 验证与报告；样本卡片只保留最小闭环，完整 quick path 和一页纸入口见文末参考卡片与配套模板。
 > 如果你的目标不只是让接力更稳，而是把一次 AI 编程审查转成收入实验，先用本包稳住 dirty workspace，再在文末“收入实验接力”里复制审查报告一页纸和案例发布阶梯；不要把未验证的交付物直接包装成公开战报。
@@ -17,6 +17,7 @@
 | 验证命令超过三条，下一轮容易漏跑或报告漂移 | [`ai-agent-preflight-wrapper-one-pager.md`](ai-agent-preflight-wrapper-one-pager.md) | 给 wrapper 补默认/快速模式和编排测试 |
 | 不确定该选 proof、baseline、wrapper、命令梯还是交接模板 | [`ai-agent-proof-to-preflight-decision-table.md`](ai-agent-proof-to-preflight-decision-table.md) | 按矩阵选一个入口，不要同时复制多份 |
 | 已经知道最大风险，只缺下一条安全命令和停止条件 | [`ai-agent-next-safe-command-ladder-one-pager.md`](ai-agent-next-safe-command-ladder-one-pager.md) | 把验证结果写回 notebook 和最终报告 |
+| 本轮产物是 zip、静态页、清单或模板包，担心页面锚点、staging 残留、归档契约或 tracked artifact 漂移 | 先读 `books/tech-cards-handbook/chapters/ai-agent/README.md` 的“交付工程化线索” | 把交付检查拆成页面结构、临时输出、归档内容和已追踪生成物四层 |
 
 判断口径：先问“我要降低哪一个风险”，再选模板；不要因为模板已经存在就机械补齐。若当前风险是命令失败或未覆盖边界，优先使用失败吸收、验证失败交接或未验证项交接模板，而不是继续升级 preflight。
 
@@ -370,6 +371,12 @@ notebook 提交：summaries `8c026a9` `Record Hermes heartbeat progress`（提�
 - books/tech-cards-handbook/chapters/ai-agent/report-from-committed-state.md
 - books/tech-cards-handbook/chapters/ai-agent/final-report-names-excluded-boundaries.md
 
+交付工程化补充卡片（当本轮成果会被下载、发布或复用时再接入，不要替代上面的 dirty workspace 边界）：
+- books/tech-cards-handbook/chapters/ai-agent/referenced-section-needs-stable-anchor.md
+- books/tech-cards-handbook/chapters/ai-agent/package-staging-stays-outside-output-dir.md
+- books/tech-cards-handbook/chapters/ai-agent/artifact-smoke-test-checks-contract.md
+- books/tech-cards-handbook/chapters/ai-agent/tracked-artifact-needs-drift-check.md
+
 配套模板：
 - books/tech-cards-handbook/samples/ai-agent-final-report-field-quickref.md
 - books/tech-cards-handbook/samples/ai-agent-proof-to-preflight-decision-table.md
@@ -434,8 +441,8 @@ notebook 提交：summaries `8c026a9` `Record Hermes heartbeat progress`（提�
 
 ## 关于完整版
 
-这 10 张精选卡片选自《技术卡片随身宝典》AI Agent 系列的 43 张卡片。
+这 10 张精选卡片选自《技术卡片随身宝典》AI Agent 系列的 58 张卡片。
 
-完整版覆盖：工具契约与证据、上下文预算与状态设计、反馈闭环、运行控制、无人值守默认动作、交接机制、dirty workspace 收尾、失败输出改计划、最终报告边界和助手操作系统分层等主题。
+完整版覆盖：工具契约与证据、上下文预算与状态设计、反馈闭环、运行控制、无人值守默认动作、交接机制、dirty workspace 收尾、失败输出改计划、交付工程化检查、最终报告边界和助手操作系统分层等主题。
 
 每张卡片遵循统一格式：**问题 → 要点 → 示例 → 坑 → 检查**，适合在日常工作中随手翻阅、团队分享或作为 Agent 配对编程的参考。
