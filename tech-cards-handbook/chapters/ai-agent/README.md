@@ -1,6 +1,6 @@
 # AI Agent 系统实践卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护，共 58 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护，共 59 张。文件名使用英文 `kebab-case`。
 
 本目录收录 Agent 系统设计、运行边界、工具、记忆、反馈判断、反馈池和心跳工作流等实践卡片;具体 SDK 或语言实现优先放入对应技术栈目录。
 
@@ -131,6 +131,7 @@
 | 下一条安全命令梯不是测试清单，不要只写“再跑一遍” | [`next-safe-command-ladder-is-not-test-list.md`](next-safe-command-ladder-is-not-test-list.md) |
 | 匿名案例不能编造证据，不要把样板写成战报 | [`anonymous-case-must-not-invent-evidence.md`](anonymous-case-must-not-invent-evidence.md)；发布前先用 [`../../samples/ai-agent-case-publishing-ladder-one-pager.md`](../../samples/ai-agent-case-publishing-ladder-one-pager.md) 判断 Continue / Narrow / Stop |
 | 公开案例先分事实、推断和未验证，不要把审查记录直接写成结论 | [`public-case-separates-facts-inferences-unverified.md`](public-case-separates-facts-inferences-unverified.md)；claim 标签模板见 [`../../samples/ai-agent-case-publishing-ladder-one-pager.md`](../../samples/ai-agent-case-publishing-ladder-one-pager.md) |
+| 模板入口先分两层，不要让 Agent 复制错输入 | [`two-layer-template-entry-prevents-wrong-copy.md`](two-layer-template-entry-prevents-wrong-copy.md) |
 | Repo 里的 Agent 规则要有可见入口,不要只藏在聊天记录里 | [`repo-agent-rules-need-visible-entry.md`](repo-agent-rules-need-visible-entry.md) |
 | 被引用的页面区域需要稳定锚点，不要只在文案里说“上方/下方” | [`referenced-section-needs-stable-anchor.md`](referenced-section-needs-stable-anchor.md) |
 | 打包 staging 要留在输出目录外，不要让交付命令污染 `--out-dir` | [`package-staging-stays-outside-output-dir.md`](package-staging-stays-outside-output-dir.md) |
