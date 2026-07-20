@@ -23,12 +23,13 @@
 | 最终报告容易漏字段 | [`ai-agent-final-report-field-quickref.md`](ai-agent-final-report-field-quickref.md) | 核对成果、验证、notebook、commit hash、未接管边界和下一段接力点 |
 | 想把 AI 编程审查变成固定范围付费交付 | [`ai-agent-audit-report-one-pager.md`](ai-agent-audit-report-one-pager.md) | 用一页纸输出 Scope、Top Risks、下一条安全命令梯、handoff 和 Continue / Narrow / Stop 判断 |
 | 想把首份审查报告安全推进成匿名/公开案例 | [`ai-agent-case-publishing-ladder-one-pager.md`](ai-agent-case-publishing-ladder-one-pager.md) | 按证据形状、公开边界和 claim 标签决定 Continue / Narrow / Stop，避免把样板包装成战报 |
+| 一条观察看起来值得沉淀成新 skill，但还不确定是否已经可复用 | [`ai-agent-skill-reuse-before-new-skill-one-pager.md`](ai-agent-skill-reuse-before-new-skill-one-pager.md) | 先记录观察快照、复用路径、停止条件和技能化门槛，避免把单次 Narrow 结果误写成新 skill |
 
 ## 使用顺序
 
 1. **先选主入口**：完整接力用样本包，只做一次短接力用 dirty workspace 一页纸。
 2. **再补风险模板**：失败多就用失败吸收；验证边界不清就先看样本包顶部的“验证入口速记”，按“当前最大风险”做入口判断，再复制 proof checker、全量 proof 基线、统一 preflight wrapper、命令梯或交接模板；需要更细判断时再用 proof 到 preflight 决策表。
-3. **最后核对报告字段或商业化样本**：提交后用最终报告字段速查表，确保成果和排除边界同时可接力；如果目标是收入实验，用 AI Coding Audit Report 一页纸把审查压缩成固定范围交付；如果想把交付物公开，先用案例发布阶梯确认材料只能写成匿名案例、公开案例、方法样板还是不发布。
+3. **最后核对报告字段或商业化样本**：提交后用最终报告字段速查表，确保成果和排除边界同时可接力；如果目标是收入实验，用 AI Coding Audit Report 一页纸把审查压缩成固定范围交付；如果想把交付物公开，先用案例发布阶梯确认材料只能写成匿名案例、公开案例、方法样板还是不发布；如果只是从一次观察想到“要不要新增 skill”，先用 skill 复用一页纸确认是否还应继续复用已有技能。
 
 完整背景阅读见 [`../chapters/ai-agent/README.md`](../chapters/ai-agent/README.md) 的“3 分钟读法”和“快速路径：dirty workspace 心跳接力”。
 
