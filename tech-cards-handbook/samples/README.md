@@ -6,6 +6,8 @@
 
 ## 推荐入口
 
+验证类样本按两层入口维护：`ai-agent-sample-pack.md` 顶部是 30 秒“验证入口速记”，适合已能说出当前最大风险时直接选下一份输入；`ai-agent-proof-to-preflight-decision-table.md` 是 2 分钟展开版，适合还在 proof checker、全量 proof 基线、统一 preflight wrapper、命令梯和交接模板之间摇摆时再做入口判断。
+
 | 场景 | 先用 | 作用 |
 |---|---|---|
 | 完整 dirty workspace 接力：周期性唤醒的 Agent 面对 dirty workspace，需要完整 prompt、证据表和最终报告字段 | [`ai-agent-sample-pack.md`](ai-agent-sample-pack.md) | 10 张精选卡片建立最小闭环，附录和配套模板补足执行输入 |
