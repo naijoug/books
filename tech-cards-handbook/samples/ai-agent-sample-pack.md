@@ -1,7 +1,7 @@
 # AI Agent 工作流卡片 · 样本包
 
 > 本样本包不是 AI Agent 章节的完整目录，而是一条可复制的 dirty workspace 心跳接力主线：10 张精选卡片负责建立最小闭环，附录和配套模板负责把它落到真实 prompt、验证证据和最终报告字段。
-> 选自《技术卡片随身宝典》AI Agent 系列（共 58 张）。如果只想减少一次无人值守接力的事故率，先按本包顺序走完；如果要扩展到工具契约、上下文预算、反馈池、交付工程化或助手操作系统，再回到完整章节目录。
+> 选自《技术卡片随身宝典》AI Agent 系列（共 59 张）。如果只想减少一次无人值守接力的事故率，先按本包顺序走完；如果要扩展到工具契约、上下文预算、反馈池、交付工程化或助手操作系统，再回到完整章节目录。
 > 第一次使用时，先读 `books/tech-cards-handbook/chapters/ai-agent/README.md` 的“3 分钟读法”，再复制本样本包；这样能先分清失败吸收线、dirty workspace 线和提交证据线，避免把样本当成机械待办。
 > 阅读顺序就是这条链路的决策顺序：心跳/日志资产化/快照 → 规划 → 接力信号 → 无人值守默认动作 → 失败吸收 → 归属边界 → 状态证据 → 验证与报告；样本卡片只保留最小闭环，完整 quick path 和一页纸入口见文末参考卡片与配套模板。
 > 如果你的目标不只是让接力更稳，而是把一次 AI 编程审查转成收入实验，先用本包稳住 dirty workspace，再在文末“收入实验接力”里复制审查报告一页纸和案例发布阶梯；不要把未验证的交付物直接包装成公开战报。
@@ -439,9 +439,48 @@ notebook 提交：summaries `8c026a9` `Record Hermes heartbeat progress`（提�
 
 ---
 
+## 附录：技能化判断输入样例
+
+当一次心跳或审查里出现“这条观察好像可以沉淀成新 skill”的冲动时，先不要直接新建技能目录。先用 skill 复用一页纸判断它是单次任务、已有 skill 的补充引用，还是确实达到新 skill 门槛；只有能证明跨场景复用、触发条件清晰、已有 skill 无法覆盖，才进入技能化。
+
+```text
+你正在判断一次 AI 编程观察是否值得沉淀成新 skill。
+
+启动前必须先确认：
+1. 观察来自哪次任务、哪个相对路径、哪条验证证据；
+2. 是否已有 skill、卡片、docs 或样本能覆盖同类问题；
+3. 这条观察是否已经在两个以上场景复现，还是只是一次 Narrow 结果；
+4. 如果不新建 skill，下一轮 Agent 是否仍能通过现有入口复用它。
+
+执行顺序：
+1. 先读 `books/tech-cards-handbook/chapters/ai-agent/reuse-existing-skill-before-new-skill.md`。
+2. 填写 `books/tech-cards-handbook/samples/ai-agent-skill-reuse-before-new-skill-one-pager.md` 的观察快照、复用路径、停止条件和技能化门槛。
+3. 若已有 skill 只缺触发例子，优先补 reference 或 notebook 接力，不新建 skill。
+4. 若证据不足，把结论写成 `Reuse / Watch / New skill candidate`，并留下下一次复核的第一条命令或文件。
+
+最终报告固定字段：
+- Observation source：<相对路径、命令输出或任务记录>
+- Existing reuse path：<已有 skill/docs/books/samples 入口；没有则写无>
+- Decision：<Reuse / Watch / New skill candidate>
+- Stop condition：<为什么本轮不新建 skill，或触发新建的最低证据>
+- Next review：<下一段第一条动作>
+```
+
+参考卡片：
+- books/tech-cards-handbook/chapters/ai-agent/reuse-existing-skill-before-new-skill.md
+- books/tech-cards-handbook/chapters/ai-agent/no-new-surface-without-reuse-proof.md
+- books/tech-cards-handbook/chapters/ai-agent/work-log-is-reusable-asset.md
+
+配套模板：
+- books/tech-cards-handbook/samples/ai-agent-skill-reuse-before-new-skill-one-pager.md
+
+**检查**：如果只能说“以后可能有用”，但没有观察来源、复用路径和停止条件，本轮应保持 `Watch`；不要把一次未复现的经验直接包装成新 skill。
+
+---
+
 ## 关于完整版
 
-这 10 张精选卡片选自《技术卡片随身宝典》AI Agent 系列的 58 张卡片。
+这 10 张精选卡片选自《技术卡片随身宝典》AI Agent 系列的 59 张卡片。
 
 完整版覆盖：工具契约与证据、上下文预算与状态设计、反馈闭环、运行控制、无人值守默认动作、交接机制、dirty workspace 收尾、失败输出改计划、交付工程化检查、最终报告边界和助手操作系统分层等主题。
 
