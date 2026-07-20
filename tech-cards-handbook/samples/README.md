@@ -24,6 +24,7 @@
 | 想把 AI 编程审查变成固定范围付费交付 | [`ai-agent-audit-report-one-pager.md`](ai-agent-audit-report-one-pager.md) | 用一页纸输出 Scope、Top Risks、下一条安全命令梯、handoff 和 Continue / Narrow / Stop 判断 |
 | 想把首份审查报告安全推进成匿名/公开案例 | [`ai-agent-case-publishing-ladder-one-pager.md`](ai-agent-case-publishing-ladder-one-pager.md) | 按证据形状、公开边界和 claim 标签决定 Continue / Narrow / Stop，避免把样板包装成战报 |
 | 一条观察看起来值得沉淀成新 skill，但还不确定是否已经可复用 | [`ai-agent-skill-reuse-before-new-skill-one-pager.md`](ai-agent-skill-reuse-before-new-skill-one-pager.md) | 先记录观察快照、复用路径、停止条件和技能化门槛，避免把单次 Narrow 结果误写成新 skill |
+| Agent 准备好外发文案或付费 offer，但没有明确发布授权 | [`ai-agent-external-publish-authorization-one-pager.md`](ai-agent-external-publish-authorization-one-pager.md) | 填授权包（渠道、账号、联系路径、观察窗口），缺任一项就不发布；配套 `chapters/ai-agent/external-publish-needs-authorization.md` |
 
 ## 使用顺序
 

@@ -122,7 +122,7 @@
 | 证据请求不是完整审查，不要把取证当交付 | [`evidence-request-is-not-full-audit.md`](evidence-request-is-not-full-audit.md)；可发送话术见 `docs/documents/trending/ai/ai-coding-audit-evidence-request-template.md` |
 | 先交付首份报告，不要先卖咨询 | [`first-report-before-consulting.md`](first-report-before-consulting.md)；报告骨架见 [`../../samples/ai-agent-audit-report-one-pager.md`](../../samples/ai-agent-audit-report-one-pager.md) |
 | 先跑 30 分钟路线，不要先产品化 | [`thirty-minute-route-before-productizing.md`](thirty-minute-route-before-productizing.md)；路线收口可复用 [`../../samples/ai-agent-audit-report-one-pager.md`](../../samples/ai-agent-audit-report-one-pager.md) |
-| 外部发布先要授权，不要把草稿当成发布许可 | [`external-publish-needs-authorization.md`](external-publish-needs-authorization.md) |
+| 外部发布先要授权，不要把草稿当成发布许可 | [`external-publish-needs-authorization.md`](external-publish-needs-authorization.md)；可复制授权包见 [`../../samples/ai-agent-external-publish-authorization-one-pager.md`](../../samples/ai-agent-external-publish-authorization-one-pager.md) |
 | 无真实链接时先验证需求，不要伪造发布入口 | [`no-link-validation-before-launch.md`](no-link-validation-before-launch.md) |
 | 发布反馈先看证据形状，不要只看互动量 | [`publish-feedback-needs-evidence-shape.md`](publish-feedback-needs-evidence-shape.md)；从报告到案例的发布决策见 [`../../samples/ai-agent-case-publishing-ladder-one-pager.md`](../../samples/ai-agent-case-publishing-ladder-one-pager.md) |
 | AI 生成 PR 需要单独审查入口,不要混进普通代码审查 | [`ai-generated-pr-needs-review-entry.md`](ai-generated-pr-needs-review-entry.md) |
