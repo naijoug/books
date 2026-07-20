@@ -66,6 +66,8 @@
 
 如果问题不是某个语言或代码边界，而是“周期性唤醒的 Agent 要在已有 dirty workspace 里继续工作”，优先从 [`ai-agent/`](ai-agent/) 的快速路径进入，而不是直接翻完整 AI Agent 目录。
 
+四条主线选入口：运行控制先看启动快照、规划取舍、dirty ownership、验证交接和最终报告；商业化与公开发布先看固定范围 offer、证据请求、首份报告、发布反馈、案例分层、外部发布授权和无真实链接验证；proof 与交付工程化先看 proof checker、全量基线、统一 preflight、proof 输出可移植、稳定锚点、打包 staging、smoke test 和生成物漂移；助手操作系统先看 repo 规则入口、技能复用、模板入口两层选择、启动层边界和助手 OS 分层。
+
 最短使用顺序：
 
 1. 先把 [`../samples/ai-agent-dirty-workspace-one-pager.md`](../samples/ai-agent-dirty-workspace-one-pager.md) 贴给本轮 Agent，要求它先记录启动快照。
