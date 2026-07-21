@@ -6,7 +6,7 @@
 
 本书已按技术栈重组正式内容：`chapters/` 下每个技术栈一个目录，每张卡片一个 Markdown 文件。
 
-当前共 234 张正式卡片。
+当前共 235 张正式卡片。
 
 ## 目录结构
 
@@ -46,7 +46,7 @@ tech-cards-handbook/
 | React | `chapters/react/` | 54 张：Effect、状态、派生状态、URL 状态、服务端数据缓存、异步状态边界、请求过期保护、请求缓存去重、缓存 key 设计、缓存失效、缓存过期、搜索防抖、骨架屏、表单字段状态、提交状态、字段错误、幂等键、action 返回 contract、成功后重置、列表 key、虚拟列表、分页加载、加载更多并发锁、筛选排序重置、延迟渲染、过渡更新、ref、自定义 Hook、错误边界、Suspense、代码分割、可恢复重试、Context 拆分、回调身份、memo、Profiler、性能、乐观更新、React 19 表单状态、SSR hydration 稳定输入、浏览器 API 客户端读取、客户端个性化外壳、SSR 个性化首屏占位策略、外部 store、Strict Mode、Reducer 和状态机 |
 | Swift | `chapters/swift/` | 14 张：值语义、async/await、基础值、字符串、集合、switch、可选绑定、闭包、defer 清理、Result 错误状态、显式重试策略、领域定义的对外错误码、调用方降级策略和错误恢复决策表 |
 | Flutter | `chapters/flutter/` | 14 张：状态、列表、导航、测试、布局、输入控件、组件拆分、异步构建、生命周期检查、controller 释放、显式重试策略、领域定义的对外错误码、调用方降级策略和错误恢复决策表 |
-| AI Agent | `chapters/ai-agent/` | 59 张，按四条主线维护：运行控制（边界、工具、记忆、上下文、反馈、心跳、规划、交接、无人值守默认动作和 dirty workspace 接力）；验证与证据（静默成功反向测试、失败吸收、green baseline、安全债、本地 proof checker、全量 proof 基线、统一 preflight wrapper、proof 输出可移植、命令梯和未验证项交接）；所有权与交付（未提交/staged 归属、提交范围台账、最终报告、稳定锚点、打包 staging、交付物 smoke test、生成物漂移检查、外部发布授权和无真实链接验证）；产品化阶梯（AI 编程审查 offer、证据请求、首份报告、30 分钟路线、发布反馈、案例分层、AI 辅助 PR 审查路径和公开案例事实分层）。dirty workspace 心跳接力的推荐阅读路径见 `chapters/ai-agent/README.md` |
+| AI Agent | `chapters/ai-agent/` | 60 张，按四条主线维护：运行控制（边界、工具、记忆、上下文、反馈、心跳、规划、交接、无人值守默认动作和 dirty workspace 接力）；验证与证据（静默成功反向测试、失败吸收、green baseline、安全债、本地 proof checker、全量 proof 基线、统一 preflight wrapper、proof 输出可移植、命令梯和未验证项交接）；所有权与交付（未提交/staged 归属、提交范围台账、最终报告、稳定锚点、打包 staging、交付物 smoke test、生成物漂移检查、外部发布授权和无真实链接验证）；产品化阶梯（AI 编程审查 offer、证据请求、首份报告、30 分钟路线、发布反馈、案例分层、AI 辅助 PR 审查路径和公开案例事实分层）。dirty workspace 心跳接力的推荐阅读路径见 `chapters/ai-agent/README.md` |
 | 样本索引 | `samples/README.md` | 可复制输入的场景入口：完整 dirty workspace 接力、短接力一页纸、失败吸收、proof 到 preflight 决策表、轻量 proof、全量 proof 基线、统一 preflight wrapper、命令梯、未验证项交接、验证失败交接、最终报告字段速查、AI 编程审查一页纸、案例发布阶梯、skill 复用判断和外部发布授权 |
 | 样本包 | `samples/ai-agent-sample-pack.md`、`samples/ai-agent-dirty-workspace-one-pager.md`、`samples/ai-agent-proof-to-preflight-decision-table.md`、`samples/ai-agent-audit-report-one-pager.md`、`samples/ai-agent-case-publishing-ladder-one-pager.md`、`samples/ai-agent-external-publish-authorization-one-pager.md` | dirty workspace 心跳接力主线、固定范围审查交付和安全发布：10 张精选卡片建立最小闭环；样本包开头的“验证入口速记”用“当前最大风险”做入口判断，先决定该接 proof checker、全量基线、preflight wrapper、命令梯还是交接模板，附录和配套一页纸模板再补足验证证据、proof 到 preflight 入口判断、未验证项交接、下一条安全命令、最终报告字段、错误边界 review 输入、AI Coding Audit Report、从报告到案例的发布决策，以及外部发布前的授权包；适合复制给周期性唤醒的 Agent、收入实验或公开内容复盘使用 |
 
