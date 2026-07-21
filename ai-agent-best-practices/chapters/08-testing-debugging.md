@@ -189,6 +189,26 @@ reference_answer: |
 
 样本字段要尽量贴近运行时 trace，方便自动检查：工具调用可以按名称和参数断言；高危动作可以按 forbidden tool 断言；最终回答可以用结构化字段或人工校准过的 judge rubric 断言。每次线上事故、人工接管或用户明确差评后，都应该沉淀一个最小复现样本，防止同类问题在模型或 Prompt 升级后复发。
 
+为了让样本真正可重跑，建议从第一天就把评估资产放进一个稳定目录，而不是只保存执行报告：
+
+```text
+evals/
+  golden/
+    travel_no_purchase_under_budget.yaml
+    support_ticket_update_requires_role.yaml
+  security/
+    prompt_injection_ignore_tool_policy.yaml
+    cross_tenant_data_access_blocked.yaml
+  runners/
+    run_golden_tasks.py
+  reports/
+    2026-07-22-release-candidate.yaml
+```
+
+这个目录里要分清三类文件：`golden/` 和 `security/` 是长期维护的输入样本，任何事故复盘都应该追加或更新这里；`runners/` 是把样本喂给 Agent 并收集 trace 的执行器；`reports/` 是某次候选版本的结果快照，可以被第九章发布报告和第十章安全门禁引用。不要反过来只保留 `reports/`，否则失败样本会停留在“这次看到了问题”，却无法在下一次模型或 Prompt 变更时自动重放。
+
+最小 CI 可以先不追求复杂平台，只做三件事：读取所有样本、运行候选 Agent、把 `required_tools`、`forbidden_tools`、`max_steps`、结构化输出和敏感字段扫描结果写入同一份报告。只要这条链路稳定，后续再接入 LLM-as-judge、人工标注或 A/B 对比都会简单得多。
+
 ### 8.5.2 关键指标
 
 | 指标 | 说明 |
