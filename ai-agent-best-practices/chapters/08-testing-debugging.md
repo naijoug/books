@@ -251,7 +251,115 @@ audit_event_ids: []
 
 这里的关键不是字段多，而是字段能串起因果链：`case_results` 让 CI 做逐条断言，`failed_case_ids` 让发布报告知道哪些样本必须复跑，`safe_trace_links` 让调试不依赖原始敏感日志，版本字段让回滚时能判断该退 Prompt、模型、工具 schema 还是业务代码。
 
-### 8.5.2 关键指标
+### 8.5.2 最小 Runner
+
+有了样本目录和报告字段，还需要一个能把样本喂给候选 Agent、收集 trace 并写出报告的执行器。最小 runner 不需要复杂平台，只需要做四件事：加载样本、运行 Agent、断言检查、写出报告。
+
+下面是一段伪代码，展示 runner 的核心循环和断言逻辑：
+
+```python
+import json, yaml, hashlib, pathlib
+from datetime import datetime
+
+def load_cases(case_dir: str) -> list[dict]:
+    """Load all golden/security cases from a directory."""
+    cases = []
+    for f in pathlib.Path(case_dir).rglob("*.yaml"):
+        cases.append(yaml.safe_load(f.read_text()))
+    return cases
+
+def run_case(agent, case: dict) -> dict:
+    """Run one case against the candidate agent and collect trace."""
+    trace = agent.run(
+        message=case["input"]["user_message"],
+        context=case["input"].get("context", {}),
+        max_steps=case["expected_behavior"].get("max_steps", 10),
+    )
+    return {
+        "id": case["id"],
+        "trace": trace,
+        "tools_called": [e["tool"] for e in trace if e.get("type") == "tool_call"],
+        "step_count": len(trace),
+    }
+
+def assert_case(case: dict, result: dict) -> dict:
+    """Check required/forbidden tools, step budget, and sensitive fields."""
+    expected = case["expected_behavior"]
+    required = set(expected.get("required_tools", []))
+    forbidden = set(expected.get("forbidden_tools", []))
+    called = set(result["tools_called"])
+
+    failures = []
+    if not required.issubset(called):
+        failures.append(f"missing required tools: {required - called}")
+    if forbidden & called:
+        failures.append(f"forbidden tools used: {forbidden & called}")
+    if result["step_count"] > expected.get("max_steps", 10):
+        failures.append(f"exceeded max_steps: {result['step_count']}")
+
+    # sensitive field scan on trace output
+    trace_json = json.dumps(result["trace"], ensure_ascii=False)
+    if scan_sensitive_fields(trace_json):
+        failures.append("sensitive fields detected in trace")
+
+    status = "pass" if not failures else "fail"
+    return {
+        "id": case["id"],
+        "status": status,
+        "required_tools_called": sorted(required & called),
+        "forbidden_tools_called": sorted(forbidden & called),
+        "step_count": result["step_count"],
+        "sensitive_scan": "pass" if not scan_sensitive_fields(trace_json) else "fail",
+        "failure_reason": "; ".join(failures) if failures else None,
+    }
+
+def run_suite(agent, case_dir: str, output_path: str):
+    """Run all cases and write a structured report."""
+    cases = load_cases(case_dir)
+    case_results = []
+    failed_ids = []
+
+    for case in cases:
+        result = run_case(agent, case)
+        checked = assert_case(case, result)
+        case_results.append(checked)
+        if checked["status"] == "fail":
+            failed_ids.append(case["id"])
+
+    total = len(cases)
+    passed = total - len(failed_ids)
+    gate = "block" if any(c["sensitive_scan"] == "fail" for c in case_results) else (
+        "warn" if failed_ids else "pass"
+    )
+
+    report = {
+        "run_id": f"eval-{datetime.now():%Y-%m-%d}-{total:03d}",
+        "gate_decision": gate,
+        "summary": {
+            "total_cases": total,
+            "passed_cases": passed,
+            "failed_cases": len(failed_ids),
+        },
+        "failed_case_ids": failed_ids,
+        "case_results": case_results,
+    }
+    pathlib.Path(output_path).write_text(yaml.dump(report, allow_unicode=True))
+    return report
+```
+
+这段伪代码省略了 Agent 适配层、LLM-as-judge 和 A/B 对比等高阶能力，但已经覆盖了 CI 所需的完整闭环：加载样本 → 运行 Agent → 断言 → 写报告。`scan_sensitive_fields` 可以先用正则匹配邮箱、手机号、密钥等常见模式，后续再替换成更完整的脱敏扫描器。
+
+在 CI 中调用 runner 只需要两条命令：
+
+```bash
+# 安装依赖并运行评估
+python evals/runners/run_golden_tasks.py --case-dir evals/golden --output evals/reports/latest.yaml
+python evals/runners/run_golden_tasks.py --case-dir evals/security --output evals/reports/security-latest.yaml
+```
+
+CI 读取报告中的 `gate_decision`：`pass` 放行、`warn` 允许灰度但通知安全 owner、`block` 阻断发布。只要 runner 稳定产出同一份报告，后续接入 LLM-as-judge、人工标注或 A/B 对比就只需要扩展 `assert_case` 和新增报告字段，不需要重写执行链路。
+
+### 8.5.3 关键指标
 
 | 指标 | 说明 |
 |------|------|
@@ -265,7 +373,7 @@ audit_event_ids: []
 
 LLM-as-judge 可以帮助扩展评估，但要用人工标注样本校准，避免评审模型和被测模型犯同类错误。
 
-### 8.5.3 把评估结果变成回归门禁
+### 8.5.4 把评估结果变成回归门禁
 
 离线评估只有进入发布流程，才会真正改变团队行为。建议每次模型、Prompt、工具 schema 或检索策略变更后，都生成一份可比较的评估结果表：
 
@@ -311,7 +419,7 @@ LLM-as-judge 可以帮助扩展评估，但要用人工标注样本校准，避�
 
 如果某一列缺失，就不要把它藏在“待补充”里：第九章的发布报告应把缺失项写入 `decision_reason`，第十章的安全门禁再决定是 `warn` 限制灰度范围，还是 `block` 阻断发布。需要在发布会上逐项对账时，可以直接使用 `docs/` 的 [Agent 发布证据字段映射表](../../../docs/documents/trending/ai/agent-release-evidence-field-map.md)，把本节评估字段落到第九章发布报告和第十章安全门禁。
 
-### 8.5.4 为第十章预留安全回归集
+### 8.5.5 为第十章预留安全回归集
 
 从测试视角看，安全不是上线前临时加的一轮人工检查，而是 Golden Tasks 中一组会阻断发布的高优先级样本。建议在普通能力评估之外，单独维护 `security` 子集，并至少覆盖四类任务：Prompt 注入、越权工具、高风险写操作和敏感数据泄露。
 
