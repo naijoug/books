@@ -6,6 +6,15 @@
 
 ## 推荐入口
 
+如果读者是从 AI Agent 章节的「本章四条主线」进入样本区，先按下面的映射缩小范围；样本目录仍以“当前最大风险”选入口，不按文件名机械补齐：
+
+| 主线 | 样本入口 | 适用判断 |
+|---|---|---|
+| 运行控制 | [`ai-agent-sample-pack.md`](ai-agent-sample-pack.md)、[`ai-agent-dirty-workspace-one-pager.md`](ai-agent-dirty-workspace-one-pager.md) | 需要稳住周期性唤醒、dirty workspace、接力规划和默认动作 |
+| 验证与证据 | [`ai-agent-proof-checker-one-pager.md`](ai-agent-proof-checker-one-pager.md)、[`ai-agent-proof-to-preflight-decision-table.md`](ai-agent-proof-to-preflight-decision-table.md)、[`ai-agent-next-safe-command-ladder-one-pager.md`](ai-agent-next-safe-command-ladder-one-pager.md) | 需要证明基础契约、选择下一条安全命令或交接未验证边界 |
+| 所有权与交付 | [`ai-agent-final-report-field-quickref.md`](ai-agent-final-report-field-quickref.md)、[`ai-agent-external-publish-authorization-one-pager.md`](ai-agent-external-publish-authorization-one-pager.md) | 需要核对 commit/report 字段、发布授权或可公开边界 |
+| 产品化阶梯 | [`ai-agent-audit-report-one-pager.md`](ai-agent-audit-report-one-pager.md)、[`ai-agent-case-publishing-ladder-one-pager.md`](ai-agent-case-publishing-ladder-one-pager.md)、[`ai-agent-skill-reuse-before-new-skill-one-pager.md`](ai-agent-skill-reuse-before-new-skill-one-pager.md) | 需要把审查、案例或可复用观察转成收入实验素材 |
+
 验证类样本按两层入口维护：`ai-agent-sample-pack.md` 顶部是 30 秒“验证入口速记”，适合已能说出当前最大风险时直接选下一份输入；`ai-agent-proof-to-preflight-decision-table.md` 是 2 分钟展开版，适合还在 proof checker、全量 proof 基线、统一 preflight wrapper、命令梯和交接模板之间摇摆时再做入口判断。
 
 | 场景 | 先用 | 作用 |

@@ -139,7 +139,7 @@ notebook 提交：summaries 5d6e7f8 Record Hermes heartbeat
 
 ## 5. 参考卡片
 
-这组参考卡片按 `chapters/ai-agent/README.md` 的 quick path 排列；一页纸只保留操作清单，遇到边界判断时回到对应卡片补细节。若这是第一次处理“周期性唤醒 + dirty workspace + 多 repo 接力”，先回到 `books/tech-cards-handbook/chapters/ai-agent/README.md` 的“3 分钟读法”：用失败吸收线判断失败是否改变计划，用 dirty workspace 线判断改动归属，用提交证据线约束最终报告。
+这组参考卡片按 `chapters/ai-agent/README.md` 的 quick path 排列；一页纸只保留操作清单，遇到边界判断时回到对应卡片补细节。若这是第一次处理“周期性唤醒 + dirty workspace + 多 repo 接力”，先回到 `books/tech-cards-handbook/chapters/ai-agent/README.md` 的“本章四条主线”和“3 分钟读法”：本一页纸主要覆盖运行控制；失败吸收、dirty workspace 归属和提交证据分别帮助判断失败是否改变计划、改动归属是否清晰、最终报告是否受已提交状态约束。
 
 如果需要给另一个 Agent 一份更完整的训练输入，使用 `books/tech-cards-handbook/samples/ai-agent-sample-pack.md`：它当前包含 10 张精选卡片，覆盖心跳、日志资产化、启动快照、规划、接力信号、无人值守默认动作、失败吸收、归属判断、提交范围台账和最终报告边界；本一页纸则只保留执行清单与最小记录示例。
 
