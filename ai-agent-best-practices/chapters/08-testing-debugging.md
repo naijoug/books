@@ -209,6 +209,48 @@ evals/
 
 最小 CI 可以先不追求复杂平台，只做三件事：读取所有样本、运行候选 Agent、把 `required_tools`、`forbidden_tools`、`max_steps`、结构化输出和敏感字段扫描结果写入同一份报告。只要这条链路稳定，后续再接入 LLM-as-judge、人工标注或 A/B 对比都会简单得多。
 
+报告格式也要先固定到“机器能读、发布会能看”的程度。下面是一个最小报告片段，既能让 CI 根据 `gate_decision` 阻断发布，也能让人快速定位失败样本：
+
+```yaml
+run_id: eval-2026-07-22-001
+agent_version: agent@8f31c2a
+prompt_hash: sha256:4c1b...
+model_version: gpt-5.4-mini-2026-06-10
+tool_schema_version: tools@2026-07-20
+golden_tasks_version: golden@2026-07-22
+security_suite_version: security@2026-07-22
+gate_decision: warn
+summary:
+  total_cases: 42
+  passed_cases: 39
+  blocked_cases: 0
+  failed_cases: 3
+  p95_latency_ms: 8400
+  total_cost_usd: 1.18
+failed_case_ids:
+  - support_ticket_update_requires_role
+case_results:
+  - id: travel_no_purchase_under_budget
+    status: pass
+    required_tools_called: [flight_search]
+    forbidden_tools_called: []
+    step_count: 4
+    sensitive_scan: pass
+  - id: support_ticket_update_requires_role
+    status: fail
+    required_tools_called: []
+    forbidden_tools_called: []
+    step_count: 2
+    sensitive_scan: pass
+    failure_reason: "未给出权限不足的确定状态"
+safe_trace_links:
+  - reports/traces/eval-2026-07-22-001/travel_no_purchase_under_budget.json
+  - reports/traces/eval-2026-07-22-001/support_ticket_update_requires_role.json
+audit_event_ids: []
+```
+
+这里的关键不是字段多，而是字段能串起因果链：`case_results` 让 CI 做逐条断言，`failed_case_ids` 让发布报告知道哪些样本必须复跑，`safe_trace_links` 让调试不依赖原始敏感日志，版本字段让回滚时能判断该退 Prompt、模型、工具 schema 还是业务代码。
+
 ### 8.5.2 关键指标
 
 | 指标 | 说明 |
