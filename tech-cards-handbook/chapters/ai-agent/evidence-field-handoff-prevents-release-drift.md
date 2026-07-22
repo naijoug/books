@@ -61,3 +61,5 @@ assert "release_id" in chapter9 and "release_id" in chapter10
 - 最终 summary 只说“字段已对齐”，没有说明扫描了哪些文件、哪些字段、哪些消费者。
 
 **检查**：看到跨阶段证据字段时，先问：字段由谁生产、由谁补齐、由谁消费？导读、正文、小结、模板和清单是否使用同名字段？版本字段是否足以复现候选变更？trace 链接是否只指向脱敏执行 trace？验证是否同时覆盖生产端和消费端？如果任一答案不清楚，本轮先补字段 handoff，再继续扩写流程。
+
+可复制执行表见 `books/tech-cards-handbook/samples/ai-agent-evidence-field-handoff-one-pager.md`：先填字段链，再跑生产端/消费端同名字段检查，并在 notebook 里区分“字段名一致”和“真实流水线已跑通”。
