@@ -33,17 +33,20 @@ ReAct（Reasoning + Acting）是最简单也最经典的 Agent 架构模式。
 
 ### 4.1.2 ReAct 的执行轨迹
 
-早期 ReAct 示例常把 `Thought / Action / Observation` 写进 Prompt 模板。生产系统中更推荐把这些内容作为内部执行轨迹和调试日志保存，而不是直接暴露给最终用户。
+早期 ReAct 示例常把 `Thought / Action / Observation` 写进 Prompt 模板。生产系统中更推荐把它改写成可审计的执行摘要轨迹：记录任务、下一步计划、工具调用、工具输入输出、停止条件和最终答复，不记录或展示模型完整内部推理链。
 
 ```text
 Question: 用户输入的问题
+Step Summary: 当前已确认的信息和本步目标
 Plan: 当前准备执行的下一步摘要
 Action: 要调用的工具名
 Action Input: 工具参数
 Observation: 工具返回结果
-... 根据观察结果继续行动，直到满足停止条件
-Final Answer: 给用户的简洁答案
+Stop Check: 是否已经满足停止条件；若未满足，下一步需要补什么证据
+Final Answer: 给用户的简洁答案和必要依据
 ```
+
+如果团队仍沿用 `Thought` 字段，建议把它限定为“对外可复核的步骤摘要”，并在日志 schema 中改名为 `step_summary` 或 `decision_summary`。这样既保留 ReAct 的可调试性，又避免把内部推理链误当成产品日志、审计记录或用户界面输出。
 
 设计 ReAct 循环时，要明确三类边界：
 
@@ -149,7 +152,7 @@ Final Answer: 给用户的简洁答案
 ```
 ┌─────────────────────────────────────┐
 │   瞬时记忆 (Working Memory)        │
-│   - 当前思考过程                    │
+│   - 当前任务状态与执行摘要          │
 │   - 会话上下文                      │
 └──────────────┬──────────────────────┘
                │
