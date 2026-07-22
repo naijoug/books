@@ -1,7 +1,7 @@
 # AI Agent 工作流卡片 · 样本包
 
 > 本样本包不是 AI Agent 章节的完整目录，而是一条可复制的 dirty workspace 心跳接力主线：10 张精选卡片负责建立最小闭环，附录和配套模板负责把它落到真实 prompt、验证证据和最终报告字段。
-> 选自《技术卡片随身宝典》AI Agent 系列（共 60 张）。如果只想减少一次无人值守接力的事故率，先按本包顺序走完；如果要扩展到运行控制、验证与证据、所有权与交付、产品化阶梯四条主线，再回到完整章节目录。
+> 选自《技术卡片随身宝典》AI Agent 系列（共 61 张）。如果只想减少一次无人值守接力的事故率，先按本包顺序走完；如果要扩展到运行控制、验证与证据、所有权与交付、产品化阶梯四条主线，再回到完整章节目录。
 > 第一次使用时，先读 `books/tech-cards-handbook/chapters/ai-agent/README.md` 的“本章四条主线”和“3 分钟读法”，再复制本样本包；这样能先分清本包主要覆盖运行控制与验证证据，哪些所有权、交付和产品化判断要回到完整章节或样本索引补齐，避免把样本当成机械待办。
 > 阅读顺序就是这条链路的决策顺序：心跳/日志资产化/快照 → 规划 → 接力信号 → 无人值守默认动作 → 失败吸收 → 归属边界 → 状态证据 → 验证与报告；样本卡片只保留最小闭环，完整 quick path 和一页纸入口见文末参考卡片与配套模板。
 > 如果你的目标不只是让接力更稳，而是把一次 AI 编程审查转成收入实验，先用本包稳住 dirty workspace，再在文末“收入实验接力”里复制审查报告一页纸和案例发布阶梯；不要把未验证的交付物直接包装成公开战报。
@@ -17,6 +17,7 @@
 | 验证命令超过三条，下一轮容易漏跑或报告漂移 | [`ai-agent-preflight-wrapper-one-pager.md`](ai-agent-preflight-wrapper-one-pager.md) | 给 wrapper 补默认/快速模式和编排测试 |
 | 不确定该选 proof、baseline、wrapper、命令梯还是交接模板 | [`ai-agent-proof-to-preflight-decision-table.md`](ai-agent-proof-to-preflight-decision-table.md) | 按矩阵选一个入口，不要同时复制多份 |
 | 已经知道最大风险，只缺下一条安全命令和停止条件 | [`ai-agent-next-safe-command-ladder-one-pager.md`](ai-agent-next-safe-command-ladder-one-pager.md) | 把验证结果写回 notebook 和最终报告 |
+| 评估报告、发布报告和安全门禁之间字段名开始漂移 | [`ai-agent-evidence-field-handoff-one-pager.md`](ai-agent-evidence-field-handoff-one-pager.md) | 先填字段生产者/补齐者/消费者表，再区分“字段名一致”和“真实流水线已跑通” |
 | 本轮产物是 zip、静态页、清单或模板包，担心页面锚点、staging 残留、归档契约或 tracked artifact 漂移 | 先读 `books/tech-cards-handbook/chapters/ai-agent/README.md` 的“交付工程化线索” | 把交付检查拆成页面结构、临时输出、归档内容和已追踪生成物四层 |
 
 判断口径：先问“我要降低哪一个风险”，再选模板；不要因为模板已经存在就机械补齐。若当前风险是命令失败或未覆盖边界，优先使用失败吸收、验证失败交接或未验证项交接模板，而不是继续升级 preflight。
