@@ -460,13 +460,13 @@ AI 时代的职业规划，不是寻找一个永远安全的岗位，而是建�
 
 ## 参考与延伸阅读
 
-- Stack Overflow Developer Survey 2025：https://survey.stackoverflow.co/2025
-- GitHub Octoverse 2025：https://octoverse.github.com/
-- Microsoft 2026 Work Trend Index：https://www.microsoft.com/en-us/worklab/work-trend-index/agents-human-agency-and-the-opportunity-for-every-organization
-- BCG：AI Will Reshape More Jobs Than It Replaces：https://www.bcg.com/publications/2026/ai-will-reshape-more-jobs-than-it-replaces
-- Deloitte 2026 Global Software Industry Outlook：https://www.deloitte.com/us/en/insights/industry/technology/technology-media-telecom-outlooks/software-industry-outlook.html
-- Deloitte 2026 State of AI in the Enterprise / Agentic AI guardrails：https://www.deloitte.com/us/en/insights/topics/emerging-technologies/ai-agents-scaling-faster.html
-- World Economic Forum Future of Jobs Report 2025：https://www.weforum.org/publications/the-future-of-jobs-report-2025/
-- Stanford AI Index 2026：https://hai.stanford.edu/ai-index/2026-ai-index-report
+- [Stack Overflow Developer Survey 2025](https://survey.stackoverflow.co/2025)：观察开发者技能结构、工具使用和职业流动趋势。（访问日期：2026-07-23）
+- [GitHub Octoverse 2025](https://octoverse.github.com/)：从开源协作、AI 编码和开发者生态角度观察技术能力迁移。（访问日期：2026-07-23）
+- [Microsoft 2026 Work Trend Index](https://www.microsoft.com/en-us/worklab/work-trend-index/agents-human-agency-and-the-opportunity-for-every-organization)：关注 Agent、组织协作和人类能动性对职业规划的影响。（访问日期：2026-07-23）
+- BCG：[AI Will Reshape More Jobs Than It Replaces](https://www.bcg.com/publications/2026/ai-will-reshape-more-jobs-than-it-replaces)：用于理解岗位重塑、任务拆分和技能再配置的趋势。（访问日期：2026-07-23）
+- Deloitte：[2026 Global Software Industry Outlook](https://www.deloitte.com/us/en/insights/industry/technology/technology-media-telecom-outlooks/software-industry-outlook.html)：观察软件行业商业模式、人才结构和平台化变化。（访问日期：2026-07-23）
+- Deloitte：[2026 State of AI in the Enterprise / Agentic AI guardrails](https://www.deloitte.com/us/en/insights/topics/emerging-technologies/ai-agents-scaling-faster.html)：理解企业采用 Agentic AI 时对治理、风险和责任边界的新要求。（访问日期：2026-07-23）
+- [World Economic Forum Future of Jobs Report 2025](https://www.weforum.org/publications/the-future-of-jobs-report-2025/)：用于对照宏观岗位变化、技能需求和再培训方向。（访问日期：2026-07-23）
+- [Stanford AI Index 2026](https://hai.stanford.edu/ai-index/2026-ai-index-report)：追踪 AI 技术、产业、政策和人才数据的年度基准。（访问日期：2026-07-23）
 
 **下一章预告**：第九章「AI 伦理与边界意识」——我们会讨论在使用 AI 的过程中，哪些事可以做，哪些事必须谨慎，如何避免效率提升背后的隐性风险。
