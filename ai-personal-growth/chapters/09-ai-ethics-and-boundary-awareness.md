@@ -624,10 +624,10 @@ AI 时代的个人竞争力，不只是“我能用 AI 做多少事”，还包�
 
 ## 参考与延伸阅读
 
-- European Commission, *Timeline for the Implementation of the EU AI Act*：欧盟官方实施时间线，说明 AI Act 分阶段适用，完整滚动实施至 2027 年。https://ai-act-service-desk.ec.europa.eu/en/ai-act/timeline/timeline-implementation-eu-ai-act
-- European Commission, *AI Act / Regulatory framework for AI*：欧盟对风险分级、透明度义务和高风险系统义务的官方说明。https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai
-- NIST, *Artificial Intelligence Risk Management Framework (AI RMF 1.0)*：Govern、Map、Measure、Manage 四个核心功能，用于系统性管理 AI 风险。https://www.nist.gov/itl/ai-risk-management-framework
-- NIST AI Resource Center, *Generative AI Profile / NIST AI 600-1*：针对生成式 AI 的风险画像，关注幻觉、数据隐私、知识产权、信息安全、第三方集成等风险。https://airc.nist.gov/technical-reports/
-- OWASP, *Top 10 for Large Language Model Applications*：大模型应用安全风险清单，包括提示词注入、敏感信息泄露、供应链风险、不当输出处理、过度代理能力等。https://owasp.org/www-project-top-10-for-large-language-model-applications/
-- OWASP Gen AI Security Project, *LLM Top 10*：持续更新的大模型风险与缓解建议入口。https://genai.owasp.org/llm-top-10/
-- Harvard University, *Generative AI Guidelines*：围绕信息安全、数据隐私、合规、版权和学术诚信制定的生成式 AI 使用指引，可作为组织规则设计参考。https://huit.harvard.edu/ai/guidelines
+- European Commission, [*Timeline for the Implementation of the EU AI Act*](https://ai-act-service-desk.ec.europa.eu/en/ai-act/timeline/timeline-implementation-eu-ai-act)：欧盟官方实施时间线，说明 AI Act 分阶段适用，完整滚动实施至 2027 年。（访问日期：2026-07-23）
+- European Commission, [*AI Act / Regulatory framework for AI*](https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai)：欧盟对风险分级、透明度义务和高风险系统义务的官方说明。（访问日期：2026-07-23）
+- NIST, [*Artificial Intelligence Risk Management Framework (AI RMF 1.0)*](https://www.nist.gov/itl/ai-risk-management-framework)：Govern、Map、Measure、Manage 四个核心功能，用于系统性管理 AI 风险。（访问日期：2026-07-23）
+- NIST AI Resource Center, [*Generative AI Profile / NIST AI 600-1*](https://airc.nist.gov/technical-reports/)：针对生成式 AI 的风险画像，关注幻觉、数据隐私、知识产权、信息安全、第三方集成等风险。（访问日期：2026-07-23）
+- OWASP, [*Top 10 for Large Language Model Applications*](https://owasp.org/www-project-top-10-for-large-language-model-applications/)：大模型应用安全风险清单，包括提示词注入、敏感信息泄露、供应链风险、不当输出处理、过度代理能力等。（访问日期：2026-07-23）
+- OWASP Gen AI Security Project, [*LLM Top 10*](https://genai.owasp.org/llm-top-10/)：持续更新的大模型风险与缓解建议入口。（访问日期：2026-07-23）
+- Harvard University, [*Generative AI Guidelines*](https://huit.harvard.edu/ai/guidelines)：围绕信息安全、数据隐私、合规、版权和学术诚信制定的生成式 AI 使用指引，可作为组织规则设计参考。（访问日期：2026-07-23）
