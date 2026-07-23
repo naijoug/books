@@ -415,12 +415,12 @@ AI 生成详细到天的学习计划：
 
 ## 参考与延伸阅读
 
-- OpenAI：Introducing Study Mode / Study mode in ChatGPT。重点关注“分步引导而非直接给答案”的产品设计方向。<https://openai.com/index/chatgpt-study-mode/>
-- OpenAI：New tools for understanding AI and learning outcomes。可用于理解 AI 教育效果评估从“使用次数”走向“学习结果测量”的趋势。<https://openai.com/index/understanding-ai-and-learning-outcomes/>
-- UNESCO：Guidance for generative AI in education and research。适合核对教育场景中的隐私、透明、人类监督和年龄适配原则。<https://www.unesco.org/en/articles/guidance-generative-ai-education-and-research>
-- UNESCO：Artificial intelligence in education。用于理解 AI 教育治理、包容性和伦理使用框架。<https://www.unesco.org/en/digital-education/artificial-intelligence>
-- Brookings：What the research shows about generative AI in tutoring。可作为判断 AI 辅导有效性与局限的研究综述入口。<https://www.brookings.edu/articles/what-the-research-shows-about-generative-ai-in-tutoring/>
-- Stanford NSSA：Two Emerging Strategies for Using AI in Tutoring。关注 AI 嵌入真人辅导场景时的学习效果与策略。<https://nssa.stanford.edu/news/research-notes-two-emerging-strategies-using-ai-tutoring>
+- OpenAI：[Introducing Study Mode / Study mode in ChatGPT](https://openai.com/index/chatgpt-study-mode/)。重点关注“分步引导而非直接给答案”的产品设计方向。（访问日期：2026-07-23）
+- OpenAI：[New tools for understanding AI and learning outcomes](https://openai.com/index/understanding-ai-and-learning-outcomes/)。可用于理解 AI 教育效果评估从“使用次数”走向“学习结果测量”的趋势。（访问日期：2026-07-23）
+- UNESCO：[Guidance for generative AI in education and research](https://www.unesco.org/en/articles/guidance-generative-ai-education-and-research)。适合核对教育场景中的隐私、透明、人类监督和年龄适配原则。（访问日期：2026-07-23）
+- UNESCO：[Artificial intelligence in education](https://www.unesco.org/en/digital-education/artificial-intelligence)。用于理解 AI 教育治理、包容性和伦理使用框架。（访问日期：2026-07-23）
+- Brookings：[What the research shows about generative AI in tutoring](https://www.brookings.edu/articles/what-the-research-shows-about-generative-ai-in-tutoring/)。可作为判断 AI 辅导有效性与局限的研究综述入口。（访问日期：2026-07-23）
+- Stanford NSSA：[Two Emerging Strategies for Using AI in Tutoring](https://nssa.stanford.edu/news/research-notes-two-emerging-strategies-using-ai-tutoring)。关注 AI 嵌入真人辅导场景时的学习效果与策略。（访问日期：2026-07-23）
 
 ---
 
