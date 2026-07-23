@@ -302,11 +302,11 @@ AI 时代最危险的不是你不会某个工具，而是你不知道自己的�
 
 ## 参考与延伸阅读
 
-- Microsoft WorkLab, *2026 Work Trend Index: Agents, Human Agency, and the Opportunity for Every Organization*：关于 AI、Agent 与组织工作方式变化的年度研究。https://www.microsoft.com/en-us/worklab/work-trend-index/agents-human-agency-and-the-opportunity-for-every-organization
-- Anthropic, *2026 Agentic Coding Trends Report*：关于 Agentic Coding、软件工程角色变化与人类编排能力的趋势报告。https://resources.anthropic.com/2026-agentic-coding-trends-report
-- Deloitte, *2026 Global Software Industry Outlook*：关于软件行业、AI-first 产品和 Agentic AI 对行业竞争的影响。https://www.deloitte.com/us/en/insights/industry/technology/technology-media-telecom-outlooks/software-industry-outlook.html
-- World Economic Forum, *Future of Jobs Report 2025*：关于 AI、数字技能和劳动力转型的宏观趋势。https://www.weforum.org/publications/the-future-of-jobs-report-2025/
-- Stanford HAI, *AI Index Report 2026*：关于 AI 能力、采用率、经济影响和社会影响的年度数据报告。https://hai.stanford.edu/ai-index
+- Microsoft WorkLab, *2026 Work Trend Index: Agents, Human Agency, and the Opportunity for Every Organization*（2026-05-05）：关于 AI、Agent 与组织工作方式变化的年度研究。[链接](https://www.microsoft.com/en-us/worklab/work-trend-index/agents-human-agency-and-the-opportunity-for-every-organization)（访问日期：2026-07-23）
+- Anthropic, *2026 Agentic Coding Trends Report*：关于 Agentic Coding、软件工程角色变化与人类编排能力的趋势报告。[链接](https://resources.anthropic.com/2026-agentic-coding-trends-report)（访问日期：2026-07-23）
+- Deloitte, *2026 Global Software Industry Outlook*：关于软件行业、AI-first 产品和 Agentic AI 对行业竞争的影响。[链接](https://www.deloitte.com/us/en/insights/industry/technology/technology-media-telecom-outlooks/software-industry-outlook.html)（访问日期：2026-07-23）
+- World Economic Forum, *Future of Jobs Report 2025*：关于 AI、数字技能和劳动力转型的宏观趋势。[链接](https://www.weforum.org/publications/the-future-of-jobs-report-2025/)（访问日期：2026-07-23）
+- Stanford HAI, *AI Index Report 2026*：关于 AI 能力、采用率、经济影响和社会影响的年度数据报告。[链接](https://hai.stanford.edu/ai-index)（访问日期：2026-07-23）
 
 ---
 
