@@ -534,13 +534,13 @@ AI 工具更新极快，但你的工作流不能每天被新工具打断。建�
 
 ## 4.10 本章参考与延伸阅读
 
-- McKinsey, *The State of AI: Global Survey 2025*：强调企业从试点走向规模化时，流程重构和组织治理比单点工具采用更关键。https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai
-- Microsoft WorkLab, *2026 Work Trend Index: Agents, Human Agency, and the Opportunity for Every Organization*：关注 Agent、人的主导权和组织 AI 落地。https://www.microsoft.com/en-us/worklab/work-trend-index/agents-human-agency-and-the-opportunity-for-every-organization
-- Stanford HAI, *Stanford AI Experts Predict What Will Happen in 2026*：提醒企业 AI 生产力提升往往集中在编程、特定流程等可验证场景，而不是所有岗位自动普遍跃迁。https://hai.stanford.edu/news/stanford-ai-experts-predict-what-will-happen-in-2026
-- Harvard Business Review, *What the Best AI Users Do Differently—and How to Level Up All of Your Employees*：强调高水平 AI 使用者在问题框定、推理引导、批判性评估上的差异。https://hbr.org/2026/03/what-the-best-ai-users-do-differently-and-how-to-level-up-all-of-your-employees
-- Stanford SALT Lab, *Future of Work with AI Agents / JobBench / WORKBank*：从真实职业任务和人的参与层级研究 AI Agent 的可委托边界。https://futureofwork.saltlab.stanford.edu/
-- GitHub Octoverse：观察 AI 编程工具在开发者生态中的采用趋势。https://octoverse.github.com/
-- Stanford HAI, *AI Index Report 2026*：跟踪模型能力、Agentic systems、技术性能与产业采用趋势。https://hai.stanford.edu/ai-index
+- McKinsey, [*The State of AI: Global Survey 2025*](https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai)：强调企业从试点走向规模化时，流程重构和组织治理比单点工具采用更关键。（访问日期：2026-07-23）
+- Microsoft WorkLab, [*2026 Work Trend Index: Agents, Human Agency, and the Opportunity for Every Organization*](https://www.microsoft.com/en-us/worklab/work-trend-index/agents-human-agency-and-the-opportunity-for-every-organization)：关注 Agent、人的主导权和组织 AI 落地。（访问日期：2026-07-23）
+- Stanford HAI, [*Stanford AI Experts Predict What Will Happen in 2026*](https://hai.stanford.edu/news/stanford-ai-experts-predict-what-will-happen-in-2026)：提醒企业 AI 生产力提升往往集中在编程、特定流程等可验证场景，而不是所有岗位自动普遍跃迁。（访问日期：2026-07-23）
+- Harvard Business Review, [*What the Best AI Users Do Differently—and How to Level Up All of Your Employees*](https://hbr.org/2026/03/what-the-best-ai-users-do-differently-and-how-to-level-up-all-of-your-employees)：强调高水平 AI 使用者在问题框定、推理引导、批判性评估上的差异。（访问日期：2026-07-23）
+- Stanford SALT Lab, [*Future of Work with AI Agents / JobBench / WORKBank*](https://futureofwork.saltlab.stanford.edu/)：从真实职业任务和人的参与层级研究 AI Agent 的可委托边界。（访问日期：2026-07-23）
+- [GitHub Octoverse](https://octoverse.github.com/)：观察 AI 编程工具在开发者生态中的采用趋势。（访问日期：2026-07-23）
+- Stanford HAI, [*AI Index Report 2026*](https://hai.stanford.edu/ai-index)：跟踪模型能力、Agentic systems、技术性能与产业采用趋势。（访问日期：2026-07-23）
 
 ---
 
