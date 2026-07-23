@@ -453,13 +453,13 @@ AI-个人提升/
 
 这些资料不需要每天看，但适合每月集中更新一次，用来校准对 AI 趋势的判断：
 
-- Microsoft Work Trend Index：观察 AI 在组织协作、知识工作和 Agent 应用中的趋势。https://www.microsoft.com/en-us/worklab/work-trend-index/
-- Deloitte《State of AI in the Enterprise》：观察企业从试点到规模化采用时遇到的组织和治理问题。https://www.deloitte.com/us/en/what-we-do/capabilities/applied-artificial-intelligence/content/state-of-generative-ai-in-enterprise.html
-- McKinsey AI 与组织研究：观察 AI 价值创造、组织重构、信任与治理成熟度。https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai
-- Stanford HAI / Stanford SALT Lab：观察 AI 指标、工作任务基准和 Agent 对真实职业任务的影响。https://hai.stanford.edu/ai-index / https://futureofwork.saltlab.stanford.edu/
-- NIST AI RMF 与 Generative AI Profile：建立风险识别、治理、测量和管理框架。https://www.nist.gov/itl/ai-risk-management-framework / https://airc.nist.gov/technical-reports/
-- OWASP Top 10 for LLM Applications / Gen AI Security Project：跟踪提示注入、敏感信息泄露、过度代理、工具误用等安全风险。https://owasp.org/www-project-top-10-for-large-language-model-applications/ / https://genai.owasp.org/
-- C2PA 与内容来源标准：关注 AI 生成内容的来源标识、媒体真实性和版权协作。https://c2pa.org/
+- [Microsoft Work Trend Index](https://www.microsoft.com/en-us/worklab/work-trend-index/)：观察 AI 在组织协作、知识工作和 Agent 应用中的趋势。（访问日期：2026-07-23）
+- [Deloitte《State of AI in the Enterprise》](https://www.deloitte.com/us/en/what-we-do/capabilities/applied-artificial-intelligence/content/state-of-generative-ai-in-enterprise.html)：观察企业从试点到规模化采用时遇到的组织和治理问题。（访问日期：2026-07-23）
+- [McKinsey AI 与组织研究](https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai)：观察 AI 价值创造、组织重构、信任与治理成熟度。（访问日期：2026-07-23）
+- [Stanford HAI AI Index](https://hai.stanford.edu/ai-index) / [Stanford SALT Lab Future of Work](https://futureofwork.saltlab.stanford.edu/)：观察 AI 指标、工作任务基准和 Agent 对真实职业任务的影响。（访问日期：2026-07-23）
+- [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework) / [Generative AI Profile](https://airc.nist.gov/technical-reports/)：建立风险识别、治理、测量和管理框架。（访问日期：2026-07-23）
+- [OWASP Top 10 for LLM Applications](https://owasp.org/www-project-top-10-for-large-language-model-applications/) / [Gen AI Security Project](https://genai.owasp.org/)：跟踪提示注入、敏感信息泄露、过度代理、工具误用等安全风险。（访问日期：2026-07-23）
+- [C2PA 与内容来源标准](https://c2pa.org/)：关注 AI 生成内容的来源标识、媒体真实性和版权协作。（访问日期：2026-07-23）
 
 ### 每月更新动作
 
