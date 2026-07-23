@@ -769,12 +769,12 @@ AI 会让创作门槛降低，但会让优秀作品的标准提高。未来属�
 
 ## 参考资料与延伸阅读
 
-- Microsoft WorkLab, *2026 Work Trend Index: Agents, Human Agency, and the Opportunity for Every Organization*：其中提到 AI 正在承担更多执行任务，人类角色更集中于判断、质量控制和系统设计。https://www.microsoft.com/en-us/worklab/work-trend-index/agents-human-agency-and-the-opportunity-for-every-organization
-- Stanford HAI, *AI Index Report 2026*：关注生成式 AI 的快速普及、真实任务能力与安全评估趋势。https://hai.stanford.edu/ai-index
-- Stanford Report, *Stanford scholars train AI to better augment human creativity*（2026-03-10）：研究方向强调增强人类创作控制与沟通，而非简单替代艺术家。https://news.stanford.edu/stories/2026/03/generative-ai-creative-collaboration-visual-artists
-- ScienceDaily, *Scientists discover AI can make humans more creative*（2026-03-15）：报道 AI 设计建议对创意任务参与度和结果质量的影响。https://www.sciencedaily.com/releases/2026/03/260315004355.htm
-- Harvard Business Review, *Why AI Boosts Creativity for Some Employees but Not Others*（2026-01-06）：强调元认知与组织支持会影响 AI 对创造力的增益。https://hbr.org/2026/01/why-ai-boosts-creativity-for-some-employees-but-not-others
-- U.S. Copyright Office, *Copyright and Artificial Intelligence*：其版权可保护性讨论强调人类作者贡献仍是关键，完全自动生成内容的权利归属存在不确定性。https://www.copyright.gov/ai/
-- C2PA（Coalition for Content Provenance and Authenticity）：用于记录数字内容的来源、编辑历史与 AI 生成/修改信息，是多模态创作可信披露的重要基础设施。https://c2pa.org/
+- [Microsoft WorkLab, *2026 Work Trend Index: Agents, Human Agency, and the Opportunity for Every Organization*](https://www.microsoft.com/en-us/worklab/work-trend-index/agents-human-agency-and-the-opportunity-for-every-organization)（访问日期：2026-07-23）：其中提到 AI 正在承担更多执行任务，人类角色更集中于判断、质量控制和系统设计。
+- [Stanford HAI, *AI Index Report 2026*](https://hai.stanford.edu/ai-index)（访问日期：2026-07-23）：关注生成式 AI 的快速普及、真实任务能力与安全评估趋势。
+- [Stanford Report, *Stanford scholars train AI to better augment human creativity*（2026-03-10）](https://news.stanford.edu/stories/2026/03/generative-ai-creative-collaboration-visual-artists)（访问日期：2026-07-23）：研究方向强调增强人类创作控制与沟通，而非简单替代艺术家。
+- [ScienceDaily, *Scientists discover AI can make humans more creative*（2026-03-15）](https://www.sciencedaily.com/releases/2026/03/260315004355.htm)（访问日期：2026-07-23）：报道 AI 设计建议对创意任务参与度和结果质量的影响。
+- [Harvard Business Review, *Why AI Boosts Creativity for Some Employees but Not Others*（2026-01-06）](https://hbr.org/2026/01/why-ai-boosts-creativity-for-some-employees-but-not-others)（访问日期：2026-07-23）：强调元认知与组织支持会影响 AI 对创造力的增益。
+- [U.S. Copyright Office, *Copyright and Artificial Intelligence*](https://www.copyright.gov/ai/)（访问日期：2026-07-23）：其版权可保护性讨论强调人类作者贡献仍是关键，完全自动生成内容的权利归属存在不确定性。
+- [C2PA（Coalition for Content Provenance and Authenticity）](https://c2pa.org/)（访问日期：2026-07-23）：用于记录数字内容的来源、编辑历史与 AI 生成/修改信息，是多模态创作可信披露的重要基础设施。
 
 > **下一章预告**：当 AI 帮我们生成越来越多内容、代码和想法时，最容易失控的是知识管理。第六章我们将进入“个人知识管理 2.0”：如何用 AI 把信息流变成可复用的知识系统。
