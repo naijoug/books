@@ -1027,15 +1027,15 @@ AI Agent 不是“会聊天的机器人”，而是能围绕目标使用工具�
 
 ## 参考与延伸阅读
 
-- Google NotebookLM：AI Research Tool & Thinking Partner，支持基于来源的问答、Audio Overview、Mind Maps 等能力。官网：https://notebooklm.google/
-- Obsidian：本地优先的 Markdown 笔记工具，适合长期个人知识库和 Git 管理。官网：https://obsidian.md/
-- Andrej Karpathy 的 LLM Wiki 思路：用 LLM 辅助维护自更新知识库，把原始材料编译成可链接、可复用的知识网络。参考：https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f
+- [Google NotebookLM](https://notebooklm.google/)：AI Research Tool & Thinking Partner，支持基于来源的问答、Audio Overview、Mind Maps 等能力。（访问日期：2026-07-23）
+- [Obsidian](https://obsidian.md/)：本地优先的 Markdown 笔记工具，适合长期个人知识库和 Git 管理。（访问日期：2026-07-23）
+- [Andrej Karpathy 的 LLM Wiki 思路](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)：用 LLM 辅助维护自更新知识库，把原始材料编译成可链接、可复用的知识网络。（访问日期：2026-07-23）
 - Retrieval-Augmented Generation（RAG）：将检索与生成结合，用于让 AI 基于外部资料回答问题；个人知识库可在结构稳定后逐步引入。
-- LlamaIndex, *Agentic strategies*：说明可以在既有 RAG 工作流之上加入 Agent 决策能力，用于自动选择检索、工具和后续动作。https://docs.llamaindex.ai/en/stable/optimizing/agentic_strategies/agentic_strategies/
-- Ragas, *Available Metrics*：提供 RAG 应用评测指标，可用于理解回答相关性、忠实度、上下文召回等质量维度。https://docs.ragas.io/en/v0.2.5/concepts/metrics/available_metrics/
-- *SoK: Agentic Retrieval-Augmented Generation (RAG): Taxonomy, Architectures, Evaluation, and Research Directions*（2026）：梳理 Agentic RAG 的分类、架构、评测与研究方向。https://arxiv.org/abs/2603.07379
-- Microsoft Work Trend Index 2026, *Agents, human agency, and the opportunity for every organization*：讨论 AI Agent、工作流与人类能动性。https://www.microsoft.com/en-us/worklab/work-trend-index/agents-human-agency-and-the-opportunity-for-every-organization
-- McKinsey, *The State of Organizations 2026*：强调组织在 AI 能力建设、工作重塑和生产力提升方面的挑战。https://www.mckinsey.com/capabilities/people-and-organizational-performance/our-insights/the-state-of-organizations
+- [LlamaIndex, *Agentic strategies*](https://docs.llamaindex.ai/en/stable/optimizing/agentic_strategies/agentic_strategies/)：说明可以在既有 RAG 工作流之上加入 Agent 决策能力，用于自动选择检索、工具和后续动作。（访问日期：2026-07-23）
+- [Ragas, *Available Metrics*](https://docs.ragas.io/en/v0.2.5/concepts/metrics/available_metrics/)：提供 RAG 应用评测指标，可用于理解回答相关性、忠实度、上下文召回等质量维度。（访问日期：2026-07-23）
+- [*SoK: Agentic Retrieval-Augmented Generation (RAG): Taxonomy, Architectures, Evaluation, and Research Directions*（2026）](https://arxiv.org/abs/2603.07379)：梳理 Agentic RAG 的分类、架构、评测与研究方向。（访问日期：2026-07-23）
+- [Microsoft Work Trend Index 2026, *Agents, human agency, and the opportunity for every organization*](https://www.microsoft.com/en-us/worklab/work-trend-index/agents-human-agency-and-the-opportunity-for-every-organization)：讨论 AI Agent、工作流与人类能动性。（访问日期：2026-07-23）
+- [McKinsey, *The State of Organizations 2026*](https://www.mckinsey.com/capabilities/people-and-organizational-performance/our-insights/the-state-of-organizations)：强调组织在 AI 能力建设、工作重塑和生产力提升方面的挑战。（访问日期：2026-07-23）
 - RAG 评测与可观测性实践：关注召回率、忠实度、引用准确性、时效性、权限控制和端到端任务成功率；个人知识库也应该建立轻量评测表，而不是只看 AI 回答是否流畅。
 - AI 数据隐私与权限分层：个人知识库应区分 public / internal / private / sensitive，避免把密钥、客户资料、未公开商业信息和私人日志直接交给不受控的云端 AI。
 
