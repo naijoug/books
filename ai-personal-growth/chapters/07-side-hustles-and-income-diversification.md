@@ -1043,15 +1043,15 @@ AI 时代确实给程序员带来了更多副业机会，但机会不等于捷�
 
 ## 参考与延伸阅读
 
-- Indie Hackers：独立开发者和 Micro SaaS 案例社区，适合观察真实产品、收入模式和失败复盘。https://www.indiehackers.com/
-- Google NotebookLM、ChatGPT Projects、Claude Projects：可用于资料研究、访谈整理、竞品分析和内容草稿，但不应替代真实用户验证。https://notebooklm.google/
-- Stripe Atlas / Stripe Payments：了解公司设立、创业基础设施、订阅和跨境经营的基础流程。https://stripe.com/atlas
-- Paddle / Lemon Squeezy：了解独立产品收款、税务处理、订阅和全球销售相关方案；具体选择要按所在地区、客户类型和合规要求确认。https://www.paddle.com/ / https://www.lemonsqueezy.com/
-- YC Startup Library：虽然面向创业公司，但其中关于用户访谈、MVP、定价和分发的原则同样适合副业项目。https://www.ycombinator.com/library
-- Courtland Allen 的 Indie Hackers 访谈：适合学习独立开发者如何从小问题、小产品、小收入开始积累。https://www.indiehackers.com/interviews
-- Deloitte, *The State of AI in the Enterprise 2026*：用于观察企业 AI 采用从试点走向规模化的趋势，以及“AI 项目进入生产环境”对自动化服务的影响。https://www.deloitte.com/us/en/what-we-do/capabilities/applied-artificial-intelligence/content/state-of-generative-ai-in-enterprise.html
-- World Economic Forum, *AI at Work: From Productivity Hacks to Organizational Transformation*（2026）：用于理解 AI 提效正在从个人技巧转向流程、治理、激励和组织设计。https://www.weforum.org/stories/2026/01/ai-at-work-insights/
-- Anthropic, *2026 Agentic Coding Trends Report*：用于理解 Agentic Coding 对程序员、原型开发、内部工具和小团队自动化服务的影响。https://resources.anthropic.com/2026-agentic-coding-trends-report
-- Stanford SALT Lab, *Future of Work with AI Agents / JobBench*：用于观察真实职业任务中哪些工作适合委派给 AI Agent，哪些仍需要人类监督。https://futureofwork.saltlab.stanford.edu/
+- [Indie Hackers](https://www.indiehackers.com/)：独立开发者和 Micro SaaS 案例社区，适合观察真实产品、收入模式和失败复盘。（访问日期：2026-07-23）
+- [Google NotebookLM](https://notebooklm.google/)、ChatGPT Projects、Claude Projects：可用于资料研究、访谈整理、竞品分析和内容草稿，但不应替代真实用户验证。（访问日期：2026-07-23）
+- [Stripe Atlas / Stripe Payments](https://stripe.com/atlas)：了解公司设立、创业基础设施、订阅和跨境经营的基础流程。（访问日期：2026-07-23）
+- [Paddle](https://www.paddle.com/) / [Lemon Squeezy](https://www.lemonsqueezy.com/)：了解独立产品收款、税务处理、订阅和全球销售相关方案；具体选择要按所在地区、客户类型和合规要求确认。（访问日期：2026-07-23）
+- [YC Startup Library](https://www.ycombinator.com/library)：虽然面向创业公司，但其中关于用户访谈、MVP、定价和分发的原则同样适合副业项目。（访问日期：2026-07-23）
+- [Courtland Allen 的 Indie Hackers 访谈](https://www.indiehackers.com/interviews)：适合学习独立开发者如何从小问题、小产品、小收入开始积累。（访问日期：2026-07-23）
+- Deloitte, [*The State of AI in the Enterprise 2026*](https://www.deloitte.com/us/en/what-we-do/capabilities/applied-artificial-intelligence/content/state-of-generative-ai-in-enterprise.html)：用于观察企业 AI 采用从试点走向规模化的趋势，以及“AI 项目进入生产环境”对自动化服务的影响。（访问日期：2026-07-23）
+- World Economic Forum, [*AI at Work: From Productivity Hacks to Organizational Transformation*](https://www.weforum.org/stories/2026/01/ai-at-work-insights/)（2026）：用于理解 AI 提效正在从个人技巧转向流程、治理、激励和组织设计。（访问日期：2026-07-23）
+- Anthropic, [*2026 Agentic Coding Trends Report*](https://resources.anthropic.com/2026-agentic-coding-trends-report)：用于理解 Agentic Coding 对程序员、原型开发、内部工具和小团队自动化服务的影响。（访问日期：2026-07-23）
+- Stanford SALT Lab, [*Future of Work with AI Agents / JobBench*](https://futureofwork.saltlab.stanford.edu/)：用于观察真实职业任务中哪些工作适合委派给 AI Agent，哪些仍需要人类监督。（访问日期：2026-07-23）
 
 **下一章预告**：第八章「AI 时代的职业规划」——我们会讨论程序员如何重新设计自己的职业路线：哪些能力会升值，哪些工作方式会被替代，以及如何在主业、副业和长期资产之间做取舍。
