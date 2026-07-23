@@ -605,12 +605,12 @@ AI 工作流：
 
 ### 4. 本章参考与延伸阅读
 
-- Microsoft WorkLab, *2026 Work Trend Index: Agents, Human Agency, and the Opportunity for Every Organization*：关注 Agent、人类主动性和组织 AI 化机会。https://www.microsoft.com/en-us/worklab/work-trend-index/agents-human-agency-and-the-opportunity-for-every-organization
-- MIT Sloan Management Review, *The Hidden Costs of Coding With Generative AI*（2025-08-18）：提醒个人不要只追求省时，也要保留学习、沟通、架构和判断能力。https://sloanreview.mit.edu/article/the-hidden-costs-of-coding-with-generative-ai
-- Anthropic Research, *How AI Assistance Impacts the Formation of Coding Skills*（2026）：提醒程序员把 AI 当教练和协作者，而不是答案外包机器。https://www.anthropic.com/research/AI-assistance-coding-skills
-- NIST, *AI Risk Management Framework*：为个人和团队设计风险识别、治理、度量和管理流程提供参考。https://www.nist.gov/itl/ai-risk-management-framework
-- OWASP, *Top 10 for Large Language Model Applications*：为提示注入、敏感信息泄露、过度代理能力等风险提供工程化检查清单。https://owasp.org/www-project-top-10-for-large-language-model-applications/
-- European Commission, *Timeline for the Implementation of the EU AI Act*：用于理解 AI Act 分阶段适用时间线和合规节点。https://ai-act-service-desk.ec.europa.eu/en/ai-act/timeline/timeline-implementation-eu-ai-act
+- Microsoft WorkLab, [*2026 Work Trend Index: Agents, Human Agency, and the Opportunity for Every Organization*](https://www.microsoft.com/en-us/worklab/work-trend-index/agents-human-agency-and-the-opportunity-for-every-organization)：关注 Agent、人类主动性和组织 AI 化机会。（访问日期：2026-07-23）
+- MIT Sloan Management Review, [*The Hidden Costs of Coding With Generative AI*](https://sloanreview.mit.edu/article/the-hidden-costs-of-coding-with-generative-ai)（2025-08-18）：提醒个人不要只追求省时，也要保留学习、沟通、架构和判断能力。（访问日期：2026-07-23）
+- Anthropic Research, [*How AI Assistance Impacts the Formation of Coding Skills*](https://www.anthropic.com/research/AI-assistance-coding-skills)（2026）：提醒程序员把 AI 当教练和协作者，而不是答案外包机器。（访问日期：2026-07-23）
+- NIST, [*AI Risk Management Framework*](https://www.nist.gov/itl/ai-risk-management-framework)：为个人和团队设计风险识别、治理、度量和管理流程提供参考。（访问日期：2026-07-23）
+- OWASP, [*Top 10 for Large Language Model Applications*](https://owasp.org/www-project-top-10-for-large-language-model-applications/)：为提示注入、敏感信息泄露、过度代理能力等风险提供工程化检查清单。（访问日期：2026-07-23）
+- European Commission, [*Timeline for the Implementation of the EU AI Act*](https://ai-act-service-desk.ec.europa.eu/en/ai-act/timeline/timeline-implementation-eu-ai-act)：用于理解 AI Act 分阶段适用时间线和合规节点。（访问日期：2026-07-23）
 
 ---
 
