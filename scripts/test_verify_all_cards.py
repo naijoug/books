@@ -96,12 +96,29 @@ def test_missing_chapter_message_uses_repo_relative_path() -> None:
     assert str(ROOT) not in result.output
 
 
+def test_card_count_mismatch_message_uses_repo_relative_path() -> None:
+    module = load_wrapper()
+
+    actual_count = module.count_chapter_cards("Python")
+    result = module.run_verifier(
+        "verify_python_cards.py",
+        "Python",
+        actual_count + 1,
+        verbose=False,
+    )
+
+    assert result.passed is False
+    assert result.output == f"expected {actual_count + 1} cards in chapters/python, found {actual_count}"
+    assert str(ROOT) not in result.output
+
+
 def main() -> int:
     tests = [
         test_unknown_language_fails_before_running_verifiers,
         test_known_language_filter_runs_only_selected_language,
         test_missing_script_message_uses_repo_relative_path,
         test_missing_chapter_message_uses_repo_relative_path,
+        test_card_count_mismatch_message_uses_repo_relative_path,
     ]
     for test in tests:
         test()
