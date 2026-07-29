@@ -411,7 +411,7 @@ notebook 提交：summaries `8c026a9` `Record Hermes heartbeat progress`（提�
 2. 用 `books/tech-cards-handbook/samples/ai-agent-audit-report-one-pager.md` 填交付报告：Scope、Executive Summary、Top Risks、Next Safe Command Ladder、Handoff Template、Continue / Narrow / Stop。
 3. 如果材料不足以支持风险结论，先降级为 `NARROW_FIRST` 或 `Unverified`，不要补想象中的测试结果。
 4. 如果想把交付物转成内容或案例，再用 `books/tech-cards-handbook/samples/ai-agent-case-publishing-ladder-one-pager.md` 判断 Evidence shape、公开边界和 Claim labels。
-5. 如果内容准备外发到社媒、邮件列表、群组或付费渠道，先填 `books/tech-cards-handbook/samples/ai-agent-external-publish-authorization-one-pager.md`；缺少渠道授权、账号/身份、回复入口或观察窗口时，默认结论是 `Wait for authorization`，不是继续润色文案。
+5. 如果内容准备外发到社媒、邮件列表、群组或付费渠道，先填 `books/tech-cards-handbook/samples/ai-agent-external-publish-authorization-one-pager.md`；缺少明确 offer / 实验、渠道授权、账号/身份、回复入口、目标对象或受众、观察窗口时，默认结论是 `Wait for authorization`，不是继续润色文案。
 6. 公开输出只能使用可公开证据；客户私有上下文、未验证推断和缺失命令必须降级或删除。
 
 最终报告固定字段：
