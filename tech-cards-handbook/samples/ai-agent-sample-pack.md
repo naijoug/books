@@ -377,6 +377,9 @@ notebook 提交：summaries `8c026a9` `Record Hermes heartbeat progress`（提�
 - books/tech-cards-handbook/chapters/ai-agent/package-staging-stays-outside-output-dir.md
 - books/tech-cards-handbook/chapters/ai-agent/artifact-smoke-test-checks-contract.md
 - books/tech-cards-handbook/chapters/ai-agent/tracked-artifact-needs-drift-check.md
+- books/tech-cards-handbook/chapters/ai-agent/shared-package-assertions-prevent-contract-drift.md
+
+接入顺序：前四张先证明单个交付物的锚点、staging、归档契约和 tracked artifact 漂移；只有当同类 package smoke test 已在两个以上交付物中重复出现时，才接入共享断言卡，避免为了“抽象”牺牲每个包自己的交付语义。
 
 配套模板：
 - books/tech-cards-handbook/samples/ai-agent-final-report-field-quickref.md
