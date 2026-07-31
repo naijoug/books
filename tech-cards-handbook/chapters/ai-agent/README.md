@@ -1,6 +1,6 @@
 # AI Agent 系统实践卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护，共 65 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护，共 66 张。文件名使用英文 `kebab-case`。
 
 本目录收录 Agent 系统设计、运行边界、工具、记忆、反馈判断、反馈池和心跳工作流等实践卡片;具体 SDK 或语言实现优先放入对应技术栈目录。
 
@@ -10,7 +10,7 @@
 
 ## 本章四条主线
 
-本章 65 张卡片帮助 AI 时代的程序员用 agent 工作流提升验证力，围绕四条主线展开：
+本章 66 张卡片帮助 AI 时代的程序员用 agent 工作流提升验证力，围绕四条主线展开：
 
 | 主线 | 解决的问题 | 入口 |
 |---|---|---|
@@ -54,6 +54,7 @@
 | 14 | 所有权边界 | 用提交范围台账防止混入未知归属;台账包含状态证据列 | [`commit-scope-ledger-prevents-mixed-ownership.md`](commit-scope-ledger-prevents-mixed-ownership.md) |
 | 15 | 所有权边界 | 大 dirty diff 先写接收回执,不要把局部小修混进未知归属的大改写 | [`large-dirty-diff-needs-intake-receipt.md`](large-dirty-diff-needs-intake-receipt.md) |
 | 15a | 所有权边界 | 附录模板增强先对齐邻近模板,不要让权限、证据和回退字段只出现在一个入口 | [`appendix-template-changes-need-neighbor-sync.md`](appendix-template-changes-need-neighbor-sync.md) |
+| 15b | 所有权边界 | 任务前清单和复盘沉淀卡先分生命周期,不要为了字段整齐混成一张表 | [`pre-task-checklist-is-not-retro-asset-log.md`](pre-task-checklist-is-not-retro-asset-log.md) |
 | 16 | 范围与预算 | 给心跳交付设预算,避免连续工具维护循环 | [`delivery-budget-prevents-heartbeat-drift.md`](delivery-budget-prevents-heartbeat-drift.md) |
 | 17 | 范围与预算 | 第三个同主题表面必须先证明下一轮会复用 | [`no-new-surface-without-reuse-proof.md`](no-new-surface-without-reuse-proof.md) |
 | 18 | 范围与预算 | 样本入口只做风险选择，不要按文件名机械补齐 | [`sample-entry-is-not-todo-queue.md`](sample-entry-is-not-todo-queue.md) |
@@ -121,6 +122,7 @@
 | Staged 改动不等于本轮所有权 | [`staged-changes-are-not-ownership.md`](staged-changes-are-not-ownership.md) |
 | 提交范围台账防止混入未知归属 | [`commit-scope-ledger-prevents-mixed-ownership.md`](commit-scope-ledger-prevents-mixed-ownership.md) |
 | 附录模板增强需要同步相邻模板，不要只改一个入口 | [`appendix-template-changes-need-neighbor-sync.md`](appendix-template-changes-need-neighbor-sync.md) |
+| 任务前清单不是复盘资产日志，不要为了字段整齐混淆生命周期 | [`pre-task-checklist-is-not-retro-asset-log.md`](pre-task-checklist-is-not-retro-asset-log.md) |
 | 短节拍任务不要变成重构 | [`short-cadence-tasks-must-not-become-refactors.md`](short-cadence-tasks-must-not-become-refactors.md) |
 | 交付预算防止心跳漂移 | [`delivery-budget-prevents-heartbeat-drift.md`](delivery-budget-prevents-heartbeat-drift.md) |
 | 新表面要有复用证明 | [`no-new-surface-without-reuse-proof.md`](no-new-surface-without-reuse-proof.md) |
