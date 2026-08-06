@@ -19,7 +19,7 @@
 | React 技术卡片 | [`react/`](react/) | 54 |
 | Swift 技术卡片 | [`swift/`](swift/) | 14 |
 | Flutter 技术卡片 | [`flutter/`](flutter/) | 14 |
-| AI Agent 系统实践卡片 | [`ai-agent/`](ai-agent/) | 66 |
+| AI Agent 系统实践卡片 | [`ai-agent/`](ai-agent/) | 67 |
 
 ## 跨技术栈复盘路径
 
@@ -66,7 +66,7 @@
 
 如果问题不是某个语言或代码边界，而是“周期性唤醒的 Agent 要在已有 dirty workspace 里继续工作”，优先从 [`ai-agent/`](ai-agent/) 的快速路径进入，而不是直接翻完整 AI Agent 目录。
 
-四条主线选入口：运行控制先看启动快照、规划取舍、dirty ownership、验证交接和最终报告；验证与证据先看静默成功反向测试、失败输出吸收、proof checker、全量基线、统一 preflight、proof 输出可移植、证据字段 handoff 和命令梯；所有权与交付先看未提交/staged 归属、提交范围台账、大 dirty diff 接收回执、稳定锚点、打包 staging、smoke test、生成物漂移、外部发布授权和无真实链接验证；产品化阶梯先看固定范围 offer、证据请求、首份报告、发布反馈、案例分层、AI 辅助 PR 审查路径、真实样例停止条件和公开案例事实分层。样本目录只作为入口判断，不作为待办队列；如果只是想“补齐样本”，先读 [`ai-agent/sample-entry-is-not-todo-queue.md`](ai-agent/sample-entry-is-not-todo-queue.md) 停止机械扩表面。
+四条主线选入口：运行控制先看启动快照、规划取舍、dirty ownership、验证交接和最终报告；验证与证据先看静默成功反向测试、失败输出吸收、proof checker、全量基线、统一 preflight、proof 输出可移植、证据字段 handoff 和命令梯；所有权与交付先看未提交/staged 归属、路径级提交边界、提交范围台账、大 dirty diff 接收回执、稳定锚点、打包 staging、smoke test、生成物漂移、外部发布授权和无真实链接验证；产品化阶梯先看固定范围 offer、证据请求、首份报告、发布反馈、案例分层、AI 辅助 PR 审查路径、真实样例停止条件和公开案例事实分层。样本目录只作为入口判断，不作为待办队列；如果只是想“补齐样本”，先读 [`ai-agent/sample-entry-is-not-todo-queue.md`](ai-agent/sample-entry-is-not-todo-queue.md) 停止机械扩表面。
 
 最短使用顺序：
 
