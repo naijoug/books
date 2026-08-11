@@ -72,7 +72,7 @@ BLOCK if:
 - 复核记录是否有固定字段名、合法取值和默认保守值？
 - 六个硬门禁的 `Go` 是否都来自人工确认，而不是脚本猜测？
 - 是否存在单独的 `Final decision: Publish`，且 rehearsal / regression / build 结果不能替代它？
-- `--push` 是否要求人工显式传入 canonical review note 路径，不自动选最新文件？
+- `--push` 是否要求人工显式传入 canonical review note 路径，不自动选最新文件，且发布日期、review note 文件名日期、checker 命令路径和发布命令日期一致？
 - checker 是否在构建、commit、push、发帖、上传前执行，失败时能列出缺失字段？
 - 测试是否覆盖：dry-run sample 阻断、rehearsal Pass 不解锁、缺任一硬门禁不解锁、最终 Publish + 全部 Go 才放行？
 - notebook 或最终报告是否写清没有自动创建 remote、没有开启托管页面、没有外发推广、没有 push 的边界？

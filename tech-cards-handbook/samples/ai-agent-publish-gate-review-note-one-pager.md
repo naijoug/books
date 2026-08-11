@@ -24,6 +24,7 @@
 Release date:
 Artifact / offer:
 Canonical review note path: docs/publish-review-YYYY-MM-DD.md
+Review date match: Go / No-Go / Wait
 Checker command:
 Checker output: PUBLISH_ALLOWED / PUBLISH_BLOCKED
 Final decision: Publish / Dry-run only / Wait
@@ -42,6 +43,7 @@ Evidence log path:
 填写规则：
 
 - `Canonical review note path` 必须是本次发布日期对应的相对路径；不要填绝对路径、dry-run sample、旧日期文件或“最新记录”。
+- `Review date match` 只有在 `Release date`、review note 文件名日期、checker 命令中的路径日期和发布命令日期一致时才写 `Go`；任一日期为空、旧日期、跨日复用或靠“最新记录”推断时写 `No-Go` / `Wait`。
 - 六个硬门禁的 `Go` 必须来自人工确认字段或人工编辑后的复核记录；自动探测到 URL、remote、干净工作区只能算证据，不能自己升级为 `Go`。
 - `No-push rehearsal result: Pass` 只能证明本地页面、RSS、artifact 或 remote 证据已检查，不能替代 `Final decision: Publish`。
 - `Allowed side effects` 必须逐项列出允许的动作，例如 commit、push、upload、post、send；没有列出的动作都写进 `Do-not-touch side effects`。
@@ -85,6 +87,7 @@ Decision: PUBLISH_BLOCKED. Review note path: docs/publish-review-YYYY-MM-DD.md. 
 一轮受控发布只有在下面条件同时满足时才可继续：
 
 - review note 路径是本次日期的 canonical 相对路径，且由人工显式传入。
+- `Review date match: Go` 明确确认发布日期、review note 文件名日期、checker 命令路径和发布命令日期一致。
 - checker 输出 `PUBLISH_ALLOWED`，并且输出来自同一份 review note。
 - `Final decision: Publish` 与六个硬门禁 `Go` 同时存在。
 - `Allowed side effects` 与用户授权一致，未授权动作保持 `Do-not-touch`。
