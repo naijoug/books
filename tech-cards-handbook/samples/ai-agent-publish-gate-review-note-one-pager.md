@@ -67,6 +67,21 @@ Example:
 
 脚本必须在 build、commit、push、upload、post、send 之前失败；失败输出要能说明是字段缺失、路径不 canonical、日期不匹配、最终决策不是 Publish，还是某个硬门禁不是 `Go`。
 
+## Checker 回归矩阵
+
+把 review note checker 接入 `--push` 之前，先用最小 fixture 跑下面 6 个场景。目标不是证明发布链完整，而是证明 checker 的失败语义足够窄：
+
+| fixture | Final decision | 六个硬门禁 | rehearsal | 路径 / 日期 | 期望输出 |
+|---|---|---|---|---|---|
+| dry-run sample | `Dry-run only` | 至少一个 `No-Go` / `Wait` | `Blocked` / `Not checked` | canonical 或 sample 路径 | `PUBLISH_BLOCKED` |
+| rehearsal-only-pass | `Dry-run only` | 全部 `Go` | `Pass` | canonical 且同日 | `PUBLISH_BLOCKED` |
+| missing-one-gate | `Publish` | 一个硬门禁 `Wait` / 缺失 | `Pass` | canonical 且同日 | `PUBLISH_BLOCKED` |
+| auto-evidence-review | `Publish` | 任一硬门禁仍是 `Review` | `Pass` | canonical 且同日 | `PUBLISH_BLOCKED` |
+| wrong-note-date | `Publish` | 全部 `Go` | `Pass` | review note 日期不等于发布日期 | `PUBLISH_BLOCKED` |
+| publish-all-go | `Publish` | 全部 `Go` | `Pass` | canonical 且同日 | `PUBLISH_ALLOWED` |
+
+最小测试断言：每个阻断 fixture 都要检查退出码非 0，并断言输出里包含具体原因；唯一放行 fixture 要检查退出码为 0、输出来自同一份 review note，且测试本身不执行 build、commit、upload、post、send 或 push。
+
 ## 阻塞时的最小交接句
 
 ```text
