@@ -4,7 +4,7 @@
 
 Agent 在准备日报、资料包、落地页或 beta 分发时，常会先写一份发布复核记录。记录里可能已经有真实 URL、联系入口、人工复核、授权来源、remote、工作区状态等信息，但如果这些信息只散落在段落里，发布脚本很容易只看见“rehearsal passed”“检查完成”“看起来可以发”，然后把 `--push` 当成安全动作。
 
-这张卡解决的问题是：如何把外部发布前的人工判断拆成机器可解析字段，让自动脚本只能在明确字段全部为 `Go` 时继续，而不是从散文、占位符或 dry-run 成功里推断授权。
+这张卡解决的问题是：如何把外部发布前的人工判断拆成机器可解析字段，让自动脚本只能在明确字段全部为 `Go` 时继续，而不是从散文、占位符或 dry-run 成功里推断授权。需要直接复制给下一轮 agent 或发布 reviewer 时，用 [`../../samples/ai-agent-publish-gate-review-note-one-pager.md`](../../samples/ai-agent-publish-gate-review-note-one-pager.md) 填 canonical review note、checker 输出和未触发副作用边界。
 
 ## 要点
 

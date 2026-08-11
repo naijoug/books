@@ -12,7 +12,7 @@
 |---|---|---|
 | 运行控制 | [`ai-agent-sample-pack.md`](ai-agent-sample-pack.md)、[`ai-agent-dirty-workspace-one-pager.md`](ai-agent-dirty-workspace-one-pager.md) | 需要稳住周期性唤醒、dirty workspace、接力规划和默认动作 |
 | 验证与证据 | [`ai-agent-proof-checker-one-pager.md`](ai-agent-proof-checker-one-pager.md)、[`ai-agent-proof-to-preflight-decision-table.md`](ai-agent-proof-to-preflight-decision-table.md)、[`ai-agent-next-safe-command-ladder-one-pager.md`](ai-agent-next-safe-command-ladder-one-pager.md)、[`ai-agent-evidence-field-handoff-one-pager.md`](ai-agent-evidence-field-handoff-one-pager.md) | 需要证明基础契约、选择下一条安全命令、交接未验证边界或统一跨阶段证据字段 |
-| 所有权与交付 | [`ai-agent-final-report-field-quickref.md`](ai-agent-final-report-field-quickref.md)、[`ai-agent-external-publish-authorization-one-pager.md`](ai-agent-external-publish-authorization-one-pager.md) | 需要核对 commit/report 字段、发布授权或可公开边界 |
+| 所有权与交付 | [`ai-agent-final-report-field-quickref.md`](ai-agent-final-report-field-quickref.md)、[`ai-agent-external-publish-authorization-one-pager.md`](ai-agent-external-publish-authorization-one-pager.md)、[`ai-agent-publish-gate-review-note-one-pager.md`](ai-agent-publish-gate-review-note-one-pager.md) | 需要核对 commit/report 字段、发布授权、review note 门禁或可公开边界 |
 | 产品化阶梯 | [`ai-agent-audit-report-one-pager.md`](ai-agent-audit-report-one-pager.md)、[`ai-agent-case-publishing-ladder-one-pager.md`](ai-agent-case-publishing-ladder-one-pager.md)、[`ai-agent-skill-reuse-before-new-skill-one-pager.md`](ai-agent-skill-reuse-before-new-skill-one-pager.md) | 需要把审查、案例或可复用观察转成收入实验素材 |
 
 验证类样本按两层入口维护：`ai-agent-sample-pack.md` 顶部是 30 秒“验证入口速记”，适合已能说出当前最大风险时直接选下一份输入；`ai-agent-proof-to-preflight-decision-table.md` 是 2 分钟展开版，适合还在 proof checker、全量 proof 基线、统一 preflight wrapper、命令梯和交接模板之间摇摆时再做入口判断。
@@ -35,6 +35,7 @@
 | 想把首份审查报告安全推进成匿名/公开案例 | [`ai-agent-case-publishing-ladder-one-pager.md`](ai-agent-case-publishing-ladder-one-pager.md) | 按证据形状、公开边界和 claim 标签决定 Continue / Narrow / Stop，避免把样板包装成战报 |
 | 一条观察看起来值得沉淀成新 skill，但还不确定是否已经可复用 | [`ai-agent-skill-reuse-before-new-skill-one-pager.md`](ai-agent-skill-reuse-before-new-skill-one-pager.md) | 先记录观察快照、复用路径、停止条件和技能化门槛，避免把单次 Narrow 结果误写成新 skill |
 | Agent 准备好外发文案或付费 offer，但没有明确发布授权 | [`ai-agent-external-publish-authorization-one-pager.md`](ai-agent-external-publish-authorization-one-pager.md) | 填授权包（渠道、账号、联系路径、观察窗口），缺任一项就不发布；配套 `chapters/ai-agent/external-publish-needs-authorization.md` |
+| 发布脚本已经准备接 `--push`，但担心 review note、dry-run sample 或旧日期记录被误用 | [`ai-agent-publish-gate-review-note-one-pager.md`](ai-agent-publish-gate-review-note-one-pager.md) | 填 canonical review note、checker 输出、六个硬门禁和未触发副作用；配套 `chapters/ai-agent/publish-gate-fields-before-push.md` |
 
 ## 使用顺序
 
