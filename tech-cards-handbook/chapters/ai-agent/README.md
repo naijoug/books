@@ -1,6 +1,6 @@
 # AI Agent 系统实践卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护，共 67 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护，共 68 张。文件名使用英文 `kebab-case`。
 
 本目录收录 Agent 系统设计、运行边界、工具、记忆、反馈判断、反馈池和心跳工作流等实践卡片;具体 SDK 或语言实现优先放入对应技术栈目录。
 
@@ -10,7 +10,7 @@
 
 ## 本章四条主线
 
-本章 67 张卡片帮助 AI 时代的程序员用 agent 工作流提升验证力，围绕四条主线展开：
+本章 68 张卡片帮助 AI 时代的程序员用 agent 工作流提升验证力，围绕四条主线展开：
 
 | 主线 | 解决的问题 | 入口 |
 |---|---|---|
@@ -46,6 +46,7 @@
 | 6 | 规划与取舍 | 先写可证伪的人类假设,再让 Agent 生成或修改 | [`human-hypothesis-before-agent.md`](human-hypothesis-before-agent.md) |
 | 7 | 规划与取舍 | 无人值守时选择低风险默认动作,而不是等待澄清 | [`unattended-agent-chooses-default-action.md`](unattended-agent-chooses-default-action.md) |
 | 8 | 发布与授权 | 外部发布必须先拿到渠道、账号、联系路径和观察窗口授权 | [`external-publish-needs-authorization.md`](external-publish-needs-authorization.md) |
+| 8a | 发布与授权 | 发布闸门先字段化，不让 `--push` 从散文结论里猜授权 | [`publish-gate-fields-before-push.md`](publish-gate-fields-before-push.md) |
 | 9 | 发布与授权 | 无真实支付/留资/试读链接时先验证需求原话，不伪造发布入口 | [`no-link-validation-before-launch.md`](no-link-validation-before-launch.md) |
 | 10 | 验证与失败语义 | 防止无效输入或空检查集合被误报为成功 | [`silent-success-needs-negative-test.md`](silent-success-needs-negative-test.md) |
 | 11 | 规划与取舍 | 让失败输出改变范围、顺序、目标或交接 | [`failure-output-must-change-plan.md`](failure-output-must-change-plan.md) |
@@ -147,6 +148,7 @@
 | 先交付首份报告，不要先卖咨询 | [`first-report-before-consulting.md`](first-report-before-consulting.md)；报告骨架见 [`../../samples/ai-agent-audit-report-one-pager.md`](../../samples/ai-agent-audit-report-one-pager.md) |
 | 先跑 30 分钟路线，不要先产品化 | [`thirty-minute-route-before-productizing.md`](thirty-minute-route-before-productizing.md)；路线收口可复用 [`../../samples/ai-agent-audit-report-one-pager.md`](../../samples/ai-agent-audit-report-one-pager.md) |
 | 外部发布先要授权，不要把草稿当成发布许可 | [`external-publish-needs-authorization.md`](external-publish-needs-authorization.md)；可复制授权包见 [`../../samples/ai-agent-external-publish-authorization-one-pager.md`](../../samples/ai-agent-external-publish-authorization-one-pager.md) |
+| 发布闸门先字段化，不要让 `--push` 读取散文结论 | [`publish-gate-fields-before-push.md`](publish-gate-fields-before-push.md) |
 | 无真实链接时先验证需求，不要伪造发布入口 | [`no-link-validation-before-launch.md`](no-link-validation-before-launch.md) |
 | 真实样例先于模板扩张，不要在无外部证据时继续堆产品表面 | [`external-evidence-before-template-expansion.md`](external-evidence-before-template-expansion.md) |
 | 发布反馈先看证据形状，不要只看互动量 | [`publish-feedback-needs-evidence-shape.md`](publish-feedback-needs-evidence-shape.md)；从报告到案例的发布决策见 [`../../samples/ai-agent-case-publishing-ladder-one-pager.md`](../../samples/ai-agent-case-publishing-ladder-one-pager.md) |
