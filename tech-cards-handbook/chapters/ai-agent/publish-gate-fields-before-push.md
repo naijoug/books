@@ -16,7 +16,9 @@ Agent 在准备日报、资料包、落地页或 beta 分发时，常会先写�
 
 ## 示例
 
-一份最小发布门禁可以压缩成六个硬门禁和一个最终决策：
+一份最小发布门禁可以压缩成六个硬门禁和一个最终决策；如果要把 checker 接入 `--push`，先回到样本页的“Checker 回归矩阵”，至少跑通 dry-run sample、rehearsal-only-pass、missing-one-gate、auto-evidence-review、wrong-note-date 和 publish-all-go 六类 fixture，再把命令写入发布 runbook。
+
+一份 review note 中的字段可以保持这么窄：
 
 ```text
 Publish gate
