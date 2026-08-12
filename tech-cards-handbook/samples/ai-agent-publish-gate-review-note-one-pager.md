@@ -96,6 +96,18 @@ Example:
 
 经验法则：`write_*` helper 只能准备文件，`assert_*` helper 只能检查输出和退出码，`run_*` helper 必须在名字里写清授权条件或 no-op 边界。这样后续新增 publish 渠道时，测试读者能从 helper 名字上看出哪里是证据、哪里是门禁、哪里可能产生副作用。
 
+## Fixture 副作用边界
+
+发布门禁测试的正向 fixture 也只能证明“在临时环境中允许走到下一步”，不能借机碰生产环境。给每个 helper 加下面这些约束：
+
+- 不读取生产 token：测试里显式清空或覆盖 `GITHUB_TOKEN`、`CLOUDFLARE_API_TOKEN`、邮件 / 社媒 / 支付渠道 token；需要 token 形状时只写 `fake-token-for-test`。
+- 不继承真实 remote：临时仓库要么没有 `origin`，要么使用本地 bare repo / file URL；不要从开发者机器复制 `.git/config`。
+- 不调用真实 CLI：`wrangler`、`gh`、`vercel`、`netlify`、邮件发送、社媒发布等命令必须用 stub 放在临时 `PATH` 前面，并在输出里写明 `stubbed`。
+- 不复用生产 artifact 目录：站点 URL、RSS、sitemap、JSON-LD、review note 都写入测试临时目录；断言路径使用相对路径或临时仓库内路径。
+- 不让 positive fixture 做真实 push：即使 `PUBLISH_ALLOWED`，正向测试也应停在 no-op、no changes to commit、本地 fake remote 或 stub push 的边界，并断言没有 upload、post、send。
+
+一句话检查：如果把网络断开、删除所有生产 token、把 remote 指到不存在的位置，测试仍应能稳定验证门禁语义；否则它验证的不是 checker，而是在消耗真实发布环境。
+
 ## 阻塞时的最小交接句
 
 ```text
