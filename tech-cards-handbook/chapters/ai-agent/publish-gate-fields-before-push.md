@@ -13,10 +13,11 @@ Agent 在准备日报、资料包、落地页或 beta 分发时，常会先写�
 3. **最终决策单独字段化**：`No-push rehearsal result: Pass`、`all checks passed`、`remote found` 都不能替代 `Final decision: Publish`。
 4. **发布脚本显式读取复核文件**：`--push` 必须要求人工传入 `--review-note docs/...md`，不要自动选择“最新复核记录”，也不要接受占位路径、绝对路径或另一个日期的记录。
 5. **checker 失败要早于构建和提交**：解析复核记录的守门脚本应该在构建、commit、push、发帖、上传之前运行；失败时输出缺哪个字段，而不是继续做副作用前置工作。
+6. **测试夹具要共享 canonical 证据**：正向放行、缺 remote、缺字段等 fixture 不要各自复制一份 review note、URL artifact 或 stub build；把这些证据写入 helper，防止门禁字段改名时只有部分测试更新。
 
 ## 示例
 
-一份最小发布门禁可以压缩成六个硬门禁和一个最终决策；如果要把 checker 接入 `--push`，先回到样本页的“Checker 回归矩阵”，至少跑通 dry-run sample、rehearsal-only-pass、missing-one-gate、auto-evidence-review、wrong-note-date 和 publish-all-go 六类 fixture，再把命令写入发布 runbook。
+一份最小发布门禁可以压缩成六个硬门禁和一个最终决策；如果要把 checker 接入 `--push`，先回到样本页的“Checker 回归矩阵”，至少跑通 dry-run sample、rehearsal-only-pass、missing-one-gate、auto-evidence-review、wrong-note-date 和 publish-all-go 六类 fixture，再把命令写入发布 runbook。测试 fixture 里不要重复手写 canonical review note、站点 URL artifact 或 stub build 脚本：把这些证据集中到 `write_publish_review_note`、`write_site_url_artifacts`、`write_stub_build_tools` 这类 helper 中，让缺 remote 和正向 no-op publish 共享同一份放行证据。
 
 一份 review note 中的字段可以保持这么窄：
 
@@ -66,6 +67,7 @@ BLOCK if:
 - **允许占位字段通过**：`<origin url>`、`example.com`、`approval pending`、`TODO`、`待填写` 必须是 `No-Go` 或 `Wait`。
 - **checker 放在 push 之后**：如果先 commit / upload 再检查复核记录，门禁已经失去意义。
 - **最终报告只说“已检查”**：报告必须写出 review note 路径、checker 结果和未触发的副作用边界。
+- **fixture 各自复制证据**：多个测试各写一份“可发布” review note 或站点 artifact，后续字段调整时容易出现 A 测试还在旧字段、B 测试已经新字段的假绿；共享 helper 比复制粘贴更接近真实发布证据。
 
 ## 检查
 
@@ -77,4 +79,5 @@ BLOCK if:
 - `--push` 是否要求人工显式传入 canonical review note 路径，不自动选最新文件，且发布日期、review note 文件名日期、checker 命令路径和发布命令日期一致？
 - checker 是否在构建、commit、push、发帖、上传前执行，失败时能列出缺失字段？
 - 测试是否覆盖：dry-run sample 阻断、rehearsal Pass 不解锁、缺任一硬门禁不解锁、最终 Publish + 全部 Go 才放行？
+- 正向和阻断 fixture 是否共享 canonical review note、站点 URL artifact、stub build helper，避免复制粘贴导致放行证据漂移？
 - notebook 或最终报告是否写清没有自动创建 remote、没有开启托管页面、没有外发推广、没有 push 的边界？
