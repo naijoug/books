@@ -96,6 +96,8 @@ Example:
 
 经验法则：`write_*` helper 只能准备文件，`assert_*` helper 只能检查输出和退出码，`run_*` helper 必须在名字里写清授权条件或 no-op 边界。这样后续新增 publish 渠道时，测试读者能从 helper 名字上看出哪里是证据、哪里是门禁、哪里可能产生副作用。
 
+特别是正向命令 helper，不要只叫 `run_publish`。名字里至少要暴露三类边界：授权是否齐全、证据是否 canonical、外部副作用是否 stub / no-op。例如 `run_publish_with_all_authorizations` 说明它只负责“带齐授权字段后进入受控发布路径”；如果同一个 helper 还依赖本地 fake remote 或 no-op commit，就在调用点旁边断言 `no upload / post / send / push`，不要让读者误以为它可以复制到生产命令里直接执行。
+
 ## Fixture 副作用边界
 
 发布门禁测试的正向 fixture 也只能证明“在临时环境中允许走到下一步”，不能借机碰生产环境。给每个 helper 加下面这些约束：
