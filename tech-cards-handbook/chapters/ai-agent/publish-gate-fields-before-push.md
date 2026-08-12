@@ -14,10 +14,11 @@ Agent 在准备日报、资料包、落地页或 beta 分发时，常会先写�
 4. **发布脚本显式读取复核文件**：`--push` 必须要求人工传入 `--review-note docs/...md`，不要自动选择“最新复核记录”，也不要接受占位路径、绝对路径或另一个日期的记录。
 5. **checker 失败要早于构建和提交**：解析复核记录的守门脚本应该在构建、commit、push、发帖、上传之前运行；失败时输出缺哪个字段，而不是继续做副作用前置工作。
 6. **测试夹具要共享 canonical 证据**：正向放行、缺 remote、缺字段等 fixture 不要各自复制一份 review note、URL artifact 或 stub build；把这些证据写入 helper，防止门禁字段改名时只有部分测试更新。
+7. **fixture 字符串只能有一个来源**：发布日期、站点 URL、canonical review note 路径、wrong-date 路径、dry-run sample 路径和预期错误信息要从同一组变量派生；不要在命令、断言和错误消息里重复手写。
 
 ## 示例
 
-一份最小发布门禁可以压缩成六个硬门禁和一个最终决策；如果要把 checker 接入 `--push`，先回到样本页的“Checker 回归矩阵”，至少跑通 dry-run sample、rehearsal-only-pass、missing-one-gate、auto-evidence-review、wrong-note-date 和 publish-all-go 六类 fixture，再把命令写入发布 runbook。测试 fixture 里不要重复手写 canonical review note、站点 URL artifact 或 stub build 脚本：把这些证据集中到 `write_publish_review_note`、`write_site_url_artifacts`、`write_stub_build_tools` 这类 helper 中，让缺 remote 和正向 no-op publish 共享同一份放行证据。
+一份最小发布门禁可以压缩成六个硬门禁和一个最终决策；如果要把 checker 接入 `--push`，先回到样本页的“Checker 回归矩阵”，至少跑通 dry-run sample、rehearsal-only-pass、missing-one-gate、auto-evidence-review、wrong-note-date 和 publish-all-go 六类 fixture，再把命令写入发布 runbook。测试 fixture 里不要重复手写 canonical review note、站点 URL artifact 或 stub build 脚本：把这些证据集中到 `write_publish_review_note`、`write_site_url_artifacts`、`write_stub_build_tools` 这类 helper 中，让缺 remote 和正向 no-op publish 共享同一份放行证据。再把 `fixture_date`、`fixture_site_url`、`fixture_review_note`、`fixture_wrong_date` 和 `fixture_canonical_review_note_message` 放到测试顶部，由它们生成 CLI 参数和 `grep -F` 断言；这样把发布日期从 `2026-08-07` 改成下一期时，只需要改一个变量，而不会出现路径、错误消息和 summary 断言互相漂移。
 
 一份 review note 中的字段可以保持这么窄：
 
@@ -68,6 +69,7 @@ BLOCK if:
 - **checker 放在 push 之后**：如果先 commit / upload 再检查复核记录，门禁已经失去意义。
 - **最终报告只说“已检查”**：报告必须写出 review note 路径、checker 结果和未触发的副作用边界。
 - **fixture 各自复制证据**：多个测试各写一份“可发布” review note 或站点 artifact，后续字段调整时容易出现 A 测试还在旧字段、B 测试已经新字段的假绿；共享 helper 比复制粘贴更接近真实发布证据。
+- **fixture 字符串散落在三处**：CLI 参数、checker 错误消息和 readiness summary 断言如果各写一遍 `docs/ai-daily-publish-review-2026-08-07.md`，下一次换日期时很容易只改命令不改断言；日期、URL 和 canonical path 必须从同一组变量生成。
 
 ## 检查
 
@@ -80,4 +82,5 @@ BLOCK if:
 - checker 是否在构建、commit、push、发帖、上传前执行，失败时能列出缺失字段？
 - 测试是否覆盖：dry-run sample 阻断、rehearsal Pass 不解锁、缺任一硬门禁不解锁、最终 Publish + 全部 Go 才放行？
 - 正向和阻断 fixture 是否共享 canonical review note、站点 URL artifact、stub build helper，避免复制粘贴导致放行证据漂移？
+- 发布日期、站点 URL、review note path、wrong-date path、dry-run sample path、预期 guard message 和 readiness summary 断言是否都从同一组 fixture 变量派生？
 - notebook 或最终报告是否写清没有自动创建 remote、没有开启托管页面、没有外发推广、没有 push 的边界？
