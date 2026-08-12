@@ -82,6 +82,20 @@ Example:
 
 最小测试断言：每个阻断 fixture 都要检查退出码非 0，并断言输出里包含具体原因；唯一放行 fixture 要检查退出码为 0、输出来自同一份 review note，且测试本身不执行 build、commit、upload、post、send 或 push。
 
+## Fixture helper 命名约定
+
+把发布门禁测试拆成 helper 时，命名要体现“它生成证据”还是“它执行命令 / 断言边界”，避免 helper 继续藏副作用：
+
+| helper 类型 | 命名示例 | 只允许做什么 | 不允许做什么 |
+|---|---|---|---|
+| canonical 证据写入 | `write_publish_review_note`、`write_site_url_artifacts` | 写同一期 review note、站点 URL、RSS / sitemap / JSON-LD 等最小 artifact | 自动改最终决策、创建 remote、触发 build |
+| stub 工具准备 | `write_stub_build_tools`、`copy_publish_gate_scripts` | 复制待测脚本、放置不会外发的 stub 命令 | 调真实部署命令、读取用户环境中的生产 token |
+| fixture 变量 | `fixture_date`、`fixture_site_url`、`fixture_review_note` | 生成 CLI 参数、canonical path、wrong-date path、expected message | 在断言里再手写另一份日期 / URL / path |
+| 阻断断言 | `assert_did_not_reach_build`、`assert_rejects_guard_before_build` | 证明 checker / guard 在 build、commit、push 前失败 | 在失败路径里跑 build 或初始化 remote |
+| 正向受控命令 | `run_publish_with_all_authorizations` | 只在临时仓库里跑带齐授权的 no-op / stub publish | 连接真实 remote、上传、post、send、push |
+
+经验法则：`write_*` helper 只能准备文件，`assert_*` helper 只能检查输出和退出码，`run_*` helper 必须在名字里写清授权条件或 no-op 边界。这样后续新增 publish 渠道时，测试读者能从 helper 名字上看出哪里是证据、哪里是门禁、哪里可能产生副作用。
+
 ## 阻塞时的最小交接句
 
 ```text
