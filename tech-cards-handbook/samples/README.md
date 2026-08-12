@@ -37,6 +37,18 @@
 | Agent 准备好外发文案或付费 offer，但没有明确发布授权 | [`ai-agent-external-publish-authorization-one-pager.md`](ai-agent-external-publish-authorization-one-pager.md) | 填授权包（渠道、账号、联系路径、观察窗口），缺任一项就不发布；配套 `chapters/ai-agent/external-publish-needs-authorization.md` |
 | 发布脚本已经准备接 `--push`，但担心 review note、dry-run sample 或旧日期记录被误用 | [`ai-agent-publish-gate-review-note-one-pager.md`](ai-agent-publish-gate-review-note-one-pager.md) | 填 canonical review note、checker 输出、六个硬门禁和未触发副作用；配套 `chapters/ai-agent/publish-gate-fields-before-push.md` |
 
+### 发布门禁三层入口
+
+使用 [`ai-agent-publish-gate-review-note-one-pager.md`](ai-agent-publish-gate-review-note-one-pager.md) 时，先判断当前缺的是哪一层，不要因为 checker 通过就默认进入真实发布：
+
+| 层级 | 先回答的问题 | 缺口表现 | 下一步 |
+|---|---|---|---|
+| 字段门禁 | review note 是否有 canonical path、同日日期、六个硬门禁 `Go` 和 `Final decision: Publish`？ | 只有 rehearsal / smoke pass，或字段来自自动探测 | 停在 review note，补人工确认字段后重跑 checker |
+| fixture 门禁 | checker 是否用 dry-run、wrong-date、missing-gate、publish-all-go 等 fixture 验过窄放行语义？ | 只有一条正向 happy path，或阻断 fixture 没检查具体原因 | 先补最小矩阵和 helper，再接入 `--push` |
+| 环境边界 | 正向 fixture 是否隔离 token、remote、真实 CLI 和生产 artifact？ | 测试依赖开发机 token / remote / 部署命令才能通过 | 改成临时仓库、stub CLI、本地 fake remote 或 no-op 边界 |
+
+30 秒判断：字段不全时不要写发布命令；fixture 不全时不要把 checker 接入 `--push`；环境边界不清时，即使 `PUBLISH_ALLOWED` 也只能交付阻塞说明和下一条安全命令。
+
 ## 使用顺序
 
 1. **先选主入口**：完整接力用样本包，只做一次短接力用 dirty workspace 一页纸；如果只是因为目录里还有相邻样本没用过而想继续补，请先读 [`../chapters/ai-agent/sample-entry-is-not-todo-queue.md`](../chapters/ai-agent/sample-entry-is-not-todo-queue.md) 停止机械扩表面。
