@@ -51,6 +51,20 @@
 
 需要直接拿去评审会使用时，可以把 `docs/` 中的 [Agent 上线前 90 分钟审查模板](../../docs/documents/trending/ai/agent-release-90-minute-review-template.md) 作为执行表单：先填写发布对象、工具风险表和 Golden Tasks 结果，再把 `gate_decision` 回写到第 9 章发布报告和第 10 章安全门禁清单。若评审会已经有多份评估报告和 trace，还可以配合 [Agent 发布证据字段映射表](../../docs/documents/trending/ai/agent-release-evidence-field-map.md)，逐项核对 Golden Tasks、失败样本、脱敏 trace、审计事件和回滚开关是否都进入发布报告。需要把会议材料压缩成可交接的 `pass` / `warn` / `block` 结论时，使用 `skills/` 中的 [Agent Release Gate 技能](../../skills/skills/manual/review/agent-release-gate/) 输出门禁报告；发布会现场先打开 [Quick Reference](../../skills/skills/manual/review/agent-release-gate/references/quick-reference.md) 对齐硬门禁和 `warn` 范式，不确定成品格式时再对照 [filled example](../../skills/skills/manual/review/agent-release-gate/references/filled-example.md)，避免把缺失证据写成主观信心。书内附录 A 提供空白检查清单，附录 B 则用客服工单 Agent 灰度场景展示一份完整填写样例，并补充一个错误门禁报告反例，便于读者理解为什么 `warn` 必须绑定发布范围、审批策略和到期整改，而不能替代缺失的硬边界。附录 C 进一步给出 30 分钟和 60 分钟两套主持人脚本，并补上一份会后交接填写样例，适合发布 owner 在会议现场把讨论拉回证据链、允许范围、阻断原因、下一次复审条件和下一步可执行命令。
 
+## 按角色选择附录 A/B/C
+
+同一套上线材料在不同角色手里，使用方式不一样。读者不必一次读完所有附录，可以按自己在评审会中的职责快速定位：
+
+| 角色 | 先看哪份材料 | 需要产出的判断 |
+|---|---|---|
+| 发布 owner | 附录 A，然后对照附录 C 的会前材料检查 | 今天评审的是哪个 `release_id`，哪些工具进入 allowlist，哪些能力保持禁用 |
+| Agent 开发者 | 附录 A 的工具、评估和 trace 部分，再看附录 B 的填写粒度 | Golden Tasks、失败样本、脱敏 trace、审计事件是否能直接支撑门禁结论 |
+| 安全 reviewer | 附录 B 的 `warn` 样例和 `block` 反例 | 当前结论是否有硬边界：缺少审批、回滚、审计或安全回归时不能降级成口头承诺 |
+| 值班 / SRE | 附录 C 的监控、止损、回滚和会后交接段落 | 告警 owner、回滚命令、预算止损、复审触发条件是否足够让下一班接手 |
+| 业务负责人 | 附录 C 的 30 分钟脚本和最终结论段 | 允许开放的用户范围、禁用能力、人工兜底和用户影响是否清楚 |
+
+一个实用顺序是：发布 owner 先用附录 A 收集事实，Agent 开发者按附录 B 补齐证据字段，安全 reviewer 用附录 B 的反例判断是否必须 `block`，主持人再用附录 C 把分歧收束为可执行的 `pass` / `warn` / `block`。如果会议结束后仍有人说“感觉可以试一下”，说明材料还没有落到可交接的允许范围、禁用范围、回滚条件和复审时间，应该回到附录 A 重新补证据。
+
 ## 目录结构
 
 ```text
