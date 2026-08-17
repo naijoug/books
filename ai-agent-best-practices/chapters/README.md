@@ -18,7 +18,7 @@
 | 10 | `10-safety-ethics.md` | 风险分级、工具网关权限策略、Prompt 注入防御、数据安全、人工审批、审计日志、事故熔断和伦理边界 |
 | 附录 A | `appendix-production-readiness-checklist.md` | Agent 生产就绪检查清单、现场争议入口、门禁证据链和发布决策模板 |
 | 附录 B | `appendix-production-readiness-filled-example.md` | 客服工单 Agent 灰度发布门禁填写样例，展示 `warn` 结论、范围控制、整改接力和 `block` 反例 |
-| 附录 C | `appendix-release-review-facilitator-script.md` | Agent 上线评审会主持人脚本，用 30～60 分钟收束证据链、发布范围、门禁结论、会后交接和下一步行动 |
+| 附录 C | `appendix-release-review-facilitator-script.md` | Agent 上线评审会主持人脚本，用 30～60 分钟把附录 A/B 与第 9 章发布报告收束为证据链、发布范围、门禁结论、会后交接和下一步行动 |
 
 ## 阅读建议
 
@@ -42,5 +42,5 @@
 - 发布 owner：从附录 A 开始，确认 `release_id`、工具 allowlist、禁用范围、灰度边界和会前材料是否齐全，再用附录 C 主持评审。
 - Agent 开发者：重点看附录 A 的工具 / 评估 / trace 字段和附录 B 的填写样例，确保 Golden Tasks、失败样本、脱敏 trace、审计事件可以追溯。
 - 安全 reviewer：先看附录 B 的 `warn` 样例与 `block` 反例，判断缺失项是可受控风险，还是缺少审批、回滚、审计、安全回归等硬边界。
-- 值班 / SRE：使用附录 C 的监控、止损、回滚和会后交接清单，确认下一班能按命令、告警和复审触发条件接手。
+- 值班 / SRE：使用附录 C 的监控、止损、回滚、发布报告字段映射和会后交接清单，确认下一班能按命令、告警和复审触发条件接手。
 - 业务负责人：阅读附录 C 的 30 分钟脚本和最终结论段，确认用户范围、人工兜底、禁用能力和业务影响表达清楚。

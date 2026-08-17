@@ -206,13 +206,25 @@ release_review_handoff:
     - "只读/停工具演练完成"
 ```
 
+这份交接记录不应该从空白开始写，而应该直接消费第 9 章 `9.7.4` 的发布报告字段：
+
+| 第 9 章发布报告字段 | 附录 C 交接字段 | 交接时要说清什么 |
+|---|---|---|
+| `release_id` 和版本字段 | `release_id`、`agent_version`、`prompt_hash`、`model_version`、`tool_schema_version` | 下一位接手者复审的是同一个候选版本，而不是“最新版本” |
+| `gate_decision` / `decision_reason` | `final_decision` / `decision_summary` | 当前结论是 `pass`、`warn` 还是 `block`，原因是否能被证据复核 |
+| `rollout_scope.allowed_tools` | `allowed_scope.tools` | 当前允许进入灰度的工具、租户和流量范围 |
+| `rollout_scope.blocked_tools` | `disabled_scope` | 哪些写能力、高风险工具或用户范围仍然禁止开放 |
+| `evidence.failed_case_ids`、`safe_trace_links`、`audit_event_ids` | `evidence` | 复审和事故排查时先看哪些失败样本、脱敏 trace 和审计事件 |
+| `rollback` | `rollback_runbook` 或 `next_safe_action.command` | 告警后谁执行版本开关、能力开关和流量开关 |
+| `next_review.tasks` | `next_safe_action` / `next_review_trigger` | 开放更大范围或写能力前必须补齐哪条证据 |
+
 交接记录的判断标准很简单：下一位接手的人不需要重新听一遍会议录音，就能知道当前版本允许做什么、不能做什么、为什么、下一步先做哪一件事。
 
 ---
 
 ## C.7 会后交接填写样例
 
-下面是一份“客服工单 Agent 只读灰度复审”的会后交接样例。它不是会议纪要，而是给下一位接手者的最小行动包：先说明当前结论，再说明允许范围、证据位置、阻断点和下一步命令。
+下面是一份“客服工单 Agent 只读灰度复审”的会后交接样例。它可以由第 9 章发布报告复制字段后压缩而来，不是会议纪要，而是给下一位接手者的最小行动包：先说明当前结论，再说明允许范围、证据位置、阻断点和下一步命令。
 
 ```yaml
 release_review_handoff:
