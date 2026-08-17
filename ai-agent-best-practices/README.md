@@ -20,6 +20,7 @@
 | 8 | 测试与调试 | 测试分层、离线评估、权限测试、执行链路调试、安全回归集和可复用的评估报告字段 |
 | 9 | 部署与监控 | 部署形态、可观测性、告警止损、弹性、回滚和发布安全门禁 |
 | 10 | 安全与伦理 | 风险分级、工具网关权限策略、Prompt 注入防御、数据安全、人工审批、审计日志、事故熔断和伦理边界 |
+| 附录 | 生产就绪检查清单 | Agent 上线前工具、权限、数据、评估、监控、止损和发布决策的一页式核对 |
 
 ## 第十章收口导读
 
@@ -63,7 +64,8 @@ ai-agent-best-practices/
 │   ├── 07-tool-integration.md
 │   ├── 08-testing-debugging.md
 │   ├── 09-deployment-monitoring.md
-│   └── 10-safety-ethics.md
+│   ├── 10-safety-ethics.md
+│   └── appendix-production-readiness-checklist.md
 ├── .drafts/
 └── resources/
 ```
