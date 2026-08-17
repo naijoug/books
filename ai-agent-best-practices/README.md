@@ -20,7 +20,8 @@
 | 8 | 测试与调试 | 测试分层、离线评估、权限测试、执行链路调试、安全回归集和可复用的评估报告字段 |
 | 9 | 部署与监控 | 部署形态、可观测性、告警止损、弹性、回滚和发布安全门禁 |
 | 10 | 安全与伦理 | 风险分级、工具网关权限策略、Prompt 注入防御、数据安全、人工审批、审计日志、事故熔断和伦理边界 |
-| 附录 | 生产就绪检查清单 | Agent 上线前工具、权限、数据、评估、监控、止损和发布决策的一页式核对 |
+| 附录 A | 生产就绪检查清单 | Agent 上线前工具、权限、数据、评估、监控、止损和发布决策的一页式核对 |
+| 附录 B | 生产就绪门禁填写样例 | 用客服工单 Agent 灰度场景演示 `warn` 结论、证据链、范围控制和后续整改 |
 
 ## 第十章收口导读
 
@@ -47,7 +48,7 @@
 
 这张工作流的重点不是制造更多文档，而是把上线讨论变成证据链：工具风险表说明“能做什么”，Golden Tasks 说明“测过什么”，发布报告说明“如何观测和回滚”，安全门禁说明“哪些风险仍不可接受”。如果 90 分钟内无法填出这些最小产物，就说明系统还停留在演示原型，不应该开放高风险写操作。
 
-需要直接拿去评审会使用时，可以把 `docs/` 中的 [Agent 上线前 90 分钟审查模板](../../docs/documents/trending/ai/agent-release-90-minute-review-template.md) 作为执行表单：先填写发布对象、工具风险表和 Golden Tasks 结果，再把 `gate_decision` 回写到第 9 章发布报告和第 10 章安全门禁清单。若评审会已经有多份评估报告和 trace，还可以配合 [Agent 发布证据字段映射表](../../docs/documents/trending/ai/agent-release-evidence-field-map.md)，逐项核对 Golden Tasks、失败样本、脱敏 trace、审计事件和回滚开关是否都进入发布报告。需要把会议材料压缩成可交接的 `pass` / `warn` / `block` 结论时，使用 `skills/` 中的 [Agent Release Gate 技能](../../skills/skills/manual/review/agent-release-gate/) 输出门禁报告；发布会现场先打开 [Quick Reference](../../skills/skills/manual/review/agent-release-gate/references/quick-reference.md) 对齐硬门禁和 `warn` 范式，不确定成品格式时再对照 [filled example](../../skills/skills/manual/review/agent-release-gate/references/filled-example.md)，避免把缺失证据写成主观信心。
+需要直接拿去评审会使用时，可以把 `docs/` 中的 [Agent 上线前 90 分钟审查模板](../../docs/documents/trending/ai/agent-release-90-minute-review-template.md) 作为执行表单：先填写发布对象、工具风险表和 Golden Tasks 结果，再把 `gate_decision` 回写到第 9 章发布报告和第 10 章安全门禁清单。若评审会已经有多份评估报告和 trace，还可以配合 [Agent 发布证据字段映射表](../../docs/documents/trending/ai/agent-release-evidence-field-map.md)，逐项核对 Golden Tasks、失败样本、脱敏 trace、审计事件和回滚开关是否都进入发布报告。需要把会议材料压缩成可交接的 `pass` / `warn` / `block` 结论时，使用 `skills/` 中的 [Agent Release Gate 技能](../../skills/skills/manual/review/agent-release-gate/) 输出门禁报告；发布会现场先打开 [Quick Reference](../../skills/skills/manual/review/agent-release-gate/references/quick-reference.md) 对齐硬门禁和 `warn` 范式，不确定成品格式时再对照 [filled example](../../skills/skills/manual/review/agent-release-gate/references/filled-example.md)，避免把缺失证据写成主观信心。书内附录 A 提供空白检查清单，附录 B 则用客服工单 Agent 灰度场景展示一份完整填写样例，便于读者理解为什么 `warn` 必须绑定发布范围、审批策略和到期整改。
 
 ## 目录结构
 
@@ -65,7 +66,8 @@ ai-agent-best-practices/
 │   ├── 08-testing-debugging.md
 │   ├── 09-deployment-monitoring.md
 │   ├── 10-safety-ethics.md
-│   └── appendix-production-readiness-checklist.md
+│   ├── appendix-production-readiness-checklist.md
+│   └── appendix-production-readiness-filled-example.md
 ├── .drafts/
 └── resources/
 ```
