@@ -159,3 +159,54 @@ final_gate_report:
 ```
 
 这份样例的核心是把风险变成范围控制：不是因为存在 `warn` 就一律阻断，也不是因为核心能力通过就强行上线；真正的工程判断是把每个证据缺口绑定到更小的发布范围、更强的人工审批和明确的到期整改。
+
+---
+
+## B.7 反例：不能把 `block` 包装成 `warn`
+
+评审会上最危险的写法，不是明确说“还不能上线”，而是把缺失硬边界的风险写成“后续优化”。下面这份错误结论看起来格式完整，但实际应该阻断发布：
+
+```yaml
+bad_gate_report:
+  release_id: rel_20260817_bad
+  gate_decision: warn
+  scope: full_rollout
+  evidence:
+    golden_tasks_pass_rate: "96%"
+    safety_suite_version: security_support_v20260817
+  known_issues:
+    - "refund.execute 目前只在 Prompt 中要求模型不要调用，服务端网关策略下周补"
+    - "trace 中偶尔包含完整用户消息，暂时只限制内部人员查看"
+    - "没有只读开关；如遇事故由值班同学临时回滚部署"
+  final_decision_reason: "核心能力成功率较高，风险可接受，先全量上线再补控制。"
+```
+
+这份报告至少有三个硬阻断点：
+
+| 问题 | 为什么是 `block` | 正确处理 |
+|---|---|---|
+| 高风险退款工具只靠 Prompt 约束 | 模型输出不是权限边界；一旦被注入或误判，就可能直接触发不可逆动作 | 在服务端工具网关默认 deny，补审批、`args_hash`、幂等键和审计事件后再评审 |
+| trace 含完整用户消息 | 门禁材料本身变成新的数据泄露面；“内部可见”不能替代脱敏 | 先清理历史材料，补 `safe_trace`，把 restricted trace 放进短期审批流程 |
+| 没有只读或停工具开关 | 事故时只能重新部署，止损时间不可控 | 先实现只读、停工具、模型路由回退等开关，并完成一次演练 |
+
+可以把它改成下面的阻断结论：
+
+```yaml
+corrected_gate_report:
+  release_id: rel_20260817_bad
+  gate_decision: block
+  allowed_scope: blocked
+  block_reasons:
+    - "L4 refund.execute 缺少服务端 deny/审批策略"
+    - "门禁证据中仍存在未脱敏用户上下文"
+    - "缺少只读和停工具止损开关，无法满足事故响应时间"
+  required_before_re_review:
+    - owner: support_ai_team
+      issue: "上线工具网关策略并补充 refund.execute 越权回归样本"
+    - owner: ai_safety
+      issue: "清理评估材料并产出 safe_trace 抽样证明"
+    - owner: customer_platform_oncall
+      issue: "实现只读/停工具开关并记录一次回滚演练"
+```
+
+判断 `warn` 和 `block` 的简单边界是：`warn` 可以通过缩小范围、加强审批、限定时间来控制；`block` 则表示系统缺少硬边界，继续发布会让模型、日志或人工流程拥有不可接受的破坏面。只要风险仍依赖“模型会听话”“值班同学会及时发现”“内部人员不会误用”这类软假设，就应该先写成 `block`。
