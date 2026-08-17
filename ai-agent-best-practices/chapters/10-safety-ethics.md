@@ -393,6 +393,8 @@ Agent 系统要明确哪些任务不应该自动化：
 
 90 分钟审查结束时，只允许三种结论：`pass` 表示证据链完整且高风险工具可以按灰度计划开放；`warn` 表示只允许只读或人工接管灰度，并列出必须补齐的 owner、样例或 runbook；`block` 表示存在越权、泄露、不可回滚写操作或熔断缺口，必须推迟上线。结论要写入第九章的发布报告，而不是停留在会议纪要里。若需要把这份清单交给后续 agent 或发布负责人复核，可以直接调用 `skills/` 中的 [Agent Release Gate 技能](../../../skills/skills/manual/review/agent-release-gate/)：它会要求逐项填入 Golden Tasks、失败样本、脱敏 trace、审批绑定、审计事件和回滚证据，并把缺失证据转成明确的 disabled scope 或 re-entry condition。现场快速复核时，先用 [Quick Reference](../../../skills/skills/manual/review/agent-release-gate/references/quick-reference.md) 判断哪些缺失必须 `block`、哪些只能变成受限 `warn`；需要校准报告粒度时，对照 [filled example](../../../skills/skills/manual/review/agent-release-gate/references/filled-example.md) 检查 allowed scope、disabled scope、re-entry condition 和下一条安全检查是否都写清楚。
 
+如果读到这里才开始准备评审材料，不要再临时拼一份新的安全表单：直接复制 [附录 A：生产就绪检查清单](appendix-production-readiness-checklist.md) 作为空白底稿，把本节 10.9 的每个安全项映射到清单中的工具、数据、trace、评估、监控和止损字段；再对照 [附录 B：生产就绪门禁填写样例](appendix-production-readiness-filled-example.md) 检查 `warn` 是否有清楚的允许范围、禁用范围、整改 owner 和复审条件。若评审会上仍无法判断是 `warn` 还是 `block`，让主持人按 [附录 C：上线评审会主持人脚本](appendix-release-review-facilitator-script.md) 逐项追问“缺的是证据、边界还是恢复能力”；缺少审批、回滚、审计或安全回归这类硬边界时，结论必须回到 `block`。
+
 ---
 
 ## 10.10 全书总结
