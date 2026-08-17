@@ -207,3 +207,79 @@ release_review_handoff:
 ```
 
 交接记录的判断标准很简单：下一位接手的人不需要重新听一遍会议录音，就能知道当前版本允许做什么、不能做什么、为什么、下一步先做哪一件事。
+
+---
+
+## C.7 会后交接填写样例
+
+下面是一份“客服工单 Agent 只读灰度复审”的会后交接样例。它不是会议纪要，而是给下一位接手者的最小行动包：先说明当前结论，再说明允许范围、证据位置、阻断点和下一步命令。
+
+```yaml
+release_review_handoff:
+  release_id: rel_20260817_support_agent_canary_02
+  agent_version: support-agent@1.8.0-rc.3
+  prompt_hash: sha256:7f2c...a91e
+  model_version: provider/model-2026-08-10
+  tool_schema_version: support-tools-v12
+  golden_tasks_version: support-golden-v9
+  security_suite_version: support-security-v6
+
+  final_decision: warn
+  decision_summary: >
+    允许 5% 内部工单只读灰度；允许生成建议回复和分类标签；禁止自动发送、退款、改 SLA、批量关闭工单。
+    warn 的原因是普通能力回归存在 2 个低频分类错误，但高风险工具仍被服务端 deny，且有人工接管和到期复审。
+
+  allowed_scope:
+    traffic: internal_5_percent
+    tenants: [internal_support_sandbox]
+    tools:
+      - ticket.search.readonly
+      - ticket.comment.draft
+      - knowledge_base.search
+    human_approval_required:
+      - ticket.comment.publish
+  disabled_scope:
+    - refund.issue
+    - ticket.sla.update
+    - ticket.bulk_close
+    - external_customer_autosend
+
+  evidence:
+    release_report: docs/releases/support-agent/rel_20260817_support_agent_canary_02.md
+    eval_run_id: eval_support_20260817_1142
+    failed_case_ids:
+      - golden_support_037_wrong_priority
+      - golden_support_084_missing_escalation_hint
+    safe_trace_links:
+      - trace/safe/eval_support_20260817_1142/golden_support_037
+      - trace/safe/eval_support_20260817_1142/injection_refund_009
+    audit_event_ids:
+      - audit_tool_deny_refund_issue_20260817_1151
+      - audit_approval_required_comment_publish_20260817_1154
+    rollback_runbook: docs/runbooks/support-agent-readonly-rollback.md
+
+  warnings:
+    - id: warn_priority_taxonomy
+      description: "低频分类错误会影响人工队列优先级，但不会触发自动外发或退款。"
+      owner: support_ai_eval
+      due: 2026-08-20
+      exit_criteria: "补 20 个优先级边界样本，重跑 golden-v10，相关失败为 0。"
+    - id: warn_escalation_hint
+      description: "部分回复草稿缺少升级提示，需在人工审核前标红。"
+      owner: support_workflow
+      due: 2026-08-21
+      exit_criteria: "人工审核 UI 展示 escalation_required 标记，并通过 3 条端到端样例。"
+
+  block_reasons: []
+  next_safe_action:
+    owner: support_ai_eval
+    action: "新增优先级与升级提示边界样本，生成 support-golden-v10，并重跑普通回归与安全回归。"
+    command: "pnpm eval:support --suite support-golden-v10 --security support-security-v6 --release rel_20260817_support_agent_canary_02"
+    expected_artifact: docs/releases/support-agent/eval_support_20260820.md
+  next_review_trigger:
+    - "准备把 internal_5_percent 扩到 external_1_percent"
+    - "准备开放 ticket.comment.publish 自动执行"
+    - "任一 L3/L4 工具 deny、审批或审计策略变化"
+```
+
+这份交接样例刻意保留了 `warn` 的约束：它没有说“分类错误可以忽略”，而是把风险压进只读灰度、人工审批、禁用工具、owner、到期日和复审触发条件里。下一位接手者只需要先做 `next_safe_action`，而不是重新争论本轮为什么能灰度。
