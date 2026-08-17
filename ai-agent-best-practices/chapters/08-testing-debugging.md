@@ -359,6 +359,8 @@ python evals/runners/run_golden_tasks.py --case-dir evals/security --output eval
 
 CI 读取报告中的 `gate_decision`：`pass` 放行、`warn` 允许灰度但通知安全 owner、`block` 阻断发布。只要 runner 稳定产出同一份报告，后续接入 LLM-as-judge、人工标注或 A/B 对比就只需要扩展 `assert_case` 和新增报告字段，不需要重写执行链路。
 
+这份报告进入上线评审时，不需要重新改写成另一套口径：把 `gate_decision`、`failed_case_ids`、`safe_trace_links` 和版本字段原样贴进[附录 A：生产就绪检查清单](appendix-production-readiness-checklist.md)的“评估与回归”部分；如果有失败样本但范围可控，再参照[附录 B：填写样例](appendix-production-readiness-filled-example.md)写清楚为什么只能给 `warn`；如果失败样本涉及越权工具、敏感数据泄露或无回滚能力，则直接按附录 B 的 `block` 反例阻断。
+
 ### 8.5.3 关键指标
 
 | 指标 | 说明 |
@@ -418,6 +420,8 @@ LLM-as-judge 可以帮助扩展评估，但要用人工标注样本校准，避�
 | 审批、权限拒绝、熔断和人工接管事件 | `audit_event_ids` | 核对高风险动作是否经过审批、是否触发正确拦截，以及事故后能否追责 |
 
 如果某一列缺失，就不要把它藏在“待补充”里：第九章的发布报告应把缺失项写入 `decision_reason`，第十章的安全门禁再决定是 `warn` 限制灰度范围，还是 `block` 阻断发布。需要在发布会上逐项对账时，可以直接使用 `docs/` 的 [Agent 发布证据字段映射表](../../../docs/documents/trending/ai/agent-release-evidence-field-map.md)，把本节评估字段落到第九章发布报告和第十章安全门禁。
+
+如果评审现场需要快速收束讨论，主持人可以按[附录 C：上线评审会主持人脚本](appendix-release-review-facilitator-script.md)追问三件事：失败样本是否可重跑、脱敏 trace 是否可访问、缺失证据会影响 `pass` / `warn` / `block` 哪一级结论。这样第八章的评估报告不会停留在 CI artifact，而会变成发布 owner、安全 reviewer 和值班同学都能接手的共同证据链。
 
 ### 8.5.5 为第十章预留安全回归集
 
@@ -491,6 +495,8 @@ def log_tool_call(trace, tool_name, args, result, elapsed_ms):
 3. 端到端测试要覆盖真实风险路径，但不能误触发真实写操作。
 4. 评估集是模型升级和 Prompt 调整的安全网；其中安全回归集要能直接进入第十章的发布门禁。
 5. 调试要依赖评估报告和 trace，而不是猜测模型“为什么这么想”。
+
+下一步进入发布评审时，先把本章的评估报告字段回填到附录 A；如果结论不是 `pass`，再用附录 B 校准 `warn` / `block` 写法，并用附录 C 主持会后交接。
 
 下一章我们将探讨部署与监控：如何让 Agent 在生产环境稳定运行。
 
