@@ -345,6 +345,8 @@ release_report:
       - "演练 crm_update 熔断后人工接管路径"
 ```
 
+模板写完后，不要只把它归档在发布流水线里。`rollout_scope` 应复制到 [附录 C：上线评审会主持人脚本](appendix-release-review-facilitator-script.md) 的 `allowed_scope` / `disabled_scope`，说明当前版本到底允许哪些租户、流量和工具；`rollback` 应复制到会后交接的 `rollback_runbook` 或下一步命令，说明谁能在告警后执行版本开关、能力开关和流量开关；`next_review` 应落成 `next_safe_action` 和 `next_review_trigger`，让下一位接手者知道“开放写能力前还差哪条证据”。如果这三个字段只停留在发布报告里，值班同学仍然要回会议记录里猜允许范围、回滚 owner 和复审条件。
+
 消费这份报告时，先看 `gate_decision`，再决定能做什么：
 
 | 结论 | 发布动作 | 必须留下的证据 |
