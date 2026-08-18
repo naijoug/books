@@ -1,6 +1,6 @@
 # AI Agent 系统实践卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护，共 70 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护，共 71 张。文件名使用英文 `kebab-case`。
 
 本目录收录 Agent 系统设计、运行边界、工具、记忆、反馈判断、反馈池和心跳工作流等实践卡片;具体 SDK 或语言实现优先放入对应技术栈目录。
 
@@ -10,7 +10,7 @@
 
 ## 本章四条主线
 
-本章 70 张卡片帮助 AI 时代的程序员用 agent 工作流提升验证力，围绕四条主线展开：
+本章 71 张卡片帮助 AI 时代的程序员用 agent 工作流提升验证力，围绕四条主线展开：
 
 | 主线 | 解决的问题 | 入口 |
 |---|---|---|
@@ -57,8 +57,9 @@
 | 15a | 所有权边界 | 格式 churn 先剥离,不要把语义改动埋进全章重排 | [`format-churn-needs-semantic-split.md`](format-churn-needs-semantic-split.md) |
 | 15b | 所有权边界 | 附录模板增强先对齐邻近模板,不要让权限、证据和回退字段只出现在一个入口 | [`appendix-template-changes-need-neighbor-sync.md`](appendix-template-changes-need-neighbor-sync.md) |
 | 15c | 所有权边界 | 发布资产要双向导航闭合,不要只从 README 单向指路 | [`bidirectional-navigation-closes-release-assets.md`](bidirectional-navigation-closes-release-assets.md) |
-| 15d | 所有权边界 | 任务前清单和复盘沉淀卡先分生命周期,不要为了字段整齐混成一张表 | [`pre-task-checklist-is-not-retro-asset-log.md`](pre-task-checklist-is-not-retro-asset-log.md) |
-| 15e | 所有权边界 | 在 dirty repo 里只 stage 本轮 owned paths,不要把启动前 dirty path 混进提交 | [`path-scoped-commit-boundary.md`](path-scoped-commit-boundary.md) |
+| 15d | 所有权边界 | 阻断原因先做索引,不要继续扩模板 | [`block-reason-index-precedes-template-sprawl.md`](block-reason-index-precedes-template-sprawl.md) |
+| 15e | 所有权边界 | 任务前清单和复盘沉淀卡先分生命周期,不要为了字段整齐混成一张表 | [`pre-task-checklist-is-not-retro-asset-log.md`](pre-task-checklist-is-not-retro-asset-log.md) |
+| 15f | 所有权边界 | 在 dirty repo 里只 stage 本轮 owned paths,不要把启动前 dirty path 混进提交 | [`path-scoped-commit-boundary.md`](path-scoped-commit-boundary.md) |
 | 16 | 范围与预算 | 给心跳交付设预算,避免连续工具维护循环 | [`delivery-budget-prevents-heartbeat-drift.md`](delivery-budget-prevents-heartbeat-drift.md) |
 | 17 | 范围与预算 | 第三个同主题表面必须先证明下一轮会复用 | [`no-new-surface-without-reuse-proof.md`](no-new-surface-without-reuse-proof.md) |
 | 18 | 范围与预算 | 样本入口只做风险选择，不要按文件名机械补齐 | [`sample-entry-is-not-todo-queue.md`](sample-entry-is-not-todo-queue.md) |
@@ -128,6 +129,7 @@
 | 提交范围台账防止混入未知归属 | [`commit-scope-ledger-prevents-mixed-ownership.md`](commit-scope-ledger-prevents-mixed-ownership.md) |
 | 附录模板增强需要同步相邻模板，不要只改一个入口 | [`appendix-template-changes-need-neighbor-sync.md`](appendix-template-changes-need-neighbor-sync.md) |
 | 双向导航闭合发布资产，不要只从 README 单向指路 | [`bidirectional-navigation-closes-release-assets.md`](bidirectional-navigation-closes-release-assets.md) |
+| 阻断原因先做索引，不要继续扩模板 | [`block-reason-index-precedes-template-sprawl.md`](block-reason-index-precedes-template-sprawl.md) |
 | 任务前清单不是复盘资产日志，不要为了字段整齐混淆生命周期 | [`pre-task-checklist-is-not-retro-asset-log.md`](pre-task-checklist-is-not-retro-asset-log.md) |
 | 短节拍任务不要变成重构 | [`short-cadence-tasks-must-not-become-refactors.md`](short-cadence-tasks-must-not-become-refactors.md) |
 | 交付预算防止心跳漂移 | [`delivery-budget-prevents-heartbeat-drift.md`](delivery-budget-prevents-heartbeat-drift.md) |
