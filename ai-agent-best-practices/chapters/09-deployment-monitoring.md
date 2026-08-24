@@ -172,6 +172,39 @@ groups:
 
 runbook 还要规定事故记录的最小字段：`incident_id`、告警名、触发指标、自动动作、影响租户、关联 `trace_id` 或脱敏执行 trace 链接、版本信息、负责人、恢复时间和后续修复任务。这样每次止损都会反哺离线评估集，而不是只在群里留下一串告警截图。
 
+### 9.5.2 事故回放演练：把线上异常变成下一次发布门禁
+
+自动止损只能降低当下损失，真正的能力提升来自回放：能不能把一次线上异常压缩成可重跑、可脱敏、可进入门禁的样本。每次 P1/P2 事故、人工接管激增或高风险工具被熔断后，都应该在恢复完成后做一次 30 分钟事故回放演练，而不是只写“已修复”。
+
+建议把演练拆成五步：
+
+1. **定位候选版本**：用 `release_id`、`agent_version`、`prompt_hash`、`model_version` 和 `tool_schema_version` 锁定事故发生时的候选组合。
+2. **选择最小失败链路**：从原始日志中挑一条能复现问题的任务，保留 `task_id`、状态迁移、工具调用、审批记录和审计事件；真实用户内容只进入受限材料。
+3. **生成脱敏回放样本**：把个人数据、密钥、客户名称和业务机密替换成合成值，保留会触发问题的结构、权限边界和工具返回形态。
+4. **回放候选修复**：先在旧版本确认样本失败，再在修复版本确认通过；如果只能在人工环境复现，至少要留下执行步骤、期望断言和 `safe_trace_links`。
+5. **接入发布门禁**：把样本放回第 8 章的 `evals/golden/` 或 `evals/security/`，并在第 10 章安全门禁报告里记录新增 `failed_case_ids` 已经回归通过。
+
+一条合格的事故回放样本不需要暴露真实客户上下文，但必须保留能触发问题的边界条件。最小记录可以写成下面这样：
+
+```yaml
+incident_replay:
+  incident_id: "inc-2026-08-20-001"
+  source_alert: "HighRiskToolBlockedSpike"
+  release_id: "agent-support-2026-08-20-rc1"
+  sanitized_case_id: "SEC-tool-return-injection-003"
+  original_trace_access: "restricted_trace://inc-2026-08-20-001/task-42"
+  safe_trace_links:
+    - "safe_trace://inc-2026-08-20-001/replay/SEC-tool-return-injection-003"
+  regression_target: "evals/security/SEC-tool-return-injection-003.yaml"
+  expected_assertions:
+    - "不得调用 delete_project"
+    - "工具网关记录 tool_return_injection"
+    - "最终状态进入 awaiting_human_review"
+  gate_decision_after_fix: "pass"
+```
+
+如果事故回放无法生成样本，发布 owner 要在复盘里写清原因：是缺少脱敏 trace、版本字段不完整、工具返回未落库，还是审计事件无法关联。这个缺口本身也要进入发布清单；否则下一次同类事故仍然只能靠人肉记忆处理。
+
 ---
 
 ## 9.6 弹性与恢复
@@ -367,8 +400,9 @@ release_report:
 2. 生产 Agent 必须有状态持久化、任务队列、工具网关和审计日志。
 3. 可观测性要覆盖模型、工具、检索、审批、成本和安全拦截。
 4. 重试要分类，写操作要幂等，长任务要支持恢复。
-5. 发布要经过评估、影子流量、灰度和回滚，并把第十章的安全门禁作为独立硬门槛。
-6. 发布报告要把第八章的 `run_id`、版本字段、`gate_decision`、`failed_case_ids`、`safe_trace_links` 与第九章补齐的 `release_id` 串成同一条证据链，方便第十章安全门禁、事故复盘和值班回滚直接消费。
+5. 事故回放要把线上异常脱敏成可重跑样本，并反向补进第八章评估集和第十章安全门禁。
+6. 发布要经过评估、影子流量、灰度和回滚，并把第十章的安全门禁作为独立硬门槛。
+7. 发布报告要把第八章的 `run_id`、版本字段、`gate_decision`、`failed_case_ids`、`safe_trace_links` 与第九章补齐的 `release_id` 串成同一条证据链，方便第十章安全门禁、事故复盘和值班回滚直接消费。
 
 下一章我们将探讨安全与伦理：如何负责任地开发和运营 AI Agent。
 
