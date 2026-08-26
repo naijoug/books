@@ -10,6 +10,8 @@
 - 复用证明要可验证：入口链接、决策字段、命令输出、样例填表或后续任务的第一条动作，不能只写“以后可复用”。
 - 找不到复用证明时，把信号留在 notebook 的后续接力里，等第二个真实用例出现再资产化。
 
+如果项目切片本身还没有验证证据，先按 [`project-slice-precedes-asset-extraction.md`](project-slice-precedes-asset-extraction.md) 回到 touched paths、验证命令和提交边界；本卡只处理“已经有证据后，是否还要新增第三个表面”的停止判断。
+
 **示例**：
 
 ```text

@@ -10,6 +10,8 @@
 - 新资产必须降低下一轮选择成本：它应该提供入口、停止条件、验证方式或模板；如果只是复述本轮做过什么，继续留在 `summaries/hermes/YYYY-MM-DD.md`。
 - 提取后要反向链接到实际项目证据：记录相对路径、验证命令和相关文档，例如 `docs/documents/trending/ai/project-implementation-to-reusable-asset.md`，让读者能追溯它来自哪类真实闭环。
 
+本卡负责判断“项目证据是否足以开始资产化”。如果已经有 docs / skill / book 两个互补表面，继续新增第三处前先回到 [`no-new-surface-without-reuse-proof.md`](no-new-surface-without-reuse-proof.md)，写出下一轮会如何复用它；否则停止扩表面，转为使用已有资产推进真实任务。
+
 **示例**：
 
 ```text
