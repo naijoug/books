@@ -1,6 +1,6 @@
 # AI Agent 系统实践卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护，共 73 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护，共 74 张。文件名使用英文 `kebab-case`。
 
 本目录收录 Agent 系统设计、运行边界、工具、记忆、反馈判断、反馈池和心跳工作流等实践卡片;具体 SDK 或语言实现优先放入对应技术栈目录。
 
@@ -63,6 +63,7 @@
 | 15f | 所有权边界 | 在 dirty repo 里只 stage 本轮 owned paths,不要把启动前 dirty path 混进提交 | [`path-scoped-commit-boundary.md`](path-scoped-commit-boundary.md) |
 | 16 | 范围与预算 | 给心跳交付设预算,避免连续工具维护循环 | [`delivery-budget-prevents-heartbeat-drift.md`](delivery-budget-prevents-heartbeat-drift.md) |
 | 17 | 范围与预算 | 第三个同主题表面必须先证明下一轮会复用 | [`no-new-surface-without-reuse-proof.md`](no-new-surface-without-reuse-proof.md) |
+| 17a | 范围与预算 | 项目切片先闭环，再提取 docs/skill/book 资产 | [`project-slice-precedes-asset-extraction.md`](project-slice-precedes-asset-extraction.md) |
 | 18 | 范围与预算 | 样本入口只做风险选择，不要按文件名机械补齐 | [`sample-entry-is-not-todo-queue.md`](sample-entry-is-not-todo-queue.md) |
 | 19 | 范围与预算 | 工程红灯修完后先确认 green baseline，再切换到资产任务 | [`green-baseline-before-asset-switch.md`](green-baseline-before-asset-switch.md) |
 | 20 | 收尾与状态证据 | 用清单做 path-limited 收尾 | [`dirty-workspace-exit-checklist.md`](dirty-workspace-exit-checklist.md) |
@@ -136,6 +137,7 @@
 | 短节拍任务不要变成重构 | [`short-cadence-tasks-must-not-become-refactors.md`](short-cadence-tasks-must-not-become-refactors.md) |
 | 交付预算防止心跳漂移 | [`delivery-budget-prevents-heartbeat-drift.md`](delivery-budget-prevents-heartbeat-drift.md) |
 | 新表面要有复用证明 | [`no-new-surface-without-reuse-proof.md`](no-new-surface-without-reuse-proof.md) |
+| 项目切片先闭环，再提取可复用资产 | [`project-slice-precedes-asset-extraction.md`](project-slice-precedes-asset-extraction.md) |
 | 样本入口不是待办队列 | [`sample-entry-is-not-todo-queue.md`](sample-entry-is-not-todo-queue.md) |
 | 先确认 Green Baseline，再切换资产任务 | [`green-baseline-before-asset-switch.md`](green-baseline-before-asset-switch.md) |
 | 安全债先分生产风险，不要默认 `audit fix --force` | [`security-debt-prioritizes-production-before-force.md`](security-debt-prioritizes-production-before-force.md) |
