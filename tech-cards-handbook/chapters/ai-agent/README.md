@@ -1,6 +1,6 @@
 # AI Agent 系统实践卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护，共 76 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护，共 77 张。文件名使用英文 `kebab-case`。
 
 本目录收录 Agent 系统设计、运行边界、工具、记忆、反馈判断、反馈池和心跳工作流等实践卡片;具体 SDK 或语言实现优先放入对应技术栈目录。
 
@@ -10,7 +10,7 @@
 
 ## 本章四条主线
 
-本章 76 张卡片帮助 AI 时代的程序员用 agent 工作流提升验证力，围绕四条主线展开：
+本章 77 张卡片帮助 AI 时代的程序员用 agent 工作流提升验证力，围绕四条主线展开：
 
 | 主线 | 解决的问题 | 入口 |
 |---|---|---|
@@ -70,6 +70,7 @@
 | 21 | 收尾与状态证据 | 先跑聚焦验证并显式交接未验证项 | [`verify-before-optimistic-summary.md`](verify-before-optimistic-summary.md)、[`unverified-items-need-explicit-handoff.md`](unverified-items-need-explicit-handoff.md); 命令梯模板见 [`../../samples/ai-agent-next-safe-command-ladder-one-pager.md`](../../samples/ai-agent-next-safe-command-ladder-one-pager.md)，未验证项一页纸见 [`../../samples/ai-agent-unverified-handoff-one-pager.md`](../../samples/ai-agent-unverified-handoff-one-pager.md) |
 | 21a | 验证与失败语义 | 把测试 fixture panic 写成下一轮能定位阶段的交接材料 | [`test-fixture-failure-message-is-handoff.md`](test-fixture-failure-message-is-handoff.md) |
 | 21b | 验证与失败语义 | 进入 protected parser/mock 前先按链路层级选择更低 mock 的测试边界 | [`parser-layer-test-ladder-before-protected-mocks.md`](parser-layer-test-ladder-before-protected-mocks.md) |
+| 21c | 验证与失败语义 | 薄 API 单测先锁短路、校验、错误转发和参数转换，不重复 integration 已覆盖的 200 | [`thin-api-tests-target-control-flow-not-200.md`](thin-api-tests-target-control-flow-not-200.md) |
 | 22 | 验证与集成边界 | 先用窄范围 proof checker 证明基础契约,再把渲染和插件行为交给重型构建；若要升级为常规必跑项，先建立全量红绿基线，再把稳定命令收束成统一 preflight wrapper | [`local-proof-checker-precedes-heavy-build.md`](local-proof-checker-precedes-heavy-build.md)、[`full-proof-baseline-before-ci.md`](full-proof-baseline-before-ci.md)、[`unified-preflight-wrapper-prevents-command-drift.md`](unified-preflight-wrapper-prevents-command-drift.md); 可复制输入见 [`../../samples/ai-agent-proof-to-preflight-decision-table.md`](../../samples/ai-agent-proof-to-preflight-decision-table.md)、[`../../samples/ai-agent-proof-checker-one-pager.md`](../../samples/ai-agent-proof-checker-one-pager.md)、[`../../samples/ai-agent-full-proof-baseline-one-pager.md`](../../samples/ai-agent-full-proof-baseline-one-pager.md)、[`../../samples/ai-agent-preflight-wrapper-one-pager.md`](../../samples/ai-agent-preflight-wrapper-one-pager.md) |
 | 23 | 证据可移植性 | 让验证输出可复制到 notebook 和最终报告 | [`proof-output-must-be-portable.md`](proof-output-must-be-portable.md) |
 | 24 | 报告与读回 | 从已提交状态读回 hash 和 subject;报告包含启动/收尾状态证据 | [`report-from-committed-state.md`](report-from-committed-state.md) |
@@ -146,6 +147,7 @@
 | 验证先于乐观总结,不要把"看起来完成"当完成 | [`verify-before-optimistic-summary.md`](verify-before-optimistic-summary.md) |
 | 测试 Fixture 失败消息也是交接材料 | [`test-fixture-failure-message-is-handoff.md`](test-fixture-failure-message-is-handoff.md) |
 | 解析层测试梯先于 Protected Mock | [`parser-layer-test-ladder-before-protected-mocks.md`](parser-layer-test-ladder-before-protected-mocks.md) |
+| 薄 API 测试先锁控制流，不重复 200 | [`thin-api-tests-target-control-flow-not-200.md`](thin-api-tests-target-control-flow-not-200.md) |
 | 未验证项要显式交接,不要藏在顺利总结里 | [`unverified-items-need-explicit-handoff.md`](unverified-items-need-explicit-handoff.md) |
 | 本地 proof checker 先于重型构建，不要把每次小改都交给全量 build | [`local-proof-checker-precedes-heavy-build.md`](local-proof-checker-precedes-heavy-build.md) |
 | 全量 proof 基线先变绿，再把它写进常规 preflight | [`full-proof-baseline-before-ci.md`](full-proof-baseline-before-ci.md) |
