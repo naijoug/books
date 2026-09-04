@@ -15,7 +15,7 @@
 若一致，再新增一张 `handoff-must-name-next-action.md` 风格的正式卡片并同步总索引；
 不要在没有真实反馈前修改样品包正文。
 
-验证证据：本轮已运行计数脚本，AI Agent 目录为 10 张，全书合计 79 张。
+验证证据：本轮已运行 `python3 scripts/verify_tech_cards.py --full-only`，索引计数与本地链接校验通过；提交前 `git diff --check -- tech-cards-handbook/chapters/ai-agent/handoff-must-name-next-action.md` exit 0。
 ```
 
 **反例 / 修正做法**：
