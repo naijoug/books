@@ -1,6 +1,6 @@
 # AI Agent 系统实践卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护，共 79 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护，共 80 张。文件名使用英文 `kebab-case`。
 
 本目录收录 Agent 系统设计、运行边界、工具、记忆、反馈判断、反馈池和心跳工作流等实践卡片;具体 SDK 或语言实现优先放入对应技术栈目录。
 
@@ -10,7 +10,7 @@
 
 ## 本章四条主线
 
-本章 79 张卡片帮助 AI 时代的程序员用 agent 工作流提升验证力，围绕四条主线展开：
+本章 80 张卡片帮助 AI 时代的程序员用 agent 工作流提升验证力，围绕四条主线展开：
 
 | 主线 | 解决的问题 | 入口 |
 |---|---|---|
@@ -49,6 +49,7 @@
 | 8a | 发布与授权 | 发布闸门先字段化，不让 `--push` 从散文结论里猜授权 | [`publish-gate-fields-before-push.md`](publish-gate-fields-before-push.md) |
 | 9 | 发布与授权 | 无真实支付/留资/试读链接时先验证需求原话，不伪造发布入口 | [`no-link-validation-before-launch.md`](no-link-validation-before-launch.md) |
 | 10 | 验证与失败语义 | 防止无效输入或空检查集合被误报为成功 | [`silent-success-needs-negative-test.md`](silent-success-needs-negative-test.md) |
+| 10a | 验证与失败语义 | 防止 standalone 测试入口因手写清单漏项而静默成功 | [`standalone-runner-discovers-tests.md`](standalone-runner-discovers-tests.md) |
 | 11 | 规划与取舍 | 让失败输出改变范围、顺序、目标或交接 | [`failure-output-must-change-plan.md`](failure-output-must-change-plan.md) |
 | 12 | 所有权边界 | 对启动前 dirty 接力文件做归属判断;最终报告保留状态证据 | [`uncommitted-handoff-needs-ownership-triage.md`](uncommitted-handoff-needs-ownership-triage.md) |
 | 13 | 所有权边界 | 单独识别启动前 staged path,不把 index 状态误当授权;状态证据必须进入最终报告 | [`staged-changes-are-not-ownership.md`](staged-changes-are-not-ownership.md) |
@@ -127,6 +128,7 @@
 | 交接必须写下一步动作,不要只写状态 | [`handoff-must-name-next-action.md`](handoff-must-name-next-action.md) |
 | 先写人类假设，再让 Agent 动手 | [`human-hypothesis-before-agent.md`](human-hypothesis-before-agent.md) |
 | 静默成功需要反向测试，不要把空检查集合当 proof | [`silent-success-needs-negative-test.md`](silent-success-needs-negative-test.md) |
+| Standalone runner 要自动发现测试，不要维护会漏项的手写清单 | [`standalone-runner-discovers-tests.md`](standalone-runner-discovers-tests.md) |
 | 接力点是信号,不是义务 | [`continuation-is-signal-not-obligation.md`](continuation-is-signal-not-obligation.md) |
 | 无人值守 Agent 要选择默认动作,不要等待澄清 | [`unattended-agent-chooses-default-action.md`](unattended-agent-chooses-default-action.md) |
 | 未提交接力文件先判断归属,不要直接接管 | [`uncommitted-handoff-needs-ownership-triage.md`](uncommitted-handoff-needs-ownership-triage.md) |
