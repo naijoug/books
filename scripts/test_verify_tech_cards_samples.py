@@ -51,7 +51,9 @@ def seed_samples(book: Path, *, readme: str | None = None) -> None:
         book / "samples/ai-agent-sample-pack.md",
         "# Sample pack\n\n"
         "> 选自《技术卡片随身宝典》AI Agent 系列（共 2 张）。\n\n"
-        "这 10 张精选卡片选自《技术卡片随身宝典》AI Agent 系列的 2 张卡片。\n",
+        "这 2 张精选卡片选自《技术卡片随身宝典》AI Agent 系列的 2 张卡片。\n\n"
+        "## 卡片 1：First\n\n"
+        "## 卡片 2：Second\n",
     )
     write(book / "samples/ai-agent-dirty-workspace-one-pager.md", "# Dirty workspace\n")
     write(
@@ -76,6 +78,7 @@ def test_valid_sample_index_passes(module) -> None:
     assert code == 0, output
     assert "verified tech-cards sample index: 2 sample file(s) linked from samples/README.md" in output
     assert "AI Agent count claims match 2 card(s)" in output
+    assert "sample pack selected-card claims match 2 card(s)" in output
 
 
 def test_missing_sample_link_fails(module) -> None:
@@ -117,7 +120,9 @@ def test_stale_sample_pack_ai_agent_count_fails(module) -> None:
             book / "samples/ai-agent-sample-pack.md",
             "# Sample pack\n\n"
             "> 选自《技术卡片随身宝典》AI Agent 系列（共 1 张）。\n\n"
-            "这 10 张精选卡片选自《技术卡片随身宝典》AI Agent 系列的 1 张卡片。\n",
+            "这 2 张精选卡片选自《技术卡片随身宝典》AI Agent 系列的 1 张卡片。\n\n"
+            "## 卡片 1：First\n\n"
+            "## 卡片 2：Second\n",
         )
 
         code, output = run_verifier(module, book)
@@ -126,14 +131,36 @@ def test_stale_sample_pack_ai_agent_count_fails(module) -> None:
     assert "sample pack AI Agent count says 1, actual chapter count is 2" in output
 
 
+def test_stale_sample_pack_selected_card_count_fails(module) -> None:
+    with tempfile.TemporaryDirectory() as tmp:
+        book = Path(tmp) / "tech-cards-handbook"
+        seed_samples(book)
+        write(
+            book / "samples/ai-agent-sample-pack.md",
+            "# Sample pack\n\n"
+            "> 本样本包用 3 张精选卡片建立最小闭环。\n"
+            "> 选自《技术卡片随身宝典》AI Agent 系列（共 2 张）。\n\n"
+            "这 3 张精选卡片选自《技术卡片随身宝典》AI Agent 系列的 2 张卡片。\n\n"
+            "## 卡片 1：First\n\n"
+            "## 卡片 2：Second\n",
+        )
+
+        code, output = run_verifier(module, book)
+
+    assert code == 1
+    assert "sample pack selected-card count says 3, actual sample pack has 2 card heading(s)" in output
+
+
 def main() -> int:
     module = load_verifier()
-    tests = [
-        test_valid_sample_index_passes,
-        test_missing_sample_link_fails,
-        test_stale_sample_link_fails,
-        test_stale_sample_pack_ai_agent_count_fails,
-    ]
+    tests = sorted(
+        (
+            value
+            for name, value in globals().items()
+            if name.startswith("test_") and callable(value)
+        ),
+        key=lambda test: test.__code__.co_firstlineno,
+    )
     for test in tests:
         test(module)
         print(f"ok {test.__name__}")

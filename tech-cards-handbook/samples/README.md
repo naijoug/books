@@ -67,4 +67,4 @@
 python3 scripts/verify_tech_cards.py
 ```
 
-其中 `scripts/verify_tech_cards_samples.py` 会检查 `samples/README.md` 是否覆盖所有 `samples/ai-agent-*.md` 文件，并发现指向已删除样本的陈旧链接；如果只改样本入口，可先运行这个窄检查，再运行统一 wrapper。
+其中 `scripts/verify_tech_cards_samples.py` 会检查 `samples/README.md` 是否覆盖所有样本文件、发现指向已删除样本的陈旧链接，并校验 `ai-agent-sample-pack.md` 里的 AI Agent 总数与“精选卡片”数量声明；如果只改样本入口或样本包说明，可先运行这个窄检查，再运行统一 wrapper。

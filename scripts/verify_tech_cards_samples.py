@@ -19,6 +19,8 @@ SAMPLES_README = SAMPLES_DIR / "README.md"
 SAMPLE_PACK = SAMPLES_DIR / "ai-agent-sample-pack.md"
 
 SAMPLE_LINK_PATTERN = re.compile(r"\]\((ai-agent-[^)]+?\.md)\)")
+SAMPLE_PACK_CARD_HEADING_PATTERN = re.compile(r"^## 卡片 (\d+)：", re.MULTILINE)
+SAMPLE_PACK_SELECTED_COUNT_PATTERN = re.compile(r"(\d+) 张精选卡片")
 
 
 def read(path: Path) -> str:
@@ -49,10 +51,20 @@ def sample_pack_ai_agent_count_claims() -> list[int]:
     return claims
 
 
+def sample_pack_selected_card_count() -> int:
+    headings = [int(match) for match in SAMPLE_PACK_CARD_HEADING_PATTERN.findall(read(SAMPLE_PACK))]
+    return max(headings, default=0)
+
+
+def sample_pack_selected_count_claims() -> list[int]:
+    return [int(match) for match in SAMPLE_PACK_SELECTED_COUNT_PATTERN.findall(read(SAMPLE_PACK))]
+
+
 def main() -> int:
     files = sample_files()
     links = readme_links()
     expected_ai_agent_count = ai_agent_card_count()
+    selected_card_count = sample_pack_selected_card_count()
 
     missing = sorted(files - links)
     stale = sorted(links - files)
@@ -74,6 +86,13 @@ def main() -> int:
                 f"{claimed}, actual chapter count is {expected_ai_agent_count}"
             )
 
+    for claimed in sample_pack_selected_count_claims():
+        if claimed != selected_card_count:
+            failures.append(
+                "sample pack selected-card count says "
+                f"{claimed}, actual sample pack has {selected_card_count} card heading(s)"
+            )
+
     if failures:
         print("sample index verification failed:")
         for failure in failures:
@@ -82,7 +101,8 @@ def main() -> int:
 
     print(
         f"verified tech-cards sample index: {len(files)} sample file(s) linked from samples/README.md; "
-        f"AI Agent count claims match {expected_ai_agent_count} card(s)"
+        f"AI Agent count claims match {expected_ai_agent_count} card(s); "
+        f"sample pack selected-card claims match {selected_card_count} card(s)"
     )
     return 0
 
