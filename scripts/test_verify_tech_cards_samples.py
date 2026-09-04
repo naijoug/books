@@ -28,8 +28,11 @@ def write(path: Path, text: str) -> None:
 
 def configure_module(module, book_dir: Path) -> None:
     module.BOOK_DIR = book_dir.resolve()
+    module.CHAPTERS_DIR = module.BOOK_DIR / "chapters"
+    module.AI_AGENT_DIR = module.CHAPTERS_DIR / "ai-agent"
     module.SAMPLES_DIR = module.BOOK_DIR / "samples"
     module.SAMPLES_README = module.SAMPLES_DIR / "README.md"
+    module.SAMPLE_PACK = module.SAMPLES_DIR / "ai-agent-sample-pack.md"
 
 
 def run_verifier(module, book_dir: Path) -> tuple[int, str]:
@@ -41,7 +44,15 @@ def run_verifier(module, book_dir: Path) -> tuple[int, str]:
 
 
 def seed_samples(book: Path, *, readme: str | None = None) -> None:
-    write(book / "samples/ai-agent-sample-pack.md", "# Sample pack\n")
+    write(book / "chapters/ai-agent/README.md", "# AI Agent\n")
+    write(book / "chapters/ai-agent/first-card.md", "# First card\n")
+    write(book / "chapters/ai-agent/second-card.md", "# Second card\n")
+    write(
+        book / "samples/ai-agent-sample-pack.md",
+        "# Sample pack\n\n"
+        "> 选自《技术卡片随身宝典》AI Agent 系列（共 2 张）。\n\n"
+        "这 10 张精选卡片选自《技术卡片随身宝典》AI Agent 系列的 2 张卡片。\n",
+    )
     write(book / "samples/ai-agent-dirty-workspace-one-pager.md", "# Dirty workspace\n")
     write(
         book / "samples/README.md",
@@ -64,6 +75,7 @@ def test_valid_sample_index_passes(module) -> None:
 
     assert code == 0, output
     assert "verified tech-cards sample index: 2 sample file(s) linked from samples/README.md" in output
+    assert "AI Agent count claims match 2 card(s)" in output
 
 
 def test_missing_sample_link_fails(module) -> None:
@@ -97,12 +109,30 @@ def test_stale_sample_link_fails(module) -> None:
     assert "sample README has stale link(s): samples/ai-agent-deleted-template.md" in output
 
 
+def test_stale_sample_pack_ai_agent_count_fails(module) -> None:
+    with tempfile.TemporaryDirectory() as tmp:
+        book = Path(tmp) / "tech-cards-handbook"
+        seed_samples(book)
+        write(
+            book / "samples/ai-agent-sample-pack.md",
+            "# Sample pack\n\n"
+            "> 选自《技术卡片随身宝典》AI Agent 系列（共 1 张）。\n\n"
+            "这 10 张精选卡片选自《技术卡片随身宝典》AI Agent 系列的 1 张卡片。\n",
+        )
+
+        code, output = run_verifier(module, book)
+
+    assert code == 1
+    assert "sample pack AI Agent count says 1, actual chapter count is 2" in output
+
+
 def main() -> int:
     module = load_verifier()
     tests = [
         test_valid_sample_index_passes,
         test_missing_sample_link_fails,
         test_stale_sample_link_fails,
+        test_stale_sample_pack_ai_agent_count_fails,
     ]
     for test in tests:
         test(module)
