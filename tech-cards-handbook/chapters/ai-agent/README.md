@@ -1,6 +1,6 @@
 # AI Agent 系统实践卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护，共 78 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护，共 79 张。文件名使用英文 `kebab-case`。
 
 本目录收录 Agent 系统设计、运行边界、工具、记忆、反馈判断、反馈池和心跳工作流等实践卡片;具体 SDK 或语言实现优先放入对应技术栈目录。
 
@@ -10,12 +10,12 @@
 
 ## 本章四条主线
 
-本章 78 张卡片帮助 AI 时代的程序员用 agent 工作流提升验证力，围绕四条主线展开：
+本章 79 张卡片帮助 AI 时代的程序员用 agent 工作流提升验证力，围绕四条主线展开：
 
 | 主线 | 解决的问题 | 入口 |
 |---|---|---|
 | 运行控制 | 心跳唤醒的 agent 如何在 dirty workspace 里不漂移、不混入未知改动 | 下面的「3 分钟读法」和「快速路径」 |
-| 验证与证据 | 每轮交付如何有可复制、可移植的验证证据 | 阅读顺序第 3 节，验证系列卡片 |
+| 验证与证据 | 每轮交付如何有可复制、可移植的验证证据；阶段性红灯如何被写成 expected failure 而不是模糊失败 | 阅读顺序第 3 节，验证系列卡片 |
 | 所有权与交付 | commit 边界、交付物 smoke test 和发布授权如何清晰可审 | 阅读顺序第 3 节，所有权与交付系列卡片 |
 | 产品化阶梯 | 如何把验证能力转化为可售的报告、案例和发布资产 | 阅读顺序第 3 节，AI 编程审查系列卡片 |
 
@@ -68,9 +68,10 @@
 | 19 | 范围与预算 | 工程红灯修完后先确认 green baseline，再切换到资产任务 | [`green-baseline-before-asset-switch.md`](green-baseline-before-asset-switch.md) |
 | 20 | 收尾与状态证据 | 用清单做 path-limited 收尾 | [`dirty-workspace-exit-checklist.md`](dirty-workspace-exit-checklist.md) |
 | 21 | 收尾与状态证据 | 先跑聚焦验证并显式交接未验证项 | [`verify-before-optimistic-summary.md`](verify-before-optimistic-summary.md)、[`unverified-items-need-explicit-handoff.md`](unverified-items-need-explicit-handoff.md); 命令梯模板见 [`../../samples/ai-agent-next-safe-command-ladder-one-pager.md`](../../samples/ai-agent-next-safe-command-ladder-one-pager.md)，未验证项一页纸见 [`../../samples/ai-agent-unverified-handoff-one-pager.md`](../../samples/ai-agent-unverified-handoff-one-pager.md) |
-| 21a | 验证与失败语义 | 把测试 fixture panic 写成下一轮能定位阶段的交接材料 | [`test-fixture-failure-message-is-handoff.md`](test-fixture-failure-message-is-handoff.md) |
-| 21b | 验证与失败语义 | 进入 protected parser/mock 前先按链路层级选择更低 mock 的测试边界 | [`parser-layer-test-ladder-before-protected-mocks.md`](parser-layer-test-ladder-before-protected-mocks.md) |
-| 21c | 验证与失败语义 | 薄 API 单测先锁短路、校验、错误转发和参数转换，不重复 integration 已覆盖的 200 | [`thin-api-tests-target-control-flow-not-200.md`](thin-api-tests-target-control-flow-not-200.md) |
+| 21a | 验证与失败语义 | 把阶段性红灯写成可复判契约，防止下一轮为追绿误改 gate | [`expected-failure-is-deliverable.md`](expected-failure-is-deliverable.md) |
+| 21b | 验证与失败语义 | 把测试 fixture panic 写成下一轮能定位阶段的交接材料 | [`test-fixture-failure-message-is-handoff.md`](test-fixture-failure-message-is-handoff.md) |
+| 21c | 验证与失败语义 | 进入 protected parser/mock 前先按链路层级选择更低 mock 的测试边界 | [`parser-layer-test-ladder-before-protected-mocks.md`](parser-layer-test-ladder-before-protected-mocks.md) |
+| 21d | 验证与失败语义 | 薄 API 单测先锁短路、校验、错误转发和参数转换，不重复 integration 已覆盖的 200 | [`thin-api-tests-target-control-flow-not-200.md`](thin-api-tests-target-control-flow-not-200.md) |
 | 22 | 验证与集成边界 | 先用窄范围 proof checker 证明基础契约,再把渲染和插件行为交给重型构建；若要升级为常规必跑项，先建立全量红绿基线，再把稳定命令收束成统一 preflight wrapper | [`local-proof-checker-precedes-heavy-build.md`](local-proof-checker-precedes-heavy-build.md)、[`full-proof-baseline-before-ci.md`](full-proof-baseline-before-ci.md)、[`unified-preflight-wrapper-prevents-command-drift.md`](unified-preflight-wrapper-prevents-command-drift.md); 可复制输入见 [`../../samples/ai-agent-proof-to-preflight-decision-table.md`](../../samples/ai-agent-proof-to-preflight-decision-table.md)、[`../../samples/ai-agent-proof-checker-one-pager.md`](../../samples/ai-agent-proof-checker-one-pager.md)、[`../../samples/ai-agent-full-proof-baseline-one-pager.md`](../../samples/ai-agent-full-proof-baseline-one-pager.md)、[`../../samples/ai-agent-preflight-wrapper-one-pager.md`](../../samples/ai-agent-preflight-wrapper-one-pager.md) |
 | 23 | 证据可移植性 | 让验证输出可复制到 notebook 和最终报告 | [`proof-output-must-be-portable.md`](proof-output-must-be-portable.md) |
 | 24 | 报告与读回 | 从已提交状态读回 hash 和 subject;报告包含启动/收尾状态证据 | [`report-from-committed-state.md`](report-from-committed-state.md) |
@@ -158,6 +159,7 @@
 | 最终报告要写清排除边界,不要只报完成项 | [`final-report-names-excluded-boundaries.md`](final-report-names-excluded-boundaries.md) |
 | Dirty workspace 收尾要有清单,不要靠最后一眼状态 | [`dirty-workspace-exit-checklist.md`](dirty-workspace-exit-checklist.md) |
 | 失败输出要改变计划,不要当作背景噪音 | [`failure-output-must-change-plan.md`](failure-output-must-change-plan.md) |
+| Expected Failure 也是交付物 | [`expected-failure-is-deliverable.md`](expected-failure-is-deliverable.md) |
 | AI 编程审查要先做固定范围 offer,不要一上来卖全栈自动化 | [`ai-coding-audit-is-fixed-scope-offer.md`](ai-coding-audit-is-fixed-scope-offer.md)；可复制交付物见 [`../../samples/ai-agent-audit-report-one-pager.md`](../../samples/ai-agent-audit-report-one-pager.md)，公开复盘前用 [`../../samples/ai-agent-case-publishing-ladder-one-pager.md`](../../samples/ai-agent-case-publishing-ladder-one-pager.md) 降级证据不足的 claim |
 | 试点报价卡把兴趣变成交易,不要把“愿意试试”当付费信号 | [`pilot-offer-card-turns-interest-into-transaction.md`](pilot-offer-card-turns-interest-into-transaction.md) |
 | 证据请求不是完整审查，不要把取证当交付 | [`evidence-request-is-not-full-audit.md`](evidence-request-is-not-full-audit.md)；可发送话术见 `docs/documents/trending/ai/ai-coding-audit-evidence-request-template.md` |
