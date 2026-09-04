@@ -19,10 +19,12 @@ SCRIPT_DIR = ROOT / "scripts"
 REGRESSION_COMMANDS = [
     ("link verifier regression", [sys.executable, str(SCRIPT_DIR / "test_verify_tech_cards_links.py")]),
     ("index verifier regression", [sys.executable, str(SCRIPT_DIR / "test_verify_tech_cards_index.py")]),
+    ("sample index regression", [sys.executable, str(SCRIPT_DIR / "test_verify_tech_cards_samples.py")]),
 ]
 FULL_COMMANDS = [
     ("link verifier", [sys.executable, str(SCRIPT_DIR / "verify_tech_cards_links.py")]),
     ("index verifier", [sys.executable, str(SCRIPT_DIR / "verify_tech_cards_index.py")]),
+    ("sample index verifier", [sys.executable, str(SCRIPT_DIR / "verify_tech_cards_samples.py")]),
 ]
 
 

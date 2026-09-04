@@ -43,8 +43,10 @@ def test_default_runs_regressions_before_full_checks() -> None:
     assert labels == [
         "link verifier regression",
         "index verifier regression",
+        "sample index regression",
         "link verifier",
         "index verifier",
+        "sample index verifier",
     ]
 
 
@@ -59,7 +61,7 @@ def test_full_only_skips_regressions() -> None:
     with patch.object(module, "run_step", fake_run_step), wrapper_argv("--full-only"):
         assert module.main() == 0
 
-    assert labels == ["link verifier", "index verifier"]
+    assert labels == ["link verifier", "index verifier", "sample index verifier"]
 
 
 def test_failure_stops_at_first_failed_step() -> None:
