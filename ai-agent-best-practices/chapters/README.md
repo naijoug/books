@@ -14,7 +14,7 @@
 | 6 | `06-memory-system-design.md` | 短期记忆、长期记忆、向量检索和记忆维护 |
 | 7 | `07-tool-integration.md` | 工具定义、执行安全、工具选择与路由、工具安全元数据 |
 | 8 | `08-testing-debugging.md` | 测试分层、离线评估、权限测试、执行链路调试、安全回归集和可复用的评估报告字段 |
-| 9 | `09-deployment-monitoring.md` | 部署形态、可观测性、告警止损、弹性、只读灰度 / 人工审批灰度、回滚、发布安全门禁和会后交接字段 |
+| 9 | `09-deployment-monitoring.md` | 部署形态、可观测性、告警止损、弹性、只读灰度 / 人工审批灰度、回滚、发布安全门禁、readiness 字段契约和会后交接字段 |
 | 10 | `10-safety-ethics.md` | 风险分级、工具网关权限策略、Prompt 注入防御、数据安全、人工审批、审计日志、事故熔断和伦理边界 |
 | 附录 A | `appendix-production-readiness-checklist.md` | Agent 生产就绪检查清单、现场争议入口、门禁证据链和发布决策模板 |
 | 附录 B | `appendix-production-readiness-filled-example.md` | 客服工单 Agent 灰度发布门禁填写样例，展示 `warn` 结论、范围控制、整改接力和 `block` 反例 |

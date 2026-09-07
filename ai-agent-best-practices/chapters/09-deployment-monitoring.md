@@ -390,6 +390,37 @@ release_report:
 
 这样做的收益是把“能不能上线”的争论转成可执行分支：`pass` 进入灰度，`warn` 降级范围并设复审条件，`block` 回到修复队列。第十章 10.9 的发布前安全检查清单产出的结论，必须回写到这里的 `gate_decision` 和 `decision_reason`，否则监控、回滚和值班人员无法知道当前版本到底被允许执行哪些能力。
 
+### 9.7.5 Readiness 字段契约：让无人值守发布可接力
+
+当发布流程由 cron、CI 或 Agent 自动触发时，发布报告还需要一层更细的 `readiness.*` 字段契约。它和上面的 `release_report` 不冲突：`release_report` 面向评审会和事故复盘，回答“这个版本能不能进入哪个范围”；`readiness.*` 面向脚本、日志和下一位接手者，回答“当前自动流程停在哪一步，下一条安全动作是什么”。如果只写一段自然语言日志，下一轮 Agent 很容易把 dry-run、缺人工授权、质量门禁失败和已发布混在一起。
+
+最小字段可以按下面方式设计：
+
+| 字段 | 作用 | 示例取值 |
+|------|------|----------|
+| `readiness.status` | 总状态，先判断是 ready、blocked、skipped、failed 还是 published | `blocked` |
+| `readiness.reason` | 为什么停住或失败 | `quality_gate_failed`、`publish_blocked` |
+| `readiness.next_action` | 下一条安全动作，不让接手者猜 | `open review note and request human go` |
+| `readiness.push` | 本轮是否请求真实推送 | `false` / `true` |
+| `readiness.human_review_go` | 人工复核是否明确授权 | `false` / `true` |
+| `readiness.publish_authorized` | 是否满足发布授权硬门禁 | `false` / `true` |
+| `readiness.review_note_path` | 本轮复核记录位置 | `docs/ai-daily-publish-review-2026-08-07.md` |
+| `readiness.review_note_canonical` | 复核记录是否位于约定路径 | `not_required` / `mismatch` / `matched` |
+| `readiness.public_url` | 已发布后的外部可见入口 | `missing` 或 URL |
+| `readiness.git_remote_origin` | 本地发布对象能否追溯到远端仓库 | `missing` 或 remote URL |
+
+这组字段的关键不是“多记录一些日志”，而是把发布状态变成稳定接口：human-readable summary 可以改写，`key=value` 或 JSON 字段名不要随意漂移。尤其是 `publish_authorized=false`，它不是失败，而是没有人工授权时的正确停点。Agent 可以准备证据、生成 review note、跑质量门禁，但不能把 dry-run 结果伪装成已经发布。
+
+把契约落到测试时，至少覆盖五条路径：
+
+1. **dry-run 成功但未授权**：断言 `push=false`、`publish_authorized=false`、`review_note_canonical=not_required`。
+2. **push 但缺 review note**：断言 `review_note_path=`、`human_review_go=false`、`publish_authorized=false`。
+3. **review note 路径不规范**：断言 `review_note_path=<传入路径>`、`review_note_canonical=mismatch`。
+4. **质量或新鲜度门禁失败**：断言 `status=failed`、失败详情和下游检查 `not_checked`，证明不会继续发布。
+5. **发布成功**：断言 `status=published`、`public_url`、`git_remote_origin`，证明结果可复核。
+
+实施顺序也要保守：先从 checklist 抽字段，再跑现有测试确认 green，然后一次只补一个路径的断言。只有脚本真实输出发生变化时才改文档；不要先在文档里幻想字段，再倒逼脚本输出。若团队需要把这套方法迁移到非 Agent 项目，可参考 `docs/` 中的 [Readiness Field Contract](../../../docs/documents/trending/ai/readiness-field-contract.md)，但书内读者只要记住一句话：无人值守发布的日志必须能回答“停点、原因、证据、授权、下一步”，否则自动化越多，接力成本越高。
+
 ---
 
 ## 9.8 本章小结
@@ -403,6 +434,7 @@ release_report:
 5. 事故回放要把线上异常脱敏成可重跑样本，并反向补进第八章评估集和第十章安全门禁。
 6. 发布要经过评估、影子流量、灰度和回滚，并把第十章的安全门禁作为独立硬门槛。
 7. 发布报告要把第八章的 `run_id`、版本字段、`gate_decision`、`failed_case_ids`、`safe_trace_links` 与第九章补齐的 `release_id` 串成同一条证据链，方便第十章安全门禁、事故复盘和值班回滚直接消费。
+8. 无人值守发布还要固定 `readiness.*` 字段契约，用 `status`、`reason`、`next_action`、`push`、人工授权、复核记录和外部 URL 区分 dry-run、blocked、failed 与 published，避免下一轮 Agent 把“未授权停点”误当成发布失败或发布成功。
 
 下一章我们将探讨安全与伦理：如何负责任地开发和运营 AI Agent。
 
