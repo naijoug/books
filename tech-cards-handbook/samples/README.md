@@ -44,11 +44,12 @@
 | 层级 | 先回答的问题 | 缺口表现 | 下一步 |
 |---|---|---|---|
 | 字段门禁 | review note 是否有 canonical path、同日日期、六个硬门禁 `Go` 和 `Final decision: Publish`？ | 只有 rehearsal / smoke pass，或字段来自自动探测 | 停在 review note，补人工确认字段后重跑 checker |
+| readiness 交接 | `readiness.*` / `cron.readiness.*` 是否固定输出 decision、review note、授权、URL、raw freshness、quality 和 remote 字段？ | blocked / skipped / failed 路径缺字段，或 dry-run summary 没写 `publish_authorized=false` | 回到一页纸的“Readiness summary packet”，补字段契约和最小路径矩阵 |
 | fixture 门禁 | checker 是否用 dry-run、wrong-date、missing-gate、publish-all-go 等 fixture 验过窄放行语义？ | 只有一条正向 happy path，或阻断 fixture 没检查具体原因 | 先补最小矩阵、共享 helper 和单一 fixture 变量，再接入 `--push` |
 | helper 命名 | helper 名字是否区分 `write_*` 证据、`assert_*` 阻断和 `run_*` 受控命令？ | 一个 `run_publish` 同时写证据、改授权、调用 CLI 或检查输出 | 回到一页纸的“Fixture helper 命名约定”，把证据准备、stub 工具、断言和受控命令拆开 |
 | 环境边界 | 正向 fixture 是否隔离 token、remote、真实 CLI 和生产 artifact？ | 测试依赖开发机 token / remote / 部署命令才能通过 | 改成临时仓库、stub CLI、本地 fake remote 或 no-op 边界 |
 
-30 秒判断：字段不全时不要写发布命令；fixture 不全时不要把 checker 接入 `--push`；helper 名字看不出证据 / 断言 / 副作用边界时先拆 helper；环境边界不清时，即使 `PUBLISH_ALLOWED` 也只能交付阻塞说明和下一条安全命令。
+30 秒判断：字段不全时不要写发布命令；readiness summary 不稳定时不要让 cron/report 消费散文日志；fixture 不全时不要把 checker 接入 `--push`；helper 名字看不出证据 / 断言 / 副作用边界时先拆 helper；环境边界不清时，即使 `PUBLISH_ALLOWED` 也只能交付阻塞说明和下一条安全命令。
 
 ## 使用顺序
 

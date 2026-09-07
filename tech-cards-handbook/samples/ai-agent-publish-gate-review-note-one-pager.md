@@ -49,6 +49,38 @@ Evidence log path:
 - `Allowed side effects` 必须逐项列出允许的动作，例如 commit、push、upload、post、send；没有列出的动作都写进 `Do-not-touch side effects`。
 - `Evidence log path` 写后续能复查的记录位置，不写“见上文”。
 
+## Readiness summary packet
+
+当发布脚本已经输出 `readiness.*` 或 `cron.readiness.*` 字段时，把它们视为机器可读的交接契约，而不是附属日志。review note 决定“能不能发布”，readiness summary 说明“为什么当前状态是 allow / blocked / skipped / failed / published”。
+
+```text
+Release id / date:
+Command mode: dry-run / push / cron
+Readiness prefix: readiness / cron.readiness
+Readiness decision: blocked / allowed / skipped / failed / published
+Canonical review note path:
+review_note_path:
+review_note_canonical: not_required / matched / mismatch / missing
+human_review_go: true / false
+publish_authorized: true / false
+site_url: missing / <relative evidence field>
+public_url: missing / <url>
+raw_freshness: checked_by_cron_when_compare_previous_raw_true / pass / fail / not_compared
+collected_quality: pass / fail / not_checked
+git_remote_origin: missing / present
+Next safe command:
+```
+
+使用规则：
+
+- dry-run 默认不要求 review note，但必须写出 `review_note_canonical=not_required`、`human_review_go=false`、`publish_authorized=false`，避免把 rehearsal pass 升级为授权。
+- push 模式必须同时报告 `review_note_path`、`review_note_canonical`、`human_review_go` 和 `publish_authorized`；任一字段为空或 mismatch 时，下一步只能回到 canonical review note。
+- skipped / failed 路径也要保留字段名；无法检查的项写 `not_checked` / `not_compared`，不要直接省略字段。
+- `site_url`、`public_url`、`git_remote_origin` 是证据字段，不是人工授权字段；它们不能单独让 `publish_authorized=true`。
+- `Next safe command` 必须是当前状态下第一条低风险动作，例如补 review note、重跑 checker、修 raw freshness、补质量数据或请求发布授权。
+
+最小回归矩阵：至少覆盖 dry-run blocked、push 缺 review note、push 路径 mismatch、canonical review note 但人工字段未 Go、门禁失败、发布成功六条路径；每条路径都断言相同字段名仍出现。
+
 ## 发布脚本前置检查
 
 ```text
