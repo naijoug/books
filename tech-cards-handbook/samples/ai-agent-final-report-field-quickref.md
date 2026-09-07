@@ -43,6 +43,18 @@ notebook 提交：summaries <hash> <subject>（如有；从已提交状态读回
 
 字段顺序本身就是风险控制：先让读者看到证据，再看到提交，最后看到排除项和接力点。
 
+发布、部署、上传或外发类任务再加一小段 `readiness` 摘要，不要让最终报告只剩散文判断：
+
+```text
+发布 readiness：<readiness.* / cron.readiness.* prefix + decision>
+  review note：<path + canonical / mismatch / missing / not_required>
+  authorization：human_review_go=<true|false>, publish_authorized=<true|false>
+  evidence：site_url=<...>, public_url=<...>, raw_freshness=<...>, collected_quality=<...>, git_remote_origin=<...>
+  next safe command：<补 review note / 重跑 checker / 请求授权 / 执行受控 publish / 停止>
+```
+
+只有本轮真实运行或读取到这些字段时才填具体值；没有发布语境时写 `不适用`。如果脚本没有稳定字段，最终报告应把它列为未验证或下一段接力，而不是从日志散文里推断 `publish_authorized=true`。
+
 ## 3. 提交读回短例
 
 ```text
@@ -117,6 +129,7 @@ notebook 提交：summaries <hash> <subject>。
 - `books/tech-cards-handbook/chapters/ai-agent/final-report-names-excluded-boundaries.md`
 - `books/tech-cards-handbook/chapters/ai-agent/unverified-items-need-explicit-handoff.md`
 - `books/tech-cards-handbook/chapters/ai-agent/work-log-is-reusable-asset.md`
+- `books/tech-cards-handbook/samples/ai-agent-publish-gate-review-note-one-pager.md`
 - `books/tech-cards-handbook/samples/ai-agent-verification-failure-handoff-template.md`
 - `books/tech-cards-handbook/samples/ai-agent-dirty-workspace-one-pager.md`
 - `books/tech-cards-handbook/samples/ai-agent-sample-pack.md`
