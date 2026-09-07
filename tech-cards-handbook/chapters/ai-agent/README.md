@@ -1,6 +1,6 @@
 # AI Agent 系统实践卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护，共 81 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护，共 82 张。文件名使用英文 `kebab-case`。
 
 本目录收录 Agent 系统设计、运行边界、工具、记忆、反馈判断、反馈池和心跳工作流等实践卡片;具体 SDK 或语言实现优先放入对应技术栈目录。
 
@@ -10,11 +10,11 @@
 
 ## 本章四条主线
 
-本章 81 张卡片帮助 AI 时代的程序员用 agent 工作流提升验证力，围绕四条主线展开：
+本章 82 张卡片帮助 AI 时代的程序员用 agent 工作流提升验证力，围绕四条主线展开：
 
 | 主线 | 解决的问题 | 入口 |
 |---|---|---|
-| 运行控制 | 心跳唤醒的 agent 如何在 dirty workspace 里不漂移、不混入未知改动 | 下面的「3 分钟读法」和「快速路径」 |
+| 运行控制 | 心跳唤醒的 agent 如何在 dirty workspace 和日切换边界里不漂移、不混入未知改动 | 下面的「3 分钟读法」和「快速路径」 |
 | 验证与证据 | 每轮交付如何有可复制、可移植的验证证据；阶段性红灯如何被写成 expected failure 而不是模糊失败 | 阅读顺序第 3 节，验证系列卡片 |
 | 所有权与交付 | commit 边界、交付物 smoke test 和发布授权如何清晰可审 | 阅读顺序第 3 节，所有权与交付系列卡片 |
 | 产品化阶梯 | 如何把验证能力转化为可售的报告、案例和发布资产 | 阅读顺序第 3 节，AI 编程审查系列卡片 |
@@ -26,22 +26,23 @@
 如果只想马上减少一次心跳接力的事故率,先按三条线读,不要从全部卡片顺序扫完:
 
 1. **失败吸收线**:读 [`failure-output-must-change-plan.md`](failure-output-must-change-plan.md),再用 [`../../samples/ai-agent-failure-absorption-one-pager.md`](../../samples/ai-agent-failure-absorption-one-pager.md) 记录`信号 -> 影响 -> 证据位置`,确认失败是否改变了范围、顺序、目标或交接。
-2. **dirty workspace 线**:读 [`startup-snapshot-before-planning.md`](startup-snapshot-before-planning.md)、[`multi-repo-status-matrix-before-task-selection.md`](multi-repo-status-matrix-before-task-selection.md)、[`human-hypothesis-before-agent.md`](human-hypothesis-before-agent.md)、[`silent-success-needs-negative-test.md`](silent-success-needs-negative-test.md)、[`uncommitted-handoff-needs-ownership-triage.md`](uncommitted-handoff-needs-ownership-triage.md)、[`staged-changes-are-not-ownership.md`](staged-changes-are-not-ownership.md)、[`path-scoped-commit-boundary.md`](path-scoped-commit-boundary.md)、[`multi-session-control-plane-needs-ledger.md`](multi-session-control-plane-needs-ledger.md) 和 [`large-dirty-diff-needs-intake-receipt.md`](large-dirty-diff-needs-intake-receipt.md),先分清启动前改动、多 repo 状态矩阵、自己的可证伪假设、静默成功风险、staged path、路径级提交边界、多会话 owned paths、大 dirty diff 接收回执、可接管 path,再决定本轮文件范围。
+2. **dirty workspace 线**:读 [`startup-snapshot-before-planning.md`](startup-snapshot-before-planning.md)、[`day-rollover-needs-fresh-snapshot.md`](day-rollover-needs-fresh-snapshot.md)、[`multi-repo-status-matrix-before-task-selection.md`](multi-repo-status-matrix-before-task-selection.md)、[`human-hypothesis-before-agent.md`](human-hypothesis-before-agent.md)、[`silent-success-needs-negative-test.md`](silent-success-needs-negative-test.md)、[`uncommitted-handoff-needs-ownership-triage.md`](uncommitted-handoff-needs-ownership-triage.md)、[`staged-changes-are-not-ownership.md`](staged-changes-are-not-ownership.md)、[`path-scoped-commit-boundary.md`](path-scoped-commit-boundary.md)、[`multi-session-control-plane-needs-ledger.md`](multi-session-control-plane-needs-ledger.md) 和 [`large-dirty-diff-needs-intake-receipt.md`](large-dirty-diff-needs-intake-receipt.md),先分清启动前改动、日切换新快照、多 repo 状态矩阵、自己的可证伪假设、静默成功风险、staged path、路径级提交边界、多会话 owned paths、大 dirty diff 接收回执、可接管 path,再决定本轮文件范围。
 3. **提交证据线**:读 [`commit-scope-ledger-prevents-mixed-ownership.md`](commit-scope-ledger-prevents-mixed-ownership.md)、[`dirty-workspace-exit-checklist.md`](dirty-workspace-exit-checklist.md)、[`report-from-committed-state.md`](report-from-committed-state.md) 和 [`evidence-field-handoff-prevents-release-drift.md`](evidence-field-handoff-prevents-release-drift.md),最终报告从已提交状态读回 hash,同时写清排除边界；如果本轮是文档/索引/配置小改，先用 [`../../samples/ai-agent-proof-checker-one-pager.md`](../../samples/ai-agent-proof-checker-one-pager.md) 设计轻量 preflight，再用 [`../../samples/ai-agent-next-safe-command-ladder-one-pager.md`](../../samples/ai-agent-next-safe-command-ladder-one-pager.md) 把验证清单改写为“当前最大风险 -> 下一条安全命令 -> pass/fail 语义”的命令梯；收尾前可用 [`../../samples/ai-agent-final-report-field-quickref.md`](../../samples/ai-agent-final-report-field-quickref.md) 核对固定字段。若跨阶段报告字段正在漂移，先用证据字段 handoff 卡确认字段生产者、补齐者和消费者，再复制 [`../../samples/ai-agent-evidence-field-handoff-one-pager.md`](../../samples/ai-agent-evidence-field-handoff-one-pager.md) 填字段表和检查片段；若验证失败或无法执行，用 [`../../samples/ai-agent-verification-failure-handoff-template.md`](../../samples/ai-agent-verification-failure-handoff-template.md) 交接失败证据；若只是存在未覆盖边界，用 [`../../samples/ai-agent-unverified-handoff-one-pager.md`](../../samples/ai-agent-unverified-handoff-one-pager.md) 把已验证事实、未验证项、结论措辞和下一步第一条动作拆开。
 
 
-完成这三条线后,再进入下面的 25 步快速路径补齐运行控制细节；如果要把整套输入直接交给下一轮 Agent，使用 [`../../samples/ai-agent-sample-pack.md`](../../samples/ai-agent-sample-pack.md) 中的 10 张精选卡片、附录和配套一页纸模板。验证类输入按两层入口选择：样本包开头的“验证入口速记”适合 30 秒内按“当前最大风险”做入口判断，决定该接 proof checker、全量基线、preflight wrapper、命令梯还是交接模板；如果不确定该复制哪份输入，先看 [`../../samples/README.md`](../../samples/README.md) 的场景索引。若困惑集中在 proof checker、全量基线、preflight wrapper 和命令梯的先后顺序，再用 [`../../samples/ai-agent-proof-to-preflight-decision-table.md`](../../samples/ai-agent-proof-to-preflight-decision-table.md) 做 2 分钟展开判断。
+完成这三条线后,再进入下面的 26 步快速路径补齐运行控制细节；如果要把整套输入直接交给下一轮 Agent，使用 [`../../samples/ai-agent-sample-pack.md`](../../samples/ai-agent-sample-pack.md) 中的 10 张精选卡片、附录和配套一页纸模板。验证类输入按两层入口选择：样本包开头的“验证入口速记”适合 30 秒内按“当前最大风险”做入口判断，决定该接 proof checker、全量基线、preflight wrapper、命令梯还是交接模板；如果不确定该复制哪份输入，先看 [`../../samples/README.md`](../../samples/README.md) 的场景索引。若困惑集中在 proof checker、全量基线、preflight wrapper 和命令梯的先后顺序，再用 [`../../samples/ai-agent-proof-to-preflight-decision-table.md`](../../samples/ai-agent-proof-to-preflight-decision-table.md) 做 2 分钟展开判断。
 
 ## 快速路径:dirty workspace 心跳接力
 
-这条路径不是通用入门顺序,而是给已经在真实项目里工作的 Agent 使用:先建立启动快照,把上一轮接力点当作信号而不是义务,再选择可安全推进的小任务,最后把成果和未接管边界同时写清。它和样本包的关系是：本表负责解释为什么按 25 步推进，样本包负责提供可复制 prompt、证据表和最终报告字段。
+这条路径不是通用入门顺序,而是给已经在真实项目里工作的 Agent 使用:先建立启动快照,把上一轮接力点当作信号而不是义务,再选择可安全推进的小任务,最后把成果和未接管边界同时写清。它和样本包的关系是：本表负责解释为什么按 26 步推进，样本包负责提供可复制 prompt、证据表和最终报告字段。
 
 | 步骤 | 阶段 | 目标 | 卡片 |
 |---|---|---|---|
 | 1 | 唤醒与事实 | 防止凭上一轮印象行动 | [`heartbeat-workflow-prevents-drift.md`](heartbeat-workflow-prevents-drift.md) |
 | 2 | 唤醒与事实 | 把工作日志写成下一轮可复用资产 | [`work-log-is-reusable-asset.md`](work-log-is-reusable-asset.md) |
 | 3 | 唤醒与事实 | 在规划前保存当前 repo 状态 | [`startup-snapshot-before-planning.md`](startup-snapshot-before-planning.md) |
-| 3a | 唤醒与事实 | 多 repo 先分 clean / owned-dirty / unknown-dirty / summary-only，再选任务 | [`multi-repo-status-matrix-before-task-selection.md`](multi-repo-status-matrix-before-task-selection.md) |
+| 3a | 唤醒与事实 | 跨零点后重开今天 notebook 并重跑 repo 快照 | [`day-rollover-needs-fresh-snapshot.md`](day-rollover-needs-fresh-snapshot.md) |
+| 3b | 唤醒与事实 | 多 repo 先分 clean / owned-dirty / unknown-dirty / summary-only，再选任务 | [`multi-repo-status-matrix-before-task-selection.md`](multi-repo-status-matrix-before-task-selection.md) |
 | 4 | 规划与取舍 | 从候选工作中做取舍 | [`planning-selects-work-not-just-summary.md`](planning-selects-work-not-just-summary.md) |
 | 5 | 规划与取舍 | 把上一轮接力点当作信号,而不是自动义务 | [`continuation-is-signal-not-obligation.md`](continuation-is-signal-not-obligation.md) |
 | 6 | 规划与取舍 | 先写可证伪的人类假设,再让 Agent 生成或修改 | [`human-hypothesis-before-agent.md`](human-hypothesis-before-agent.md) |
@@ -125,6 +126,7 @@
 | 心跳工作流让长期任务不漂移 | [`heartbeat-workflow-prevents-drift.md`](heartbeat-workflow-prevents-drift.md) |
 | 工作日志是可复用资产，不要写成心情流水账 | [`work-log-is-reusable-asset.md`](work-log-is-reusable-asset.md) |
 | 启动快照先于规划,不要凭上一轮印象选任务 | [`startup-snapshot-before-planning.md`](startup-snapshot-before-planning.md) |
+| 日切换需要新快照，不要继承昨天的授权 | [`day-rollover-needs-fresh-snapshot.md`](day-rollover-needs-fresh-snapshot.md) |
 | 多 repo 状态矩阵先于任务选择,不要把 unknown dirty 或 summary-only 当默认工作 | [`multi-repo-status-matrix-before-task-selection.md`](multi-repo-status-matrix-before-task-selection.md) |
 | 规划要选择工作,不要只复述状态 | [`planning-selects-work-not-just-summary.md`](planning-selects-work-not-just-summary.md) |
 | 交接必须写下一步动作,不要只写状态 | [`handoff-must-name-next-action.md`](handoff-must-name-next-action.md) |

@@ -19,7 +19,7 @@
 | React 技术卡片 | [`react/`](react/) | 54 |
 | Swift 技术卡片 | [`swift/`](swift/) | 14 |
 | Flutter 技术卡片 | [`flutter/`](flutter/) | 14 |
-| AI Agent 系统实践卡片 | [`ai-agent/`](ai-agent/) | 81 |
+| AI Agent 系统实践卡片 | [`ai-agent/`](ai-agent/) | 82 |
 
 ## 跨技术栈复盘路径
 
@@ -66,12 +66,12 @@
 
 如果问题不是某个语言或代码边界，而是“周期性唤醒的 Agent 要在已有 dirty workspace 里继续工作”，优先从 [`ai-agent/`](ai-agent/) 的快速路径进入，而不是直接翻完整 AI Agent 目录。
 
-四条主线选入口：运行控制先看启动快照、规划取舍、dirty ownership、验证交接和最终报告；验证与证据先看静默成功反向测试、失败输出吸收、expected failure 契约、解析层测试梯、薄 API 控制流测试、standalone runner 自动发现、proof checker、全量基线、统一 preflight、proof 输出可移植、证据字段 handoff 和命令梯；所有权与交付先看未提交/staged 归属、路径级提交边界、提交范围台账、多会话控制台、大 dirty diff 接收回执、格式 churn 与语义 patch 拆分、双向导航闭合、项目切片到资产提取、稳定锚点、打包 staging、smoke test、生成物漂移、外部发布授权、无真实链接验证和发布闸门字段化；产品化阶梯先看固定范围 offer、试点报价卡、证据请求、首份报告、发布反馈、案例分层、AI 辅助 PR 审查路径、真实样例停止条件和公开案例事实分层。样本目录只作为入口判断，不作为待办队列；如果只是想“补齐样本”，先读 [`ai-agent/sample-entry-is-not-todo-queue.md`](ai-agent/sample-entry-is-not-todo-queue.md) 停止机械扩表面；如果一次改动已经新增多个正文、附录或模板入口，先读 [`ai-agent/bidirectional-navigation-closes-release-assets.md`](ai-agent/bidirectional-navigation-closes-release-assets.md) 检查“入口 -> 正文 -> 模板 -> 样例 -> 交接”是否双向闭合。
+四条主线选入口：运行控制先看启动快照、日切换新快照、规划取舍、dirty ownership、验证交接和最终报告；验证与证据先看静默成功反向测试、失败输出吸收、expected failure 契约、解析层测试梯、薄 API 控制流测试、standalone runner 自动发现、proof checker、全量基线、统一 preflight、proof 输出可移植、证据字段 handoff 和命令梯；所有权与交付先看未提交/staged 归属、路径级提交边界、提交范围台账、多会话控制台、大 dirty diff 接收回执、格式 churn 与语义 patch 拆分、双向导航闭合、项目切片到资产提取、稳定锚点、打包 staging、smoke test、生成物漂移、外部发布授权、无真实链接验证和发布闸门字段化；产品化阶梯先看固定范围 offer、试点报价卡、证据请求、首份报告、发布反馈、案例分层、AI 辅助 PR 审查路径、真实样例停止条件和公开案例事实分层。样本目录只作为入口判断，不作为待办队列；如果只是想“补齐样本”，先读 [`ai-agent/sample-entry-is-not-todo-queue.md`](ai-agent/sample-entry-is-not-todo-queue.md) 停止机械扩表面；如果一次改动已经新增多个正文、附录或模板入口，先读 [`ai-agent/bidirectional-navigation-closes-release-assets.md`](ai-agent/bidirectional-navigation-closes-release-assets.md) 检查“入口 -> 正文 -> 模板 -> 样例 -> 交接”是否双向闭合。
 
 最短使用顺序：
 
 1. 先把 [`../samples/ai-agent-dirty-workspace-one-pager.md`](../samples/ai-agent-dirty-workspace-one-pager.md) 贴给本轮 Agent，要求它先记录启动快照。
-2. 再按 [`ai-agent/README.md`](ai-agent/README.md) 里的“快速路径：dirty workspace 心跳接力”阅读 25 个步骤：心跳、防漂移、启动快照、多 repo 状态矩阵、规划取舍、人类假设、无人值守默认动作、外部发布授权、无真实链接验证、静默成功反向测试、失败输出吸收、未提交与 staged 归属、提交范围台账、多会话控制台、大 dirty diff 接收回执、短节拍边界、交付预算、green baseline 后切换资产、验证与未验证项交接、本地 proof checker、全量 proof 基线、统一 preflight wrapper、proof 输出可移植、提交状态读回和最终报告边界。
+2. 再按 [`ai-agent/README.md`](ai-agent/README.md) 里的“快速路径：dirty workspace 心跳接力”阅读 26 个步骤：心跳、防漂移、启动快照、日切换新快照、多 repo 状态矩阵、规划取舍、人类假设、无人值守默认动作、外部发布授权、无真实链接验证、静默成功反向测试、失败输出吸收、未提交与 staged 归属、提交范围台账、多会话控制台、大 dirty diff 接收回执、短节拍边界、交付预算、green baseline 后切换资产、验证与未验证项交接、本地 proof checker、全量 proof 基线、统一 preflight wrapper、proof 输出可移植、提交状态读回和最终报告边界。
 3. 如果需要更完整的 prompt、证据表、最终报告字段和配套一页纸模板，再打开 [`../samples/ai-agent-sample-pack.md`](../samples/ai-agent-sample-pack.md) 的 dirty workspace 心跳交接输入样例。
 
 这条路径的输出不是一篇总结，而是一份可接力记录：本轮实际推进了什么、哪些 dirty path 没有接管、验证命令是什么、项目和 notebook 分别提交到了哪个 commit。
