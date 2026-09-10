@@ -50,6 +50,33 @@ git diff --cached --name-status
 未接管：启动前已有 curriculum dirty path，保持排除。
 ```
 
+如果验证命令通过但新增了不在 owned paths 里的文件，把 scope proof 记录到可复查的字段里，而不是用一句“已清理”带过：
+
+```text
+Owned paths before verification:
+- chapters/ai-agent/verification-side-effects-need-quarantine.md
+
+Pre-check status:
+- clean
+
+Verification command:
+- python3 scripts/verify_tech_cards.py --full-only
+
+Post-check new dirty paths:
+- chapters/api/generated-contract.md
+
+Classification:
+- chapters/api/generated-contract.md => generated-side-effect, outside owned paths
+
+Action:
+- git restore -- chapters/api/generated-contract.md
+- git add chapters/ai-agent/verification-side-effects-need-quarantine.md
+- git diff --cached --name-only
+
+Decision:
+- Continue, because staged paths are still limited to owned paths.
+```
+
 ## 坑
 
 - **把 green check 当作 clean repo。** 测试通过只说明断言通过，不说明工作区仍干净。
