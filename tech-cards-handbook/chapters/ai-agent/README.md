@@ -1,6 +1,6 @@
 # AI Agent 系统实践卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护，共 86 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护，共 87 张。文件名使用英文 `kebab-case`。
 
 本目录收录 Agent 系统设计、运行边界、工具、记忆、反馈判断、反馈池和心跳工作流等实践卡片;具体 SDK 或语言实现优先放入对应技术栈目录。
 
@@ -10,7 +10,7 @@
 
 ## 本章四条主线
 
-本章 86 张卡片帮助 AI 时代的程序员用 agent 工作流提升验证力，围绕四条主线展开：
+本章 87 张卡片帮助 AI 时代的程序员用 agent 工作流提升验证力，围绕四条主线展开：
 
 | 主线 | 解决的问题 | 入口 |
 |---|---|---|
@@ -75,7 +75,7 @@
 | 21b | 验证与失败语义 | 把测试 fixture panic 写成下一轮能定位阶段的交接材料 | [`test-fixture-failure-message-is-handoff.md`](test-fixture-failure-message-is-handoff.md) |
 | 21c | 验证与失败语义 | 进入 protected parser/mock 前先按链路层级选择更低 mock 的测试边界 | [`parser-layer-test-ladder-before-protected-mocks.md`](parser-layer-test-ladder-before-protected-mocks.md) |
 | 21d | 验证与失败语义 | 薄 API 单测先锁短路、校验、错误转发和参数转换，不重复 integration 已覆盖的 200 | [`thin-api-tests-target-control-flow-not-200.md`](thin-api-tests-target-control-flow-not-200.md) |
-| 22 | 验证与集成边界 | 先用窄范围 proof checker 或 helper 契约证明基础契约,再把渲染和插件行为交给重型构建；若同一真实入口要覆盖多角色和多 viewport，先把动作 helper 与断言 helper 分开；若规格抽屉承担素材、平台和缺口交接，先锁决策字段而不是只测容器打开；若要升级为常规必跑项，先建立全量红绿基线，再把稳定命令收束成统一 preflight wrapper；验证命令写出 generated diff 时先隔离副作用 | [`local-proof-checker-precedes-heavy-build.md`](local-proof-checker-precedes-heavy-build.md)、[`helper-contract-before-dom-harness.md`](helper-contract-before-dom-harness.md)、[`dual-role-e2e-helper-contract.md`](dual-role-e2e-helper-contract.md)、[`spec-drawer-e2e-acceptance-contract.md`](spec-drawer-e2e-acceptance-contract.md)、[`full-proof-baseline-before-ci.md`](full-proof-baseline-before-ci.md)、[`unified-preflight-wrapper-prevents-command-drift.md`](unified-preflight-wrapper-prevents-command-drift.md)、[`verification-side-effects-need-quarantine.md`](verification-side-effects-need-quarantine.md); 可复制输入见 [`../../samples/ai-agent-proof-to-preflight-decision-table.md`](../../samples/ai-agent-proof-to-preflight-decision-table.md)、[`../../samples/ai-agent-proof-checker-one-pager.md`](../../samples/ai-agent-proof-checker-one-pager.md)、[`../../samples/ai-agent-full-proof-baseline-one-pager.md`](../../samples/ai-agent-full-proof-baseline-one-pager.md)、[`../../samples/ai-agent-preflight-wrapper-one-pager.md`](../../samples/ai-agent-preflight-wrapper-one-pager.md) |
+| 22 | 验证与集成边界 | 先用窄范围 proof checker 或 helper 契约证明基础契约,再把渲染和插件行为交给重型构建；若同一真实入口要覆盖多角色和多 viewport，先把动作 helper 与断言 helper 分开；若规格抽屉承担素材、平台和缺口交接，先锁决策字段而不是只测容器打开；若执行命令会改变依赖或环境，先共享测试表再分别改前端预扫描、后端执行策略和确认文案；若要升级为常规必跑项，先建立全量红绿基线，再把稳定命令收束成统一 preflight wrapper；验证命令写出 generated diff 时先隔离副作用 | [`local-proof-checker-precedes-heavy-build.md`](local-proof-checker-precedes-heavy-build.md)、[`helper-contract-before-dom-harness.md`](helper-contract-before-dom-harness.md)、[`dual-role-e2e-helper-contract.md`](dual-role-e2e-helper-contract.md)、[`spec-drawer-e2e-acceptance-contract.md`](spec-drawer-e2e-acceptance-contract.md)、[`dependency-mutation-approval-table.md`](dependency-mutation-approval-table.md)、[`full-proof-baseline-before-ci.md`](full-proof-baseline-before-ci.md)、[`unified-preflight-wrapper-prevents-command-drift.md`](unified-preflight-wrapper-prevents-command-drift.md)、[`verification-side-effects-need-quarantine.md`](verification-side-effects-need-quarantine.md); 可复制输入见 [`../../samples/ai-agent-proof-to-preflight-decision-table.md`](../../samples/ai-agent-proof-to-preflight-decision-table.md)、[`../../samples/ai-agent-proof-checker-one-pager.md`](../../samples/ai-agent-proof-checker-one-pager.md)、[`../../samples/ai-agent-full-proof-baseline-one-pager.md`](../../samples/ai-agent-full-proof-baseline-one-pager.md)、[`../../samples/ai-agent-preflight-wrapper-one-pager.md`](../../samples/ai-agent-preflight-wrapper-one-pager.md) |
 | 23 | 证据可移植性 | 让验证输出可复制到 notebook 和最终报告 | [`proof-output-must-be-portable.md`](proof-output-must-be-portable.md) |
 | 24 | 报告与读回 | 从已提交状态读回 hash 和 subject;报告包含启动/收尾状态证据 | [`report-from-committed-state.md`](report-from-committed-state.md) |
 | 25 | 报告与读回 | 最终响应同时列成果和排除项 | [`final-report-names-excluded-boundaries.md`](final-report-names-excluded-boundaries.md) |
@@ -159,8 +159,9 @@
 | 本地 proof checker 先于重型构建，不要把每次小改都交给全量 build | [`local-proof-checker-precedes-heavy-build.md`](local-proof-checker-precedes-heavy-build.md) |
 | DOM 测试环境前先锁 Helper 契约，不要为一个窄副作用扩大依赖面 | [`helper-contract-before-dom-harness.md`](helper-contract-before-dom-harness.md) |
 | 双角色 E2E Helper 固定入口与权限契约，不要让重复断言多点漂移 | [`dual-role-e2e-helper-contract.md`](dual-role-e2e-helper-contract.md) |
-| 规格抽屉 E2E 要锁决策字段，不要只测审查面板容器打开 | [`spec-drawer-e2e-acceptance-contract.md`](spec-drawer-e2e-acceptance-contract.md) |
-| 全量 proof 基线先变绿，再把它写进常规 preflight | [`full-proof-baseline-before-ci.md`](full-proof-baseline-before-ci.md) |
+|| 规格抽屉 E2E 要锁决策字段，不要只测审查面板容器打开 | [`spec-drawer-e2e-acceptance-contract.md`](spec-drawer-e2e-acceptance-contract.md) |
+|| 依赖变更审批先共享测试表，不要让前后端规则各自漂移 | [`dependency-mutation-approval-table.md`](dependency-mutation-approval-table.md) |
+|| 全量 proof 基线先变绿，再把它写进常规 preflight | [`full-proof-baseline-before-ci.md`](full-proof-baseline-before-ci.md) |
 | 统一 preflight wrapper 防止命令漂移，不要靠记忆拼验证清单 | [`unified-preflight-wrapper-prevents-command-drift.md`](unified-preflight-wrapper-prevents-command-drift.md) |
 | 验证副作用要隔离，不要让 proof 命令顺手改出提交内容 | [`verification-side-effects-need-quarantine.md`](verification-side-effects-need-quarantine.md) |
 | Proof 输出要可移植，不要把本机路径复制进交接证据 | [`proof-output-must-be-portable.md`](proof-output-must-be-portable.md) |
