@@ -13,7 +13,7 @@
 - **验证证据**：写真实命令和结果摘要；失败或未覆盖时，引用未验证项而不是改写成“通过”。
 - **状态证据**：写启动和收尾 `git status --short` 摘要；如果有启动前 dirty path，说明是否仍未接管。
 - **已提交状态读回**：提交后用 `git -C <repo> log -1 --oneline` 读回 hash 和 subject，不从计划或记忆里抄。
-- **排除边界**：列出本轮没有接管、没有 stage、没有验证的相对路径；为空也写 `无`，并说明依据。
+- **排除边界**：列出本轮没有接管、没有 stage、没有验证的相对路径；为空也写 `无`，并说明依据。共享 `summaries/` 中其他 agent 的 notebook 要显式标成 `foreign-summary`，不能被写成“顺手提交”。
 - **下一段接力**：给下一轮第一条动作和验证目的地，不只写“继续完善”。
 
 在写这些字段前，先把素材分成三层：
@@ -116,17 +116,19 @@ notebook 提交：summaries <hash> <subject>。
 ```text
 ✅ 未接管边界：loom/docs/PLANS.md 启动前已 staged/modified，归属未知，未修改、未 stage。
 ✅ 未接管边界：skills/skills/cron/hourly-progress/references/final-report-evidence-chain.md 启动前已 modified，归属未知，未接管。
+✅ 未接管边界：summaries/openclaw/2026-09-15.md 启动时为其他 agent notebook 未跟踪记录，标记 `foreign-summary`，本轮只读观察，未 stage、未删除、未代提交。
 ✅ 未接管边界：无（启动和收尾 status 均无本轮外 dirty path）。
 ❌ 未接管边界：（字段省略）
 ❌ 未接管边界：有一些别的改动，没管。
 ```
 
-边界必须使用相对路径，且要说明证据来自启动或收尾状态；否则下一轮无法判断它是旧改动、用户改动、生成噪音还是本轮漏提交。
+边界必须使用相对路径，且要说明证据来自启动或收尾状态；否则下一轮无法判断它是旧改动、用户改动、生成噪音、其他 agent notebook 还是本轮漏提交。
 
 ## 7. 相关入口
 
 - `books/tech-cards-handbook/chapters/ai-agent/report-from-committed-state.md`
 - `books/tech-cards-handbook/chapters/ai-agent/final-report-names-excluded-boundaries.md`
+- `books/tech-cards-handbook/chapters/ai-agent/foreign-agent-summary-boundary.md`
 - `books/tech-cards-handbook/chapters/ai-agent/unverified-items-need-explicit-handoff.md`
 - `books/tech-cards-handbook/chapters/ai-agent/work-log-is-reusable-asset.md`
 - `books/tech-cards-handbook/samples/ai-agent-publish-gate-review-note-one-pager.md`
