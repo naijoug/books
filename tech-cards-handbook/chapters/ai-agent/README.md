@@ -1,6 +1,6 @@
 # AI Agent 系统实践卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护，共 87 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护，共 88 张。文件名使用英文 `kebab-case`。
 
 本目录收录 Agent 系统设计、运行边界、工具、记忆、反馈判断、反馈池和心跳工作流等实践卡片;具体 SDK 或语言实现优先放入对应技术栈目录。
 
@@ -10,7 +10,7 @@
 
 ## 本章四条主线
 
-本章 87 张卡片帮助 AI 时代的程序员用 agent 工作流提升验证力，围绕四条主线展开：
+本章 88 张卡片帮助 AI 时代的程序员用 agent 工作流提升验证力，围绕四条主线展开：
 
 | 主线 | 解决的问题 | 入口 |
 |---|---|---|
@@ -26,7 +26,7 @@
 如果只想马上减少一次心跳接力的事故率,先按三条线读,不要从全部卡片顺序扫完:
 
 1. **失败吸收线**:读 [`failure-output-must-change-plan.md`](failure-output-must-change-plan.md),再用 [`../../samples/ai-agent-failure-absorption-one-pager.md`](../../samples/ai-agent-failure-absorption-one-pager.md) 记录`信号 -> 影响 -> 证据位置`,确认失败是否改变了范围、顺序、目标或交接。
-2. **dirty workspace 线**:读 [`startup-snapshot-before-planning.md`](startup-snapshot-before-planning.md)、[`day-rollover-needs-fresh-snapshot.md`](day-rollover-needs-fresh-snapshot.md)、[`multi-repo-status-matrix-before-task-selection.md`](multi-repo-status-matrix-before-task-selection.md)、[`human-hypothesis-before-agent.md`](human-hypothesis-before-agent.md)、[`silent-success-needs-negative-test.md`](silent-success-needs-negative-test.md)、[`uncommitted-handoff-needs-ownership-triage.md`](uncommitted-handoff-needs-ownership-triage.md)、[`staged-changes-are-not-ownership.md`](staged-changes-are-not-ownership.md)、[`path-scoped-commit-boundary.md`](path-scoped-commit-boundary.md)、[`multi-session-control-plane-needs-ledger.md`](multi-session-control-plane-needs-ledger.md) 和 [`large-dirty-diff-needs-intake-receipt.md`](large-dirty-diff-needs-intake-receipt.md),先分清启动前改动、日切换新快照、多 repo 状态矩阵、自己的可证伪假设、静默成功风险、staged path、路径级提交边界、多会话 owned paths、大 dirty diff 接收回执、可接管 path,再决定本轮文件范围。
+2. **dirty workspace 线**:读 [`startup-snapshot-before-planning.md`](startup-snapshot-before-planning.md)、[`day-rollover-needs-fresh-snapshot.md`](day-rollover-needs-fresh-snapshot.md)、[`multi-repo-status-matrix-before-task-selection.md`](multi-repo-status-matrix-before-task-selection.md)、[`generated-artifact-startup-triage.md`](generated-artifact-startup-triage.md)、[`human-hypothesis-before-agent.md`](human-hypothesis-before-agent.md)、[`silent-success-needs-negative-test.md`](silent-success-needs-negative-test.md)、[`uncommitted-handoff-needs-ownership-triage.md`](uncommitted-handoff-needs-ownership-triage.md)、[`staged-changes-are-not-ownership.md`](staged-changes-are-not-ownership.md)、[`path-scoped-commit-boundary.md`](path-scoped-commit-boundary.md)、[`multi-session-control-plane-needs-ledger.md`](multi-session-control-plane-needs-ledger.md) 和 [`large-dirty-diff-needs-intake-receipt.md`](large-dirty-diff-needs-intake-receipt.md),先分清启动前改动、日切换新快照、多 repo 状态矩阵、生成产物启动分诊、自己的可证伪假设、静默成功风险、staged path、路径级提交边界、多会话 owned paths、大 dirty diff 接收回执、可接管 path,再决定本轮文件范围。
 3. **提交证据线**:读 [`commit-scope-ledger-prevents-mixed-ownership.md`](commit-scope-ledger-prevents-mixed-ownership.md)、[`verification-side-effects-need-quarantine.md`](verification-side-effects-need-quarantine.md)、[`dirty-workspace-exit-checklist.md`](dirty-workspace-exit-checklist.md)、[`report-from-committed-state.md`](report-from-committed-state.md) 和 [`evidence-field-handoff-prevents-release-drift.md`](evidence-field-handoff-prevents-release-drift.md),最终报告从已提交状态读回 hash,同时写清验证副作用和排除边界；如果本轮是文档/索引/配置小改，先用 [`../../samples/ai-agent-proof-checker-one-pager.md`](../../samples/ai-agent-proof-checker-one-pager.md) 设计轻量 preflight，再用 [`../../samples/ai-agent-next-safe-command-ladder-one-pager.md`](../../samples/ai-agent-next-safe-command-ladder-one-pager.md) 把验证清单改写为“当前最大风险 -> 下一条安全命令 -> pass/fail 语义”的命令梯；收尾前可用 [`../../samples/ai-agent-final-report-field-quickref.md`](../../samples/ai-agent-final-report-field-quickref.md) 核对固定字段。若跨阶段报告字段正在漂移，先用证据字段 handoff 卡确认字段生产者、补齐者和消费者，再复制 [`../../samples/ai-agent-evidence-field-handoff-one-pager.md`](../../samples/ai-agent-evidence-field-handoff-one-pager.md) 填字段表和检查片段；若验证失败或无法执行，用 [`../../samples/ai-agent-verification-failure-handoff-template.md`](../../samples/ai-agent-verification-failure-handoff-template.md) 交接失败证据；若只是存在未覆盖边界，用 [`../../samples/ai-agent-unverified-handoff-one-pager.md`](../../samples/ai-agent-unverified-handoff-one-pager.md) 把已验证事实、未验证项、结论措辞和下一步第一条动作拆开。
 
 
@@ -43,6 +43,7 @@
 | 3 | 唤醒与事实 | 在规划前保存当前 repo 状态 | [`startup-snapshot-before-planning.md`](startup-snapshot-before-planning.md) |
 | 3a | 唤醒与事实 | 跨零点后重开今天 notebook 并重跑 repo 快照 | [`day-rollover-needs-fresh-snapshot.md`](day-rollover-needs-fresh-snapshot.md) |
 | 3b | 唤醒与事实 | 多 repo 先分 clean / owned-dirty / unknown-dirty / summary-only，再选任务 | [`multi-repo-status-matrix-before-task-selection.md`](multi-repo-status-matrix-before-task-selection.md) |
+| 3c | 唤醒与事实 | 启动前生成目录先分 generated-noise / owned-output / unknown-dirty，再决定是否接管工程 repo | [`generated-artifact-startup-triage.md`](generated-artifact-startup-triage.md) |
 | 4 | 规划与取舍 | 从候选工作中做取舍 | [`planning-selects-work-not-just-summary.md`](planning-selects-work-not-just-summary.md) |
 | 5 | 规划与取舍 | 把上一轮接力点当作信号,而不是自动义务 | [`continuation-is-signal-not-obligation.md`](continuation-is-signal-not-obligation.md) |
 | 6 | 规划与取舍 | 先写可证伪的人类假设,再让 Agent 生成或修改 | [`human-hypothesis-before-agent.md`](human-hypothesis-before-agent.md) |
@@ -75,7 +76,7 @@
 | 21b | 验证与失败语义 | 把测试 fixture panic 写成下一轮能定位阶段的交接材料 | [`test-fixture-failure-message-is-handoff.md`](test-fixture-failure-message-is-handoff.md) |
 | 21c | 验证与失败语义 | 进入 protected parser/mock 前先按链路层级选择更低 mock 的测试边界 | [`parser-layer-test-ladder-before-protected-mocks.md`](parser-layer-test-ladder-before-protected-mocks.md) |
 | 21d | 验证与失败语义 | 薄 API 单测先锁短路、校验、错误转发和参数转换，不重复 integration 已覆盖的 200 | [`thin-api-tests-target-control-flow-not-200.md`](thin-api-tests-target-control-flow-not-200.md) |
-| 22 | 验证与集成边界 | 先用窄范围 proof checker 或 helper 契约证明基础契约,再把渲染和插件行为交给重型构建；若同一真实入口要覆盖多角色和多 viewport，先把动作 helper 与断言 helper 分开；若规格抽屉承担素材、平台和缺口交接，先锁决策字段而不是只测容器打开；若执行命令会改变依赖或环境，先共享测试表再分别改前端预扫描、后端执行策略和确认文案；若要升级为常规必跑项，先建立全量红绿基线，再把稳定命令收束成统一 preflight wrapper；验证命令写出 generated diff 时先隔离副作用 | [`local-proof-checker-precedes-heavy-build.md`](local-proof-checker-precedes-heavy-build.md)、[`helper-contract-before-dom-harness.md`](helper-contract-before-dom-harness.md)、[`dual-role-e2e-helper-contract.md`](dual-role-e2e-helper-contract.md)、[`spec-drawer-e2e-acceptance-contract.md`](spec-drawer-e2e-acceptance-contract.md)、[`dependency-mutation-approval-table.md`](dependency-mutation-approval-table.md)、[`full-proof-baseline-before-ci.md`](full-proof-baseline-before-ci.md)、[`unified-preflight-wrapper-prevents-command-drift.md`](unified-preflight-wrapper-prevents-command-drift.md)、[`verification-side-effects-need-quarantine.md`](verification-side-effects-need-quarantine.md); 可复制输入见 [`../../samples/ai-agent-proof-to-preflight-decision-table.md`](../../samples/ai-agent-proof-to-preflight-decision-table.md)、[`../../samples/ai-agent-proof-checker-one-pager.md`](../../samples/ai-agent-proof-checker-one-pager.md)、[`../../samples/ai-agent-full-proof-baseline-one-pager.md`](../../samples/ai-agent-full-proof-baseline-one-pager.md)、[`../../samples/ai-agent-preflight-wrapper-one-pager.md`](../../samples/ai-agent-preflight-wrapper-one-pager.md) |
+| 22 | 验证与集成边界 | 先用窄范围 proof checker 或 helper 契约证明基础契约,再把渲染和插件行为交给重型构建；若同一真实入口要覆盖多角色和多 viewport，先把动作 helper 与断言 helper 分开；若规格抽屉承担素材、平台和缺口交接，先锁决策字段而不是只测容器打开；若执行命令会改变依赖或环境，先共享测试表再分别改前端预扫描、后端执行策略和确认文案；若要升级为常规必跑项，先建立全量红绿基线，再把稳定命令收束成统一 preflight wrapper；验证命令写出 generated diff 时先隔离副作用，启动快照里已有生成目录则先完成生成产物分诊 | [`local-proof-checker-precedes-heavy-build.md`](local-proof-checker-precedes-heavy-build.md)、[`helper-contract-before-dom-harness.md`](helper-contract-before-dom-harness.md)、[`dual-role-e2e-helper-contract.md`](dual-role-e2e-helper-contract.md)、[`spec-drawer-e2e-acceptance-contract.md`](spec-drawer-e2e-acceptance-contract.md)、[`dependency-mutation-approval-table.md`](dependency-mutation-approval-table.md)、[`full-proof-baseline-before-ci.md`](full-proof-baseline-before-ci.md)、[`unified-preflight-wrapper-prevents-command-drift.md`](unified-preflight-wrapper-prevents-command-drift.md)、[`generated-artifact-startup-triage.md`](generated-artifact-startup-triage.md)、[`verification-side-effects-need-quarantine.md`](verification-side-effects-need-quarantine.md); 可复制输入见 [`../../samples/ai-agent-proof-to-preflight-decision-table.md`](../../samples/ai-agent-proof-to-preflight-decision-table.md)、[`../../samples/ai-agent-proof-checker-one-pager.md`](../../samples/ai-agent-proof-checker-one-pager.md)、[`../../samples/ai-agent-full-proof-baseline-one-pager.md`](../../samples/ai-agent-full-proof-baseline-one-pager.md)、[`../../samples/ai-agent-preflight-wrapper-one-pager.md`](../../samples/ai-agent-preflight-wrapper-one-pager.md) |
 | 23 | 证据可移植性 | 让验证输出可复制到 notebook 和最终报告 | [`proof-output-must-be-portable.md`](proof-output-must-be-portable.md) |
 | 24 | 报告与读回 | 从已提交状态读回 hash 和 subject;报告包含启动/收尾状态证据 | [`report-from-committed-state.md`](report-from-committed-state.md) |
 | 25 | 报告与读回 | 最终响应同时列成果和排除项 | [`final-report-names-excluded-boundaries.md`](final-report-names-excluded-boundaries.md) |
@@ -128,6 +129,7 @@
 | 启动快照先于规划,不要凭上一轮印象选任务 | [`startup-snapshot-before-planning.md`](startup-snapshot-before-planning.md) |
 | 日切换需要新快照，不要继承昨天的授权 | [`day-rollover-needs-fresh-snapshot.md`](day-rollover-needs-fresh-snapshot.md) |
 | 多 repo 状态矩阵先于任务选择,不要把 unknown dirty 或 summary-only 当默认工作 | [`multi-repo-status-matrix-before-task-selection.md`](multi-repo-status-matrix-before-task-selection.md) |
+| 生成产物启动分诊先于工作选择 | [`generated-artifact-startup-triage.md`](generated-artifact-startup-triage.md) |
 | 规划要选择工作,不要只复述状态 | [`planning-selects-work-not-just-summary.md`](planning-selects-work-not-just-summary.md) |
 | 交接必须写下一步动作,不要只写状态 | [`handoff-must-name-next-action.md`](handoff-must-name-next-action.md) |
 | 先写人类假设，再让 Agent 动手 | [`human-hypothesis-before-agent.md`](human-hypothesis-before-agent.md) |
