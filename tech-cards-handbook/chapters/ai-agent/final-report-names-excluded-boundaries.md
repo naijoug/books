@@ -4,8 +4,9 @@
 
 **要点**：
 
-- 最终报告不只列“做了什么”，还要列“哪些已有改动没有接管”。这能保护用户改动、其他 agent 的半成品和本轮未验证的接力点。
+- 最终报告不只列“做了什么”，还要列“哪些已有改动没有接管”。这能保护用户改动、其他 agent 的半成品、其他 agent notebook 和本轮未验证的接力点。
 - 排除边界必须来自本轮启动和收尾的 `git status --short` 摘要，不要凭记忆写“还有一些改动”。最终报告里要把这类摘要写成独立的“状态证据”，再报告 commit。
+- 共享 `summaries/` repo 中的其他 agent 目录要显式写成 `foreign-summary`：例如 `summaries/openclaw/2026-09-15.md` 只能只读观察和写入 Hermes notebook 的未接管边界，不能 stage、删除、改写或代提交。
 - 提交前 index 快照要进入状态证据：`git diff --cached --name-status` 说明“本轮提交实际带走哪些 path”，与启动/收尾工作区状态不是同一件事。
 - 项目 repo 与 `summaries` repo 要分开读回：项目成果的 hash、subject、收尾 status 证明资产已落盘；notebook 的 hash、subject、收尾 status 只证明工作记录已落盘。
 - 排除边界用相对路径和 repo 名表达，例如 `makemoney` 有未归属的 `docs/interview-qa-day3-publish-kit.md`，不要写绝对路径。
@@ -25,7 +26,7 @@
 - 状态证据：启动时 `docs`、`loom`、`summaries/openclaw/...` 已 dirty/untracked；提交前 index 快照只包含 `books/tech-cards-handbook/chapters/ai-agent/final-report-names-excluded-boundaries.md`；收尾时这些 path 仍未 stage，`books` 项目 repo clean。
 - 项目提交：`books` 1a2b3c4 Add final-report boundary card；读回 `books` subject 与收尾 status。
 - notebook 提交：`summaries` 5d6e7f8 Record Hermes progress for 2026-06-16 11:00；读回 `summaries` subject 与收尾 status。
-- 未接管边界：`makemoney` 仍有启动前已存在的 Day 3 发布包改动；`docs`、`loom` 仍有非本轮改动；`summaries/openclaw/2026-06-12.md` 仍未跟踪。
+- 未接管边界：`makemoney` 仍有启动前已存在的 Day 3 发布包改动；`docs`、`loom` 仍有非本轮改动；`summaries/openclaw/2026-06-12.md` 是 `foreign-summary`，仍未跟踪，未 stage、未删除、未改写、未代提交。
 - 下一段接力：先判断 `makemoney` 的 Day 3 发布包归属；不可确认时继续选择 clean repo 的独立小任务。
 ```
 
@@ -69,7 +70,7 @@
 写入 notebook：summaries/hermes/YYYY-MM-DD.md
 项目提交：<repo> <hash> <subject>；读回项目 repo 收尾 status；如没有项目提交，写“无，原因：...”>
 notebook 提交：summaries <hash> <subject>；读回 summaries 收尾 status；如未提交，写“未提交，原因：...”>
-未接管边界：<repo/path 相对路径 + 启动前已有 / 来源不明 / 验证失败 / 非本轮范围 + 未 stage>
+未接管边界：<repo/path 相对路径 + 启动前已有 / 来源不明 / 验证失败 / 非本轮范围 / foreign-summary + 未 stage；其他 agent notebook 要写清未删除、未改写、未代提交>
 下一段接力：<下一轮第一条可执行动作，而不是泛泛“继续优化”>
 ```
 
@@ -87,7 +88,7 @@ notebook 提交：summaries <hash> <subject>；读回 summaries 收尾 status；
 - 用户无法区分“无需关心的构建产物”和“可能需要接力的业务文档”。
 
 修正版：
-- 未接管边界：`makemoney/docs/interview-qa-day3-publish-kit.md` 及其计划/指标引用在本轮启动前已存在，未 stage；`docs/documents/trending/ai/README.md` 和 `docs/documents/trending/ai/verification-first-ai-coding.md` 非本轮改动，未 stage；`summaries/openclaw/2026-06-12.md` 非 Hermes notebook，未 stage。
+- 未接管边界：`makemoney/docs/interview-qa-day3-publish-kit.md` 及其计划/指标引用在本轮启动前已存在，未 stage；`docs/documents/trending/ai/README.md` 和 `docs/documents/trending/ai/verification-first-ai-coding.md` 非本轮改动，未 stage；`summaries/openclaw/2026-06-12.md` 是 `foreign-summary`，未 stage、未删除、未改写、未代提交。
 ```
 
 **坑**：
