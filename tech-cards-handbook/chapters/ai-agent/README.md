@@ -1,6 +1,6 @@
 # AI Agent 系统实践卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护，共 88 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护，共 89 张。文件名使用英文 `kebab-case`。
 
 本目录收录 Agent 系统设计、运行边界、工具、记忆、反馈判断、反馈池和心跳工作流等实践卡片;具体 SDK 或语言实现优先放入对应技术栈目录。
 
@@ -10,7 +10,7 @@
 
 ## 本章四条主线
 
-本章 88 张卡片帮助 AI 时代的程序员用 agent 工作流提升验证力，围绕四条主线展开：
+本章 89 张卡片帮助 AI 时代的程序员用 agent 工作流提升验证力，围绕四条主线展开：
 
 | 主线 | 解决的问题 | 入口 |
 |---|---|---|
@@ -26,7 +26,7 @@
 如果只想马上减少一次心跳接力的事故率,先按三条线读,不要从全部卡片顺序扫完:
 
 1. **失败吸收线**:读 [`failure-output-must-change-plan.md`](failure-output-must-change-plan.md),再用 [`../../samples/ai-agent-failure-absorption-one-pager.md`](../../samples/ai-agent-failure-absorption-one-pager.md) 记录`信号 -> 影响 -> 证据位置`,确认失败是否改变了范围、顺序、目标或交接。
-2. **dirty workspace 线**:读 [`startup-snapshot-before-planning.md`](startup-snapshot-before-planning.md)、[`day-rollover-needs-fresh-snapshot.md`](day-rollover-needs-fresh-snapshot.md)、[`multi-repo-status-matrix-before-task-selection.md`](multi-repo-status-matrix-before-task-selection.md)、[`generated-artifact-startup-triage.md`](generated-artifact-startup-triage.md)、[`human-hypothesis-before-agent.md`](human-hypothesis-before-agent.md)、[`silent-success-needs-negative-test.md`](silent-success-needs-negative-test.md)、[`uncommitted-handoff-needs-ownership-triage.md`](uncommitted-handoff-needs-ownership-triage.md)、[`staged-changes-are-not-ownership.md`](staged-changes-are-not-ownership.md)、[`path-scoped-commit-boundary.md`](path-scoped-commit-boundary.md)、[`multi-session-control-plane-needs-ledger.md`](multi-session-control-plane-needs-ledger.md) 和 [`large-dirty-diff-needs-intake-receipt.md`](large-dirty-diff-needs-intake-receipt.md),先分清启动前改动、日切换新快照、多 repo 状态矩阵、生成产物启动分诊、自己的可证伪假设、静默成功风险、staged path、路径级提交边界、多会话 owned paths、大 dirty diff 接收回执、可接管 path,再决定本轮文件范围。
+2. **dirty workspace 线**:读 [`startup-snapshot-before-planning.md`](startup-snapshot-before-planning.md)、[`day-rollover-needs-fresh-snapshot.md`](day-rollover-needs-fresh-snapshot.md)、[`multi-repo-status-matrix-before-task-selection.md`](multi-repo-status-matrix-before-task-selection.md)、[`generated-artifact-startup-triage.md`](generated-artifact-startup-triage.md)、[`human-hypothesis-before-agent.md`](human-hypothesis-before-agent.md)、[`silent-success-needs-negative-test.md`](silent-success-needs-negative-test.md)、[`uncommitted-handoff-needs-ownership-triage.md`](uncommitted-handoff-needs-ownership-triage.md)、[`staged-changes-are-not-ownership.md`](staged-changes-are-not-ownership.md)、[`path-scoped-commit-boundary.md`](path-scoped-commit-boundary.md)、[`multi-session-control-plane-needs-ledger.md`](multi-session-control-plane-needs-ledger.md)、[`foreign-agent-summary-boundary.md`](foreign-agent-summary-boundary.md) 和 [`large-dirty-diff-needs-intake-receipt.md`](large-dirty-diff-needs-intake-receipt.md),先分清启动前改动、日切换新快照、多 repo 状态矩阵、生成产物启动分诊、自己的可证伪假设、静默成功风险、staged path、路径级提交边界、多会话 owned paths、其他 agent summary 边界、大 dirty diff 接收回执、可接管 path,再决定本轮文件范围。
 3. **提交证据线**:读 [`commit-scope-ledger-prevents-mixed-ownership.md`](commit-scope-ledger-prevents-mixed-ownership.md)、[`verification-side-effects-need-quarantine.md`](verification-side-effects-need-quarantine.md)、[`dirty-workspace-exit-checklist.md`](dirty-workspace-exit-checklist.md)、[`report-from-committed-state.md`](report-from-committed-state.md) 和 [`evidence-field-handoff-prevents-release-drift.md`](evidence-field-handoff-prevents-release-drift.md),最终报告从已提交状态读回 hash,同时写清验证副作用和排除边界；如果本轮是文档/索引/配置小改，先用 [`../../samples/ai-agent-proof-checker-one-pager.md`](../../samples/ai-agent-proof-checker-one-pager.md) 设计轻量 preflight，再用 [`../../samples/ai-agent-next-safe-command-ladder-one-pager.md`](../../samples/ai-agent-next-safe-command-ladder-one-pager.md) 把验证清单改写为“当前最大风险 -> 下一条安全命令 -> pass/fail 语义”的命令梯；收尾前可用 [`../../samples/ai-agent-final-report-field-quickref.md`](../../samples/ai-agent-final-report-field-quickref.md) 核对固定字段。若跨阶段报告字段正在漂移，先用证据字段 handoff 卡确认字段生产者、补齐者和消费者，再复制 [`../../samples/ai-agent-evidence-field-handoff-one-pager.md`](../../samples/ai-agent-evidence-field-handoff-one-pager.md) 填字段表和检查片段；若验证失败或无法执行，用 [`../../samples/ai-agent-verification-failure-handoff-template.md`](../../samples/ai-agent-verification-failure-handoff-template.md) 交接失败证据；若只是存在未覆盖边界，用 [`../../samples/ai-agent-unverified-handoff-one-pager.md`](../../samples/ai-agent-unverified-handoff-one-pager.md) 把已验证事实、未验证项、结论措辞和下一步第一条动作拆开。
 
 
@@ -58,6 +58,7 @@
 | 13 | 所有权边界 | 单独识别启动前 staged path,不把 index 状态误当授权;状态证据必须进入最终报告 | [`staged-changes-are-not-ownership.md`](staged-changes-are-not-ownership.md) |
 | 14 | 所有权边界 | 用提交范围台账防止混入未知归属;台账包含状态证据列 | [`commit-scope-ledger-prevents-mixed-ownership.md`](commit-scope-ledger-prevents-mixed-ownership.md) |
 | 14a | 所有权边界 | 多会话并行前先登记 Session / Permission / Evidence / Handoff 台账 | [`multi-session-control-plane-needs-ledger.md`](multi-session-control-plane-needs-ledger.md) |
+| 14b | 所有权边界 | 共享 summary repo 里先识别其他 agent 目录，不要把 foreign-agent notebook 混进本轮提交 | [`foreign-agent-summary-boundary.md`](foreign-agent-summary-boundary.md) |
 | 15 | 所有权边界 | 大 dirty diff 先写接收回执,不要把局部小修混进未知归属的大改写 | [`large-dirty-diff-needs-intake-receipt.md`](large-dirty-diff-needs-intake-receipt.md) |
 | 15a | 所有权边界 | 格式 churn 先剥离,不要把语义改动埋进全章重排 | [`format-churn-needs-semantic-split.md`](format-churn-needs-semantic-split.md) |
 | 15b | 所有权边界 | 附录模板增强先对齐邻近模板,不要让权限、证据和回退字段只出现在一个入口 | [`appendix-template-changes-need-neighbor-sync.md`](appendix-template-changes-need-neighbor-sync.md) |
@@ -142,6 +143,7 @@
 | 路径级提交边界防止混入继承 dirty | [`path-scoped-commit-boundary.md`](path-scoped-commit-boundary.md) |
 | 提交范围台账防止混入未知归属 | [`commit-scope-ledger-prevents-mixed-ownership.md`](commit-scope-ledger-prevents-mixed-ownership.md) |
 | 多会话控制台先建台账，不要让 Agent 会话互相抢方向 | [`multi-session-control-plane-needs-ledger.md`](multi-session-control-plane-needs-ledger.md) |
+| 其他 Agent Summary 边界先于提交范围 | [`foreign-agent-summary-boundary.md`](foreign-agent-summary-boundary.md) |
 | 附录模板增强需要同步相邻模板，不要只改一个入口 | [`appendix-template-changes-need-neighbor-sync.md`](appendix-template-changes-need-neighbor-sync.md) |
 | 双向导航闭合发布资产，不要只从 README 单向指路 | [`bidirectional-navigation-closes-release-assets.md`](bidirectional-navigation-closes-release-assets.md) |
 | 阻断原因先做索引，不要继续扩模板 | [`block-reason-index-precedes-template-sprawl.md`](block-reason-index-precedes-template-sprawl.md) |
