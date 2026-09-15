@@ -21,8 +21,9 @@
 | 薄 API/controller/middleware 已有 integration 200，但短路、校验、404/409 或错误转发没被锁住 | `books/tech-cards-handbook/chapters/ai-agent/thin-api-tests-target-control-flow-not-200.md` | 先补控制流与下游不调用断言；如果只剩 200 happy path 就停止 |
 | 评估报告、发布报告和安全门禁之间字段名开始漂移 | [`ai-agent-evidence-field-handoff-one-pager.md`](ai-agent-evidence-field-handoff-one-pager.md) | 先填字段生产者/补齐者/消费者表，再区分“字段名一致”和“真实流水线已跑通” |
 | 本轮产物是 zip、静态页、清单或模板包，担心页面锚点、staging 残留、归档契约或 tracked artifact 漂移 | 先读 `books/tech-cards-handbook/chapters/ai-agent/README.md` 的“交付工程化线索” | 把交付检查拆成页面结构、临时输出、归档内容和已追踪生成物四层 |
+| `summaries/`、共享 notebook 或多 agent 仓库里出现其他 agent 的未跟踪记录，担心误 stage 或替对方提交 | `books/tech-cards-handbook/chapters/ai-agent/foreign-agent-summary-boundary.md` | 把它标成 `foreign-summary`：只读观察、写入本轮未接管边界，不进入本轮 stage 列表 |
 
-判断口径：先问“我要降低哪一个风险”，再选模板；不要因为模板已经存在就机械补齐。若当前风险是命令失败或未覆盖边界，优先使用失败吸收、验证失败交接或未验证项交接模板，而不是继续升级 preflight。
+判断口径：先问“我要降低哪一个风险”，再选模板；不要因为模板已经存在就机械补齐。若当前风险是命令失败或未覆盖边界，优先使用失败吸收、验证失败交接或未验证项交接模板，而不是继续升级 preflight；若当前风险是跨 agent notebook 或共享 summary 仓库污染，先收紧提交范围，而不是继续补验证命令。
 
 ---
 
@@ -215,6 +216,7 @@
 - 未提交文件可能来自用户、另一个 Agent、失败生成物或上一轮未提交产物，不是天然可接管工作区。
 - 只有 `known-own` 可以直接 stage；`previous-agent` 也要先重新验证，再 path-limited staging。
 - `user-or-unknown` 不要为了完成接力而改写或提交；应记录未接管边界，换一个 clean 小任务。
+- `foreign-summary`（例如共享 `summaries/` repo 里其他 agent 的 notebook）只能只读观察、写入排除边界；不能代写、改写、提交或清理。
 - 最终报告必须保留状态证据：启动快照、收尾 `git status --short`、项目 repo 与 `summaries` repo 各自的 commit hash。
 
 **坑**：看到上一轮写“继续 Day 3”，又看到同名 dirty 文件，就直接 `git add docs/` 提交。
@@ -237,10 +239,11 @@
 **示例**：
 
 ```text
-repo       path                                      启动状态       本轮动作        是否提交  验证证据                  状态证据
-books      tech-cards-handbook/samples/...          clean          新增样本段落    是        diff --check + 关键词断言  启动/收尾 status clean
-docs       documents/awesome/ai/agent.md            dirty/unknown  只读观察        否        启动快照                  收尾仍 dirty，未 stage
-loom       docs/PLANS.md                            staged/unknown  未接管          否        启动快照 + index 快照      收尾仍 staged/unknown
+repo       path                                      启动状态          本轮动作        是否提交  验证证据                  状态证据
+books      tech-cards-handbook/samples/...          clean             新增样本段落    是        diff --check + 关键词断言  启动/收尾 status clean
+docs       documents/awesome/ai/agent.md            dirty/unknown     只读观察        否        启动快照                  收尾仍 dirty，未 stage
+summaries  openclaw/2026-09-15.md                   foreign-summary   只读观察        否        启动快照                  收尾仍未跟踪，未 stage
+loom       docs/PLANS.md                            staged/unknown    未接管          否        启动快照 + index 快照      收尾仍 staged/unknown
 ```
 
 **坑**：只在脑中记得“我没碰那些文件”，但 stage 时使用 `git add .` 或 `git add docs/`；最终报告只写本轮 commit，不写被排除的 dirty path。
