@@ -14,12 +14,14 @@ workspace root：当前目录是否是 git repo
 启动前 dirty path：路径 + 初步归属标签
 ```
 
-归属标签只用四类：
+归属标签只用六类：
 
 - `known-own`：本轮已经明确创建或修改，可以继续验证并 stage。
 - `previous-agent`：上一轮留下且有 notebook / diff / commit 证据，需要重新验证后才能 stage。
 - `user-or-unknown`：来源不明或可能是用户改动，不要改写、不要提交。
 - `generated/noise`：缓存、构建产物或临时文件，除非任务要求，否则不要纳入成果。
+- `foreign-summary`：共享 `summaries/` repo 中其他 agent 目录的 notebook，只能只读观察，不能代写、清理或提交。
+- `staged/unknown`：启动前已经在 index 里的 path，必须单独记录，不能把 staged 状态当作授权。
 
 ## 2. 规划取舍
 
@@ -39,9 +41,10 @@ workspace root：当前目录是否是 git repo
 2. 如果当前运行在无人值守环境，不能等待澄清；写出默认解释，选择低风险、可验证、可回滚的小动作。
 3. 如果接力 path 是 `known-own` 或证据充分的 `previous-agent`，先验证再推进。
 4. 如果启动前已有 staged path，单独标记为 `staged/unknown`，不要把 index 状态当作授权。
-5. 如果接力 path 是 `user-or-unknown`，记录未接管边界，换 clean repo 的独立小任务。
-6. 如果没有合适代码任务，优先沉淀可复用资产：`books/...`、`docs/...`、`skills/skills/...`。
-7. 不要把“写 notebook”当成本轮成果；notebook 只记录成果和边界。
+5. 如果共享 `summaries/` repo 出现其他 agent 目录，例如 `summaries/openclaw/...`，标记为 `foreign-summary`：可在 Hermes notebook 里记录为未接管边界，但不要 stage、删除或替对方提交。
+6. 如果接力 path 是 `user-or-unknown`，记录未接管边界，换 clean repo 的独立小任务。
+7. 如果没有合适代码任务，优先沉淀可复用资产：`books/...`、`docs/...`、`skills/skills/...`。
+8. 不要把“写 notebook”当成本轮成果；notebook 只记录成果和边界。
 
 ## 3. 执行与验证
 
@@ -84,9 +87,12 @@ workspace root：当前目录是否是 git repo
       '收尾再读一次 git status --short',
       '失败当成背景噪音',
       '改变范围、顺序、目标或交接',
+      'foreign-summary',
+      '不能把 staged 状态当作授权',
+      '不要 stage、删除或替对方提交',
   ]
   assert all(x in text for x in required)
-  assert '绝对路径前缀' not in text
+  assert '/' + 'Users/' not in text
   PY
 提交：
 - git -C books add -- tech-cards-handbook/samples/ai-agent-dirty-workspace-one-pager.md
@@ -151,7 +157,9 @@ notebook 提交：summaries 5d6e7f8 Record Hermes heartbeat
 - `books/tech-cards-handbook/chapters/ai-agent/unattended-agent-chooses-default-action.md`
 - `books/tech-cards-handbook/chapters/ai-agent/failure-output-must-change-plan.md`
 - `books/tech-cards-handbook/chapters/ai-agent/uncommitted-handoff-needs-ownership-triage.md`
+- `books/tech-cards-handbook/chapters/ai-agent/generated-artifact-startup-triage.md`
 - `books/tech-cards-handbook/chapters/ai-agent/staged-changes-are-not-ownership.md`
+- `books/tech-cards-handbook/chapters/ai-agent/foreign-agent-summary-boundary.md`
 - `books/tech-cards-handbook/chapters/ai-agent/commit-scope-ledger-prevents-mixed-ownership.md`
 - `books/tech-cards-handbook/chapters/ai-agent/dirty-workspace-exit-checklist.md`
 - `books/tech-cards-handbook/chapters/ai-agent/verify-before-optimistic-summary.md`
