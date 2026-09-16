@@ -22,7 +22,7 @@
 | 完整 dirty workspace 接力：周期性唤醒的 Agent 面对 dirty workspace，需要完整 prompt、证据表和最终报告字段 | [`ai-agent-sample-pack.md`](ai-agent-sample-pack.md) | 10 张精选卡片建立最小闭环，附录和配套模板补足执行输入 |
 | 只需要一页纸启动一次 dirty workspace 接力 | [`ai-agent-dirty-workspace-one-pager.md`](ai-agent-dirty-workspace-one-pager.md) | 压缩启动快照、归属判断、path-limited 推进和收尾报告 |
 | 上一轮点名的目标文件在启动快照里已经 dirty，担心把接力点误当授权 | [`ai-agent-dirty-workspace-one-pager.md`](ai-agent-dirty-workspace-one-pager.md) 的“规划取舍”和 [`../chapters/ai-agent/dirty-target-file-blocks-continuation.md`](../chapters/ai-agent/dirty-target-file-blocks-continuation.md) | 先记录 `blocked continuation`、排除 path 和回归条件，再切到 clean replacement；不要因为它是接力点就顺手修 |
-| 共享 `summaries/` 里出现其他 agent notebook，担心 `git add .` 误提交或替对方整理 | [`ai-agent-sample-pack.md`](ai-agent-sample-pack.md) 的“验证入口速记”和卡片 8、9 | 先标成 `foreign-summary`，只读观察并写入本轮未接管边界；不要 stage、删除、改写或代提交 |
+| 共享 `summaries/` 里出现其他 agent notebook，担心 `git add .` 误提交或替对方整理 | [`ai-agent-sample-pack.md`](ai-agent-sample-pack.md) 的“验证入口速记”和卡片 8、9；提交前回到 [`../chapters/ai-agent/foreign-agent-summary-boundary.md`](../chapters/ai-agent/foreign-agent-summary-boundary.md) | 先标成 `foreign-summary`，只读观察并写入本轮未接管边界；不要 stage、删除、改写或代提交；提交 notebook 前用 `git diff --cached --name-only` 确认 staged list 只允许 `hermes/YYYY-MM-DD.md` |
 | 命令失败、测试失败或前置条件失败后需要改计划 | [`ai-agent-failure-absorption-one-pager.md`](ai-agent-failure-absorption-one-pager.md) | 把失败写成“信号 -> 影响 -> 证据位置”，再决定范围、顺序、目标或交接如何变化 |
 | 轻量 proof：小改动需要先证明基础契约，再决定是否跑重型构建 | [`ai-agent-proof-checker-one-pager.md`](ai-agent-proof-checker-one-pager.md) | 设计轻量 preflight 的风险边界、命令顺序和 notebook 句式 |
 | 全量 proof：想把 checker 升级成 AGENTS/preflight/CI 候选 | [`ai-agent-full-proof-baseline-one-pager.md`](ai-agent-full-proof-baseline-one-pager.md) | 先建立红绿基线、分类失败项，再决定是否升级为常规必跑项 |
