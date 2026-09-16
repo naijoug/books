@@ -57,6 +57,7 @@ workspace root：当前目录是否是 git repo
 台账：列出 repo / path / 启动状态 / 本轮动作 / 是否提交 / 验证证据 / 状态证据。
 验证：至少做 diff --check；能结构断言就用脚本断言关键词、链接、计数和绝对路径。
 提交：只 stage 本轮路径，不使用 git add .；提交前用 git diff --cached --name-status 对照台账，并保留提交前 index 快照。
+共享 notebook：在 `summaries/` 提交 Hermes notebook 前，先用 `git diff --cached --name-only` 确认 staged list 只包含 `hermes/YYYY-MM-DD.md`；若出现 `openclaw/...` 等其他 agent path，立刻 unstage 并写入 `foreign-summary` 未接管边界。
 读回：提交后 rev-parse --short HEAD；收尾再读一次 git status --short，区分本轮成果和未接管边界。
 ```
 
@@ -82,6 +83,9 @@ workspace root：当前目录是否是 git repo
       'path-limited',
       '未接管边界',
       'git diff --cached --name-status',
+      'git diff --cached --name-only',
+      'hermes/YYYY-MM-DD.md',
+      'openclaw/...',
       'rev-parse --short HEAD',
       'repo / path / 启动状态 / 本轮动作 / 是否提交 / 验证证据 / 状态证据',
       '提交前 index 快照',
