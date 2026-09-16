@@ -1,6 +1,6 @@
 # AI Agent 系统实践卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护，共 89 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护，共 90 张。文件名使用英文 `kebab-case`。
 
 本目录收录 Agent 系统设计、运行边界、工具、记忆、反馈判断、反馈池和心跳工作流等实践卡片;具体 SDK 或语言实现优先放入对应技术栈目录。
 
@@ -26,7 +26,7 @@
 如果只想马上减少一次心跳接力的事故率,先按三条线读,不要从全部卡片顺序扫完:
 
 1. **失败吸收线**:读 [`failure-output-must-change-plan.md`](failure-output-must-change-plan.md),再用 [`../../samples/ai-agent-failure-absorption-one-pager.md`](../../samples/ai-agent-failure-absorption-one-pager.md) 记录`信号 -> 影响 -> 证据位置`,确认失败是否改变了范围、顺序、目标或交接。
-2. **dirty workspace 线**:读 [`startup-snapshot-before-planning.md`](startup-snapshot-before-planning.md)、[`day-rollover-needs-fresh-snapshot.md`](day-rollover-needs-fresh-snapshot.md)、[`multi-repo-status-matrix-before-task-selection.md`](multi-repo-status-matrix-before-task-selection.md)、[`generated-artifact-startup-triage.md`](generated-artifact-startup-triage.md)、[`human-hypothesis-before-agent.md`](human-hypothesis-before-agent.md)、[`silent-success-needs-negative-test.md`](silent-success-needs-negative-test.md)、[`uncommitted-handoff-needs-ownership-triage.md`](uncommitted-handoff-needs-ownership-triage.md)、[`staged-changes-are-not-ownership.md`](staged-changes-are-not-ownership.md)、[`path-scoped-commit-boundary.md`](path-scoped-commit-boundary.md)、[`multi-session-control-plane-needs-ledger.md`](multi-session-control-plane-needs-ledger.md)、[`foreign-agent-summary-boundary.md`](foreign-agent-summary-boundary.md) 和 [`large-dirty-diff-needs-intake-receipt.md`](large-dirty-diff-needs-intake-receipt.md),先分清启动前改动、日切换新快照、多 repo 状态矩阵、生成产物启动分诊、自己的可证伪假设、静默成功风险、staged path、路径级提交边界、多会话 owned paths、其他 agent summary 边界、大 dirty diff 接收回执、可接管 path,再决定本轮文件范围。
+2. **dirty workspace 线**:读 [`startup-snapshot-before-planning.md`](startup-snapshot-before-planning.md)、[`day-rollover-needs-fresh-snapshot.md`](day-rollover-needs-fresh-snapshot.md)、[`multi-repo-status-matrix-before-task-selection.md`](multi-repo-status-matrix-before-task-selection.md)、[`generated-artifact-startup-triage.md`](generated-artifact-startup-triage.md)、[`dirty-target-file-blocks-continuation.md`](dirty-target-file-blocks-continuation.md)、[`human-hypothesis-before-agent.md`](human-hypothesis-before-agent.md)、[`silent-success-needs-negative-test.md`](silent-success-needs-negative-test.md)、[`uncommitted-handoff-needs-ownership-triage.md`](uncommitted-handoff-needs-ownership-triage.md)、[`staged-changes-are-not-ownership.md`](staged-changes-are-not-ownership.md)、[`path-scoped-commit-boundary.md`](path-scoped-commit-boundary.md)、[`multi-session-control-plane-needs-ledger.md`](multi-session-control-plane-needs-ledger.md)、[`foreign-agent-summary-boundary.md`](foreign-agent-summary-boundary.md) 和 [`large-dirty-diff-needs-intake-receipt.md`](large-dirty-diff-needs-intake-receipt.md),先分清启动前改动、日切换新快照、多 repo 状态矩阵、生成产物启动分诊、目标文件 dirty 是否阻断接力、自己的可证伪假设、静默成功风险、staged path、路径级提交边界、多会话 owned paths、其他 agent summary 边界、大 dirty diff 接收回执、可接管 path,再决定本轮文件范围。
 3. **提交证据线**:读 [`commit-scope-ledger-prevents-mixed-ownership.md`](commit-scope-ledger-prevents-mixed-ownership.md)、[`verification-side-effects-need-quarantine.md`](verification-side-effects-need-quarantine.md)、[`dirty-workspace-exit-checklist.md`](dirty-workspace-exit-checklist.md)、[`report-from-committed-state.md`](report-from-committed-state.md) 和 [`evidence-field-handoff-prevents-release-drift.md`](evidence-field-handoff-prevents-release-drift.md),最终报告从已提交状态读回 hash,同时写清验证副作用和排除边界；如果本轮是文档/索引/配置小改，先用 [`../../samples/ai-agent-proof-checker-one-pager.md`](../../samples/ai-agent-proof-checker-one-pager.md) 设计轻量 preflight，再用 [`../../samples/ai-agent-next-safe-command-ladder-one-pager.md`](../../samples/ai-agent-next-safe-command-ladder-one-pager.md) 把验证清单改写为“当前最大风险 -> 下一条安全命令 -> pass/fail 语义”的命令梯；收尾前可用 [`../../samples/ai-agent-final-report-field-quickref.md`](../../samples/ai-agent-final-report-field-quickref.md) 核对固定字段。若跨阶段报告字段正在漂移，先用证据字段 handoff 卡确认字段生产者、补齐者和消费者，再复制 [`../../samples/ai-agent-evidence-field-handoff-one-pager.md`](../../samples/ai-agent-evidence-field-handoff-one-pager.md) 填字段表和检查片段；若验证失败或无法执行，用 [`../../samples/ai-agent-verification-failure-handoff-template.md`](../../samples/ai-agent-verification-failure-handoff-template.md) 交接失败证据；若只是存在未覆盖边界，用 [`../../samples/ai-agent-unverified-handoff-one-pager.md`](../../samples/ai-agent-unverified-handoff-one-pager.md) 把已验证事实、未验证项、结论措辞和下一步第一条动作拆开。
 
 
@@ -44,6 +44,7 @@
 | 3a | 唤醒与事实 | 跨零点后重开今天 notebook 并重跑 repo 快照 | [`day-rollover-needs-fresh-snapshot.md`](day-rollover-needs-fresh-snapshot.md) |
 | 3b | 唤醒与事实 | 多 repo 先分 clean / owned-dirty / unknown-dirty / summary-only，再选任务 | [`multi-repo-status-matrix-before-task-selection.md`](multi-repo-status-matrix-before-task-selection.md) |
 | 3c | 唤醒与事实 | 启动前生成目录先分 generated-noise / owned-output / unknown-dirty，再决定是否接管工程 repo | [`generated-artifact-startup-triage.md`](generated-artifact-startup-triage.md) |
+| 3d | 唤醒与事实 | 上一轮目标文件启动前已 dirty 时，先只读 intake 并切到 clean replacement | [`dirty-target-file-blocks-continuation.md`](dirty-target-file-blocks-continuation.md) |
 | 4 | 规划与取舍 | 从候选工作中做取舍 | [`planning-selects-work-not-just-summary.md`](planning-selects-work-not-just-summary.md) |
 | 5 | 规划与取舍 | 把上一轮接力点当作信号,而不是自动义务 | [`continuation-is-signal-not-obligation.md`](continuation-is-signal-not-obligation.md) |
 | 6 | 规划与取舍 | 先写可证伪的人类假设,再让 Agent 生成或修改 | [`human-hypothesis-before-agent.md`](human-hypothesis-before-agent.md) |
@@ -131,6 +132,7 @@
 | 日切换需要新快照，不要继承昨天的授权 | [`day-rollover-needs-fresh-snapshot.md`](day-rollover-needs-fresh-snapshot.md) |
 | 多 repo 状态矩阵先于任务选择,不要把 unknown dirty 或 summary-only 当默认工作 | [`multi-repo-status-matrix-before-task-selection.md`](multi-repo-status-matrix-before-task-selection.md) |
 | 生成产物启动分诊先于工作选择 | [`generated-artifact-startup-triage.md`](generated-artifact-startup-triage.md) |
+| 目标文件 dirty 会阻断接力，不要把接力点当接管授权 | [`dirty-target-file-blocks-continuation.md`](dirty-target-file-blocks-continuation.md) |
 | 规划要选择工作,不要只复述状态 | [`planning-selects-work-not-just-summary.md`](planning-selects-work-not-just-summary.md) |
 | 交接必须写下一步动作,不要只写状态 | [`handoff-must-name-next-action.md`](handoff-must-name-next-action.md) |
 | 先写人类假设，再让 Agent 动手 | [`human-hypothesis-before-agent.md`](human-hypothesis-before-agent.md) |
