@@ -298,7 +298,7 @@ loom       docs/PLANS.md                            staged/unknown    未接管 
 
 ## 附录：dirty workspace 心跳交接输入样例
 
-当 Agent 被周期性唤醒、workspace 里已经有多个 repo 处于 dirty 状态时，不要把“继续上次接力点”当作自动义务。先用下面的输入样例约束它完成启动快照、归属判断、path-limited 推进和最终报告边界。如果只需要一页纸版本，使用 `samples/ai-agent-dirty-workspace-one-pager.md`。
+当 Agent 被周期性唤醒、workspace 里已经有多个 repo 处于 dirty 状态时，不要把“继续上次接力点”当作自动义务。先用下面的输入样例约束它完成启动快照、归属判断、path-limited 推进和最终报告边界。如果只需要一页纸版本，使用 `samples/ai-agent-dirty-workspace-one-pager.md`；如果上一轮点名的目标文件已经在启动快照里 dirty，先按 `chapters/ai-agent/dirty-target-file-blocks-continuation.md` 记录 `blocked continuation`、排除 path 和回归条件，再切到 clean replacement，不要因为它是接力点就顺手修。
 
 一页纸里已经包含一个最小记录示例和最终报告模板，覆盖 `git -C books diff --check`、Python 结构断言、`git -C books add --`、`git -C books commit -m`、`rev-parse --short HEAD`、本轮变更文件、启动/收尾 status 证据和启动前 dirty path 的未接管说明。把本附录作为完整 prompt 使用时，建议在执行要求里保留同样的证据链：先验证、再 path-limited stage、记录状态证据、提交后读回 hash、最后按“验证证据 -> 状态证据 -> 已提交状态读回 -> 排除边界”报告未接管边界。
 
@@ -313,6 +313,7 @@ loom       docs/PLANS.md                            staged/unknown    未接管 
 
 决策规则：
 - 接力点只是信号，不是义务；如果接力文件启动前已 dirty，先判断归属。
+- 如果上一轮明确点名的目标文件启动前已 dirty，默认降级为 `blocked continuation`：只读 intake、记录排除 path 和回归条件，然后选择 clean replacement；除非有明确证据证明这是自己本轮可接管的 known-own 改动，否则不 stage、不顺手修。
 - 如果处在 cron、scheduled job、CI 等无人值守环境，不能等待澄清时，要先写出默认解释，再选择低风险、可验证、可回滚的小动作。
 - 如果上一轮验证、测试或命令输出失败，先判断它是否改变本轮范围、顺序、目标或交接；不要一边沿用原计划，一边把失败写成背景噪音。
 - 只有 known-own 或有明确证据可接管的 previous-agent 文件才能 stage。
@@ -363,6 +364,7 @@ notebook 提交：summaries `8c026a9` `Record Hermes heartbeat progress`（提�
 - books/tech-cards-handbook/chapters/ai-agent/startup-snapshot-before-planning.md
 - books/tech-cards-handbook/chapters/ai-agent/planning-selects-work-not-just-summary.md
 - books/tech-cards-handbook/chapters/ai-agent/continuation-is-signal-not-obligation.md
+- books/tech-cards-handbook/chapters/ai-agent/dirty-target-file-blocks-continuation.md
 - books/tech-cards-handbook/chapters/ai-agent/unattended-agent-chooses-default-action.md
 - books/tech-cards-handbook/chapters/ai-agent/failure-output-must-change-plan.md
 - books/tech-cards-handbook/chapters/ai-agent/uncommitted-handoff-needs-ownership-triage.md
