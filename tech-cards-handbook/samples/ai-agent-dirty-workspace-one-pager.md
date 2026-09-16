@@ -40,11 +40,12 @@ workspace root：当前目录是否是 git repo
 1. 如果上一轮验证或命令输出失败，先判断它是否改变范围、顺序、目标或交接；不要把失败当成背景噪音继续原计划。
 2. 如果当前运行在无人值守环境，不能等待澄清；写出默认解释，选择低风险、可验证、可回滚的小动作。
 3. 如果接力 path 是 `known-own` 或证据充分的 `previous-agent`，先验证再推进。
-4. 如果启动前已有 staged path，单独标记为 `staged/unknown`，不要把 index 状态当作授权。
-5. 如果共享 `summaries/` repo 出现其他 agent 目录，例如 `summaries/openclaw/...`，标记为 `foreign-summary`：可在 Hermes notebook 里记录为未接管边界，但不要 stage、删除或替对方提交。
-6. 如果接力 path 是 `user-or-unknown`，记录未接管边界，换 clean repo 的独立小任务。
-7. 如果没有合适代码任务，优先沉淀可复用资产：`books/...`、`docs/...`、`skills/skills/...`。
-8. 不要把“写 notebook”当成本轮成果；notebook 只记录成果和边界。
+4. 如果上一轮明确点名的目标文件在启动快照里已经 dirty，先按 `dirty-target-file-blocks-continuation.md` 降级为只读 intake：记录 blocked continuation、排除 path、回归条件，再切到 clean replacement；不要因为它是接力点就顺手修。
+5. 如果启动前已有 staged path，单独标记为 `staged/unknown`，不要把 index 状态当作授权。
+6. 如果共享 `summaries/` repo 出现其他 agent 目录，例如 `summaries/openclaw/...`，标记为 `foreign-summary`：可在 Hermes notebook 里记录为未接管边界，但不要 stage、删除或替对方提交。
+7. 如果接力 path 是 `user-or-unknown`，记录未接管边界，换 clean repo 的独立小任务。
+8. 如果没有合适代码任务，优先沉淀可复用资产：`books/...`、`docs/...`、`skills/skills/...`。
+9. 不要把“写 notebook”当成本轮成果；notebook 只记录成果和边界。
 
 ## 3. 执行与验证
 
@@ -90,6 +91,11 @@ workspace root：当前目录是否是 git repo
       'foreign-summary',
       '不能把 staged 状态当作授权',
       '不要 stage、删除或替对方提交',
+      'dirty-target-file-blocks-continuation.md',
+      'blocked continuation',
+      '只读 intake',
+      'clean replacement',
+      '不要因为它是接力点就顺手修',
   ]
   assert all(x in text for x in required)
   assert '/' + 'Users/' not in text
@@ -147,11 +153,12 @@ notebook 提交：summaries 5d6e7f8 Record Hermes heartbeat
 
 这组参考卡片按 `chapters/ai-agent/README.md` 的 quick path 排列；一页纸只保留操作清单，遇到边界判断时回到对应卡片补细节。若这是第一次处理“周期性唤醒 + dirty workspace + 多 repo 接力”，先回到 `books/tech-cards-handbook/chapters/ai-agent/README.md` 的“本章四条主线”和“3 分钟读法”：本一页纸主要覆盖运行控制；失败吸收、dirty workspace 归属和提交证据分别帮助判断失败是否改变计划、改动归属是否清晰、最终报告是否受已提交状态约束。
 
-如果需要给另一个 Agent 一份更完整的训练输入，使用 `books/tech-cards-handbook/samples/ai-agent-sample-pack.md`：它当前包含 10 张精选卡片，覆盖心跳、日志资产化、启动快照、规划、接力信号、无人值守默认动作、失败吸收、归属判断、提交范围台账和最终报告边界；本一页纸则只保留执行清单与最小记录示例。
+如果需要给另一个 Agent 一份更完整的训练输入，使用 `books/tech-cards-handbook/samples/ai-agent-sample-pack.md`：它当前包含 10 张精选卡片，覆盖心跳、日志资产化、启动快照、规划、接力信号、无人值守默认动作、失败吸收、归属判断、提交范围台账和最终报告边界；本一页纸则只保留执行清单与最小记录示例。若接力目标本身在启动快照里已经 dirty，先读 `books/tech-cards-handbook/chapters/ai-agent/dirty-target-file-blocks-continuation.md`，把它作为“接力信号”和“归属判断”之间的阻断规则，而不是把样本包升级成机械待办。
 
 - `books/tech-cards-handbook/chapters/ai-agent/heartbeat-workflow-prevents-drift.md`
 - `books/tech-cards-handbook/chapters/ai-agent/work-log-is-reusable-asset.md`
 - `books/tech-cards-handbook/chapters/ai-agent/startup-snapshot-before-planning.md`
+- `books/tech-cards-handbook/chapters/ai-agent/dirty-target-file-blocks-continuation.md`
 - `books/tech-cards-handbook/chapters/ai-agent/planning-selects-work-not-just-summary.md`
 - `books/tech-cards-handbook/chapters/ai-agent/continuation-is-signal-not-obligation.md`
 - `books/tech-cards-handbook/chapters/ai-agent/unattended-agent-chooses-default-action.md`
