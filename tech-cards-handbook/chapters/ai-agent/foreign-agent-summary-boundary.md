@@ -10,7 +10,8 @@
 
 - **先区分 repo 归属与目录归属。** `summaries/` 是共享 repo，但 `summaries/hermes/`、`summaries/openclaw/` 等目录仍有 agent 归属边界。
 - **其他 agent summary 默认只读观察。** 可以在自己的 notebook 里记录它存在、未接管和未提交，但不要打开后修格式、补标题或代写内容。
-- **提交范围必须 path-scoped。** 提交 Hermes notebook 时只 stage `hermes/YYYY-MM-DD.md`；提交前用 `git diff --cached --name-only` 确认没有混入其他 agent 目录。
+- **提交范围必须 path-scoped。** 提交 Hermes notebook 时只 stage `hermes/YYYY-MM-DD.md`；提交前用 `git diff --cached --name-only` 确认 staged list 只包含自己的 notebook path，没有混入其他 agent 目录。
+- **把 staged list 当允许列表，不当提醒列表。** 只要 `git diff --cached --name-only` 出现 `openclaw/...`、其他 agent 目录或任何非本轮 notebook path，就先 unstage，再重跑检查；不要靠 commit message 或最终报告“解释掉”混入的 path。
 - **不要把未跟踪当垃圾。** 其他 agent 的 `?? openclaw/YYYY-MM-DD.md` 可能是刚生成但还没提交的 notebook，不是可以删除的临时文件。
 - **边界要写进接力记录。** 如果其他 agent path 连续多轮出现，下一轮需要知道这是“刻意未接管”，不是漏处理。
 - **只有明确授权才跨目录维护。** 用户要求迁移、合并或修复其他 agent summary 时，才把目标 path 纳入本轮 owned scope，并在 commit message 中写清跨 agent 维护范围。
@@ -80,7 +81,8 @@ git restore --staged openclaw/2026-09-15.md
 
 1. `summaries/` 中其他 agent 目录的 dirty path 是否已经被标注为 foreign-agent summary，而不是 owned path？
 2. 本轮是否只修改自己的 notebook 或明确授权的 summary maintenance 文件？
-3. `git diff --cached --name-only` 是否只包含本轮 owned paths？
-4. Hermes notebook 是否写清“未接管、不改写、不提交”的边界？
-5. 最终报告是否列出未接管的其他 agent summary path，避免用户误解为遗漏？
-6. 若确实跨 agent 维护，是否有用户授权、启动快照和 commit message 说明？
+3. `git diff --cached --name-only` 是否只包含本轮 owned paths，且提交 Hermes notebook 时是否只包含 `hermes/YYYY-MM-DD.md`？
+4. 如果 staged list 出现 `openclaw/...` 或其他非本轮 notebook path，是否已经 unstage 并重跑检查？
+5. Hermes notebook 是否写清“未接管、不改写、不提交”的边界？
+6. 最终报告是否列出未接管的其他 agent summary path，避免用户误解为遗漏？
+7. 若确实跨 agent 维护，是否有用户授权、启动快照和 commit message 说明？
