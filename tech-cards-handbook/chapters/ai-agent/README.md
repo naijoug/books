@@ -1,6 +1,6 @@
 # AI Agent 系统实践卡片
 
-本目录按"一张卡片一个 Markdown 文件"维护，共 90 张。文件名使用英文 `kebab-case`。
+本目录按"一张卡片一个 Markdown 文件"维护，共 91 张。文件名使用英文 `kebab-case`。
 
 本目录收录 Agent 系统设计、运行边界、工具、记忆、反馈判断、反馈池和心跳工作流等实践卡片;具体 SDK 或语言实现优先放入对应技术栈目录。
 
@@ -10,7 +10,7 @@
 
 ## 本章四条主线
 
-本章 90 张卡片帮助 AI 时代的程序员用 agent 工作流提升验证力，围绕四条主线展开：
+本章 91 张卡片帮助 AI 时代的程序员用 agent 工作流提升验证力，围绕四条主线展开：
 
 | 主线 | 解决的问题 | 入口 |
 |---|---|---|
@@ -184,6 +184,7 @@
 | 先跑 30 分钟路线，不要先产品化 | [`thirty-minute-route-before-productizing.md`](thirty-minute-route-before-productizing.md)；路线收口可复用 [`../../samples/ai-agent-audit-report-one-pager.md`](../../samples/ai-agent-audit-report-one-pager.md) |
 | 外部发布先要授权，不要把草稿当成发布许可 | [`external-publish-needs-authorization.md`](external-publish-needs-authorization.md)；可复制授权包见 [`../../samples/ai-agent-external-publish-authorization-one-pager.md`](../../samples/ai-agent-external-publish-authorization-one-pager.md) |
 | 发布闸门先字段化，不要让 `--push` 读取散文结论 | [`publish-gate-fields-before-push.md`](publish-gate-fields-before-push.md) |
+| 已部署不等于公开 GO，不要把 production 状态写成发布许可 | [`deployed-is-not-public-go.md`](deployed-is-not-public-go.md) |
 | 无真实链接时先验证需求，不要伪造发布入口 | [`no-link-validation-before-launch.md`](no-link-validation-before-launch.md) |
 | 真实样例先于模板扩张，不要在无外部证据时继续堆产品表面 | [`external-evidence-before-template-expansion.md`](external-evidence-before-template-expansion.md) |
 | 发布反馈先看证据形状，不要只看互动量 | [`publish-feedback-needs-evidence-shape.md`](publish-feedback-needs-evidence-shape.md)；从报告到案例的发布决策见 [`../../samples/ai-agent-case-publishing-ladder-one-pager.md`](../../samples/ai-agent-case-publishing-ladder-one-pager.md) |
