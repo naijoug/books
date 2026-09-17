@@ -13,7 +13,7 @@
 - **验证证据**：写真实命令和结果摘要；失败或未覆盖时，引用未验证项而不是改写成“通过”。
 - **状态证据**：写启动和收尾 `git status --short` 摘要；如果有启动前 dirty path，说明是否仍未接管。
 - **已提交状态读回**：提交后用 `git -C <repo> log -1 --oneline` 读回 hash 和 subject，不从计划或记忆里抄。
-- **排除边界**：列出本轮没有接管、没有 stage、没有验证的相对路径；为空也写 `无`，并说明依据。共享 `summaries/` 中其他 agent 的 notebook 要显式标成 `foreign-summary`，不能被写成“顺手提交”。
+- **排除边界**：列出本轮没有接管、没有 stage、没有验证的相对路径；为空也写 `无`，并说明依据。共享 `summaries/` 中其他 agent 的 notebook 要显式标成 `foreign-summary`，不能被写成“顺手提交”；提交 notebook 前用 `git diff --cached --name-only` 读回 staged list，只允许自己的 `hermes/YYYY-MM-DD.md`。
 - **下一段接力**：给下一轮第一条动作和验证目的地，不只写“继续完善”。
 
 在写这些字段前，先把素材分成三层：
