@@ -20,6 +20,7 @@ Dirty workspace 不是不能工作，但必须把“启动前状态、本轮范�
   - 未验证项：不写成已完成，只写后续接力。
 - **提交前 index 快照要单独留存**：在 `git add -- <本轮路径>` 之后、`git commit` 之前，读一次 `git diff --cached --name-status`；它回答“这次提交到底会带走哪些 path”，不能用工作区的 dirty 列表替代。
 - **项目 repo 与 notebook repo 分开读回**：项目成果提交后读回项目 repo 的 `rev-parse --short HEAD` 和 `git status --short`；写入 `summaries/` 后再读回 `summaries` 的提交。最终报告固定写标准字段 `项目提交` 与 `notebook 提交`，不要把 notebook 提交当成项目成果，也不要把项目提交当成 notebook 已落盘。
+- **summary repo 要做 allowlist 守卫**：在 `summaries/` 提交 Hermes notebook 时，不只看 `git status --short`；`git add -- hermes/YYYY-MM-DD.md` 后必须读回 `git diff --cached --name-only`，且 staged list 只能包含自己的 notebook。若出现 `openclaw/...` 或其他 agent 目录，先 unstage，再把它作为 `foreign-summary` 未接管边界写进记录。
 - **最终报告要同时列完成项、状态证据和排除项**：报告中至少包含项目 repo 与 `summaries` repo 各自的 commit hash、变更文件、验证命令、启动/提交前/收尾 `git status --short` 或 index 快照摘要，以及仍未接管的 dirty path 类别；可直接套用 [`final-report-names-excluded-boundaries.md`](final-report-names-excluded-boundaries.md) 里的最终响应模板。
 - **notebook 不是成果替代物**：工作记录只说明决策和证据；真正成果应该在书稿、文档、代码、技能或项目文件里落地，并经过验证。
 
@@ -53,6 +54,7 @@ Dirty workspace 不是不能工作，但必须把“启动前状态、本轮范�
 - git -C books rev-parse --short HEAD
 - git -C books status --short
 - git -C summaries add -- hermes/YYYY-MM-DD.md
+- git -C summaries diff --cached --name-only  # 只允许 hermes/YYYY-MM-DD.md；若出现 openclaw/... 先 unstage 并记录 foreign-summary
 - git -C summaries commit -m "Record Hermes progress for YYYY-MM-DD"
 - git -C summaries rev-parse --short HEAD
 
