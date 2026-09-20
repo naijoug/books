@@ -1,10 +1,8 @@
 # AI Agent 工作流卡片 · 样本包
 
-> 本样本包不是 AI Agent 章节的完整目录，而是一条可复制的 dirty workspace 心跳接力主线：10 张精选卡片负责建立最小闭环，附录和配套模板负责把它落到真实 prompt、验证证据和最终报告字段。
-> 选自《技术卡片随身宝典》AI Agent 系列（共 92 张）。如果只想减少一次无人值守接力的事故率，先按本包顺序走完；如果要扩展到运行控制、验证与证据、所有权与交付、产品化阶梯四条主线，再回到完整章节目录。
-> 第一次使用时，先读 `books/tech-cards-handbook/chapters/ai-agent/README.md` 的“本章四条主线”和“3 分钟读法”，再复制本样本包；这样能先分清本包主要覆盖运行控制与验证证据，哪些所有权、交付和产品化判断要回到完整章节或样本索引补齐，避免把样本当成机械待办。
-> 阅读顺序就是这条链路的决策顺序：心跳/日志资产化/快照 → 规划 → 接力信号 → 无人值守默认动作 → 失败吸收 → 归属边界 → 状态证据 → 验证与报告；样本卡片只保留最小闭环，完整 quick path 和一页纸入口见文末参考卡片与配套模板。
-> 如果你的目标不只是让接力更稳，而是把一次 AI 编程审查转成收入实验，先用本包稳住 dirty workspace，再在文末“收入实验接力”里复制审查报告一页纸和案例发布阶梯；不要把未验证的交付物直接包装成公开战报。
+> 选自《技术卡片随身宝典》AI Agent 系列（共 92 张）。10 张精选卡片提供背景，附录提供可复制输入。先按当前任务选择一段，不要求按顺序读完。
+> 短接力直接使用 [一页纸](ai-agent-dirty-workspace-one-pager.md)；需要完整 prompt 时跳到“附录：dirty workspace 心跳交接输入样例”；其他场景查 [样本索引](README.md)。
+> 示例中的路径、notebook、提交和跨项目切换都须按当前任务授权替换；书中流程不会自动扩大用户的任务范围。
 
 ## 验证入口速记
 
@@ -68,7 +66,7 @@
 
 ```text
 上一段/当前状态：books clean；loom 启动前已有 dirty path，未接管。
-本轮选择：修改 books/.../samples/...，因为它是 clean repo 的低风险文档小块。
+本轮选择：用户本次要求优化 books 样本入口；只修改对应样本，loom 的未知改动与此任务无关。
 验证证据：git diff --check；python3 scripts/verify_tech_cards.py --full-only。
 后续接力：下一轮先检查 samples/README.md 是否需要同步入口文案。
 ```
@@ -119,14 +117,14 @@
 
 - 接力点是优先检查的信号，不是自动执行的命令；新一轮仍要重新评估风险、收益和验证成本。
 - 先问三件事：这件事是否仍然有价值？能否缩成一个低风险小块？本轮能否验证完成？
-- 如果答案不满足，最多尝试缩小一次；仍然过大，就明确切换到更小、更可验证的工作，并在记录中写清切换理由。
+- 任务过大时拆成原目标内可验证的部分持续推进；只有真实环境或授权阻塞才暂停受影响部分，不因困难自动换目标。
 
 **示例**：
 
 ```text
 上一轮接力：给日志过滤增加 next/prev 跳转。
 本轮评估：需要当前匹配索引、DOM refs、滚动定位和键盘语义，验证成本超过本轮节拍。
-决策：暂停 UI 跳转，改为沉淀接力点取舍规则。
+决策：先完成原目标中的匹配状态与边界测试，再接续 DOM 滚动交互；不改做无关规则文档。
 后续接力：若之后有完整 UI 时间，再从滚动定位设计开始。
 ```
 
@@ -143,8 +141,8 @@
 **要点**：
 
 - 先判断歧义是否真的会改变下一条工具调用；不会改变时，采用最安全、最小范围的默认解释继续推进。
-- 默认动作要同时满足三点：低风险、可验证、可回滚；例如只读检查、path-limited 文档改动、聚焦测试。
-- 如果歧义涉及外部副作用、账号权限、删除数据或跨 repo 大改，停止在只读阶段，并把需要用户决策的问题写成下一段接力。
+- 默认动作须在既有授权内，并满足三点：低风险、可验证、可回滚；例如只读检查、path-limited 文档改动、聚焦测试。
+- 缺失授权或信息会改变结果时，暂停受影响的操作并说明缺口；已获授权部分不重复确认，原任务内独立准备继续完成。
 - 最终记录要写出本轮采用的默认解释，而不是假装用户已经确认。
 
 **示例**：
@@ -152,7 +150,7 @@
 ```text
 输入：检查“当前项目”还有什么值得推进。
 环境：workspace 根目录不是 git repo，多个子 repo dirty，用户不在线。
-默认解释：先检查各子 repo 状态；不接管启动前 dirty path；选择 clean repo 中一个独立、可验证的小文档任务。
+默认解释：先检查任务相关路径的 diff 和授权；能保留已有改动时继续，否则只暂停冲突部分，继续原任务内独立工作。
 验证：只对本轮文件跑 git diff --check 和结构断言；提交后读回 hash。
 ```
 
@@ -170,7 +168,7 @@
 
 - 失败输出不是“记录一下就算了”，它必须改变至少一项：范围、顺序、目标或交接。
 - 先判断失败类型：环境失败、前置条件失败、验证失败、边界失败、信息缺口；不同类型对应不同调整。
-- 如果失败来自非本轮改动或边界不清，优先缩小范围或切换到干净 repo，不要用全量命令继续制造噪音。
+- 如果失败来自非本轮改动或边界不清，优先缩小到原任务内可独立验证的部分，不要用全量命令继续制造噪音。
 - 最终报告要写出“失败输出如何改变了本轮计划”，而不只是写“遇到失败但已处理”。
 
 **示例**：
@@ -178,14 +176,14 @@
 ```text
 原计划：继续修改 loom 的日志面板。
 工具输出：git status 显示 loom 已有多处非本轮 UI/设计文件改动。
-计划调整：不碰 loom；切换到干净的 books 写一张独立卡片；最终报告说明 loom dirty 是目标切换原因。
+计划调整：核对 loom 的 diff，只暂停重叠且归属不明的部分；继续原目标内独立测试，报告验证结果和恢复条件。
 ```
 
 ```text
 失败吸收速记：
 - 范围缩小：全量测试失败且落在启动前 dirty 模块 -> 本轮只提交当前文档，把代码测试失败列为未接管边界。
 - 顺序变更：diff --check 失败 -> 先修格式并重跑，再做结构断言和提交。
-- 目标切换：候选 repo 启动前 staged/unknown -> 改选 clean 项目 repo，并在 notebook 写明切换原因。
+- 范围收窄：目标路径 staged/unknown -> 核实归属和授权，保留未知 staged 内容，继续原目标内独立工作。
 - 交接改写：依赖缺失导致验证无法执行 -> 最终报告写未验证项，后续接力给出下一条命令和依赖。
 ```
 
@@ -214,8 +212,8 @@
 **要点**：
 
 - 未提交文件可能来自用户、另一个 Agent、失败生成物或上一轮未提交产物，不是天然可接管工作区。
-- 只有 `known-own` 可以直接 stage；`previous-agent` 也要先重新验证，再 path-limited staging。
-- `user-or-unknown` 不要为了完成接力而改写或提交；应记录未接管边界，换一个 clean 小任务。
+- 只有任务包含提交时才 stage；核对具体 diff 和授权，不能把路径内全部旧改动自动纳入。
+- `user-or-unknown` 先核实已有授权和来源；仍不明确或与当前修改冲突时，只暂停受影响部分，继续原任务内独立工作。
 - `foreign-summary`（例如共享 `summaries/` repo 里其他 agent 的 notebook）只能只读观察、写入排除边界；不能代写、改写、提交或清理。
 - 最终报告必须保留状态证据：启动快照、收尾 `git status --short`、项目 repo 与 `summaries` repo 各自的 commit hash。
 
@@ -298,9 +296,9 @@ loom       docs/PLANS.md                            staged/unknown    未接管 
 
 ## 附录：dirty workspace 心跳交接输入样例
 
-当 Agent 被周期性唤醒、workspace 里已经有多个 repo 处于 dirty 状态时，不要把“继续上次接力点”当作自动义务。先用下面的输入样例约束它完成启动快照、归属判断、path-limited 推进和最终报告边界。如果只需要一页纸版本，使用 `samples/ai-agent-dirty-workspace-one-pager.md`；如果上一轮点名的目标文件已经在启动快照里 dirty，先按 `chapters/ai-agent/dirty-target-file-blocks-continuation.md` 记录 `blocked continuation`、排除 path 和回归条件，再切到 clean replacement，不要因为它是接力点就顺手修。
+当 Agent 被周期性唤醒、workspace 里已经有多个 repo 处于 dirty 状态时，不要把“继续上次接力点”当作自动义务。先用下面的输入样例约束它完成启动快照、归属判断、path-limited 推进和最终报告边界。如果只需要一页纸版本，使用 `samples/ai-agent-dirty-workspace-one-pager.md`；如果上一轮点名的目标文件已经在启动快照里 dirty，先按 `chapters/ai-agent/dirty-target-file-blocks-continuation.md` 确认 diff、归属和授权；能够保留已有改动时继续，只有冲突或归属不明的部分标为 `blocked continuation`。
 
-一页纸里已经包含一个最小记录示例和最终报告模板，覆盖 `git -C books diff --check`、Python 结构断言、`git -C books add --`、`git -C books commit -m`、`rev-parse --short HEAD`、本轮变更文件、启动/收尾 status 证据和启动前 dirty path 的未接管说明。把本附录作为完整 prompt 使用时，建议在执行要求里保留同样的证据链：先验证、再 path-limited stage、记录状态证据、提交后读回 hash、最后按“验证证据 -> 状态证据 -> 已提交状态读回 -> 排除边界”报告未接管边界。
+一页纸包含按任务选择验证的规则、最终报告模板和提交边界；仅在任务包含提交时才 stage/commit。把本附录作为完整 prompt 使用时，建议在执行要求里保留同样的证据链：先验证、再 path-limited stage、记录状态证据、提交后读回 hash、最后按“验证证据 -> 状态证据 -> 已提交状态读回 -> 排除边界”报告未接管边界。
 
 ```text
 你正在一个已有 dirty workspace 的长期任务里工作。
@@ -313,17 +311,17 @@ loom       docs/PLANS.md                            staged/unknown    未接管 
 
 决策规则：
 - 接力点只是信号，不是义务；如果接力文件启动前已 dirty，先判断归属。
-- 如果上一轮明确点名的目标文件启动前已 dirty，默认降级为 `blocked continuation`：只读 intake、记录排除 path 和回归条件，然后选择 clean replacement；除非有明确证据证明这是自己本轮可接管的 known-own 改动，否则不 stage、不顺手修。
+- 目标文件 dirty 时先检查 diff 和授权。归属明确且能保留已有改动时继续；冲突或归属不明时仅对受影响部分做只读 intake，记录 blocked continuation 和恢复条件，继续原任务内独立工作。
 - 如果处在 cron、scheduled job、CI 等无人值守环境，不能等待澄清时，要先写出默认解释，再选择低风险、可验证、可回滚的小动作。
 - 如果上一轮验证、测试或命令输出失败，先判断它是否改变本轮范围、顺序、目标或交接；不要一边沿用原计划，一边把失败写成背景噪音。
-- 只有 known-own 或有明确证据可接管的 previous-agent 文件才能 stage。
-- user-or-unknown、generated/noise、无法解释来源的 dirty path 一律不 stage，只记录未接管边界。
+- 只有任务包含提交时才 stage；核对具体 diff 与授权，不把路径内全部旧改动自动纳入。
+- user-or-unknown 先核实已有授权与来源；仍不明确或与当前修改冲突时才暂停受影响部分。不要擅自提交、清理或 unstage 未知改动。
 - 共享 `summaries/` repo 中其他 agent 目录（例如 `summaries/openclaw/...`）默认标成 `foreign-summary`：只读观察，写入未接管边界，不代写、不清理、不提交。
-- 如果项目 repo 不适合动，选择一个 clean repo 的独立小任务推进。
+- 只有原任务允许跨项目选题时才选择 clean replacement；指定项目受阻时保留原目标，不另建无关卡片。
 
 执行要求：
 1. 先写“上一段/当前状态、候选工作、本轮选择、选择理由、下一段计划”。
-2. 修改文件前检查项目 repo 状态；修改后只对本轮文件做 diff --check 和结构断言。
+2. 修改文件前检查项目 repo 状态；修改后按风险选择相关检查；文案审读与 diff --check，链接/索引用现有 verifier，代码用相关测试；不新增只断言相同文案关键词的检查。
 3. 验证失败时必须回到规划：说明失败改变了什么、缩小了什么，或为什么只作为未验证项交接；如果不知道怎么写交接块，复制 `books/tech-cards-handbook/samples/ai-agent-verification-failure-handoff-template.md`。
 4. 提交时只使用 path-limited staging，不使用 git add .；提交 notebook 前用 `git diff --cached --name-only` 确认只包含自己的 summary path（例如 `summaries/hermes/YYYY-MM-DD.md`）。
 5. 最终报告必须使用标准字段名 `项目提交`、`notebook 提交`，同时列出启动/收尾 `git status --short` 证据，以及未接管 dirty path 的相对路径和原因。

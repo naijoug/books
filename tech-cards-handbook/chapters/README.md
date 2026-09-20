@@ -64,17 +64,9 @@
 
 ### AI Agent dirty workspace 心跳接力
 
-如果问题不是某个语言或代码边界，而是“周期性唤醒的 Agent 要在已有 dirty workspace 里继续工作”，优先从 [`ai-agent/`](ai-agent/) 的快速路径进入，而不是直接翻完整 AI Agent 目录。
+处理已有改动时，先用 [心跳接力一页纸](../samples/ai-agent-dirty-workspace-one-pager.md) 确认目标、归属和本轮范围。只有遇到具体边界问题时，才从 [AI Agent 索引](ai-agent/README.md) 打开对应卡片。
 
-四条主线选入口：运行控制先看启动快照、日切换新快照、多 repo 状态矩阵、生成产物启动分诊、规划取舍、dirty ownership、验证交接和最终报告；验证与证据先看静默成功反向测试、失败输出吸收、expected failure 契约、解析层测试梯、薄 API 控制流测试、standalone runner 自动发现、proof checker、全量基线、统一 preflight、proof 输出可移植、证据字段 handoff 和命令梯；所有权与交付先看未提交/staged 归属、路径级提交边界、提交范围台账、多会话控制台、大 dirty diff 接收回执、格式 churn 与语义 patch 拆分、双向导航闭合、项目切片到资产提取、稳定锚点、打包 staging、smoke test、生成物漂移、外部发布授权、无真实链接验证和发布闸门字段化；产品化阶梯先看固定范围 offer、试点报价卡、证据请求、首份报告、发布反馈、案例分层、AI 辅助 PR 审查路径、真实样例停止条件和公开案例事实分层。样本目录只作为入口判断，不作为待办队列；如果只是想“补齐样本”，先读 [`ai-agent/sample-entry-is-not-todo-queue.md`](ai-agent/sample-entry-is-not-todo-queue.md) 停止机械扩表面；如果一次改动已经新增多个正文、附录或模板入口，先读 [`ai-agent/bidirectional-navigation-closes-release-assets.md`](ai-agent/bidirectional-navigation-closes-release-assets.md) 检查“入口 -> 正文 -> 模板 -> 样例 -> 交接”是否双向闭合。
-
-最短使用顺序：
-
-1. 先把 [`../samples/ai-agent-dirty-workspace-one-pager.md`](../samples/ai-agent-dirty-workspace-one-pager.md) 贴给本轮 Agent，要求它先记录启动快照。
-2. 再按 [`ai-agent/README.md`](ai-agent/README.md) 里的“快速路径：dirty workspace 心跳接力”阅读 26 个步骤：心跳、防漂移、启动快照、日切换新快照、多 repo 状态矩阵、规划取舍、人类假设、无人值守默认动作、外部发布授权、无真实链接验证、静默成功反向测试、失败输出吸收、未提交与 staged 归属、提交范围台账、多会话控制台、大 dirty diff 接收回执、短节拍边界、交付预算、green baseline 后切换资产、验证与未验证项交接、本地 proof checker、全量 proof 基线、统一 preflight wrapper、proof 输出可移植、提交状态读回和最终报告边界。
-3. 如果需要更完整的 prompt、证据表、最终报告字段和配套一页纸模板，再打开 [`../samples/ai-agent-sample-pack.md`](../samples/ai-agent-sample-pack.md) 的 dirty workspace 心跳交接输入样例。
-
-这条路径的输出不是一篇总结，而是一份可接力记录：本轮实际推进了什么、哪些 dirty path 没有接管、验证命令是什么、项目和 notebook 分别提交到了哪个 commit。
+需要选择验证或交接模板时，查 [样本场景索引](../samples/README.md)；需要完整 prompt 时，复制 [样本包](../samples/ai-agent-sample-pack.md) 中对应附录。完成当前任务即可，不要求走完所有模板。
 
 ## 卡片维护规则
 
@@ -91,18 +83,14 @@
 
 ## 索引与链接校验
 
-更新任一 `chapters/<tech-stack>/` 目录、跨技术栈引用、样本包链接或目录 README 链接后，先运行统一 preflight：
-
-```bash
-python3 scripts/verify_tech_cards.py
-```
-
-它会按顺序运行链接 verifier 回归测试、索引 verifier 回归测试、全量链接校验和全量索引校验。索引数字保证入口可信，链接扫描保证读者从任意卡片跳转时不会进入不存在的路径；链接脚本只检查 `tech-cards-handbook/` 内部的本地 Markdown 链接，忽略外链、纯锚点和 fenced code block，目录链接会尝试解析同名 `.md` 与 `README.md`。
-
-只改普通卡片或 README 文案、且没有修改 verifier 脚本时，可用下面的快速模式跳过回归 fixture：
+更新卡片计数、跨卡片引用、样本或目录链接后运行：
 
 ```bash
 python3 scripts/verify_tech_cards.py --full-only
 ```
 
-提交前还要确认 `README.md` 的“当前共 N 张正式卡片”和本文件“技术栈目录”表中的数字都来自同一次统计，避免只更新某个入口。
+它运行全量本地链接、卡片计数和样本索引三项检查。链接检查忽略外链、锚点与 fenced code block，只证明目标文件路径存在；不验证引用内容正确性。纯文案修改审读对应段落并做 `git diff --check -- <paths>` 即可。
+
+修改 verifier 时加跑对应 `scripts/test_verify_*.py`；默认 `python3 scripts/verify_tech_cards.py` 包含链接、卡片计数、样本索引的三组回归及上述三项检查。修改 wrapper 时还需 `python3 scripts/test_verify_tech_cards.py`。语言代码示例另跑对应语言 verifier。
+
+新增或删除卡片时同步书籍 README、技术栈表和该技术栈 README 的计数；使用同一次统计，避免入口之间漂移。

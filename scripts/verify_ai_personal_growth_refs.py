@@ -9,12 +9,13 @@ from __future__ import annotations
 
 import re
 import sys
+from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 BOOK_DIR = ROOT / "ai-personal-growth"
 CHAPTER_DIR = BOOK_DIR / "chapters"
-ACCESS_DATE = "访问日期：2026-07-23"
+ACCESS_DATE_RE = re.compile(r"访问日期[：:]\s*(\d{4}-\d{2}-\d{2})(?![\w-])")
 ABSOLUTE_HOME = "/Users/guojian"
 URL_RE = re.compile(r"https?://[^\s)>）]+")
 MARKDOWN_LINK_RE = re.compile(r"\[[^\]]+\]\(https?://[^)]+\)")
@@ -58,8 +59,15 @@ def check_file(path: Path) -> list[str]:
 
         if not in_refs:
             errors.append(f"{rel}:{lineno}: external URL outside recognized reference/source block")
-        elif ACCESS_DATE not in line:
-            errors.append(f"{rel}:{lineno}: external reference missing {ACCESS_DATE}")
+        else:
+            access_dates = ACCESS_DATE_RE.findall(line)
+            if not access_dates:
+                errors.append(f"{rel}:{lineno}: external reference missing access date (访问日期：YYYY-MM-DD)")
+            for value in access_dates:
+                try:
+                    date.fromisoformat(value)
+                except ValueError:
+                    errors.append(f"{rel}:{lineno}: invalid access date: {value}")
     return errors
 
 
@@ -83,7 +91,7 @@ def main() -> int:
             print(f"- {error}", file=sys.stderr)
         return 1
 
-    print(f"ai-personal-growth reference verification ok: {len(files)} chapter file(s)")
+    print(f"ai-personal-growth reference format verification ok: {len(files)} chapter file(s); facts and URL availability not checked")
     return 0
 
 

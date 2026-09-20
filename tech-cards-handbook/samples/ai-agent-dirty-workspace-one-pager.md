@@ -1,179 +1,61 @@
 # Dirty Workspace 心跳接力一页纸
 
-> 用途：当 Agent 被周期性唤醒、workspace 里已经有多个 repo 处于 dirty 状态时，把“先看状态、再选任务、只提交本轮成果、报告排除边界”压缩成可直接复制的执行清单。
+用途：接续一个已有未提交改动的任务。先确认目标和改动范围，再完成可推进的部分。只有原任务允许跨项目选题时才另选仓库；不要求先读完整卡片目录。
 
 ## 1. 启动快照
 
-先记录当前事实，不要凭上一轮印象行动：
+读取相关 repo 的 `git status --short` 和目标路径 diff，结合当前要求与必要的上一轮交接，记录：
 
 ```text
-时间：YYYY-MM-DD HH:mm
-workspace root：当前目录是否是 git repo
-相关 repo 状态：逐个记录 git status --short
-上一轮接力：Next path / Next slice
-启动前 dirty path：路径 + 初步归属标签
+当前目标与完成条件：
+相关路径及已有 diff：
+授权范围、需保留内容：
+本轮可独立推进的部分：
 ```
 
-归属标签只用六类：
-
-- `known-own`：本轮已经明确创建或修改，可以继续验证并 stage。
-- `previous-agent`：上一轮留下且有 notebook / diff / commit 证据，需要重新验证后才能 stage。
-- `user-or-unknown`：来源不明或可能是用户改动，不要改写、不要提交。
-- `generated/noise`：缓存、构建产物或临时文件，除非任务要求，否则不要纳入成果。
-- `foreign-summary`：共享 `summaries/` repo 中其他 agent 目录的 notebook，只能只读观察，不能代写、清理或提交。
-- `staged/unknown`：启动前已经在 index 里的 path，必须单独记录，不能把 staged 状态当作授权。
+归属可标为 `known-own`（当前会话产生）、`previous-agent`（交接证据充分）、`user-or-unknown`（仍需核实）、`generated/noise`（生成物）、`foreign-summary`（其他 Agent 的记录）、`staged/unknown`（暂存区来源未明）。标签帮助定位证据，不能替代用户已经给出的授权。
 
 ## 2. 规划取舍
 
-规划必须写出候选项，而不是只复述状态：
-
-```text
-上一段/当前状态：上一轮做完什么；当前哪些 repo clean / dirty。
-候选工作：至少列出接力项、clean repo 小任务、暂不处理项。
-本轮选择：选一个低风险、可验证的小块。
-选择理由：说明为什么不接管未归属 dirty path。
-下一段计划：留下一个下一轮可直接验证或继续的小动作。
-```
-
-选择顺序：
-
-1. 如果上一轮验证或命令输出失败，先判断它是否改变范围、顺序、目标或交接；不要把失败当成背景噪音继续原计划。
-2. 如果当前运行在无人值守环境，不能等待澄清；写出默认解释，选择低风险、可验证、可回滚的小动作。
-3. 如果接力 path 是 `known-own` 或证据充分的 `previous-agent`，先验证再推进。
-4. 如果上一轮明确点名的目标文件在启动快照里已经 dirty，先按 `dirty-target-file-blocks-continuation.md` 降级为只读 intake：记录 blocked continuation、排除 path、回归条件，再切到 clean replacement；不要因为它是接力点就顺手修。
-5. 如果启动前已有 staged path，单独标记为 `staged/unknown`，不要把 index 状态当作授权。
-6. 如果共享 `summaries/` repo 出现其他 agent 目录，例如 `summaries/openclaw/...`，标记为 `foreign-summary`：可在 Hermes notebook 里记录为未接管边界，但不要 stage、删除或替对方提交。
-7. 如果接力 path 是 `user-or-unknown`，记录未接管边界，换 clean repo 的独立小任务。
-8. 如果没有合适代码任务，优先沉淀可复用资产：`books/...`、`docs/...`、`skills/skills/...`。
-9. 不要把“写 notebook”当成本轮成果；notebook 只记录成果和边界。
+1. 目标、归属和授权范围明确，且能保留已有修改时继续；`dirty` 本身不是阻塞条件。
+2. 有冲突或归属不明时，按 [目标文件归属判断](../chapters/ai-agent/dirty-target-file-blocks-continuation.md) 对受影响部分做只读 intake，记录 `blocked continuation` 与恢复条件；继续原任务内独立工作。
+3. 无人值守时，在既有授权内采用低风险、可验证的默认解释。缺少必要授权的操作暂停，准备工作仍可推进。
+4. 只有用户已授权跨项目选题时才选择 clean replacement；否则保留原目标和阻塞说明，不新增无关卡片充当成果。
+5. 验证失败时先判断原因，修复本轮引入的问题；其余失败说明对范围和结论的实际影响。
 
 ## 3. 执行与验证
 
-执行时保持 path-limited，并在 stage 前补一张提交范围台账：
-
-```text
-修改前：确认项目 repo 的 git status --short。
-修改中：只触碰本轮选择的路径。
-台账：列出 repo / path / 启动状态 / 本轮动作 / 是否提交 / 验证证据 / 状态证据。
-验证：至少做 diff --check；能结构断言就用脚本断言关键词、链接、计数和绝对路径。
-提交：只 stage 本轮路径，不使用 git add .；提交前用 git diff --cached --name-status 对照台账，并保留提交前 index 快照。
-共享 notebook：在 `summaries/` 提交 Hermes notebook 前，先用 `git diff --cached --name-only` 确认 staged list 只包含 `hermes/YYYY-MM-DD.md`；若出现 `openclaw/...` 等其他 agent path，立刻 unstage 并写入 `foreign-summary` 未接管边界。
-读回：提交后 rev-parse --short HEAD；收尾再读一次 git status --short，区分本轮成果和未接管边界。
-```
-
-最低验证标准：
-
-- 文档类：`git diff --check -- <paths>` 通过；关键词、相对路径、目录索引计数可复核。
-- 代码类：运行项目 repo 的测试或最小 smoke test；失败时记录真实错误，不编造通过结果。
-- 失败类：验证、测试或命令失败时，必须说明它是否改变本轮范围、顺序、目标或交接；不能只写“失败，下一轮继续”。
-- 交接类：notebook 中的 `变更文件` 与实际 staged / committed 文件一致。
-- 报告类：最终报告模板中的固定字段不能因为“没有发生”而删除；必须写出启动/收尾 `git status --short` 证据；没有项目提交写 `未提交`，没有变更文件写 `无`，未接管边界为空也写 `无`。
-
-一个最小记录示例：
-
-```text
-验证：
-- git -C books diff --check -- tech-cards-handbook/samples/ai-agent-dirty-workspace-one-pager.md
-- python3 - <<'PY'
-  from pathlib import Path
-  p = Path('tech-cards-handbook/samples/ai-agent-dirty-workspace-one-pager.md')
-  text = p.read_text()
-  required = [
-      'git status --short',
-      'path-limited',
-      '未接管边界',
-      'git diff --cached --name-status',
-      'git diff --cached --name-only',
-      'hermes/YYYY-MM-DD.md',
-      'openclaw/...',
-      'rev-parse --short HEAD',
-      'repo / path / 启动状态 / 本轮动作 / 是否提交 / 验证证据 / 状态证据',
-      '提交前 index 快照',
-      '收尾再读一次 git status --short',
-      '失败当成背景噪音',
-      '改变范围、顺序、目标或交接',
-      'foreign-summary',
-      '不能把 staged 状态当作授权',
-      '不要 stage、删除或替对方提交',
-      'dirty-target-file-blocks-continuation.md',
-      'blocked continuation',
-      '只读 intake',
-      'clean replacement',
-      '不要因为它是接力点就顺手修',
-  ]
-  assert all(x in text for x in required)
-  assert '/' + 'Users/' not in text
-  PY
-提交：
-- git -C books add -- tech-cards-handbook/samples/ai-agent-dirty-workspace-one-pager.md
-- git -C books commit -m "Improve dirty workspace one pager"
-- git -C books rev-parse --short HEAD  # 例如：abc1234
-排除：
-- makemoney/...：启动前已有 dirty path，未接管、未 stage。
-```
+- 保留已有改动，围绕本轮目标实施修改。按风险运行相关检查；无新变化或失败时不重复扩大验证。
+- 文案改动用审读和 `git diff --check -- <paths>`；索引或链接用已有 verifier；代码改动用相应测试。不要为证明文案正确而编写只断言同一段关键词存在的测试。
+- 只有任务包含提交时才 stage/commit。采用 path-limited 范围，结合 `git diff --cached` 核对具体内容，不能把路径内的全部旧 diff 自动纳入。
+- 发现启动前 staged/unknown 或 foreign-summary 时保留其状态，不擅自 unstage、清理或代提交；无法隔离时暂停提交，仍可交付本轮修改和验证。
+- 需要 notebook 时，仅更新本任务授权的记录路径。读取提交后的 hash 和收尾状态，避免把计划中的提交写成已完成。
 
 ## 4. 最终报告模板
 
-收尾口诀：`验证证据 -> 状态证据 -> 已提交状态读回 -> 排除边界`。先证明本轮改动经过了什么检查，再用启动/收尾 `git status --short` 说明本轮外 dirty path 是否仍未接管，然后从 commit 后状态读回 hash / subject，最后点名哪些启动前 dirty path 没有接管。
-
-字段顺序固定为：`本轮选择 -> 实际推进 -> 变更文件 -> 验证证据 -> 状态证据 -> 写入 notebook -> 项目提交 -> notebook 提交 -> 未接管边界 -> 下一段接力`。如果某一项没有发生，也保留字段并写“无”或“未提交”，不要删除字段让下一轮猜测。
+普通任务报告成果、验证和实际限制即可。采用需要固定字段的长期心跳协议时，使用以下模板；未发生的项目写“无”或“未提交”，不能为填字段制造操作。
 
 ```text
-本轮选择：<为什么选这个小任务>
-实际推进：<完成的具体资产或代码改动>
-变更文件：<本轮实际修改或提交的相对路径；无则写“无”>
-验证证据：<命令 + 结果摘要；未验证项也要写明>
-状态证据：<启动和收尾 git status --short 摘要；说明本轮外 dirty path 是否仍未接管>
-写入 notebook：summaries/hermes/YYYY-MM-DD.md
-项目提交：<repo> <hash> <subject>（如有；从已提交状态读回）
-notebook 提交：summaries <hash> <subject>（如有；从已提交状态读回）
-未接管边界：<启动前已有或来源不明的 dirty path，说明未 stage>
-下一段接力：<下一轮第一步 + verification destination>
+本轮选择：<原目标与实际范围>
+实际推进：<完成的工作>
+变更文件：<本轮路径>
+验证证据：<命令、结果和未验证部分>
+状态证据：<相关路径启动/收尾状态及已有 diff 的保留情况>
+写入 notebook：<已授权的记录路径；没有则写无>
+项目提交：<实际 commit hash/subject；没有则写未提交>
+notebook 提交：<实际 commit hash/subject；没有则写未提交>
+未接管边界：<冲突或未知改动、原因；没有则写无>
+下一段接力：<确有剩余工作时的第一步与恢复条件；已完成则写完成>
 ```
 
-提交读回的最短写法：
-
-```text
-项目提交：books 1a2b3c4 Add dirty workspace report example
-  证据：git -C books log -1 --oneline
-notebook 提交：summaries 5d6e7f8 Record Hermes heartbeat
-  证据：git -C summaries log -1 --oneline
-未提交：项目 repo 本轮无可提交改动（或验证失败未提交）；不要把计划中的提交写成已落地。
-```
-
-报告里必须同时出现完成项、变更文件、验证证据、状态证据和排除项。只报 commit hash、不报启动/收尾 status 与未接管边界，会让下一轮误把旧 dirty path 当成本轮成果；只报“验证通过”、不写命令和未验证项，会让读者无法判断这个结论能证明什么。
-
-正反例：
-
-```text
-✅ 未接管边界：无（启动和收尾 status 均未发现本轮外 dirty path）。
-✅ 未接管边界：docs/documents/awesome/ai/agent.md 启动前已 dirty，归属未知，未 stage。
-❌ 未接管边界：（字段省略）
-```
-
-即使边界为空，也要显式写 `无` 并说明依据来自启动/收尾状态；字段省略会让下一轮无法判断是“没有边界”还是“忘了检查”。
+提交证据用 `git log -1 --oneline` 读回；状态证据来自当前 `git status --short` 与 diff。验证通过后完成当前目标，不因样本目录尚有未用模板而继续扩展工作。
 
 ## 5. 参考卡片
 
-这组参考卡片按 `chapters/ai-agent/README.md` 的 quick path 排列；一页纸只保留操作清单，遇到边界判断时回到对应卡片补细节。若这是第一次处理“周期性唤醒 + dirty workspace + 多 repo 接力”，先回到 `books/tech-cards-handbook/chapters/ai-agent/README.md` 的“本章四条主线”和“3 分钟读法”：本一页纸主要覆盖运行控制；失败吸收、dirty workspace 归属和提交证据分别帮助判断失败是否改变计划、改动归属是否清晰、最终报告是否受已提交状态约束。
+只在相应问题出现时阅读：
 
-如果需要给另一个 Agent 一份更完整的训练输入，使用 `books/tech-cards-handbook/samples/ai-agent-sample-pack.md`：它当前包含 10 张精选卡片，覆盖心跳、日志资产化、启动快照、规划、接力信号、无人值守默认动作、失败吸收、归属判断、提交范围台账和最终报告边界；本一页纸则只保留执行清单与最小记录示例。若接力目标本身在启动快照里已经 dirty，先读 `books/tech-cards-handbook/chapters/ai-agent/dirty-target-file-blocks-continuation.md`，把它作为“接力信号”和“归属判断”之间的阻断规则，而不是把样本包升级成机械待办。
-
-- `books/tech-cards-handbook/chapters/ai-agent/heartbeat-workflow-prevents-drift.md`
-- `books/tech-cards-handbook/chapters/ai-agent/work-log-is-reusable-asset.md`
-- `books/tech-cards-handbook/chapters/ai-agent/startup-snapshot-before-planning.md`
-- `books/tech-cards-handbook/chapters/ai-agent/dirty-target-file-blocks-continuation.md`
-- `books/tech-cards-handbook/chapters/ai-agent/planning-selects-work-not-just-summary.md`
-- `books/tech-cards-handbook/chapters/ai-agent/continuation-is-signal-not-obligation.md`
-- `books/tech-cards-handbook/chapters/ai-agent/unattended-agent-chooses-default-action.md`
-- `books/tech-cards-handbook/chapters/ai-agent/failure-output-must-change-plan.md`
-- `books/tech-cards-handbook/chapters/ai-agent/uncommitted-handoff-needs-ownership-triage.md`
-- `books/tech-cards-handbook/chapters/ai-agent/generated-artifact-startup-triage.md`
-- `books/tech-cards-handbook/chapters/ai-agent/staged-changes-are-not-ownership.md`
-- `books/tech-cards-handbook/chapters/ai-agent/foreign-agent-summary-boundary.md`
-- `books/tech-cards-handbook/chapters/ai-agent/commit-scope-ledger-prevents-mixed-ownership.md`
-- `books/tech-cards-handbook/chapters/ai-agent/dirty-workspace-exit-checklist.md`
-- `books/tech-cards-handbook/chapters/ai-agent/verify-before-optimistic-summary.md`
-- `books/tech-cards-handbook/chapters/ai-agent/unverified-items-need-explicit-handoff.md`
-- `books/tech-cards-handbook/chapters/ai-agent/report-from-committed-state.md`
-- `books/tech-cards-handbook/chapters/ai-agent/final-report-names-excluded-boundaries.md`
+- 归属不清：[未提交接力文件](../chapters/ai-agent/uncommitted-handoff-needs-ownership-triage.md)。
+- 命令失败：[失败吸收](../chapters/ai-agent/failure-output-must-change-plan.md)。
+- 提交范围：[路径级提交边界](../chapters/ai-agent/path-scoped-commit-boundary.md)。
+- 完整 prompt 或教学案例：[样本包](ai-agent-sample-pack.md) 的对应附录；其中 10 张精选卡片按需阅读。
+- 其他任务：[样本索引](README.md)。
